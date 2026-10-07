@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reader-experience/comments-link",
+	"title": "Reacties (link)",
+	"category": "widgets",
+	"icon": "admin-comments",
+	"description": "Toont het aantal reacties en springt naar het reactieformulier. Bedoeld als kind van de interactiebalk.",
+	"textdomain": "reader-experience",
+	"usesContext": [
+		"postId"
+	],
+	"parent": [
+		"reader-experience/interaction-bar"
+	],
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style-index.css"
+}

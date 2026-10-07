@@ -1,0 +1,94 @@
+@import '../shared/tokens.css';
+
+.rx-rating-preview { display: inline-flex; gap: 10px; padding: 8px; color: var(--c-text-muted, GrayText); }
+.rx-rating__thumbs { display: flex; gap: 6px; }
+/*
+ * Padding bewust gelijk aan .rx-bar__button (interaction-bar/style.css: 6px 8px),
+ * zodat de duimen even veel ruimte innemen als de andere balkiconen. Rating
+ * hergebruikt die class niet rechtstreeks (zie hieronder, dit blok moet ook
+ * zonder de balk blijven werken), dus bij een wijziging daar: hier meenemen.
+ */
+.rx-rating__thumb { flex-direction: column; gap: 2px; padding: 6px 8px; border-radius: 8px; font-size: 0.75rem; }
+.rx-rating__thumb[aria-pressed="true"] { color: var(--c-accent, Highlight); }
+
+.rx-rating__question { font-weight: 600; margin: 0 0 8px; }
+.rx-rating__text,
+.rx-rating__naam,
+.rx-rating__email {
+	width: 100%;
+	box-sizing: border-box;
+	font: inherit;
+	font-size: 0.875rem;
+	margin-bottom: 6px;
+}
+.rx-rating__fields { display: flex; flex-direction: column; gap: 4px; margin: 8px 0; }
+.rx-rating__field-error { font-size: 0.75rem; color: var(--c-danger, crimson); margin: -2px 0 4px; }
+.rx-rating__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.rx-rating__actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin: 8px 0 0; }
+.rx-rating__skip,
+.rx-rating__vervolg-nee { padding: 4px 10px; border-radius: 6px; }
+.rx-rating__send,
+.rx-rating__vervolg-ja {
+	font: inherit;
+	font-size: 0.8125rem;
+	padding: 4px 10px;
+	border-radius: 6px;
+	border: 1px solid transparent;
+	background: var(--c-accent, Highlight);
+	color: var(--c-accent-contrast, HighlightText);
+	cursor: pointer;
+}
+.rx-rating__done { margin: 0; text-align: center; }
+
+/* Inline: los blok onderaan het artikel. Het paneel klapt gewoon uit in de tekststroom. */
+.rx-rating--inline { max-width: 24rem; }
+.rx-rating--inline .rx-rating__thumb-label { display: inline; }
+.rx-rating--inline .rx-rating__panel {
+	margin-top: 12px;
+	padding: 12px;
+	border: 1px solid var(--c-border, ButtonBorder);
+	border-radius: 12px;
+}
+
+/* Bar: compact, iconen-only, geen label onder de duim. */
+.rx-rating--bar .rx-rating__thumb-label { display: none; }
+.rx-rating--bar { position: relative; }
+.rx-rating--bar .rx-rating__panel {
+	position: fixed;
+	box-sizing: border-box;
+	inset-inline: 16px;
+	margin-inline: auto;
+	max-width: 22rem;
+	bottom: max(20px, env(safe-area-inset-bottom, 0px) + 16px);
+	max-height: 80vh;
+	overflow: auto;
+	background: var(--c-surface, Canvas);
+	border: 1px solid var(--c-border, ButtonBorder);
+	border-radius: 12px;
+	padding: 14px;
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+	z-index: 10000;
+}
+.rx-rating--bar .rx-rating__panel[hidden] { display: none; }
+
+/*
+ * Zelfde redenering als bij het deelpaneel: op desktop is de balk zelf al compact
+ * en gecentreerd, dus de mobiele 16px-marge is hier niet nodig en maakt een
+ * invoervenster onnodig krap. Groter, en t.o.v. het scherm gecentreerd in plaats
+ * van rechts uitgelijnd aan de balk.
+ */
+@media (min-width: 782px) {
+	.rx-rating--bar .rx-rating__panel {
+		inset-inline: auto;
+		left: 50%;
+		transform: translateX(-50%);
+		max-width: 32rem;
+		padding: 20px;
+	}
+	.rx-rating__text { min-height: 9em; } /* ≈ 6–7 regels in plaats van de mobiele 3 */
+	.rx-rating__send,
+	.rx-rating__vervolg-ja,
+	.rx-rating__skip,
+	.rx-rating__vervolg-nee { padding: 0.7em 1.8em; font-size: 0.9375rem; }
+}

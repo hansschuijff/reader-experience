@@ -1,0 +1,51 @@
+.rx-progress {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	z-index: 99999;
+	pointer-events: none;
+}
+/*
+ * De adminbar is alleen op bredere schermen "fixed"; WordPress zelf maakt hem
+ * daaronder (tot ~783px) niet-vast, waardoor hij met de pagina meescrolt. Onze
+ * balk hield daar geen rekening mee en bleef altijd 32px lager beginnen, ook
+ * als er geen vaste adminbar meer was om voor te compenseren — zichtbaar als
+ * een balk die een stukje onder de schermrand dwars door de inhoud loopt.
+ */
+@media (min-width: 783px) {
+	body.admin-bar .rx-progress {
+		top: var(--wp-admin--admin-bar--height, 32px);
+	}
+}
+.rx-progress__bar {
+	display: block;
+	height: 100%;
+	background: var(--rx-progress-color, var(--c-accent, currentColor));
+	transform: scaleX(0);
+	transform-origin: 0 50%;
+}
+@media print {
+	.rx-progress { display: none; }
+}
+
+/* Editorweergave: een herkenbaar "kaartje" in plaats van een platte tekstregel. */
+.rx-progress-preview {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	border: 1px dashed var(--c-border, ButtonBorder);
+	border-radius: 8px;
+	font-size: 0.8125rem;
+	color: var(--c-text-muted, GrayText);
+}
+.rx-progress-preview__swatch {
+	display: inline-block;
+	width: 2.5rem;
+	height: 4px;
+	border-radius: 2px;
+	background: var(--c-accent, currentColor);
+	flex: none;
+}

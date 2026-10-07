@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reader-experience/reading-time",
+	"title": "Leestijd",
+	"category": "widgets",
+	"icon": "clock",
+	"description": "Toont de geschatte leestijd van het artikel, eventueel als resterende tijd tijdens het lezen.",
+	"textdomain": "reader-experience",
+	"usesContext": [ "postId" ],
+	"attributes": {
+		"remaining": { "type": "boolean", "default": false },
+		"target": { "type": "string", "default": ".wp-block-post-content" }
+	},
+	"supports": {
+		"html": false,
+		"typography": { "fontSize": true }
+	},
+	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

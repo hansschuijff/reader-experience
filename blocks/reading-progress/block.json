@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reader-experience/reading-progress",
+	"title": "Leesvoortgang",
+	"category": "widgets",
+	"icon": "minus",
+	"description": "Dunne balk bovenaan het scherm die laat zien hoever de bezoeker in het artikel is.",
+	"textdomain": "reader-experience",
+	"attributes": {
+		"target": { "type": "string", "default": ".wp-block-post-content" },
+		"color": { "type": "string", "default": "" }
+	},
+	"supports": { "html": false, "multiple": false },
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

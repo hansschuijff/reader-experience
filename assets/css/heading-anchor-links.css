@@ -1,0 +1,69 @@
+/* Klein "kopieer link"-icoontje bij het overvaren van een kop met een id. */
+.wp-block-post-content :is(h2, h3, h4)[id],
+.entry-content :is(h2, h3, h4)[id],
+article :is(h2, h3, h4)[id] {
+	position: relative;
+}
+
+.rx-heading-link {
+	all: unset;
+	box-sizing: border-box;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent; /* zie blocks/shared/tokens.css voor de reden */
+	position: absolute;
+	top: 50%;
+	/* Vaste pixelwaarden, bewust geen em's: anders schaalt het icoontje mee met
+	   het lettertype van de kop (groter bij een h2 dan bij een h3/h4), wat het
+	   zelf een onderdeel van de typografie liet lijken in plaats van een los,
+	   consistent bedieningselement. */
+	left: -22px;
+	transform: translateY(-50%);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+	color: var(--c-text-muted, GrayText);
+	opacity: 0;
+	transition: opacity 0.15s ease, color 0.15s ease;
+}
+:is(h2, h3, h4):hover .rx-heading-link,
+.rx-heading-link:focus-visible {
+	opacity: 1;
+}
+.rx-heading-link:hover { color: var(--c-text, CanvasText); }
+.rx-heading-link:focus-visible {
+	outline: 2px solid var(--c-accent, Highlight);
+	outline-offset: 1px;
+}
+
+/* Zichtbare bevestiging na het kopiëren: een klein tekstballonnetje, niet enkel
+   een onzichtbare aria-label-wijziging. */
+.rx-heading-link__toast {
+	position: absolute;
+	left: 50%;
+	bottom: calc(100% + 6px);
+	transform: translateX(-50%) translateY(4px);
+	white-space: nowrap;
+	padding: 3px 8px;
+	border-radius: 6px;
+	background: var(--c-text, #1f2328);
+	color: var(--c-bg, #fff);
+	font-size: 0.75rem;
+	line-height: 1.4;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.rx-heading-link__toast.is-visible {
+	opacity: 1;
+	transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 600px) {
+	/* Op smalle schermen is er links geen ruimte: het icoontje komt dan na de kop. */
+	.rx-heading-link { position: static; transform: none; margin-inline-start: 0.35em; }
+	.rx-heading-link__toast { left: 0; transform: translateY(4px); }
+	.rx-heading-link__toast.is-visible { transform: translateY(0); }
+}

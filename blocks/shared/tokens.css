@@ -1,0 +1,34 @@
+/**
+ * Robuuste basis voor de klikbare elementen van de plugin. "all: unset" voorkomt
+ * dat generieke button-stijlen van het thema (bijvoorbeeld een hover-inversie)
+ * binnenlekken, ook niet op :hover of :focus. De kleuren zelf blijven gewoon het
+ * bestaande --c-* systeem (zie het losse dark-mode-pakket), met per eigenschap
+ * een fallback naar een systeemkleur voor thema's zonder die variabelen.
+ * Zie THEMING.md voor een voorbeeldsnippet voor klassieke (niet-FSE) thema's.
+ */
+.rx-reset-button {
+	all: unset;
+	box-sizing: border-box;
+	cursor: pointer;
+	/*
+	 * Android Chrome toont standaard een halfdoorzichtige "tik-highlight" (vaak
+	 * geel/oranje) op elk klikbaar element bij een tik, tenzij dit uitgezet wordt.
+	 * Zonder dit leek het soms of er een vreemde gele/bruine achtergrond opdook.
+	 */
+	-webkit-tap-highlight-color: transparent;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-family: inherit;
+	color: var(--c-text-muted, GrayText);
+	border: 1px solid transparent;
+}
+.rx-reset-button:hover,
+.rx-reset-button:focus-visible {
+	color: var(--c-text, CanvasText);
+	background: var(--c-bg, Canvas);
+}
+.rx-reset-button:focus-visible {
+	outline: 2px solid var(--c-accent, Highlight);
+	outline-offset: 2px;
+}

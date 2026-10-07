@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reader-experience/rating",
+	"title": "Waardering",
+	"category": "widgets",
+	"icon": "thumbs-up",
+	"description": "Duim omhoog/omlaag, direct zichtbaar. Optioneel gevolgd door een toelichting en, afhankelijk van de stem, het aanbod om die als reactie te plaatsen of contact op te nemen.",
+	"textdomain": "reader-experience",
+	"usesContext": [ "postId" ],
+	"attributes": {
+		"variant": { "type": "string", "default": "inline", "enum": [ "inline", "bar" ] }
+	},
+	"supports": { "html": false },
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

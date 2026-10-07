@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reader-experience/toc",
+	"title": "Inhoudsopgave",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "Automatische inhoudsopgave uit de koppen van het artikel, met markering van de plek waar de bezoeker is.",
+	"textdomain": "reader-experience",
+	"usesContext": [ "postId" ],
+	"attributes": {
+		"title": { "type": "string", "default": "" },
+		"maxLevel": { "type": "number", "default": 3 },
+		"minItems": { "type": "number", "default": 3 },
+		"style": { "type": "string", "default": "standard", "enum": [ "standard", "compact" ] },
+		"collapseNested": { "type": "boolean", "default": false },
+		"textColor": { "type": "string", "default": "" },
+		"backgroundColor": { "type": "string", "default": "" },
+		"fontSize": { "type": "number", "default": 0 }
+	},
+	"supports": {
+		"html": false,
+		"spacing": { "padding": true, "margin": true }
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,70 @@
+.rx-toc {
+	font-size: var(--rx-toc-font-size, 0.9375rem);
+	line-height: 1.4;
+	color: var(--rx-toc-text, inherit);
+	background: var(--rx-toc-bg, transparent);
+}
+.rx-toc__summary { cursor: pointer; font-weight: 600; padding: 0.25rem 0; }
+
+/*
+ * De !important hieronder is bewust: in de blokeditor draait dit naast WordPress'
+ * eigen standaard editorstijlen voor lijsten (bedoeld voor het core Lijst-blok),
+ * en de laadvolgorde daarvan t.o.v. onze eigen stylesheet is niet te voorspellen
+ * of te beïnvloeden. Zonder dit won die standaardstijl soms, waardoor de
+ * inhoudsopgave als onopgemaakte platte tekst oogde in plaats van als lijst.
+ */
+.rx-toc__list {
+	position: relative;
+	list-style: none !important;
+	margin: 0.5rem 0 0;
+	padding: 0;
+	max-height: 70vh;
+	overflow: auto;
+	border-inline-start: 1px solid var(--c-border, rgba(128, 128, 128, 0.4));
+}
+.rx-toc__item a {
+	display: block !important;
+	margin-inline-start: -1px;
+	padding: 0.3rem 0.75rem;
+	border-inline-start: 2px solid transparent;
+	/*
+	 * Bewust "inherit" en geen eigen kleur: zo'n explicitie waarde op dit descendant-
+	 * element blokkeert anders de tekstkleur die iemand via de blokinstellingen
+	 * (achtergrond/tekst) op het blok zelf kiest, want "color" erft normaal gewoon
+	 * door tot een kind-element zelf iets anders opgeeft.
+	 */
+	color: inherit;
+	text-decoration: none;
+}
+.rx-toc__item--l3 a { padding-inline-start: 1.5rem; }
+.rx-toc__item--l4 a { padding-inline-start: 2.25rem; }
+.rx-toc__item a:hover { opacity: 0.75; }
+.rx-toc__item a[aria-current] {
+	border-inline-start-color: var(--c-accent, currentColor);
+	font-weight: 600;
+}
+
+/* Gegroepeerde/inklapbare variant: de hoofdkop is zelf een <summary>. */
+.rx-toc__group-toggle > summary { list-style: none !important; cursor: pointer; }
+.rx-toc__group-toggle > summary::-webkit-details-marker { display: none; }
+.rx-toc__group-toggle > summary::before {
+	content: '›';
+	display: inline-block;
+	width: 1em;
+	transition: transform 0.15s ease;
+}
+.rx-toc__group-toggle[open] > summary::before { transform: rotate(90deg); }
+.rx-toc__sublist { list-style: none !important; margin: 0; padding: 0; }
+
+/* Compacte stijl: lichter, kleiner, past beter in een smalle zijbalk. */
+.rx-toc--compact { font-size: var(--rx-toc-font-size, 0.8125rem); }
+.rx-toc--compact .rx-toc__summary { font-weight: 500; }
+.rx-toc--compact .rx-toc__list { border-inline-start-width: 1px; opacity: 0.95; }
+.rx-toc--compact .rx-toc__item a { padding-block: 0.2rem; }
+.rx-toc--compact .rx-toc__item a[aria-current] { font-weight: 500; }
+
+/* Ankersprongen komen niet onder een vaste header terecht. Pas de variabele aan op je thema. */
+.wp-block-post-content :is(h2, h3, h4)[id],
+.entry-content :is(h2, h3, h4)[id] {
+	scroll-margin-top: var(--rx-anchor-offset, 5rem);
+}

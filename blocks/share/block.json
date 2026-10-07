@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reader-experience/share",
+	"title": "Delen",
+	"category": "widgets",
+	"icon": "share",
+	"description": "Deelknop. Op mobiel het systeemmenu, op desktop een popover met kanalen en kopieerknop. Bedoeld als kind van de interactiebalk of los te plaatsen.",
+	"textdomain": "reader-experience",
+	"usesContext": [ "postId" ],
+	"parent": [ "reader-experience/interaction-bar" ],
+	"supports": { "html": false },
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

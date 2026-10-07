@@ -1,0 +1,90 @@
+name: Build en release
+
+# Draait automatisch bij het pushen van een versietag (bijv. v1.0.0), of
+# handmatig via "Run workflow" voor een bestaande tag.
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Bestaande tag om opnieuw te releasen (bijv. v1.0.0)'
+        required: true
+
+# Nodig om een release aan te mogen maken met de standaard GITHUB_TOKEN.
+permissions:
+  contents: write
+
+env:
+  PLUGIN_SLUG: reader-experience
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code uitchecken
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - name: Node.js instellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # npm install i.p.v. npm ci: werkt ook zonder gecommit package-lock.json.
+      # Heb je er wel een, dan mag dit later naar "npm ci" voor reproduceerbaardere builds.
+      - name: Afhankelijkheden installeren
+        run: npm install
+
+      - name: Blokken bouwen
+        run: npm run build
+
+      - name: Versie bepalen
+        id: version
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          VERSION="${TAG#v}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      # Vangt de meest voorkomende vergissing: de tag gepusht maar de
+      # "Version:"-regel in de hoofdplugin in het bestand vergeten bij te werken.
+      - name: Versie in pluginheader controleren
+        run: |
+          HEADER_VERSION=$(grep -m1 -oP '(?<=Version:\s)[0-9][0-9A-Za-z.\-]*' reader-experience.php)
+          if [ "$HEADER_VERSION" != "${{ steps.version.outputs.version }}" ]; then
+            echo "::error::Tag-versie (${{ steps.version.outputs.version }}) komt niet overeen met de 'Version:'-regel in reader-experience.php ($HEADER_VERSION)."
+            exit 1
+          fi
+
+      # Een schone kopie zonder ontwikkel-only bestanden, in een map met de
+      # pluginslug als naam: dat is de map die in wp-content/plugins terechtkomt
+      # zodra iemand de zip via het WordPress-adminscherm uploadt.
+      - name: Releasebestanden klaarzetten
+        run: |
+          mkdir -p "dist/${PLUGIN_SLUG}"
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='dist' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            --exclude='.gitignore' \
+            --exclude='.distignore' \
+            ./ "dist/${PLUGIN_SLUG}/"
+
+      - name: Zip maken
+        run: |
+          cd dist
+          zip -r "../${PLUGIN_SLUG}-${{ steps.version.outputs.version }}.zip" "${PLUGIN_SLUG}"
+
+      - name: Release aanmaken met de zip als bijlage
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          files: ${{ env.PLUGIN_SLUG }}-${{ steps.version.outputs.version }}.zip
+          generate_release_notes: true

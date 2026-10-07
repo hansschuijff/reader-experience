@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="DeWittePrins Core Functionality Code Standards">
+    <description>Strict compliance ruleset for core functionality framework development.</description>
+
+    <!-- Exclude third-party assets and compressed build folders -->
+    <exclude-pattern>*/build/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <!-- Enforce the official WordPress Core standards -->
+    <rule ref="WordPress-Core" />
+    <rule ref="WordPress-Docs" />
+
+    <!-- PSR-4 COMPATIBILITY: Stop checking for lowercase 'class-' filenames -->
+    <!-- This allows CamelCase filenames matching class names for Composer auto-loading -->
+    <rule ref="WordPress.Files.FileName">
+        <properties>
+            <property name="strict_class_file_names" value="false"/>
+        </properties>
+        <!-- Optional: if the sniff still triggers warnings on structure, switch off entirely: -->
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    </rule>
+
+    <!-- Check all PHP files inside the current framework structure -->
+    <file>src/</file>
+    <file>settings/</file>
+    <file>core-functionality.php</file>
+</ruleset>

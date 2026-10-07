@@ -1,0 +1,14 @@
+@import '../shared/tokens.css';
+
+/* Overgenomen basislayout, zodat dit blok ook buiten de interactiebalk correct oogt. */
+.rx-bar__button {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	padding: 6px 8px;
+	font-size: 0.75rem;
+	line-height: 1.1;
+	border-radius: 8px;
+	text-decoration: none;
+}

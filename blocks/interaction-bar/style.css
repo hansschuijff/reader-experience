@@ -1,0 +1,128 @@
+@import '../shared/tokens.css';
+
+.rx-bar {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999;
+	background: var(--c-surface, Canvas);
+	border-top: 1px solid var(--c-border, ButtonBorder);
+	padding-bottom: env(safe-area-inset-bottom, 0px);
+	transform: translateY(0);
+	transition: transform 0.2s ease;
+}
+.rx-bar.rx-bar--hidden { transform: translateY(100%); }
+
+.rx-bar__inner {
+	display: flex;
+	align-items: stretch;
+	justify-content: space-evenly;
+	max-width: var(--wp--style--global--content-size, 42rem);
+	margin: 0 auto;
+	padding: 6px 10px;
+}
+
+/*
+ * Elke directe child van de balk (of het nu zelf een knop is, zoals bij Reacties
+ * en Inhoud, of een wrapper-div met een eigen paneel erin, zoals bij Delen en
+ * Waardering) centreert zijn eigen inhoud verticaal. Zonder dit werden wrapper-
+ * divs door de standaard "stretch" wel opgerekt, maar centreerden ze hun eigen
+ * inhoud niet, waardoor bijvoorbeeld het deelicoon naar boven schoof.
+ *
+ * Bewust GEEN flex:1 (meer): dat liet de slots even BREED zijn, maar omdat het
+ * waarderingsslot twee duimen bevat en de rest één icoon, botsten de slots op
+ * hun minimale inhoudsbreedte en liepen de tussenruimtes alsnog uiteen.
+ * "space-evenly" op de rij hierboven verdeelt de ruimte juist gelijk tussen én
+ * rond de knoppen, ongeacht hun eigen breedte — passender voor een icoonbalk.
+ */
+.rx-bar__inner > * {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.rx-bar__button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	padding: 6px 8px;
+	font-size: 0.75rem;
+	line-height: 1.1;
+	text-decoration: none;
+	border-radius: 8px;
+}
+
+/* Binnen de balk zelf: iconen-only, tekst blijft voor schermlezers en als title-tooltip. */
+.rx-bar .rx-bar__label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.rx-bar__icon { display: inline-flex; }
+
+/*
+ * Editorweergave: geen vaste positie, anders is de balk niet te bewerken.
+ * Dubbele klasse (.rx-bar.rx-bar--editor) voor extra specificiteit: zo wint deze
+ * altijd van de losstaande ".rx-bar"-regel in de media query hieronder, ook als
+ * de editor zelf breder dan 782px is. Zonder deze expliciete reset bleef bijvoorbeeld
+ * de desktop-transform actief op een position:static element, wat de layout brak.
+ */
+.rx-bar.rx-bar--editor {
+	position: static;
+	left: auto;
+	right: auto;
+	bottom: auto;
+	width: auto;
+	max-width: none;
+	transform: none;
+	border-radius: 12px;
+	border: 1px dashed var(--c-border, ButtonBorder);
+	box-shadow: none;
+}
+.rx-bar--editor .rx-bar__inner {
+	flex-wrap: nowrap;
+	justify-content: center;
+	max-width: none;
+	overflow-x: auto;
+}
+/*
+ * In de editor hoeven de slots niet op te rekken om de volle breedte te vullen
+ * (dat is alleen nuttig voor de echte balk onderaan het scherm). Natuurlijke
+ * breedte per icoon geeft hier een rustigere, meer "werkbalk"-achtige rij,
+ * en voorkomt dat het bredere waarderingsslot (twee duimen) als enige omslaat.
+ */
+.rx-bar--editor .rx-bar__inner > * { flex: 0 0 auto; }
+.rx-bar--editor .rx-bar__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+
+/*
+ * Op een breder scherm hoeft de balk niet de volle browserbreedte te claimen:
+ * gecentreerd binnen de leesbreedte, met een duidelijke rand en schaduw zodat
+ * hij niet over het hoofd wordt gezien. Hij blijft hier ook altijd zichtbaar
+ * (zie interaction-bar/view.js): op mobiel is wegscrollen en terugkomen prettig,
+ * op desktop voelde een verdwijnende balk eerder als een foutje.
+ */
+@media (min-width: 782px) {
+	.rx-bar {
+		left: 50%;
+		right: auto;
+		bottom: 24px;
+		transform: translateX(-50%);
+		width: fit-content;
+		max-width: calc(100% - 48px);
+		border: 1px solid var(--c-border, ButtonBorder);
+		border-radius: 999px;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+	}
+	.rx-bar.rx-bar--hidden { transform: translateX(-50%); }
+	.rx-bar__inner { padding: 6px 10px; max-width: none; }
+}
+
+@media print {
+	.rx-bar { display: none; }
+}

@@ -1,0 +1,99 @@
+@import '../shared/tokens.css';
+
+.rx-share { position: relative; }
+
+.rx-share__popover {
+	position: fixed;
+	box-sizing: border-box;
+	inset-inline: 16px;      /* vaste marge tot beide randen: kan per constructie nooit overlopen */
+	margin-inline: auto;     /* krimpt naar max-width zodra er ruimte is, verlaat de marges nooit */
+	max-width: 22rem;
+	bottom: max(20px, env(safe-area-inset-bottom, 0px) + 16px);
+	max-height: 80vh;
+	overflow: auto;
+	background: var(--c-surface, Canvas);
+	border: 1px solid var(--c-border, ButtonBorder);
+	border-radius: 12px;
+	padding: 12px;
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+	z-index: 10000;
+}
+.rx-share__popover[hidden] { display: none; }
+
+.rx-share__channels {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 4px;
+}
+.rx-share__channel {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 10px;
+	border-radius: 8px;
+	text-decoration: none;
+	color: inherit;
+	font-size: 0.875rem;
+}
+.rx-share__channel:hover,
+.rx-share__channel:focus-visible {
+	background: var(--c-bg, Canvas);
+}
+.rx-share__channel-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	/* Geen eigen kleur (zoals e-mail): een neutrale ronde achtergrond i.p.v. wit-op-wit. */
+	background: var(--c-bg, ButtonFace);
+	color: var(--c-text, CanvasText);
+}
+.rx-share__channel-icon[style*='background'] {
+	/* Wel een merkkleur: het lijnicoon wit tekenen zodat het op de kleur afsteekt. */
+	color: #fff;
+}
+.rx-share__channel-icon svg { width: 16px; height: 16px; }
+
+.rx-share__copyrow {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-top: 8px;
+	padding: 4px 4px 4px 10px;
+	background: var(--c-bg, Canvas);
+	border-radius: 8px;
+}
+.rx-share__url {
+	flex: 1;
+	font-size: 0.8125rem;
+	color: var(--c-text-muted, GrayText);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.rx-share__copy { gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 0.8125rem; }
+
+/*
+ * Op desktop is de balk zelf compact en gecentreerd (zie interaction-bar/style.css),
+ * dus de vaste 16px-marge die op mobiel een overloop voorkwam is daar niet meer nodig
+ * en maakt het paneel onnodig krap. Dit is in feite een invoervenster, dus op desktop
+ * mag het ruim de dubbele breedte krijgen en gewoon t.o.v. het scherm centreren in
+ * plaats van rechts uitgelijnd aan de balk te hangen.
+ */
+@media (min-width: 782px) {
+	.rx-share__popover {
+		inset-inline: auto;
+		left: 50%;
+		transform: translateX(-50%);
+		max-width: 32rem;
+		padding: 20px;
+	}
+	.rx-share__channels { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+	.rx-share__channel { padding: 10px 14px; font-size: 0.9375rem; }
+	.rx-share__channel-icon { width: 32px; height: 32px; }
+	.rx-share__channel-icon svg { width: 18px; height: 18px; }
+	.rx-share__copy { padding: 0.7em 1.8em; }
+}
