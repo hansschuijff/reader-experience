@@ -1,26 +1,28 @@
-/* Klein "kopieer link"-icoontje bij het overvaren van een kop met een id. */
-.wp-block-post-content :is(h2, h3, h4)[id],
-.entry-content :is(h2, h3, h4)[id],
-article :is(h2, h3, h4)[id] {
-	position: relative;
-}
+/*
+ * "Kopieer link"-icoontje bij koppen. Wordt door assets/js/heading-anchor-links.js in de kop
+ * gezet, vóór of achter de tekst (modifier --before / --after).
+ *
+ * Vervangen door eigen CSS kan: laat het filter reader_experience/heading_anchors_load_css false
+ * teruggeven en laad zelf een stylesheet voor deze classes.
+ */
 
 .rx-heading-link {
 	all: unset;
 	box-sizing: border-box;
 	cursor: pointer;
 	-webkit-tap-highlight-color: transparent; /* zie blocks/shared/tokens.css voor de reden */
-	position: absolute;
-	top: 50%;
-	/* Vaste pixelwaarden, bewust geen em's: anders schaalt het icoontje mee met
-	   het lettertype van de kop (groter bij een h2 dan bij een h3/h4), wat het
-	   zelf een onderdeel van de typografie liet lijken in plaats van een los,
-	   consistent bedieningselement. */
-	left: -22px;
-	transform: translateY(-50%);
+
+	/* Anker voor de toast. */
+	position: relative;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	vertical-align: middle;
+
+	/*
+	 * Vaste pixelwaarden, bewust geen em's: anders schaalt het icoontje mee met het lettertype
+	 * van de kop (groter bij een h2 dan bij een h4) en lijkt het een onderdeel van de typografie.
+	 */
 	width: 20px;
 	height: 20px;
 	border-radius: 4px;
@@ -28,42 +30,107 @@ article :is(h2, h3, h4)[id] {
 	opacity: 0;
 	transition: opacity 0.15s ease, color 0.15s ease;
 }
-:is(h2, h3, h4):hover .rx-heading-link,
+
+/*
+ * Voor de tekst: "hangend" in de linkermarge. De negatieve marge trekt het icoon naar links,
+ * de positieve marge erachter vult dat aan, zodat de koptekst zelf niet verschuift. Omdat het
+ * een inline element is dat als eerste in de kop staat, lijnt het uit met de EERSTE regel,
+ * ook als de kop over meerdere regels loopt.
+ */
+.rx-heading-link--before {
+	margin-inline: -24px 4px;
+}
+
+/* Achter de tekst: inline, direct na de laatste woorden. */
+.rx-heading-link--after {
+	margin-inline-start: 0.35em;
+}
+
+/*
+ * Op brede schermen krijgt het icoon achter de tekst GEEN layoutbreedte: de negatieve
+ * eindmarge heft zijn eigen breedte (en de marge ervoor) precies op. Zonder dit valt het
+ * icoon als de laatste regel van een kop bijna vol is op een regel van zichzelf, en omdat
+ * het ook onzichtbaar ruimte inneemt wordt zo'n kop dan permanent een regel hoger. Nu staat
+ * het icoon na de tekst en hangt het zo nodig een stukje buiten de kolom, net als --before
+ * links doet. Op smalle schermen kan dat een horizontale scrollbalk geven, daar blijft het
+ * gewone inline gedrag.
+ */
+@media (min-width: 601px) {
+	.rx-heading-link--after {
+		margin-inline: 0.35em calc(-20px - 0.35em);
+	}
+}
+
+:is(h2, h3, h4):hover > .rx-heading-link,
 .rx-heading-link:focus-visible {
 	opacity: 1;
 }
-.rx-heading-link:hover { color: var(--c-text, CanvasText); }
-.rx-heading-link:focus-visible {
+
+/*
+ * Thema's stylen vaak "button:hover" en "button:focus" (achtergrond, rand, schaduw). Dat
+ * selector-type heeft meer gewicht dan één class, dus "all: unset" hierboven wint daar niet
+ * van. Dubbele class zorgt dat deze toestanden wél winnen, zonder "all: unset" te herhalen:
+ * dat zette ook de transitie terug en gaf een flikkerend icoon.
+ */
+.rx-heading-link.rx-heading-link:hover,
+.rx-heading-link.rx-heading-link:focus,
+.rx-heading-link.rx-heading-link:active {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	text-shadow: none;
+	text-decoration: none;
+	transform: none;
+	color: var(--c-text, CanvasText);
+}
+
+.rx-heading-link.rx-heading-link:focus:not(:focus-visible) {
+	outline: 0;
+}
+
+.rx-heading-link.rx-heading-link:focus-visible {
 	outline: 2px solid var(--c-accent, Highlight);
 	outline-offset: 1px;
 }
 
-/* Zichtbare bevestiging na het kopiëren: een klein tekstballonnetje, niet enkel
-   een onzichtbare aria-label-wijziging. */
+/*
+ * Bevestiging na het kopiëren. Links uitgelijnd op het icoon (niet gecentreerd): bij een
+ * icoon in de linkermarge zou een gecentreerd ballonnetje buiten beeld kunnen vallen.
+ * Typografie expliciet teruggezet, want dit zit binnen de kop en erft anders de kopstijl.
+ */
 .rx-heading-link__toast {
 	position: absolute;
-	left: 50%;
+	inset-inline-start: 0;
 	bottom: calc(100% + 6px);
-	transform: translateX(-50%) translateY(4px);
+	transform: translateY(4px);
 	white-space: nowrap;
 	padding: 3px 8px;
 	border-radius: 6px;
 	background: var(--c-text, #1f2328);
 	color: var(--c-bg, #fff);
-	font-size: 0.75rem;
-	line-height: 1.4;
+	font: 400 0.75rem/1.4 system-ui, sans-serif;
+	letter-spacing: normal;
+	text-transform: none;
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.15s ease, transform 0.15s ease;
 }
+
 .rx-heading-link__toast.is-visible {
 	opacity: 1;
-	transform: translateX(-50%) translateY(0);
+	transform: translateY(0);
 }
 
+/* Een hangend icoon heeft links ruimte nodig; op een smal scherm is die er niet. */
 @media (max-width: 600px) {
-	/* Op smalle schermen is er links geen ruimte: het icoontje komt dan na de kop. */
-	.rx-heading-link { position: static; transform: none; margin-inline-start: 0.35em; }
-	.rx-heading-link__toast { left: 0; transform: translateY(4px); }
-	.rx-heading-link__toast.is-visible { transform: translateY(0); }
+	.rx-heading-link--before {
+		display: none;
+	}
+}
+
+/* Zonder muis is er geen hover: het icoon achter de tekst dan altijd zacht zichtbaar maken. */
+@media (hover: none) {
+	.rx-heading-link--after {
+		opacity: 0.55;
+	}
 }

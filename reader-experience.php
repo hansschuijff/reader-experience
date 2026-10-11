@@ -1,12 +1,21 @@
 <?php
 /**
  * Plugin Name:       Reader Experience
+ * Plugin URI:        https://github.com/hansschuijff/reader-experience
  * Description:       Leesfuncties en interactie voor lange artikelen: inhoudsopgave, leestijd, delen en waardering.
  * Version:           0.1.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
+ * Author:            Hans Schuijff
+ * Author URI:        https://dewitteprins.nl
+ * License:           GPL-2.0-only
+ * License URI:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Text Domain:       reader-experience
  * Domain Path:       /languages
+ *
+ * GitHub Plugin URI: https://github.com/hansschuijff/reader-experience
+ * Primary Branch:    main
+ * Release Asset:     true
  */
 
 declare(strict_types=1);

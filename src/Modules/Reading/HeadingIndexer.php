@@ -12,6 +12,8 @@ namespace ReaderExperience\Modules\Reading;
  *
  * Beperking: koppen die pas ontstaan door andere dynamische blokken (bijvoorbeeld een query loop
  * binnen het bericht) en klassieke, niet-blokgebaseerde koppen worden niet meegenomen.
+ *
+ * Id's worden alleen toegevoegd als HeadingAnchors dat voor het bericht toestaat (standaard uit).
  */
 final class HeadingIndexer {
 
@@ -20,13 +22,19 @@ final class HeadingIndexer {
 
 	private int $depth = 0;
 
+	/** Beslissing voor de lopende the_content-run: krijgen de koppen hier een id? */
+	private bool $active = false;
+
 	private AnchorRegistry $registry;
+
+	private HeadingAnchors $anchors;
 
 	/** @var array<int,array<int,array{id:string,text:string,level:int}>> */
 	private static array $cache = array();
 
-	public function __construct() {
+	public function __construct( HeadingAnchors $anchors ) {
 		$this->registry = new AnchorRegistry();
+		$this->anchors  = $anchors;
 	}
 
 	public function register(): void {
@@ -38,6 +46,7 @@ final class HeadingIndexer {
 	public function start( $content ) {
 		if ( 0 === $this->depth ) {
 			$this->registry->reset();
+			$this->active = $this->anchors->needsIdsFor( get_post() );
 		}
 		++$this->depth;
 		return $content;
@@ -45,6 +54,9 @@ final class HeadingIndexer {
 
 	public function end( $content ) {
 		$this->depth = max( 0, $this->depth - 1 );
+		if ( 0 === $this->depth ) {
+			$this->active = false;
+		}
 		return $content;
 	}
 
@@ -54,8 +66,9 @@ final class HeadingIndexer {
 	 * @return mixed
 	 */
 	public function addAnchor( $html, $block = array() ) {
-		// Alleen koppen binnen de berichttekst tellen mee, niet die uit templates.
-		if ( 0 === $this->depth || ! is_string( $html ) || '' === $html ) {
+		// Alleen koppen binnen de berichttekst tellen mee, niet die uit templates,
+		// en alleen als het beleid dat voor dit bericht toestaat.
+		if ( 0 === $this->depth || ! $this->active || ! is_string( $html ) || '' === $html ) {
 			return $html;
 		}
 

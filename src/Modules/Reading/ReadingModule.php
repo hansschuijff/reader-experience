@@ -13,8 +13,11 @@ final class ReadingModule extends AbstractModule {
 	}
 
 	public function register(): void {
-		( new HeadingIndexer() )->register();
-		( new HeadingLinkAssets() )->register();
+		// Eén beleidsobject voor beide: de id's en de assets moeten over hetzelfde oordelen.
+		$anchors = new HeadingAnchors();
+
+		( new HeadingIndexer( $anchors ) )->register();
+		( new HeadingLinkAssets( $anchors ) )->register();
 	}
 
 	public function blocks(): array {
