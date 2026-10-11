@@ -149,6 +149,23 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 		const emailInput = vervolgStep.querySelector( '.rx-rating__email' );
 
 		const actie = 'ja' === current.value ? 'publiceren' : 'contact';
+
+		// Staan reacties op deze pagina dicht (of vereisen ze een account), dan is er niets te
+		// plaatsen: de toelichting blijft privé en we ronden gewoon af. De server houdt dezelfde
+		// controle aan, dit voorkomt alleen dat iemand een aanbod ziet dat niet kan.
+		if ( 'publiceren' === actie && '1' !== root.dataset.rxCanComment ) {
+			postJson( root.dataset.rxRestFollowupBase + current.id + '/vervolg', {
+				token: current.token,
+				actie: 'overslaan',
+				website: panel.querySelector( '.rx-rating__hp input' )?.value || '',
+			} );
+			finish();
+			if ( isBar ) {
+				setTimeout( () => closeAllPanels(), 1200 );
+			}
+			return;
+		}
+
 		const key = 'publiceren' === actie ? 'rxLabelPubliceren' : 'rxLabelContact';
 		vraagEl.textContent = vraagEl.dataset[ key ] || '';
 		jaButton.textContent = jaButton.dataset[ key ] || '';

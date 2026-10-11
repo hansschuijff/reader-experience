@@ -106,7 +106,7 @@ final class RatingService {
 		$email = sanitize_email( $email );
 		$text  = trim( (string) $row['text'] );
 
-		if ( 'publiceren' === $action && 'ja' === $row['value'] && '' !== $text ) {
+		if ( 'publiceren' === $action && 'ja' === $row['value'] && '' !== $text && $this->commentPublisher->canPublish( $row['post_id'] ) ) {
 			$commentId = $this->commentPublisher->publish( $row['post_id'], $text, $name, $email );
 			if ( false !== $commentId ) {
 				$this->repository->setComment( $id, $commentId );

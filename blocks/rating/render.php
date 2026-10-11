@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use ReaderExperience\Modules\Rating\CommentPublisher;
 use ReaderExperience\Support\Icons;
 
 $post_id = (int) ( $block->context['postId'] ?? get_the_ID() );
@@ -15,6 +16,10 @@ if ( ! $post_id ) {
 }
 
 $variant = ( 'bar' === ( $attributes['variant'] ?? 'inline' ) ) ? 'bar' : 'inline';
+
+// Mag een toelichting bij een positieve waardering als reactie geplaatst worden? Niet als
+// reacties op dit bericht dicht staan (of een account vereisen): dan bieden we het ook niet aan.
+$can_comment = ( new CommentPublisher() )->canPublish( $post_id );
 $unique  = wp_unique_id( 'rx-rating-' );
 
 $rest = array(
@@ -26,6 +31,7 @@ $rest = array(
 <div <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-rating rx-rating--' . esc_attr( $variant ) ) ); ?>
 	data-rx-rating
 	data-rx-post="<?php echo (int) $post_id; ?>"
+	data-rx-can-comment="<?php echo $can_comment ? '1' : '0'; ?>"
 	data-rx-rest-create="<?php echo esc_url( $rest['create'] ); ?>"
 	data-rx-rest-text-base="<?php echo esc_url( $rest['text'] ); ?>"
 	data-rx-rest-followup-base="<?php echo esc_url( $rest['followup'] ); ?>"
