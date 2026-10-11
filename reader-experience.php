@@ -3,7 +3,7 @@
  * Plugin Name:       Reader Experience
  * Plugin URI:        https://github.com/hansschuijff/reader-experience
  * Description:       Leesfuncties en interactie voor lange artikelen: inhoudsopgave, leestijd, delen en waardering.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            Hans Schuijff
