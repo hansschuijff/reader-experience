@@ -102,11 +102,11 @@ msgid "Enable JavaScript to be able to respond."
 msgstr ""
 
 #: blocks/rating/render.php:40 blocks/rating/render.php:42
-msgid "Useful"
+msgid "Like"
 msgstr ""
 
 #: blocks/rating/render.php:44 blocks/rating/render.php:46
-msgid "Not useful"
+msgid "Dislike"
 msgstr ""
 
 #: blocks/rating/render.php:55

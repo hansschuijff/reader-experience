@@ -5,7 +5,8 @@
 /* Selected thumb keeps the accent colour, also while hovered (more specific than the shared state rules). */
 .rx-reset-button.rx-reset-button.rx-rating__thumb[aria-pressed="true"] { color: var(--c-accent, Highlight); }
 
-.rx-rating__question { font-weight: 600; margin: 0 0 8px; }
+/* Modest, whatever the theme does to paragraphs: the panel is a side note, not a heading. */
+.rx-rating .rx-rating__question { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; margin: 0 0 10px; }
 .rx-rating__text,
 .rx-rating__name,
 .rx-rating__email {
@@ -77,7 +78,9 @@
 		inset-inline: auto;
 		left: 50%;
 		transform: translateX(-50%);
-		max-width: 32rem;
+		/* An explicit width: with left: 50% the box would otherwise shrink to the textarea's intrinsic width. */
+		width: min(40rem, calc(100vw - 32px));
+		max-width: none;
 		padding: 20px;
 	}
 	.rx-rating__text { min-height: 9em; } /* ≈ 6–7 regels in plaats van de mobiele 3 */

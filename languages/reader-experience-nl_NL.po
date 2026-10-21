@@ -115,12 +115,12 @@ msgid "Enable JavaScript to be able to respond."
 msgstr "Schakel JavaScript in om te kunnen reageren."
 
 #: blocks/rating/render.php:40 blocks/rating/render.php:42
-msgid "Useful"
-msgstr "Nuttig"
+msgid "Like"
+msgstr "Vind ik leuk"
 
 #: blocks/rating/render.php:44 blocks/rating/render.php:46
-msgid "Not useful"
-msgstr "Niet nuttig"
+msgid "Dislike"
+msgstr "Vind ik niet leuk"
 
 #: blocks/rating/render.php:55
 msgid "Thanks for your thumb. What did you like about this page?"

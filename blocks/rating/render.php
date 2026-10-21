@@ -44,13 +44,13 @@ $rest = array(
 	data-rx-rest-followup-base="<?php echo esc_url( $rest['followup'] ); ?>"
 >
 	<div class="rx-rating__thumbs" data-rx-step="thumbs">
-		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="like" aria-pressed="false" aria-label="<?php esc_attr_e( 'Useful', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Useful', 'reader-experience' ); ?>">
+		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="like" aria-pressed="false" aria-label="<?php esc_attr_e( 'Like', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Like', 'reader-experience' ); ?>">
 			<?php echo Icons::get( 'thumb_up' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Fixed, trusted SVG from the plugin itself. ?>
-			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Useful', 'reader-experience' ); ?></span>
+			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Like', 'reader-experience' ); ?></span>
 		</button>
-		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="dislike" aria-pressed="false" aria-label="<?php esc_attr_e( 'Not useful', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Not useful', 'reader-experience' ); ?>">
+		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="dislike" aria-pressed="false" aria-label="<?php esc_attr_e( 'Dislike', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Dislike', 'reader-experience' ); ?>">
 			<?php echo Icons::get( 'thumb_down' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Not useful', 'reader-experience' ); ?></span>
+			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Dislike', 'reader-experience' ); ?></span>
 		</button>
 	</div>
 
