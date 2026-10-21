@@ -8,9 +8,9 @@ registerBlockType( metadata.name, {
 	edit: ( { attributes, setAttributes } ) => (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Instellingen', 'reader-experience' ) }>
+				<PanelBody title={ __( 'Settings', 'reader-experience' ) }>
 					<ToggleControl
-						label={ __( 'Toon resterende tijd tijdens het lezen', 'reader-experience' ) }
+						label={ __( 'Show the remaining time while reading', 'reader-experience' ) }
 						checked={ attributes.remaining }
 						onChange={ ( remaining ) => setAttributes( { remaining } ) }
 					/>
@@ -18,8 +18,8 @@ registerBlockType( metadata.name, {
 			</InspectorControls>
 			<p { ...useBlockProps() }>
 				{ attributes.remaining
-					? __( 'nog ~12 min (voorbeeld)', 'reader-experience' )
-					: __( '12 min leestijd (voorbeeld)', 'reader-experience' ) }
+					? __( '~12 min left (example)', 'reader-experience' )
+					: __( '12 min read (example)', 'reader-experience' ) }
 			</p>
 		</>
 	),

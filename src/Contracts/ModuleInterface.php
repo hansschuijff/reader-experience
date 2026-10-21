@@ -1,28 +1,51 @@
 <?php
+/**
+ * Contract for a plugin module.
+ *
+ * @package ReaderExperience\Contracts
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience\Contracts;
 
+/**
+ * A module bundles hooks, REST routes, blocks and migrations of one feature.
+ */
 interface ModuleInterface {
 
-	/** Unieke, stabiele sleutel, bijvoorbeeld "reading". */
+	/**
+	 * Unique, stable key, for example "reading".
+	 *
+	 * @since 0.1.0
+	 * @return string
+	 */
 	public function id(): string;
 
-	/** Hooks, REST-routes en dergelijke koppelen. Blokken worden apart geregistreerd. */
+	/**
+	 * Attaches hooks, REST routes and the like. Blocks are registered separately.
+	 *
+	 * @since 0.1.0
+	 * @return void
+	 */
 	public function register(): void;
 
 	/**
-	 * Slugs van de blokken van deze module, gelijk aan de mapnaam in blocks/.
+	 * Slugs of the blocks of this module, equal to the folder name in blocks/.
 	 *
+	 * @since 0.1.0
 	 * @return string[]
 	 */
 	public function blocks(): array;
 
 	/**
-	 * Migratieklassen van deze module. Wordt gebruikt vanaf de Rating-module.
+	 * Migration objects of this module.
 	 *
-	 * @return string[]
+	 * @since 0.1.0
+	 * @return MigrationInterface[]
 	 */
 	public function migrations(): array;
 }

@@ -1,6 +1,14 @@
 <?php
+/**
+ * Plugin bootstrap.
+ *
+ * @package ReaderExperience
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience;
 
@@ -12,27 +20,58 @@ use ReaderExperience\Modules\Reading\ReadingModule;
 use ReaderExperience\Modules\Sharing\SharingModule;
 use ReaderExperience\Support\Migrator;
 
+/**
+ * Builds the modules, runs the migrations and registers the blocks.
+ */
 final class Plugin {
 
+	/**
+	 * The single instance.
+	 *
+	 * @var self|null
+	 */
 	private static ?self $instance = null;
 
-	/** @var ModuleInterface[] */
+	/**
+	 * Active modules.
+	 *
+	 * @var ModuleInterface[]
+	 */
 	private array $modules = array();
 
+	/**
+	 * Constructor.
+	 *
+	 * @param string $file Main plugin file.
+	 */
 	private function __construct( private readonly string $file ) {}
 
+	/**
+	 * Starts the plugin once.
+	 *
+	 * There is no dependency on a core plugin: all current modules are self-contained. If a real
+	 * coupling comes (a shared migration runner or settings API, say), add it here in a targeted
+	 * way instead of a generic "wait for the core" construction.
+	 *
+	 * @since 0.1.0
+	 * @param string $file Main plugin file.
+	 * @return void
+	 */
 	public static function boot( string $file ): void {
 		if ( null !== self::$instance ) {
 			return;
 		}
 
-		// Geen afhankelijkheid van een core (nog) nodig: alle huidige modules zijn zelfstandig.
-		// Komt er een echte koppeling (bijvoorbeeld een gedeelde migratierunner of instellingen-API),
-		// voeg die dan hier gericht toe in plaats van een generieke "wacht op de core"-constructie.
 		self::$instance = new self( $file );
 		self::$instance->start();
 	}
 
+	/**
+	 * Registers the modules and schedules block registration and text domain loading.
+	 *
+	 * @since 0.1.0
+	 * @return void
+	 */
 	public function start(): void {
 		$this->modules = $this->build_modules();
 
@@ -40,9 +79,9 @@ final class Plugin {
 			$module->register();
 		}
 
-		// Migraties zijn goedkoop (één option-check), maar horen niet op elke front-end
-		// request te draaien. Ze lopen bij activatie en verder alleen in de admin, zodat
-		// een nieuwe migratie na een update alsnog snel wordt opgepikt.
+		// Migrations are cheap (one option check) but do not belong on every front-end request.
+		// They run on activation and otherwise only in the admin, so a new migration is still
+		// picked up quickly after an update.
 		if ( is_admin() ) {
 			$this->run_migrations();
 		}
@@ -60,7 +99,24 @@ final class Plugin {
 		);
 	}
 
-	/** @return ModuleInterface[] */
+	/**
+	 * Called from register_activation_hook, so the tables exist right after activation.
+	 *
+	 * @since 0.1.0
+	 * @param string $file Main plugin file.
+	 * @return void
+	 */
+	public static function on_activate( string $file ): void {
+		$instance          = self::$instance ?? new self( $file );
+		$instance->modules = $instance->modules ? $instance->modules : $instance->build_modules();
+		$instance->run_migrations();
+	}
+
+	/**
+	 * Builds the list of modules.
+	 *
+	 * @return ModuleInterface[]
+	 */
 	private function build_modules(): array {
 		$modules = array(
 			new ReadingModule(),
@@ -70,18 +126,24 @@ final class Plugin {
 		);
 
 		/**
-		 * Laat modules toevoegen of weghalen, bijvoorbeeld per site.
+		 * Filters the plugin modules, to add or remove modules (per site, for example).
 		 *
-		 * @param ModuleInterface[] $modules
+		 * @since 0.1.0
+		 *
+		 * @param ModuleInterface[] $modules Module objects. Anything that is not a ModuleInterface is dropped.
 		 */
 		$modules = apply_filters( 'reader_experience/modules', $modules );
 
 		return array_values(
-			array_filter( $modules, static fn ( $m ): bool => $m instanceof ModuleInterface )
+			array_filter( $modules, static fn ( $module ): bool => $module instanceof ModuleInterface )
 		);
 	}
 
-	/** @return string[] */
+	/**
+	 * Slugs of all blocks of the active modules.
+	 *
+	 * @return string[]
+	 */
 	private function block_slugs(): array {
 		$slugs = array();
 		foreach ( $this->modules as $module ) {
@@ -90,6 +152,11 @@ final class Plugin {
 		return array_values( array_unique( $slugs ) );
 	}
 
+	/**
+	 * Runs the migrations of all active modules.
+	 *
+	 * @return void
+	 */
 	private function run_migrations(): void {
 		$migrations = array();
 		foreach ( $this->modules as $module ) {
@@ -98,17 +165,22 @@ final class Plugin {
 		( new Migrator() )->run( $migrations );
 	}
 
-	/** Vanuit register_activation_hook, zodat de tabellen er bij het inschakelen direct staan. */
-	public static function on_activate( string $file ): void {
-		$instance = self::$instance ?? new self( $file );
-		$instance->modules = $instance->modules ?: $instance->build_modules();
-		$instance->run_migrations();
-	}
-
+	/**
+	 * Absolute path of a file inside the plugin.
+	 *
+	 * @param string $relative Path relative to the plugin directory.
+	 * @return string
+	 */
 	private function path( string $relative ): string {
 		return plugin_dir_path( $this->file ) . ltrim( $relative, '/' );
 	}
 
+	/**
+	 * Runs a callback on init, immediately if init has already fired.
+	 *
+	 * @param callable $callback Callback.
+	 * @return void
+	 */
 	private function on_init( callable $callback ): void {
 		if ( did_action( 'init' ) > 0 ) {
 			$callback();

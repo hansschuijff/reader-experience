@@ -1,6 +1,14 @@
 <?php
+/**
+ * REST controller for ratings.
+ *
+ * @package ReaderExperience\Modules\Rating
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Rating;
 
@@ -10,16 +18,41 @@ use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
 
+/**
+ * Routes under rx/v1 for the rating flow: vote, optional comment, optional follow-up.
+ *
+ * The route names and parameter names (tekst, vervolg, actie, naam, publiceren, overslaan) are
+ * part of the contract with the front-end JavaScript and are deliberately left as they are.
+ */
 final class RatingController extends AbstractController {
 
+	/**
+	 * Rating business logic.
+	 *
+	 * @var RatingService
+	 */
 	private RatingService $service;
+
+	/**
+	 * Rate limiter, used here only for the anonymous fingerprint.
+	 *
+	 * @var RateLimiter
+	 */
 	private RateLimiter $rate_limiter;
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
-		$this->service     = new RatingService();
+		$this->service      = new RatingService();
 		$this->rate_limiter = new RateLimiter();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since 0.1.0
+	 */
 	public function register_routes(): void {
 		register_rest_route(
 			self::NAMESPACE,
@@ -31,13 +64,13 @@ final class RatingController extends AbstractController {
 				'args'                => array(
 					'post_id' => array(
 						'required'          => true,
-						'validate_callback' => static fn ( $v ): bool => is_numeric( $v ) && (int) $v > 0,
+						'validate_callback' => static fn ( $value ): bool => is_numeric( $value ) && (int) $value > 0,
 					),
 					'value'   => array(
 						'required'          => true,
-						'validate_callback' => fn ( $v ): bool => is_string( $v ) && $this->service->is_valid_value( $v ),
+						'validate_callback' => fn ( $value ): bool => is_string( $value ) && $this->service->is_valid_value( $value ),
 					),
-					'website' => array( 'required' => false ), // honeypot: hoort altijd leeg te zijn
+					'website' => array( 'required' => false ), // Honeypot: should always be empty.
 				),
 			)
 		);
@@ -50,14 +83,14 @@ final class RatingController extends AbstractController {
 				'callback'            => array( $this, 'attach_text' ),
 				'permission_callback' => $this->public_permission(),
 				'args'                => array(
-					'id'      => array( 'validate_callback' => static fn ( $v ): bool => is_numeric( $v ) && (int) $v > 0 ),
+					'id'      => array( 'validate_callback' => static fn ( $value ): bool => is_numeric( $value ) && (int) $value > 0 ),
 					'token'   => array(
 						'required'          => true,
-						'validate_callback' => static fn ( $v ): bool => is_string( $v ) && strlen( $v ) === 32,
+						'validate_callback' => static fn ( $value ): bool => is_string( $value ) && strlen( $value ) === 32,
 					),
 					'tekst'   => array(
 						'required'          => true,
-						'validate_callback' => static fn ( $v ): bool => is_string( $v ) && '' !== trim( $v ),
+						'validate_callback' => static fn ( $value ): bool => is_string( $value ) && '' !== trim( $value ),
 					),
 					'website' => array( 'required' => false ),
 				),
@@ -72,14 +105,14 @@ final class RatingController extends AbstractController {
 				'callback'            => array( $this, 'resolve_follow_up' ),
 				'permission_callback' => $this->public_permission(),
 				'args'                => array(
-					'id'      => array( 'validate_callback' => static fn ( $v ): bool => is_numeric( $v ) && (int) $v > 0 ),
+					'id'      => array( 'validate_callback' => static fn ( $value ): bool => is_numeric( $value ) && (int) $value > 0 ),
 					'token'   => array(
 						'required'          => true,
-						'validate_callback' => static fn ( $v ): bool => is_string( $v ) && strlen( $v ) === 32,
+						'validate_callback' => static fn ( $value ): bool => is_string( $value ) && strlen( $value ) === 32,
 					),
 					'actie'   => array(
 						'required'          => true,
-						'validate_callback' => static fn ( $v ): bool => in_array( $v, array( 'publiceren', 'contact', 'overslaan' ), true ),
+						'validate_callback' => static fn ( $value ): bool => in_array( $value, array( 'publiceren', 'contact', 'overslaan' ), true ),
 					),
 					'naam'    => array( 'required' => false ),
 					'email'   => array( 'required' => false ),
@@ -89,11 +122,18 @@ final class RatingController extends AbstractController {
 		);
 	}
 
+	/**
+	 * Step 1: stores a vote and returns the id and the single-use flow token.
+	 *
+	 * @since 0.1.0
+	 * @param WP_REST_Request $request The request.
+	 * @return WP_REST_Response|WP_Error
+	 */
 	public function create( WP_REST_Request $request ) {
 		$post_id = (int) $request->get_param( 'post_id' );
 
 		if ( 'publish' !== get_post_status( $post_id ) ) {
-			return new WP_Error( 'rx_invalid_post', __( 'Onbekend artikel.', 'reader-experience' ), array( 'status' => 404 ) );
+			return new WP_Error( 'rx_invalid_post', __( 'Unknown article.', 'reader-experience' ), array( 'status' => 404 ) );
 		}
 
 		$result = $this->service->submit(
@@ -104,7 +144,7 @@ final class RatingController extends AbstractController {
 		);
 
 		if ( null === $result ) {
-			// Spam of te veel pogingen: doen alsof het gelukt is, zonder een echte rij aan te maken.
+			// Spam or too many attempts: pretend it worked, without creating a real row.
 			return new WP_REST_Response(
 				array(
 					'id'    => 0,
@@ -117,6 +157,13 @@ final class RatingController extends AbstractController {
 		return new WP_REST_Response( $result, 201 );
 	}
 
+	/**
+	 * Step 2: attaches the optional comment to the vote.
+	 *
+	 * @since 0.1.0
+	 * @param WP_REST_Request $request The request.
+	 * @return WP_REST_Response
+	 */
 	public function attach_text( WP_REST_Request $request ) {
 		$this->service->attach_text(
 			(int) $request->get_param( 'id' ),
@@ -129,6 +176,13 @@ final class RatingController extends AbstractController {
 		return new WP_REST_Response( null, 204 );
 	}
 
+	/**
+	 * Step 3: publish as a comment, request contact, or skip.
+	 *
+	 * @since 0.1.0
+	 * @param WP_REST_Request $request The request.
+	 * @return WP_REST_Response
+	 */
 	public function resolve_follow_up( WP_REST_Request $request ) {
 		$this->service->resolve_follow_up(
 			(int) $request->get_param( 'id' ),

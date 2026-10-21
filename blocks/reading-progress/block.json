@@ -2,10 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "reader-experience/reading-progress",
-	"title": "Leesvoortgang",
+	"title": "Reading progress",
 	"category": "widgets",
 	"icon": "minus",
-	"description": "Dunne balk bovenaan het scherm die laat zien hoever de bezoeker in het artikel is.",
+	"description": "Thin bar at the top of the screen that shows how far the visitor is in the article.",
 	"textdomain": "reader-experience",
 	"attributes": {
 		"target": { "type": "string", "default": ".wp-block-post-content" },

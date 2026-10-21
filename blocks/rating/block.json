@@ -2,10 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "reader-experience/rating",
-	"title": "Waardering",
+	"title": "Rating",
 	"category": "widgets",
 	"icon": "thumbs-up",
-	"description": "Duim omhoog/omlaag, direct zichtbaar. Optioneel gevolgd door een toelichting en, afhankelijk van de stem, het aanbod om die als reactie te plaatsen of contact op te nemen.",
+	"description": "Thumbs up/down, visible right away. Optionally followed by an explanation and, depending on the vote, an offer to post it as a comment or to get in touch.",
 	"textdomain": "reader-experience",
 	"usesContext": [ "postId" ],
 	"attributes": {

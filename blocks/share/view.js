@@ -41,7 +41,7 @@ document.querySelectorAll( '[data-rx-share]' ).forEach( ( root ) => {
 		try {
 			await navigator.clipboard.writeText( url );
 			const original = copyButton.textContent;
-			copyButton.textContent = copyButton.dataset.rxCopiedLabel || 'Gekopieerd';
+			copyButton.textContent = copyButton.dataset.rxCopiedLabel || 'Copied';
 			report( root, 'copy' );
 			setTimeout( () => {
 				copyButton.textContent = original;

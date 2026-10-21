@@ -10,14 +10,14 @@ registerBlockType( metadata.name, {
 	edit: ( { attributes, setAttributes } ) => (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Instellingen', 'reader-experience' ) }>
+				<PanelBody title={ __( 'Settings', 'reader-experience' ) }>
 					<SelectControl
-						label={ __( 'Weergave', 'reader-experience' ) }
-						help={ __( 'Bepaalt formaat en of de toelichting inline uitklapt of in een los paneeltje verschijnt. Beide passen zowel los onderaan het artikel als in de interactiebalk.', 'reader-experience' ) }
+						label={ __( 'Display', 'reader-experience' ) }
+						help={ __( 'Determines the size and whether the explanation unfolds inline or appears in a separate panel. Both fit equally well at the bottom of the article and in the interaction bar.', 'reader-experience' ) }
 						value={ attributes.variant }
 						options={ [
-							{ label: __( 'Groot, met tekst (inline)', 'reader-experience' ), value: 'inline' },
-							{ label: __( 'Compact, alleen iconen (balk)', 'reader-experience' ), value: 'bar' },
+							{ label: __( 'Large, with text (inline)', 'reader-experience' ), value: 'inline' },
+							{ label: __( 'Compact, icons only (bar)', 'reader-experience' ), value: 'bar' },
 						] }
 						onChange={ ( variant ) => setAttributes( { variant } ) }
 					/>

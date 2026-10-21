@@ -1,6 +1,14 @@
 <?php
+/**
+ * Migration: comment and contact fields on the feedback table.
+ *
+ * @package ReaderExperience\Modules\Rating\Migrations
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Rating\Migrations;
 
@@ -9,16 +17,30 @@ use ReaderExperience\Modules\Rating\FeedbackRepository;
 use wpdb;
 
 /**
- * dbDelta() vergelijkt de volledige gewenste tabeldefinitie met wat er al staat en past
- * alleen aan wat ontbreekt of afwijkt: bestaande rijen blijven staan, dit is dus veilig
- * te draaien op een tabel die al bestaat uit CreateFeedbackTable.
+ * Adds the fields for a posted comment and a contact request.
+ *
+ * The function dbDelta() compares the complete desired table definition with what is there and only changes
+ * what is missing or different: existing rows stay, so this is safe to run on a table that
+ * already exists from CreateFeedbackTable.
  */
 final class AddCommentFieldsToFeedbackTable implements MigrationInterface {
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since 0.1.0
+	 */
 	public function id(): string {
 		return '2026_09_30_feedback_comment_fields';
 	}
 
+	/**
+	 * Applies the migration.
+	 *
+	 * @since 0.1.0
+	 * @param wpdb $db WordPress database object.
+	 * @return void
+	 */
 	public function up( wpdb $db ): void {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 

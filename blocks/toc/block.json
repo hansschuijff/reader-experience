@@ -2,10 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "reader-experience/toc",
-	"title": "Inhoudsopgave",
+	"title": "Table of contents",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "Automatische inhoudsopgave uit de koppen van het artikel, met markering van de plek waar de bezoeker is.",
+	"description": "Automatic table of contents from the headings of the article, marking where the visitor is.",
 	"textdomain": "reader-experience",
 	"usesContext": [ "postId" ],
 	"attributes": {

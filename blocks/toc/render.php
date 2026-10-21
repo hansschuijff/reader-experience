@@ -1,11 +1,18 @@
 <?php
 /**
- * @var array    $attributes
- * @var string   $content
- * @var WP_Block $block
+ * Render template of the table of contents block.
+ *
+ * @package ReaderExperience
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ *
+ * @var array    $attributes Block attributes.
+ * @var string   $content    Block content.
+ * @var WP_Block $block      Block instance.
  */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 use ReaderExperience\Modules\Reading\HeadingIndexer;
 
@@ -14,11 +21,11 @@ if ( ! $post_id ) {
 	return;
 }
 
-$max_level      = max( 2, min( 4, (int) ( $attributes['maxLevel'] ?? 3 ) ) );
-$min_items      = max( 1, (int) ( $attributes['minItems'] ?? 3 ) );
-$style          = ( 'compact' === ( $attributes['style'] ?? 'standard' ) ) ? 'compact' : 'standard';
+$max_level       = max( 2, min( 4, (int) ( $attributes['maxLevel'] ?? 3 ) ) );
+$min_items       = max( 1, (int) ( $attributes['minItems'] ?? 3 ) );
+$style           = ( 'compact' === ( $attributes['style'] ?? 'standard' ) ) ? 'compact' : 'standard';
 $collapse_nested = ! empty( $attributes['collapseNested'] );
-$items          = HeadingIndexer::headings_for_post( $post_id, $max_level );
+$items           = HeadingIndexer::headings_for_post( $post_id, $max_level );
 
 if ( count( $items ) < $min_items ) {
 	return;
@@ -26,14 +33,13 @@ if ( count( $items ) < $min_items ) {
 
 $title = isset( $attributes['title'] ) && '' !== trim( (string) $attributes['title'] )
 	? (string) $attributes['title']
-	: __( 'Inhoud', 'reader-experience' );
+	: __( 'Contents', 'reader-experience' );
 
 /*
- * Kleur en tekstgrootte bewust niet via de ingebouwde block-supports van WordPress:
- * die bleken zich anders te gedragen voor gelinkte tekst (de koppen zijn <a>-tags)
- * dan voor gewone tekst, en anders voor een thema-kleur dan voor een custom kleur.
- * Met eigen attributen, toegepast via CSS-variabelen op het wrapper-element, gedraagt
- * de editor zich exact zoals de voorkant.
+ * Colour and font size deliberately do not use WordPress' built-in block supports: those
+ * turned out to behave differently for linked text (the headings are <a> tags) than for plain
+ * text, and differently for a theme colour than for a custom colour. With our own attributes,
+ * applied as CSS variables on the wrapper element, the editor behaves exactly like the front end.
  */
 $style_props = array();
 if ( ! empty( $attributes['textColor'] ) ) {
@@ -47,7 +53,11 @@ if ( ! empty( $attributes['fontSize'] ) ) {
 }
 $inline_style = implode( ';', $style_props );
 
-/** @param array{id:string,text:string,level:int} $item */
+/**
+ * Prints the link of one table of contents entry.
+ *
+ * @param array{id:string,text:string,level:int} $item Heading.
+ */
 $render_link = static function ( array $item ): void {
 	printf(
 		'<a href="#%s">%s</a>',
@@ -55,8 +65,17 @@ $render_link = static function ( array $item ): void {
 		esc_html( $item['text'] )
 	);
 };
+
+$wrapper_attributes = get_block_wrapper_attributes(
+	array(
+		'class' => 'rx-toc rx-toc--' . $style,
+		'open'  => '',
+		'id'    => 'rx-toc',
+		'style' => $inline_style,
+	)
+);
 ?>
-<details <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-toc rx-toc--' . $style, 'open' => '', 'id' => 'rx-toc', 'style' => $inline_style ) ); ?>>
+<details <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>>
 	<summary class="rx-toc__summary"><?php echo esc_html( $title ); ?></summary>
 
 	<?php if ( $collapse_nested ) : ?>

@@ -1,46 +1,68 @@
 <?php
 /**
- * CSS en JS voor het "kopieer link"-icoontje bij koppen.
+ * CSS and JS for the "copy link" icon next to headings.
  *
  * @package ReaderExperience\Modules\Reading
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.2.0
  */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Reading;
 
 use WP_Post;
+
 use const ReaderExperience\PLUGIN_FILE;
 
 /**
- * Registreert het losse (ongebundelde) "kopieer link"-icoontje bij koppen.
+ * Registers the separate (unbundled) "copy link" icon assets for headings.
  *
- * Laadt alleen op een enkele weergave waarvoor HeadingAnchors de functionaliteit aan heeft
- * gezet. CSS en JS zijn los uit te schakelen, zodat een site er een eigen versie voor in de
- * plaats kan zetten (zie HeadingAnchors voor de filters).
+ * Loads only on a single view for which HeadingAnchors switched the functionality on. CSS and JS
+ * can be switched off separately, so a site can put its own version in their place (see
+ * HeadingAnchors and the README for the filters).
  */
 final class HeadingLinkAssets {
 
+	/**
+	 * Handle for the style and the script.
+	 *
+	 * @var string
+	 */
 	private const HANDLE = 'rx-heading-anchor-links';
 
+	/**
+	 * Policy.
+	 *
+	 * @var HeadingAnchors
+	 */
 	private HeadingAnchors $anchors;
 
 	/**
-	 * @param HeadingAnchors $anchors Beleid.
+	 * Constructor.
+	 *
+	 * @param HeadingAnchors $anchors Policy.
 	 */
 	public function __construct( HeadingAnchors $anchors ) {
 		$this->anchors = $anchors;
 	}
 
 	/**
-	 * Koppelt aan de scripts-hook.
+	 * Hooks into the scripts action.
+	 *
+	 * @since 0.2.0
+	 * @return void
 	 */
 	public function register(): void {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
 	/**
-	 * Laadt CSS en JS, voor zover het beleid dat toestaat.
+	 * Loads CSS and JS, as far as the policy allows.
+	 *
+	 * @since 0.2.0
+	 * @return void
 	 */
 	public function enqueue(): void {
 		if ( ! is_singular() || ! defined( 'ReaderExperience\PLUGIN_FILE' ) ) {
@@ -76,7 +98,7 @@ final class HeadingLinkAssets {
 				)
 			);
 
-			// De opties horen bij onze JS: wordt die vervangen, dan regelt de site de eigen opties zelf.
+			// The options belong to our JS: if that is replaced, the site handles its own options.
 			wp_add_inline_script(
 				self::HANDLE,
 				'window.rxHeadingAnchors=' . wp_json_encode( $this->anchors->config( $post ) ) . ';',

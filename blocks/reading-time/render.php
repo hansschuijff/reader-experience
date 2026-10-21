@@ -1,13 +1,18 @@
 <?php
 /**
- * Serverside weergave van het leestijdblok.
+ * Render template of the reading time block.
  *
- * @var array    $attributes
- * @var string   $content
- * @var WP_Block $block
+ * @package ReaderExperience
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ *
+ * @var array    $attributes Block attributes.
+ * @var string   $content    Block content.
+ * @var WP_Block $block      Block instance.
  */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 use ReaderExperience\Modules\Reading\ReadingTime;
 
@@ -24,16 +29,16 @@ if ( ! empty( $attributes['remaining'] ) ) {
 		'data-rx-remaining'       => '1',
 		'data-rx-minutes'         => (string) $minutes,
 		'data-rx-target'          => (string) ( $attributes['target'] ?? '.wp-block-post-content' ),
-		/* translators: %d: aantal resterende minuten */
-		'data-rx-label-remaining' => __( 'nog ~%d min', 'reader-experience' ),
-		'data-rx-label-done'      => __( 'Uitgelezen', 'reader-experience' ),
+		/* translators: %d: number of minutes left */
+		'data-rx-label-remaining' => __( '~%d min left', 'reader-experience' ),
+		'data-rx-label-done'      => __( 'Finished', 'reader-experience' ),
 	);
 }
+
+$label = sprintf(
+	/* translators: %d: number of minutes */
+	_n( '%d min read', '%d min read', $minutes, 'reader-experience' ),
+	$minutes
+);
 ?>
-<p <?php echo get_block_wrapper_attributes( $extra ); ?>><span class="rx-rt__label"><?php
-	printf(
-		/* translators: %d: aantal minuten */
-		esc_html( _n( '%d min leestijd', '%d min leestijd', $minutes, 'reader-experience' ) ),
-		(int) $minutes
-	);
-?></span></p>
+<p <?php echo get_block_wrapper_attributes( $extra ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>><span class="rx-rt__label"><?php echo esc_html( $label ); ?></span></p>

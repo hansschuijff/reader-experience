@@ -16,15 +16,15 @@ registerBlockType( metadata.name, {
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Instellingen', 'reader-experience' ) }>
+					<PanelBody title={ __( 'Settings', 'reader-experience' ) }>
 						<TextControl
-							label={ __( 'Titel', 'reader-experience' ) }
-							help={ __( 'Leeg laten voor "Inhoud".', 'reader-experience' ) }
+							label={ __( 'Title', 'reader-experience' ) }
+							help={ __( 'Leave empty for "Contents".', 'reader-experience' ) }
 							value={ attributes.title }
 							onChange={ ( title ) => setAttributes( { title } ) }
 						/>
 						<SelectControl
-							label={ __( 'Toon koppen tot niveau', 'reader-experience' ) }
+							label={ __( 'Show headings up to level', 'reader-experience' ) }
 							value={ String( attributes.maxLevel ) }
 							options={ [
 								{ label: 'H2', value: '2' },
@@ -34,31 +34,31 @@ registerBlockType( metadata.name, {
 							onChange={ ( value ) => setAttributes( { maxLevel: Number( value ) } ) }
 						/>
 						<RangeControl
-							label={ __( 'Verberg dit blok bij minder dan dit aantal koppen', 'reader-experience' ) }
-							help={ __( 'Dit is een drempel om de hele inhoudsopgave te verbergen bij een kort artikel, geen manier om een lange lijst in te korten.', 'reader-experience' ) }
+							label={ __( 'Hide this block when there are fewer headings than this', 'reader-experience' ) }
+							help={ __( 'This is a threshold to hide the whole table of contents on a short article, not a way to shorten a long list.', 'reader-experience' ) }
 							min={ 1 }
 							max={ 10 }
 							value={ attributes.minItems }
 							onChange={ ( minItems ) => setAttributes( { minItems } ) }
 						/>
 						<SelectControl
-							label={ __( 'Stijl', 'reader-experience' ) }
+							label={ __( 'Style', 'reader-experience' ) }
 							value={ attributes.style }
 							options={ [
-								{ label: __( 'Standaard', 'reader-experience' ), value: 'standard' },
-								{ label: __( 'Compact (lichter, geschikt voor een zijbalk)', 'reader-experience' ), value: 'compact' },
+								{ label: __( 'Default', 'reader-experience' ), value: 'standard' },
+								{ label: __( 'Compact (lighter, suited for a sidebar)', 'reader-experience' ), value: 'compact' },
 							] }
 							onChange={ ( style ) => setAttributes( { style } ) }
 						/>
 						<ToggleControl
-							label={ __( 'Subniveaus inklapbaar per hoofdkop', 'reader-experience' ) }
-							help={ __( 'Handig bij veel koppen: H3/H4 verschijnen dan pas na een klik op de bijbehorende H2.', 'reader-experience' ) }
+							label={ __( 'Collapsible sub-levels per top-level heading', 'reader-experience' ) }
+							help={ __( 'Useful with many headings: H3/H4 only appear after a click on their H2.', 'reader-experience' ) }
 							checked={ attributes.collapseNested }
 							onChange={ ( collapseNested ) => setAttributes( { collapseNested } ) }
 						/>
 						<RangeControl
-							label={ __( 'Tekstgrootte (px)', 'reader-experience' ) }
-							help={ __( 'Leeg (0) gebruikt de standaardgrootte van de gekozen stijl.', 'reader-experience' ) }
+							label={ __( 'Text size (px)', 'reader-experience' ) }
+							help={ __( 'Empty (0) uses the default size of the chosen style.', 'reader-experience' ) }
 							min={ 0 }
 							max={ 24 }
 							value={ attributes.fontSize }
@@ -66,18 +66,18 @@ registerBlockType( metadata.name, {
 						/>
 					</PanelBody>
 					<PanelColorSettings
-						title={ __( 'Kleur', 'reader-experience' ) }
+						title={ __( 'Colour', 'reader-experience' ) }
 						initialOpen={ false }
 						colorSettings={ [
 							{
 								value: attributes.textColor,
 								onChange: ( textColor ) => setAttributes( { textColor: textColor || '' } ),
-								label: __( 'Tekst', 'reader-experience' ),
+								label: __( 'Text', 'reader-experience' ),
 							},
 							{
 								value: attributes.backgroundColor,
 								onChange: ( backgroundColor ) => setAttributes( { backgroundColor: backgroundColor || '' } ),
-								label: __( 'Achtergrond', 'reader-experience' ),
+								label: __( 'Background', 'reader-experience' ),
 							},
 						] }
 					/>
@@ -85,13 +85,13 @@ registerBlockType( metadata.name, {
 				<div
 					{ ...useBlockProps( { className: 'rx-toc rx-toc--' + attributes.style, style: previewStyle } ) }
 				>
-					<p className="rx-toc__summary">{ attributes.title || __( 'Inhoud', 'reader-experience' ) }</p>
+					<p className="rx-toc__summary">{ attributes.title || __( 'Contents', 'reader-experience' ) }</p>
 					<ol className="rx-toc__list">
 						<li className="rx-toc__item rx-toc__item--l2">
-							<a href="#">{ __( 'Koppen worden hier automatisch ingevuld…', 'reader-experience' ) }</a>
+							<a href="#">{ __( 'Headings are filled in here automatically…', 'reader-experience' ) }</a>
 						</li>
 						<li className="rx-toc__item rx-toc__item--l3">
-							<a href="#">{ __( '(op de site, uit de artikeltekst)', 'reader-experience' ) }</a>
+							<a href="#">{ __( '(on the site, from the article text)', 'reader-experience' ) }</a>
 						</li>
 						<li className="rx-toc__item rx-toc__item--l2">
 							<a href="#">…</a>

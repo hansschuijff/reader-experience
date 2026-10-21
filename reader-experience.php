@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Reader Experience
  * Plugin URI:        https://github.com/hansschuijff/reader-experience
- * Description:       Leesfuncties en interactie voor lange artikelen: inhoudsopgave, leestijd, delen en waardering.
+ * Description:       Reading tools and interaction for long articles: table of contents, reading time, sharing and ratings.
  * Version:           0.2.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
@@ -16,28 +16,33 @@
  * GitHub Plugin URI: https://github.com/hansschuijff/reader-experience
  * Primary Branch:    main
  * Release Asset:     true
+ *
+ * @package ReaderExperience
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
  */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION = '0.2.0';
+const VERSION     = '0.2.0';
 const PLUGIN_FILE = __FILE__;
 
 if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 } else {
-	// Fallback zonder Composer: eenvoudige PSR-4 autoloader.
+	// Fallback without Composer: a simple PSR-4 autoloader.
 	spl_autoload_register(
-		static function ( string $class ): void {
+		static function ( string $class_name ): void {
 			$prefix = __NAMESPACE__ . '\\';
-			if ( ! str_starts_with( $class, $prefix ) ) {
+			if ( ! str_starts_with( $class_name, $prefix ) ) {
 				return;
 			}
-			$relative = str_replace( '\\', '/', substr( $class, strlen( $prefix ) ) );
+			$relative = str_replace( '\\', '/', substr( $class_name, strlen( $prefix ) ) );
 			$file     = __DIR__ . '/src/' . $relative . '.php';
 			if ( is_readable( $file ) ) {
 				require_once $file;
@@ -46,8 +51,8 @@ if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 	);
 }
 
-// Start op de standaard plugins_loaded-prioriteit. Er is geen afhankelijkheid
-// van de core-plugin: beide starten onafhankelijk van elkaar.
+// Start on the default plugins_loaded priority. There is no dependency on the core plugin:
+// both start independently of each other.
 add_action(
 	'plugins_loaded',
 	static function (): void {

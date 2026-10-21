@@ -1,21 +1,44 @@
 <?php
+/**
+ * Block registration.
+ *
+ * @package ReaderExperience\Blocks
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience\Blocks;
 
 /**
- * Registreert blokken uit de buildmap op basis van hun block.json.
- * Alleen blokken van actieve modules worden doorgegeven.
+ * Registers blocks from the build folder, based on their block.json.
+ * Only blocks of active modules are passed in.
  */
 final class BlockRegistrar {
 
-	/** Handle of the stylesheet shared by all blocks (assets/css/base.css). */
+	/**
+	 * Handle of the stylesheet shared by all blocks (assets/css/base.css).
+	 *
+	 * @var string
+	 */
 	public const BASE_STYLE_HANDLE = 'rx-base';
 
+	/**
+	 * Constructor.
+	 *
+	 * @param string $build_dir Absolute path of the build folder with one folder per block.
+	 */
 	public function __construct( private readonly string $build_dir ) {}
 
-	/** @param string[] $slugs */
+	/**
+	 * Registers the given blocks.
+	 *
+	 * @since 0.1.0
+	 * @param string[] $slugs Block slugs, equal to the folder names in the build folder.
+	 * @return void
+	 */
 	public function register( array $slugs ): void {
 		$this->register_base_style();
 
@@ -25,7 +48,7 @@ final class BlockRegistrar {
 			if ( ! is_readable( $dir . '/block.json' ) ) {
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-					error_log( sprintf( 'Reader Experience: block.json ontbreekt voor "%s". Is npm run build uitgevoerd?', $slug ) );
+					error_log( sprintf( 'Reader Experience: block.json is missing for "%s". Did you run npm run build?', $slug ) );
 				}
 				continue;
 			}
@@ -36,10 +59,12 @@ final class BlockRegistrar {
 
 	/**
 	 * Registers the shared base stylesheet, so block.json files can list it in "style".
-	 * Registered (not enqueued): WordPress loads it only when a block that needs it is rendered.
+	 * It is registered, not enqueued: WordPress loads it only when a block that needs it renders.
+	 *
+	 * @return void
 	 */
 	private function register_base_style(): void {
-		$root = dirname( $this->build_dir, 2 ); // build/blocks -> plugin root.
+		$root = dirname( $this->build_dir, 2 ); // From build/blocks to the plugin root.
 		$file = $root . '/assets/css/base.css';
 
 		wp_register_style(

@@ -2,10 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "reader-experience/interaction-bar",
-	"title": "Interactiebalk",
+	"title": "Interaction bar",
 	"category": "widgets",
 	"icon": "editor-table",
-	"description": "Vaste balk onderaan het scherm met delen, reacties en (later) waardering. Verbergt bij omlaag scrollen.",
+	"description": "Fixed bar at the bottom of the screen with sharing, comments and rating. Hides when scrolling down.",
 	"textdomain": "reader-experience",
 	"usesContext": [
 		"postId"

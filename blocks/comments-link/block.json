@@ -2,10 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "reader-experience/comments-link",
-	"title": "Reacties (link)",
+	"title": "Comments (link)",
 	"category": "widgets",
 	"icon": "admin-comments",
-	"description": "Toont het aantal reacties en springt naar het reactieformulier. Bedoeld als kind van de interactiebalk.",
+	"description": "Shows the number of comments and jumps to the comment form. Meant as a child of the interaction bar.",
 	"textdomain": "reader-experience",
 	"usesContext": [
 		"postId"

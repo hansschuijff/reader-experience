@@ -1,18 +1,29 @@
 <?php
+/**
+ * Icon registry.
+ *
+ * @package ReaderExperience\Support
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience\Support;
 
 /**
- * Centraal register van de lijniconen die in de balk en de blokken gebruikt worden.
- * Elk icoon is 24x24, tekent met currentColor en is overschrijfbaar per sleutel,
- * zodat een thema of site-specifieke plugin een eigen set kan leveren zonder
- * de plugin zelf aan te passen.
+ * Central registry of the line icons used in the bar and the blocks. Every icon is 24x24, draws
+ * with currentColor and can be overridden per key, so a theme or site-specific plugin can supply
+ * its own set without changing this plugin.
  */
 final class Icons {
 
-	/** @return array<string,string> */
+	/**
+	 * The built-in icons.
+	 *
+	 * @return array<string,string> SVG markup per icon key.
+	 */
 	private static function defaults(): array {
 		return array(
 			'comments'   => '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
@@ -22,8 +33,8 @@ final class Icons {
 			'link'       => '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1-1"/></svg>',
 			'thumb_up'   => '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v11M2 13v6a2 2 0 0 0 2 2h11.3a3 3 0 0 0 3-2.4l1.5-7A2 2 0 0 0 17.8 9H13V5a2 2 0 0 0-2-2l-1 1-3 7H2z"/></svg>',
 			'thumb_down' => '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V3M22 11v-6a2 2 0 0 0-2-2H8.7a3 3 0 0 0-3 2.4l-1.5 7A2 2 0 0 0 6.2 15H11v4a2 2 0 0 0 2 2l1-1 3-7h5z"/></svg>',
-			// Kanaaliconen voor het deelpaneel. Bewust lijn-stijl, net als de rest, in
-			// plaats van gekleurde merklogo's: dat oogt rustiger naast elkaar.
+			// Channel icons for the share panel. Deliberately line style, like the rest, instead
+			// of coloured brand logos: that looks calmer next to each other.
 			'whatsapp'   => '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.3-4.1A8 8 0 1 1 8 20L3 21z"/><path d="M9 10a1 1 0 0 0 1 1 3 3 0 0 0 3 3 1 1 0 0 0 1-1"/></svg>',
 			'linkedin'   => '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>',
 			'facebook'   => '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9h3V6h-3a3 3 0 0 0-3 3v2H8v3h3v7h3v-7h3l1-3h-4V9a1 1 0 0 1 1-1z"/></svg>',
@@ -31,7 +42,25 @@ final class Icons {
 		);
 	}
 
+	/**
+	 * The SVG markup of an icon.
+	 *
+	 * @since 0.1.0
+	 * @param string $key Icon key, for example "thumb_up".
+	 * @return string SVG markup, or an empty string for an unknown key.
+	 */
 	public static function get( string $key ): string {
+		/**
+		 * Filters the icon set, to replace or add icons.
+		 *
+		 * The markup is printed as is, so only return trusted SVG.
+		 *
+		 * @since 0.1.0
+		 *
+		 * @param array<string,string> $icons SVG markup per icon key. Keys: comments, share, toc,
+		 *                                    copy, link, thumb_up, thumb_down, whatsapp, linkedin,
+		 *                                    facebook, email.
+		 */
 		$icons = apply_filters( 'reader_experience/icons', self::defaults() );
 		return $icons[ $key ] ?? '';
 	}

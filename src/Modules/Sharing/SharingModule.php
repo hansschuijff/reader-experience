@@ -1,26 +1,57 @@
 <?php
+/**
+ * Sharing module.
+ *
+ * @package ReaderExperience\Modules\Sharing
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Sharing;
 
 use ReaderExperience\Modules\AbstractModule;
 use ReaderExperience\Modules\Sharing\Migrations\CreateShareDailyTable;
 
+/**
+ * The share button and popover, and the click counter behind it.
+ */
 final class SharingModule extends AbstractModule {
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since 0.1.0
+	 */
 	public function id(): string {
 		return 'sharing';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since 0.1.0
+	 */
 	public function register(): void {
 		( new ShareController() )->register();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since 0.1.0
+	 */
 	public function blocks(): array {
 		return array( 'share' );
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since 0.1.0
+	 */
 	public function migrations(): array {
 		return array( new CreateShareDailyTable() );
 	}

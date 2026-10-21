@@ -2,10 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "reader-experience/toc-open",
-	"title": "Inhoud (knop)",
+	"title": "Contents (button)",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "Springt naar de inhoudsopgave van het artikel en klapt hem open. Verschijnt alleen als het artikel een inhoudsopgaveblok bevat. Bedoeld als kind van de interactiebalk.",
+	"description": "Jumps to the table of contents of the article and opens it. Only appears when the article contains a table of contents block. Meant as a child of the interaction bar.",
 	"textdomain": "reader-experience",
 	"usesContext": [
 		"postId"

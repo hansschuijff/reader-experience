@@ -9,22 +9,22 @@ registerBlockType( metadata.name, {
 	edit: ( { attributes, setAttributes } ) => (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Instellingen', 'reader-experience' ) }>
+				<PanelBody title={ __( 'Settings', 'reader-experience' ) }>
 					<TextControl
-						label={ __( 'Element dat gevolgd wordt (CSS-selector)', 'reader-experience' ) }
-						help={ __( 'Standaard .wp-block-post-content (FSE-thema\'s). Gebruik bij een klassiek thema de class van je content-container, bijvoorbeeld .entry-content. Ook zonder juiste waarde wordt automatisch een veelvoorkomende container geprobeerd.', 'reader-experience' ) }
+						label={ __( 'Element to follow (CSS selector)', 'reader-experience' ) }
+						help={ __( 'Defaults to .wp-block-post-content (block themes). With a classic theme use the class of your content container, for example .entry-content. Even without a correct value a common container is tried automatically.', 'reader-experience' ) }
 						value={ attributes.target }
 						onChange={ ( target ) => setAttributes( { target } ) }
 					/>
 				</PanelBody>
 				<PanelColorSettings
-					title={ __( 'Kleur', 'reader-experience' ) }
+					title={ __( 'Colour', 'reader-experience' ) }
 					initialOpen={ false }
 					colorSettings={ [
 						{
 							value: attributes.color,
 							onChange: ( color ) => setAttributes( { color: color || '' } ),
-							label: __( 'Balkkleur', 'reader-experience' ),
+							label: __( 'Bar colour', 'reader-experience' ),
 						},
 					] }
 				/>
@@ -34,7 +34,7 @@ registerBlockType( metadata.name, {
 					className="rx-progress-preview__swatch"
 					style={ attributes.color ? { background: attributes.color } : undefined }
 				/>
-				<span>{ __( 'Leesvoortgangsbalk (dunne balk bovenaan het scherm op de site)', 'reader-experience' ) }</span>
+				<span>{ __( 'Reading progress bar (thin bar at the top of the screen on the site)', 'reader-experience' ) }</span>
 			</div>
 		</>
 	),

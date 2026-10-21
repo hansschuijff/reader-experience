@@ -2,10 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "reader-experience/reading-time",
-	"title": "Leestijd",
+	"title": "Reading time",
 	"category": "widgets",
 	"icon": "clock",
-	"description": "Toont de geschatte leestijd van het artikel, eventueel als resterende tijd tijdens het lezen.",
+	"description": "Shows the estimated reading time of the article, optionally as the time remaining while reading.",
 	"textdomain": "reader-experience",
 	"usesContext": [ "postId" ],
 	"attributes": {

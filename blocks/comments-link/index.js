@@ -8,7 +8,7 @@ registerBlockType( metadata.name, {
 	edit: () => (
 		<div { ...useBlockProps( { className: 'rx-bar__button' } ) }>
 			<Icon name="comments" />
-			<span className="rx-bar__label">{ __( '14 reacties', 'reader-experience' ) }</span>
+			<span className="rx-bar__label">{ __( '14 comments', 'reader-experience' ) }</span>
 		</div>
 	),
 	save: () => null,

@@ -1,22 +1,50 @@
 <?php
+/**
+ * Database access for ratings.
+ *
+ * @package ReaderExperience\Modules\Rating
+ * @author  Hans Schuijff <@hansschuijff>
+ * @license GPL-2.0-only
+ * @since   0.1.0
+ */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Rating;
 
 /**
- * Databasetoegang voor waarderingen. Bevat geen validatie of tokenlogica;
- * dat zit in RatingService.
+ * Database access for ratings. Contains no validation or token logic; that lives in RatingService.
  */
 final class FeedbackRepository {
 
+	/**
+	 * Allowed stored vote values: "ja" (up) and "nee" (down). Data format, not translated.
+	 *
+	 * @var string[]
+	 */
 	public const VALUES = array( 'ja', 'nee' );
 
+	/**
+	 * Name of the feedback table.
+	 *
+	 * @since 0.1.0
+	 * @return string
+	 */
 	public function table(): string {
 		global $wpdb;
 		return $wpdb->prefix . 'rx_feedback';
 	}
 
+	/**
+	 * Stores a new vote.
+	 *
+	 * @since 0.1.0
+	 * @param int    $post_id       Post id.
+	 * @param string $value         Vote value.
+	 * @param string $token_hash    Hash of the flow token.
+	 * @param int    $token_expires Unix timestamp at which the token expires.
+	 * @return int The new row id.
+	 */
 	public function create( int $post_id, string $value, string $token_hash, int $token_expires ): int {
 		global $wpdb;
 
@@ -36,6 +64,10 @@ final class FeedbackRepository {
 	}
 
 	/**
+	 * Finds a row.
+	 *
+	 * @since 0.1.0
+	 * @param int $id Row id.
 	 * @return array{post_id:int,value:string,token_hash:?string,token_expires:?string,text:?string,comment_id:int,wants_contact:bool}|null
 	 */
 	public function find( int $id ): ?array {
@@ -43,7 +75,7 @@ final class FeedbackRepository {
 
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT post_id, value, token_hash, token_expires, text, comment_id, wants_contact FROM {$this->table()} WHERE id = %d",
+				"SELECT post_id, value, token_hash, token_expires, text, comment_id, wants_contact FROM {$this->table()} WHERE id = %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				$id
 			),
 			ARRAY_A
@@ -64,24 +96,48 @@ final class FeedbackRepository {
 		);
 	}
 
-	/** Zet de toelichting, maar alleen als er nog geen stond (één keer bruikbaar per rij). */
+	/**
+	 * Sets the comment, but only if there was none yet (usable once per row).
+	 *
+	 * @since 0.1.0
+	 * @param int    $id   Row id.
+	 * @param string $text The comment.
+	 * @return void
+	 */
 	public function set_text_if_empty( int $id, string $text ): void {
 		global $wpdb;
 
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE {$this->table()} SET text = %s WHERE id = %d AND (text IS NULL OR text = '')",
+				"UPDATE {$this->table()} SET text = %s WHERE id = %d AND (text IS NULL OR text = '')", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				$text,
 				$id
 			)
 		);
 	}
 
+	/**
+	 * Links the WordPress comment that was created from this feedback.
+	 *
+	 * @since 0.1.0
+	 * @param int $id         Row id.
+	 * @param int $comment_id WordPress comment id.
+	 * @return void
+	 */
 	public function set_comment( int $id, int $comment_id ): void {
 		global $wpdb;
 		$wpdb->update( $this->table(), array( 'comment_id' => $comment_id ), array( 'id' => $id ), array( '%d' ), array( '%d' ) );
 	}
 
+	/**
+	 * Stores the contact details of a reader who asked to be contacted.
+	 *
+	 * @since 0.1.0
+	 * @param int    $id    Row id.
+	 * @param string $name  Name.
+	 * @param string $email Email address.
+	 * @return void
+	 */
 	public function set_contact( int $id, string $name, string $email ): void {
 		global $wpdb;
 		$wpdb->update(
@@ -97,18 +153,30 @@ final class FeedbackRepository {
 		);
 	}
 
-	/** Maakt het token voorgoed onbruikbaar. Aan het einde van de hele (korte) flow, niet per stap. */
+	/**
+	 * Makes the token unusable for good. At the end of the whole (short) flow, not per step.
+	 *
+	 * @since 0.1.0
+	 * @param int $id Row id.
+	 * @return void
+	 */
 	public function invalidate_token( int $id ): void {
 		global $wpdb;
 		$wpdb->update( $this->table(), array( 'token_hash' => null ), array( 'id' => $id ), array( '%s' ), array( '%d' ) );
 	}
 
-	/** @return array<string,int> */
+	/**
+	 * Number of votes per value for a post.
+	 *
+	 * @since 0.1.0
+	 * @param int $post_id Post id.
+	 * @return array<string,int> Count per vote value, zero for values without votes.
+	 */
 	public function totals_for_post( int $post_id ): array {
 		global $wpdb;
 
 		$rows = $wpdb->get_results(
-			$wpdb->prepare( "SELECT value, COUNT(*) AS total FROM {$this->table()} WHERE post_id = %d GROUP BY value", $post_id ),
+			$wpdb->prepare( "SELECT value, COUNT(*) AS total FROM {$this->table()} WHERE post_id = %d GROUP BY value", $post_id ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			ARRAY_A
 		);
 
@@ -122,11 +190,16 @@ final class FeedbackRepository {
 	}
 
 	/**
+	 * The most recent feedback that has a comment.
+	 *
+	 * @since 0.1.0
+	 * @param int $limit Maximum number of rows.
 	 * @return array<int,array<string,mixed>>
 	 */
 	public function recent_with_text( int $limit = 20 ): array {
 		global $wpdb;
 
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name and fixed fragments only; values are placeholders.
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT f.id, f.post_id, p.post_title, f.value, f.text, f.comment_id, f.wants_contact, f.contact_email, f.created
@@ -139,22 +212,28 @@ final class FeedbackRepository {
 			),
 			ARRAY_A
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		return (array) $rows;
 	}
 
 	/**
-	 * @param array{post_id?:int,only_with_content?:bool,orderby?:string,order?:string} $args
+	 * One page of feedback, for the admin overview.
+	 *
+	 * @since 0.1.0
+	 * @param int                                                                       $page     Page number, starting at 1.
+	 * @param int                                                                       $per_page Rows per page.
+	 * @param array{post_id?:int,only_with_content?:bool,orderby?:string,order?:string} $args     Filters and sorting.
 	 * @return array{rows:array<int,array<string,mixed>>,total:int}
 	 */
 	public function paginated( int $page, int $per_page = 20, array $args = array() ): array {
 		global $wpdb;
 
 		$post_id           = isset( $args['post_id'] ) ? (int) $args['post_id'] : 0;
-		$only_with_content  = $args['only_with_content'] ?? true;
-		$orderby          = ( 'post_title' === ( $args['orderby'] ?? '' ) ) ? 'p.post_title' : 'f.created';
-		$order            = ( 'ASC' === strtoupper( $args['order'] ?? '' ) ) ? 'ASC' : 'DESC';
-		$offset           = max( 0, ( $page - 1 ) * $per_page );
+		$only_with_content = $args['only_with_content'] ?? true;
+		$orderby           = ( 'post_title' === ( $args['orderby'] ?? '' ) ) ? 'p.post_title' : 'f.created';
+		$order             = ( 'ASC' === strtoupper( $args['order'] ?? '' ) ) ? 'ASC' : 'DESC';
+		$offset            = max( 0, ( $page - 1 ) * $per_page );
 
 		$where  = array( '1=1' );
 		$values = array();
@@ -164,9 +243,9 @@ final class FeedbackRepository {
 			$values[] = $post_id;
 		}
 		if ( $only_with_content ) {
-			// "Interessant om te lezen": een los duimpje zonder toelichting, zonder
-			// geplaatste reactie en zonder contactverzoek voegt hier niets toe —
-			// die aantallen staan al samengevat in de kolom bij de artikelen.
+			// "Interesting to read": a bare thumb without a comment, without a posted comment and
+			// without a contact request adds nothing here. Those totals are already summarised in
+			// the column next to the posts.
 			$where[] = "( (f.text IS NOT NULL AND f.text != '') OR f.comment_id > 0 OR f.wants_contact = 1 )";
 		}
 
@@ -179,12 +258,15 @@ final class FeedbackRepository {
 				 ORDER BY {$orderby} {$order}
 				 LIMIT %d OFFSET %d";
 
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Only whitelisted fragments and placeholders are interpolated.
 		$rows = $wpdb->get_results( $wpdb->prepare( $sql, array_merge( $values, array( $per_page, $offset ) ) ), ARRAY_A );
 
 		$count_sql = "SELECT COUNT(*) FROM {$this->table()} f LEFT JOIN {$wpdb->posts} p ON p.ID = f.post_id WHERE {$where_sql}";
-		$total    = $values
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Same reason as above.
+		$total = $values
 			? (int) $wpdb->get_var( $wpdb->prepare( $count_sql, $values ) )
 			: (int) $wpdb->get_var( $count_sql );
+		// phpcs:enable
 
 		return array(
 			'rows'  => (array) $rows,
@@ -192,20 +274,29 @@ final class FeedbackRepository {
 		);
 	}
 
+	/**
+	 * Deletes a row.
+	 *
+	 * @since 0.1.0
+	 * @param int $id Row id.
+	 * @return void
+	 */
 	public function delete( int $id ): void {
 		global $wpdb;
 		$wpdb->delete( $this->table(), array( 'id' => $id ), array( '%d' ) );
 	}
 
 	/**
-	 * Voor het "Filter op artikel"-keuzemenu: alleen artikelen die ook echt
-	 * feedback-met-inhoud hebben, niet de hele artikelenlijst van de site.
+	 * For the "Filter by article" dropdown: only posts that actually have feedback with content,
+	 * not the whole list of posts of the site.
 	 *
+	 * @since 0.1.0
 	 * @return array<int,array{post_id:int,post_title:string}>
 	 */
 	public function posts_with_content(): array {
 		global $wpdb;
 
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name only; there are no values.
 		$rows = $wpdb->get_results(
 			"SELECT DISTINCT f.post_id, p.post_title
 			 FROM {$this->table()} f
@@ -214,11 +305,12 @@ final class FeedbackRepository {
 			 ORDER BY p.post_title ASC",
 			ARRAY_A
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		return array_map(
-			static fn ( array $r ): array => array(
-				'post_id'    => (int) $r['post_id'],
-				'post_title' => (string) ( $r['post_title'] ?? '' ),
+			static fn ( array $row ): array => array(
+				'post_id'    => (int) $row['post_id'],
+				'post_title' => (string) ( $row['post_title'] ?? '' ),
 			),
 			(array) $rows
 		);
