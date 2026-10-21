@@ -1,29 +1,62 @@
 <?xml version="1.0"?>
-<ruleset name="DeWittePrins Core Functionality Code Standards">
-    <description>Strict compliance ruleset for core functionality framework development.</description>
+<ruleset name="Reader Experience code standards">
+	<description>WordPress Core and Docs standards, with PSR-4 class files (no "class-" prefix) and snake_case code.</description>
 
-    <!-- Exclude third-party assets and compressed build folders -->
-    <exclude-pattern>*/build/*</exclude-pattern>
-    <exclude-pattern>*/node_modules/*</exclude-pattern>
-    <exclude-pattern>*/vendor/*</exclude-pattern>
+	<!-- What to check. -->
+	<file>reader-experience.php</file>
+	<file>uninstall.php</file>
+	<file>src/</file>
+	<file>blocks/</file>
 
-    <!-- Enforce the official WordPress Core standards -->
-    <rule ref="WordPress-Core" />
-    <rule ref="WordPress-Docs" />
+	<!-- Third-party and generated code. -->
+	<exclude-pattern>*/build/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
 
-    <!-- PSR-4 COMPATIBILITY: Stop checking for lowercase 'class-' filenames -->
-    <!-- This allows CamelCase filenames matching class names for Composer auto-loading -->
-    <rule ref="WordPress.Files.FileName">
-        <properties>
-            <property name="strict_class_file_names" value="false"/>
-        </properties>
-        <!-- Optional: if the sniff still triggers warnings on structure, switch off entirely: -->
-        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-    </rule>
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="ps"/>
 
-    <!-- Check all PHP files inside the current framework structure -->
-    <file>src/</file>
-    <file>settings/</file>
-    <file>core-functionality.php</file>
+	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-Docs"/>
+
+	<!-- Class files are named after the class (PSR-4 / Composer autoloading), without "class-" prefix. -->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false"/>
+		</properties>
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	</rule>
+
+	<!-- Text domain of the plugin. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="reader-experience"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Everything global is prefixed. The namespace covers classes; hooks use "reader_experience/". -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="ReaderExperience"/>
+				<element value="reader_experience"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Hook names are namespaced with a slash: "reader_experience/heading_anchors_enabled". -->
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<property name="additionalWordDelimiters" value="/"/>
+		</properties>
+	</rule>
+
+	<!-- Block render templates get $attributes, $content and $block from WordPress. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
+		<exclude-pattern>blocks/*/render.php</exclude-pattern>
+	</rule>
 </ruleset>

@@ -1,60 +1,104 @@
 # Reader Experience
 
-## Eerste keer
+Reading tools and interaction for long articles: an interaction bar (rating, comments, sharing,
+table of contents), reading time, reading progress, a table of contents and heading anchors.
+Feedback is collected and can be viewed in the admin. There are no share counts from third parties.
 
-    composer dump-autoload      # optioneel, er is ook een ingebouwde autoloader
-    npm install --save-dev @wordpress/scripts
-    npm run build               # bouwt blocks/ naar build/blocks/
+Requires WordPress 6.5 and PHP 8.1. Updates through [Git Updater](https://git-updater.com/) from
+the GitHub releases.
+
+## First time
+
+    npm install
+    npm run build               # builds blocks/ to build/blocks/
+    composer dump-autoload      # optional, there is also a built-in autoloader
+
+## Filters and actions
+
+Everything is configurable from a theme, a site plugin or your own core plugin. The first column
+is the full hook name; every name starts with `reader_experience/`.
+
+| Hook | Type | Default | Arguments | Example |
+|---|---|---|---|---|
+| `reader_experience/modules` | filter | The four modules: reading, bar, sharing, rating | `ModuleInterface[] $modules` | `add_filter( 'reader_experience/modules', fn ( $modules ) => array_filter( $modules, fn ( $m ) => 'sharing' !== $m->id() ) );` |
+| `reader_experience/heading_anchors_post_types` | filter | `array()` (off everywhere) | `string[] $post_types` | `add_filter( 'reader_experience/heading_anchors_post_types', fn () => array( 'post', 'page' ) );` |
+| `reader_experience/heading_anchors_enabled` | filter | `true` when the post type is in the list above | `bool $enabled, WP_Post $post` | `add_filter( 'reader_experience/heading_anchors_enabled', fn ( $on, $post ) => 42 === $post->ID ? false : $on, 10, 2 );` |
+| `reader_experience/heading_anchors_load_css` | filter | `true` | `bool $load, WP_Post $post` | `add_filter( 'reader_experience/heading_anchors_load_css', '__return_false' );` |
+| `reader_experience/heading_anchors_load_js` | filter | `true` | `bool $load, WP_Post $post` | `add_filter( 'reader_experience/heading_anchors_load_js', '__return_false' );` |
+| `reader_experience/heading_anchors_config` | filter | `position` `'before'`, `container` `.wp-block-post-content`, `.entry-content`, `article`, `labels` copy/copied (translated) | `array $config, WP_Post $post` | `add_filter( 'reader_experience/heading_anchors_config', fn ( $config ) => array_merge( $config, array( 'position' => 'after' ) ) );` |
+| `reader_experience/can_publish_as_comment` | filter | `true` when comments are open, the post has no password and commenting needs no account | `bool $allowed, int $post_id` | `add_filter( 'reader_experience/can_publish_as_comment', fn ( $ok, $id ) => $ok && 7 !== $id, 10, 2 );` |
+| `reader_experience/notify_on_feedback` | filter | `true` (email the administrator) | `bool $notify` | `add_filter( 'reader_experience/notify_on_feedback', '__return_false' );` |
+| `reader_experience/rating_spam_check` | filter | `true` (let the request through) | `bool $passes` | `add_filter( 'reader_experience/rating_spam_check', fn () => my_captcha_is_valid() );` |
+| `reader_experience/feedback_text_added` | action | n/a | `int $id, int $post_id, string $text` | `add_action( 'reader_experience/feedback_text_added', 'my_log_feedback', 10, 3 );` |
+| `reader_experience/feedback_contact_requested` | action | n/a | `int $id, int $post_id` | `add_action( 'reader_experience/feedback_contact_requested', 'my_crm_lead', 10, 2 );` |
+| `reader_experience/share_channels` | filter | `whatsapp`, `linkedin`, `facebook`, `email` | `array $channels` (each: `label`, `icon`, `color`, `url` callable) | `add_filter( 'reader_experience/share_channels', function ( $c ) { $c['mastodon'] = array( 'label' => 'Mastodon', 'icon' => 'share', 'color' => '#6364FF', 'url' => fn ( $url, $title ) => 'https://your.instance/share?text=' . rawurlencode( "$title $url" ) ); return $c; } );` |
+| `reader_experience/icons` | filter | The built-in line icons | `array $icons` (SVG per key) | `add_filter( 'reader_experience/icons', fn ( $icons ) => array_merge( $icons, array( 'share' => '<svg>…</svg>' ) ) );` |
+| `reader_experience/words_per_minute` | filter | `225` | `int $wpm` | `add_filter( 'reader_experience/words_per_minute', fn () => 200 );` |
+
+Icon keys: `comments`, `share`, `toc`, `copy`, `link`, `thumb_up`, `thumb_down`, `whatsapp`,
+`linkedin`, `facebook`, `email`.
+
+## Heading anchors (ids and the "copy link" icon)
+
+Off by default: without a filter, headings get no id and no CSS or JS is loaded. A site switches it
+on per post type (see the table), for example from a settings page in a core plugin.
+
+Options in `heading_anchors_config`:
+
+- `position`: `'before'` (default, hanging in the left margin, aligned with the first line) or `'after'`.
+- `container`: selector(s) of the element that holds the headings; the first one that exists wins.
+- `labels`: `copy` (button text and tooltip) and `copied` (confirmation), already translated.
+
+Always return the whole array from this filter. To use your own CSS or JS, return `false` for
+`heading_anchors_load_css` and/or `heading_anchors_load_js` and style the classes `.rx-heading-link`,
+`--before`/`--after` and `.rx-heading-link__toast`. The options for our own JS are in
+`window.rxHeadingAnchors`; a replacement script can read them if it wants to.
+
+**Table of contents exception:** when a post contains a table of contents block, its headings always
+get an id, even if the post type is not switched on; the table of contents links to them. Only the
+ids: button, CSS and JS stay off. If the table of contents sits in a template or sidebar instead of
+the post content, the exception does not apply and the post type has to be switched on.
+
+## Rating and comments
+
+A comment on a positive rating is only offered as a WordPress comment when that is possible:
+comments are open (`comments_open()`, including automatic closing), the post has no password and
+commenting needs no account. Otherwise the comment stays private. Adjust it with
+`reader_experience/can_publish_as_comment`.
+
+The REST routes (`rx/v1/rating/{id}/tekst`, `rx/v1/rating/{id}/vervolg`), their parameters (`tekst`,
+`actie`, `naam`), the stored vote values (`ja`, `nee`) and the follow-up actions (`publiceren`,
+`contact`, `overslaan`) are a data and wire format shared with the database and the JavaScript.
+They are not translated and not renamed.
+
+## Adding a module or block
+
+1. Create `src/Modules/<Name>/<Name>Module.php` (extends `AbstractModule`).
+2. Return the block slugs from `blocks()`; the source lives in `blocks/<slug>/`.
+3. Add the module in `Plugin::build_modules()` or through the `reader_experience/modules` filter.
 
 ## Core
 
-De plugin heeft momenteel geen afhankelijkheid van een core; alle modules zijn zelfstandig
-en starten op `plugins_loaded`. Komt er een echte koppeling nodig (een gedeelde migratierunner,
-instellingen-API of REST-basis), voeg die dan gericht toe in `Plugin::start()` in plaats van
-een generieke "wacht op de core"-constructie.
+The plugin has no dependency on a core plugin; all modules are self-contained and start on
+`plugins_loaded`. If a real coupling is needed (a shared migration runner, settings API or REST
+base), add it in `Plugin::start()` in a targeted way instead of a generic "wait for the core"
+construction.
 
-## Een module of blok toevoegen
+## Code style
 
-1. Maak `src/Modules/<Naam>/<Naam>Module.php` (extends `AbstractModule`).
-2. Geef de blokslugs terug in `blocks()`; de bron staat in `blocks/<slug>/`.
-3. Voeg de module toe in `Plugin::buildModules()` of via het filter `reader_experience/modules`.
+- WordPress Core and Docs standards, checked by `phpcs.xml`: `phpcs --standard=phpcs.xml`.
+- `snake_case` for functions, methods, properties and variables; `kebab-case` for slugs, handles and
+  CSS tokens; `CamelCase` only for class names and namespaces (`ReaderExperience\…`).
+- Class files are named after the class (PSR-4), without a `class-` prefix.
+- Source strings are English, text domain `reader-experience`; the Dutch translation is in `languages/`.
 
-## Kop-ankers (id's en "kopieer link"-icoontje)
+## Translations
 
-Standaard **uit**: zonder filter krijgen koppen geen id, en worden er geen CSS of JS geladen.
-Een site zet het aan, bijvoorbeeld vanuit een instellingenpagina in een core-plugin:
+Source strings are English. `languages/` holds the template (`reader-experience.pot`), the Dutch
+translation (`reader-experience-nl_NL.po` and `.mo`) and JSON files with the strings of the block
+editor scripts. The JSON files are named after the MD5 of the script path
+(`build/blocks/<slug>/index.js`), which is how WordPress finds them.
 
-```php
-add_filter( 'reader_experience/heading_anchors_post_types', fn () => array( 'post', 'page' ) );
-```
+After changing strings, update the template and the translation with WP-CLI, Loco Translate or Poedit:
 
-| Filter | Type | Standaard | Doel |
-|---|---|---|---|
-| `reader_experience/heading_anchors_post_types` | `string[]` | `array()` | Post types waarvoor het aan staat |
-| `reader_experience/heading_anchors_enabled` | `bool` | post type in de lijst | Eindoordeel per bericht (args: `bool`, `WP_Post`) |
-| `reader_experience/heading_anchors_load_css` | `bool` | `true` | Meegeleverde CSS laden (args: `bool`, `WP_Post`) |
-| `reader_experience/heading_anchors_load_js` | `bool` | `true` | Meegeleverde JS laden (args: `bool`, `WP_Post`) |
-| `reader_experience/heading_anchors_config` | `array` | zie hieronder | Opties voor de JS (args: `array`, `WP_Post`) |
-
-Opties in `heading_anchors_config`:
-
-- `position`: `'before'` (standaard, hangend in de linkermarge, uitgelijnd op de eerste regel) of `'after'`.
-- `container`: selector(s) van het artikel waarin gezocht wordt; de eerste die bestaat wint.
-  Standaard `.wp-block-post-content`, `.entry-content`, `article`.
-- `labels`: `copy` (knoptekst/tooltip) en `copied` (bevestiging), al vertaald.
-
-Eigen CSS of JS gebruiken: geef `false` terug op `..._load_css` en/of `..._load_js` en laad zelf iets
-voor de classes `.rx-heading-link`, `--before`/`--after` en `.rx-heading-link__toast`. De opties
-staan voor onze eigen JS in `window.rxHeadingAnchors`; een vervangende JS leest ze desgewenst zelf.
-
-**Inhoudsopgave-uitzondering:** bevat een bericht een inhoudsopgave-blok, dan krijgen de koppen
-altijd een id, ook als het post type niet is aangezet; de inhoudsopgave verwijst daar naar. Alleen de
-id's: knop, CSS en JS blijven uit. Staat de inhoudsopgave in een template of zijbalk in plaats van in
-de berichttekst, dan is die uitzondering niet te zien en moet het post type wél aan.
-
-## Waardering en reacties
-
-Een toelichting bij een positieve waardering wordt alleen als reactie aangeboden als dat kan:
-reacties staan open (`comments_open()`, inclusief automatisch sluiten), het bericht is niet met een
-wachtwoord beveiligd en reageren vereist geen account. Anders blijft de toelichting privé. Bijsturen
-kan met `reader_experience/can_publish_as_comment` (args: `bool`, post-id).
+    wp i18n make-pot . languages/reader-experience.pot --exclude=node_modules,vendor,build
