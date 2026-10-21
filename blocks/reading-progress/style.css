@@ -8,6 +8,14 @@
 	pointer-events: none;
 }
 /*
+ * Block themes (e.g. Twenty Twenty-Five) put a margin-block-start between the children of a
+ * layout, and a margin also shifts a fixed element away from its top offset. That left a gap
+ * under the admin bar. The doubled class beats the theme's selectors.
+ */
+.rx-progress.rx-progress {
+	margin: 0;
+}
+/*
  * De adminbar is alleen op bredere schermen "fixed"; WordPress zelf maakt hem
  * daaronder (tot ~783px) niet-vast, waardoor hij met de pagina meescrolt. Onze
  * balk hield daar geen rekening mee en bleef altijd 32px lager beginnen, ook
