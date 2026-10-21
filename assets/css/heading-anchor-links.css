@@ -10,7 +10,7 @@
 	all: unset;
 	box-sizing: border-box;
 	cursor: pointer;
-	-webkit-tap-highlight-color: transparent; /* zie blocks/shared/tokens.css voor de reden */
+	-webkit-tap-highlight-color: transparent; /* zie assets/css/base.css voor de reden */
 
 	/* Anker voor de toast. */
 	position: relative;

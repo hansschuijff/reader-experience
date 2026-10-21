@@ -37,11 +37,11 @@ $rest = array(
 	data-rx-rest-followup-base="<?php echo esc_url( $rest['followup'] ); ?>"
 >
 	<div class="rx-rating__thumbs" data-rx-step="thumbs">
-		<button type="button" class="rx-reset-button rx-rating__thumb" data-rx-value="ja" aria-pressed="false" aria-label="<?php esc_attr_e( 'Nuttig', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Nuttig', 'reader-experience' ); ?>">
+		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="ja" aria-pressed="false" aria-label="<?php esc_attr_e( 'Nuttig', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Nuttig', 'reader-experience' ); ?>">
 			<?php echo Icons::get( 'thumb_up' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- vaste, vertrouwde SVG uit de plugin zelf ?>
 			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Nuttig', 'reader-experience' ); ?></span>
 		</button>
-		<button type="button" class="rx-reset-button rx-rating__thumb" data-rx-value="nee" aria-pressed="false" aria-label="<?php esc_attr_e( 'Niet nuttig', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Niet nuttig', 'reader-experience' ); ?>">
+		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="nee" aria-pressed="false" aria-label="<?php esc_attr_e( 'Niet nuttig', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Niet nuttig', 'reader-experience' ); ?>">
 			<?php echo Icons::get( 'thumb_down' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Niet nuttig', 'reader-experience' ); ?></span>
 		</button>

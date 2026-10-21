@@ -1,5 +1,3 @@
-@import '../shared/tokens.css';
-
 .rx-bar {
 	position: fixed;
 	left: 0;
@@ -42,16 +40,15 @@
 	justify-content: center;
 }
 
-.rx-bar__button {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 2px;
-	padding: 6px 8px;
-	font-size: 0.75rem;
-	line-height: 1.1;
-	text-decoration: none;
-	border-radius: 8px;
+/*
+ * The rating block is a wrapper with a row of two thumbs inside. As its own slot in the bar the
+ * thumbs would sit together as ONE block (with their own gap) next to the other icons, which
+ * space-evenly spreads out: thumbs close together, the rest far apart. With display: contents the
+ * two wrapper boxes disappear from the layout and every thumb becomes a loose icon in the row.
+ */
+.rx-bar__inner > .rx-rating--bar,
+.rx-bar__inner > .rx-rating--bar > .rx-rating__thumbs {
+	display: contents;
 }
 
 /* Binnen de balk zelf: iconen-only, tekst blijft voor schermlezers en als title-tooltip. */
@@ -63,8 +60,6 @@
 	clip-path: inset(50%);
 	white-space: nowrap;
 }
-
-.rx-bar__icon { display: inline-flex; }
 
 /*
  * Editorweergave: geen vaste positie, anders is de balk niet te bewerken.

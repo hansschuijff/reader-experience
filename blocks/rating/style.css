@@ -1,15 +1,9 @@
-@import '../shared/tokens.css';
-
 .rx-rating-preview { display: inline-flex; gap: 10px; padding: 8px; color: var(--c-text-muted, GrayText); }
 .rx-rating__thumbs { display: flex; gap: 6px; }
-/*
- * Padding bewust gelijk aan .rx-bar__button (interaction-bar/style.css: 6px 8px),
- * zodat de duimen even veel ruimte innemen als de andere balkiconen. Rating
- * hergebruikt die class niet rechtstreeks (zie hieronder, dit blok moet ook
- * zonder de balk blijven werken), dus bij een wijziging daar: hier meenemen.
- */
-.rx-rating__thumb { flex-direction: column; gap: 2px; padding: 6px 8px; border-radius: 8px; font-size: 0.75rem; }
-.rx-rating__thumb[aria-pressed="true"] { color: var(--c-accent, Highlight); }
+/* In the bar the thumbs are plain .rx-bar__button elements (see render.php); only the inline variant needs its own geometry. */
+.rx-rating--inline .rx-rating__thumb { flex-direction: column; gap: 2px; padding: 6px; border-radius: 8px; font-size: 0.75rem; }
+/* Selected thumb keeps the accent colour, also while hovered (more specific than the shared state rules). */
+.rx-reset-button.rx-reset-button.rx-rating__thumb[aria-pressed="true"] { color: var(--c-accent, Highlight); }
 
 .rx-rating__question { font-weight: 600; margin: 0 0 8px; }
 .rx-rating__text,

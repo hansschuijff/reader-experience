@@ -13,7 +13,7 @@
 	},
 	"supports": { "html": false },
 	"editorScript": "file:./index.js",
-	"style": "file:./style-index.css",
+	"style": ["rx-base", "file:./style-index.css"],
 	"viewScript": "file:./view.js",
 	"render": "file:./render.php"
 }
