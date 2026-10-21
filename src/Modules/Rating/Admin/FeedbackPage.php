@@ -143,8 +143,8 @@ final class FeedbackPage {
 		$total_pages = (int) max( 1, ceil( $result['total'] / self::PER_PAGE ) );
 		$posts       = $this->repository->posts_with_content();
 		$icons       = array(
-			'ja'  => Icons::get( 'thumb_up' ),
-			'nee' => Icons::get( 'thumb_down' ),
+			'like'    => Icons::get( 'thumb_up' ),
+			'dislike' => Icons::get( 'thumb_down' ),
 		);
 
 		$sort_link = static function ( string $column, string $label ) use ( $orderby, $order, $post_id ) {

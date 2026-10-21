@@ -31,9 +31,6 @@ use function trim;
 
 /**
  * Routes under rx/v1 for the rating flow: vote, optional comment, optional follow-up.
- *
- * The route names and parameter names (tekst, vervolg, actie, naam, publiceren, overslaan) are
- * part of the contract with the front-end JavaScript and are deliberately left as they are.
  */
 final class RatingController extends AbstractController {
 
@@ -88,7 +85,7 @@ final class RatingController extends AbstractController {
 
 		register_rest_route(
 			self::NAMESPACE,
-			'/rating/(?P<id>\d+)/tekst',
+			'/rating/(?P<id>\d+)/text',
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'attach_text' ),
@@ -99,7 +96,7 @@ final class RatingController extends AbstractController {
 						'required'          => true,
 						'validate_callback' => static fn ( $value ): bool => is_string( $value ) && strlen( $value ) === 32,
 					),
-					'tekst'   => array(
+					'text'    => array(
 						'required'          => true,
 						'validate_callback' => static fn ( $value ): bool => is_string( $value ) && '' !== trim( $value ),
 					),
@@ -110,7 +107,7 @@ final class RatingController extends AbstractController {
 
 		register_rest_route(
 			self::NAMESPACE,
-			'/rating/(?P<id>\d+)/vervolg',
+			'/rating/(?P<id>\d+)/follow-up',
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'resolve_follow_up' ),
@@ -121,11 +118,11 @@ final class RatingController extends AbstractController {
 						'required'          => true,
 						'validate_callback' => static fn ( $value ): bool => is_string( $value ) && strlen( $value ) === 32,
 					),
-					'actie'   => array(
+					'action'  => array(
 						'required'          => true,
-						'validate_callback' => static fn ( $value ): bool => in_array( $value, array( 'publiceren', 'contact', 'overslaan' ), true ),
+						'validate_callback' => static fn ( $value ): bool => in_array( $value, array( 'publish', 'contact', 'skip' ), true ),
 					),
-					'naam'    => array( 'required' => false ),
+					'name'    => array( 'required' => false ),
 					'email'   => array( 'required' => false ),
 					'website' => array( 'required' => false ),
 				),
@@ -179,7 +176,7 @@ final class RatingController extends AbstractController {
 		$this->service->attach_text(
 			(int) $request->get_param( 'id' ),
 			(string) $request->get_param( 'token' ),
-			(string) $request->get_param( 'tekst' ),
+			(string) $request->get_param( 'text' ),
 			(string) $request->get_param( 'website' ),
 			$this->rate_limiter->fingerprint()
 		);
@@ -198,8 +195,8 @@ final class RatingController extends AbstractController {
 		$this->service->resolve_follow_up(
 			(int) $request->get_param( 'id' ),
 			(string) $request->get_param( 'token' ),
-			(string) $request->get_param( 'actie' ),
-			(string) ( $request->get_param( 'naam' ) ?? '' ),
+			(string) $request->get_param( 'action' ),
+			(string) ( $request->get_param( 'name' ) ?? '' ),
 			(string) ( $request->get_param( 'email' ) ?? '' ),
 			(string) $request->get_param( 'website' ),
 			$this->rate_limiter->fingerprint()

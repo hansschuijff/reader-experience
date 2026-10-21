@@ -98,9 +98,9 @@ final class PostColumn {
 		printf(
 			'<span class="rx-admin-icon">%s %d</span> &nbsp; <span class="rx-admin-icon">%s %d</span>',
 			Icons::get( 'thumb_up' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Fixed SVG from the plugin.
-			(int) $totals['ja'],
+			(int) $totals['like'],
 			Icons::get( 'thumb_down' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Fixed SVG from the plugin.
-			(int) $totals['nee']
+			(int) $totals['dislike']
 		);
 	}
 }

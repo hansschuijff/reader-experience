@@ -57,9 +57,8 @@ final class AnchorRegistry {
 
 		$base = sanitize_title( $text );
 		if ( '' === $base ) {
-			// Fallback id for headings without usable text. Kept as "sectie" (not translated):
-			// ids end up in links, and translating them would break existing links.
-			$base = 'sectie';
+			// Fallback id for headings without usable text.
+			$base = 'section';
 		}
 
 		$slug = $base;

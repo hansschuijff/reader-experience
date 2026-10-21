@@ -31,8 +31,8 @@ $unique      = wp_unique_id( 'rx-rating-' );
 
 $rest = array(
 	'create'   => esc_url_raw( rest_url( 'rx/v1/rating' ) ),
-	'text'     => esc_url_raw( rest_url( 'rx/v1/rating/' ) ), // Followed by {id}/tekst.
-	'followup' => esc_url_raw( rest_url( 'rx/v1/rating/' ) ), // Followed by {id}/vervolg.
+	'text'     => esc_url_raw( rest_url( 'rx/v1/rating/' ) ), // Followed by {id}/text.
+	'followup' => esc_url_raw( rest_url( 'rx/v1/rating/' ) ), // Followed by {id}/follow-up.
 );
 ?>
 <div <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-rating rx-rating--' . esc_attr( $variant ) ) ); ?>
@@ -44,23 +44,23 @@ $rest = array(
 	data-rx-rest-followup-base="<?php echo esc_url( $rest['followup'] ); ?>"
 >
 	<div class="rx-rating__thumbs" data-rx-step="thumbs">
-		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="ja" aria-pressed="false" aria-label="<?php esc_attr_e( 'Useful', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Useful', 'reader-experience' ); ?>">
+		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="like" aria-pressed="false" aria-label="<?php esc_attr_e( 'Useful', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Useful', 'reader-experience' ); ?>">
 			<?php echo Icons::get( 'thumb_up' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Fixed, trusted SVG from the plugin itself. ?>
 			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Useful', 'reader-experience' ); ?></span>
 		</button>
-		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="nee" aria-pressed="false" aria-label="<?php esc_attr_e( 'Not useful', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Not useful', 'reader-experience' ); ?>">
+		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="dislike" aria-pressed="false" aria-label="<?php esc_attr_e( 'Not useful', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Not useful', 'reader-experience' ); ?>">
 			<?php echo Icons::get( 'thumb_down' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Not useful', 'reader-experience' ); ?></span>
 		</button>
 	</div>
 
 	<div class="rx-rating__panel" data-rx-panel hidden>
-		<div class="rx-rating__step" data-rx-step="tekst">
+		<div class="rx-rating__step" data-rx-step="text">
 			<p
 				class="rx-rating__question"
 				data-rx-step-question
-				data-rx-label-ja="<?php esc_attr_e( 'Thanks for your thumb. What did you like about this page?', 'reader-experience' ); ?>"
-				data-rx-label-nee="<?php esc_attr_e( 'Thanks for your thumb. What could we improve about this page?', 'reader-experience' ); ?>"
+				data-rx-label-like="<?php esc_attr_e( 'Thanks for your thumb. What did you like about this page?', 'reader-experience' ); ?>"
+				data-rx-label-dislike="<?php esc_attr_e( 'Thanks for your thumb. What could we improve about this page?', 'reader-experience' ); ?>"
 			></p>
 			<label class="screen-reader-text" for="<?php echo esc_attr( $unique ); ?>-text"><?php esc_html_e( 'Explanation (optional)', 'reader-experience' ); ?></label>
 			<textarea id="<?php echo esc_attr( $unique ); ?>-text" class="rx-rating__text" rows="3" maxlength="1000" placeholder="<?php esc_attr_e( 'Optional', 'reader-experience' ); ?>"></textarea>
@@ -74,32 +74,32 @@ $rest = array(
 			</p>
 		</div>
 
-		<div class="rx-rating__step" data-rx-step="vervolg" hidden>
+		<div class="rx-rating__step" data-rx-step="follow-up" hidden>
 			<p
 				class="rx-rating__question"
-				data-rx-vervolg-vraag
-				data-rx-label-publiceren="<?php esc_attr_e( 'May we post your comment below the article?', 'reader-experience' ); ?>"
+				data-rx-follow-up-question
+				data-rx-label-publish="<?php esc_attr_e( 'May we post your comment below the article?', 'reader-experience' ); ?>"
 				data-rx-label-contact="<?php esc_attr_e( 'How can we contact you if we have more questions?', 'reader-experience' ); ?>"
 			></p>
-			<div class="rx-rating__fields" data-rx-vervolg-velden hidden>
-				<label class="screen-reader-text" for="<?php echo esc_attr( $unique ); ?>-naam"><?php esc_html_e( 'Name', 'reader-experience' ); ?></label>
-				<input type="text" id="<?php echo esc_attr( $unique ); ?>-naam" class="rx-rating__naam" placeholder="<?php esc_attr_e( 'Name', 'reader-experience' ); ?>" autocomplete="name" required>
+			<div class="rx-rating__fields" data-rx-follow-up-fields hidden>
+				<label class="screen-reader-text" for="<?php echo esc_attr( $unique ); ?>-name"><?php esc_html_e( 'Name', 'reader-experience' ); ?></label>
+				<input type="text" id="<?php echo esc_attr( $unique ); ?>-name" class="rx-rating__name" placeholder="<?php esc_attr_e( 'Name', 'reader-experience' ); ?>" autocomplete="name" required>
 				<label class="screen-reader-text" for="<?php echo esc_attr( $unique ); ?>-email"><?php esc_html_e( 'Email address', 'reader-experience' ); ?></label>
 				<input type="email" id="<?php echo esc_attr( $unique ); ?>-email" class="rx-rating__email" placeholder="<?php esc_attr_e( 'Email address', 'reader-experience' ); ?>" autocomplete="email" required>
 				<span
 					class="rx-rating__field-error"
 					role="alert"
-					data-rx-vervolg-error
+					data-rx-follow-up-error
 					data-rx-error="<?php esc_attr_e( 'Please enter your name and a valid email address.', 'reader-experience' ); ?>"
 				></span>
 			</div>
 			<p class="rx-rating__actions">
-				<button type="button" class="rx-reset-button rx-rating__vervolg-nee"><?php esc_html_e( 'No, thanks', 'reader-experience' ); ?></button>
+				<button type="button" class="rx-reset-button rx-rating__follow-up-no"><?php esc_html_e( 'No, thanks', 'reader-experience' ); ?></button>
 				<button
 					type="button"
-					class="rx-rating__vervolg-ja"
-					data-rx-vervolg-ja-label
-					data-rx-label-publiceren="<?php esc_attr_e( 'Yes, post it', 'reader-experience' ); ?>"
+					class="rx-rating__follow-up-yes"
+					data-rx-follow-up-yes-label
+					data-rx-label-publish="<?php esc_attr_e( 'Yes, post it', 'reader-experience' ); ?>"
 					data-rx-label-contact="<?php esc_attr_e( 'Yes, that is fine', 'reader-experience' ); ?>"
 				></button>
 			</p>

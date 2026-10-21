@@ -9,8 +9,9 @@ during the style round. Hans: correct what is wrong; delete what you do not want
 - Advice first, then build. For anything that is hard to redo, ask before building.
 - Small, separate patches: one commit per kind of change (style, feature, translation, docs).
   Mechanical renames never share a commit with behaviour changes.
-- Never change hook names, block names, CSS classes, data attributes, REST routes or stored values
-  while restyling. They are contracts with the site. Say so in the commit message.
+- While restyling, do not change hook names, block names, CSS classes, data attributes, REST routes
+  or stored values without saying so. The plugin has no external users yet (own site only), so
+  renames are allowed when Hans asks, but they get their own commit.
 - Verify before delivering: `php -l`, `npm run build`, `phpcs --standard=phpcs.xml`, and a real
   browser check (Chromium) for anything visual.
 
@@ -35,8 +36,8 @@ during the style round. Hans: correct what is wrong; delete what you do not want
 - Source strings, comments and docblocks are English. Text domain `reader-experience`.
 - The site is Dutch: every new string gets a nl_NL translation in `languages/`
   (`.pot`, `.po`, `.mo`, and `.json` per block editor script).
-- Data and wire formats that are Dutch for historical reasons (`ja`, `nee`, `tekst`, `actie`,
-  `naam`, `publiceren`, `overslaan`, `vervolg`, anchor `sectie`) stay as they are.
+- Data and wire formats are English too: votes `like`/`dislike`, actions `publish`/`contact`/`skip`,
+  routes `/text` and `/follow-up`, fallback anchor `section`.
 
 ## CSS and JS
 

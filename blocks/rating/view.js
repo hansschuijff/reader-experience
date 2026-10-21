@@ -88,7 +88,7 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 				textarea.value = '';
 			}
 			if ( questionEl ) {
-				questionEl.textContent = questionEl.dataset[ 'ja' === value ? 'rxLabelJa' : 'rxLabelNee' ] || '';
+				questionEl.textContent = questionEl.dataset[ 'like' === value ? 'rxLabelLike' : 'rxLabelDislike' ] || '';
 			}
 
 			const honeypot = panel.querySelector( '.rx-rating__hp input' );
@@ -100,7 +100,7 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 
 			current = { id: result?.id ?? null, token: result?.token ?? null, value };
 
-			showStep( panel, 'tekst' );
+			showStep( panel, 'text' );
 			openOrShow();
 		} );
 	} );
@@ -129,9 +129,9 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 		}
 
 		const honeypot = panel.querySelector( '.rx-rating__hp input' );
-		await postJson( root.dataset.rxRestTextBase + current.id + '/tekst', {
+		await postJson( root.dataset.rxRestTextBase + current.id + '/text', {
 			token: current.token,
-			tekst: text,
+			text,
 			website: honeypot ? honeypot.value : '',
 		} );
 
@@ -139,24 +139,24 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 	} );
 
 	function showFollowUp() {
-		const vervolgStep = panel.querySelector( '[data-rx-step="vervolg"]' );
-		const vraagEl = vervolgStep.querySelector( '[data-rx-vervolg-vraag]' );
-		const veldenEl = vervolgStep.querySelector( '[data-rx-vervolg-velden]' );
-		const errorEl = vervolgStep.querySelector( '[data-rx-vervolg-error]' );
-		const jaButton = vervolgStep.querySelector( '.rx-rating__vervolg-ja' );
-		const neeButton = vervolgStep.querySelector( '.rx-rating__vervolg-nee' );
-		const naamInput = vervolgStep.querySelector( '.rx-rating__naam' );
-		const emailInput = vervolgStep.querySelector( '.rx-rating__email' );
+		const followUpStep = panel.querySelector( '[data-rx-step="follow-up"]' );
+		const followUpQuestionEl = followUpStep.querySelector( '[data-rx-follow-up-question]' );
+		const fieldsEl = followUpStep.querySelector( '[data-rx-follow-up-fields]' );
+		const errorEl = followUpStep.querySelector( '[data-rx-follow-up-error]' );
+		const yesButton = followUpStep.querySelector( '.rx-rating__follow-up-yes' );
+		const noButton = followUpStep.querySelector( '.rx-rating__follow-up-no' );
+		const nameInput = followUpStep.querySelector( '.rx-rating__name' );
+		const emailInput = followUpStep.querySelector( '.rx-rating__email' );
 
-		const actie = 'ja' === current.value ? 'publiceren' : 'contact';
+		const action = 'like' === current.value ? 'publish' : 'contact';
 
 		// Staan reacties op deze pagina dicht (of vereisen ze een account), dan is er niets te
 		// plaatsen: de toelichting blijft privé en we ronden gewoon af. De server houdt dezelfde
 		// controle aan, dit voorkomt alleen dat iemand een aanbod ziet dat niet kan.
-		if ( 'publiceren' === actie && '1' !== root.dataset.rxCanComment ) {
-			postJson( root.dataset.rxRestFollowupBase + current.id + '/vervolg', {
+		if ( 'publish' === action && '1' !== root.dataset.rxCanComment ) {
+			postJson( root.dataset.rxRestFollowupBase + current.id + '/follow-up', {
 				token: current.token,
-				actie: 'overslaan',
+				action: 'skip',
 				website: panel.querySelector( '.rx-rating__hp input' )?.value || '',
 			} );
 			finish();
@@ -166,42 +166,42 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 			return;
 		}
 
-		const key = 'publiceren' === actie ? 'rxLabelPubliceren' : 'rxLabelContact';
-		vraagEl.textContent = vraagEl.dataset[ key ] || '';
-		jaButton.textContent = jaButton.dataset[ key ] || '';
-		veldenEl.hidden = true;
+		const key = 'publish' === action ? 'rxLabelPublish' : 'rxLabelContact';
+		followUpQuestionEl.textContent = followUpQuestionEl.dataset[ key ] || '';
+		yesButton.textContent = yesButton.dataset[ key ] || '';
+		fieldsEl.hidden = true;
 		if ( errorEl ) {
 			errorEl.textContent = '';
 		}
 
-		showStep( panel, 'vervolg' );
+		showStep( panel, 'follow-up' );
 
 		let revealed = false;
-		jaButton.onclick = async () => {
+		yesButton.onclick = async () => {
 			if ( ! revealed ) {
-				veldenEl.hidden = false;
+				fieldsEl.hidden = false;
 				revealed = true;
-				naamInput?.focus();
+				nameInput?.focus();
 				return;
 			}
 
 			// Naam en e-mail zijn hier niet optioneel: zonder die gegevens kan de
 			// reactie niet geplaatst, of kan er geen contact opgenomen worden.
-			const naam = ( naamInput?.value || '' ).trim();
+			const name = ( nameInput?.value || '' ).trim();
 			const email = ( emailInput?.value || '' ).trim();
-			if ( '' === naam || '' === email || ! isValidEmail( email ) ) {
+			if ( '' === name || '' === email || ! isValidEmail( email ) ) {
 				if ( errorEl ) {
 					errorEl.textContent =
-						errorEl.dataset.rxError || 'Vul je naam en een geldig e-mailadres in.';
+						errorEl.dataset.rxError || 'Enter your name and a valid email address.';
 				}
 				return;
 			}
 
 			const honeypot = panel.querySelector( '.rx-rating__hp input' );
-			await postJson( root.dataset.rxRestFollowupBase + current.id + '/vervolg', {
+			await postJson( root.dataset.rxRestFollowupBase + current.id + '/follow-up', {
 				token: current.token,
-				actie,
-				naam,
+				action,
+				name,
 				email,
 				website: honeypot ? honeypot.value : '',
 			} );
@@ -211,11 +211,11 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 			}
 		};
 
-		neeButton.onclick = async () => {
+		noButton.onclick = async () => {
 			const honeypot = panel.querySelector( '.rx-rating__hp input' );
-			await postJson( root.dataset.rxRestFollowupBase + current.id + '/vervolg', {
+			await postJson( root.dataset.rxRestFollowupBase + current.id + '/follow-up', {
 				token: current.token,
-				actie: 'overslaan',
+				action: 'skip',
 				website: honeypot ? honeypot.value : '',
 			} );
 			finish();

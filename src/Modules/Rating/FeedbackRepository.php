@@ -27,11 +27,11 @@ use function strtoupper;
 final class FeedbackRepository {
 
 	/**
-	 * Allowed stored vote values: "ja" (up) and "nee" (down). Data format, not translated.
+	 * Allowed stored vote values: "like" (thumb up) and "dislike" (thumb down).
 	 *
 	 * @var string[]
 	 */
-	public const VALUES = array( 'ja', 'nee' );
+	public const VALUES = array( 'like', 'dislike' );
 
 	/**
 	 * Name of the feedback table.

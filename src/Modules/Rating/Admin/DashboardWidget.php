@@ -87,7 +87,7 @@ final class DashboardWidget {
 		echo '<style>.rx-feedback-widget svg{width:14px;height:14px;vertical-align:text-bottom;}</style>';
 		echo '<ul class="rx-feedback-widget">';
 		foreach ( $items as $item ) {
-			$icon  = Icons::get( 'ja' === $item['value'] ? 'thumb_up' : 'thumb_down' );
+			$icon  = Icons::get( 'like' === $item['value'] ? 'thumb_up' : 'thumb_down' );
 			$extra = array();
 			if ( ! empty( $item['comment_id'] ) ) {
 				$extra[] = sprintf(

@@ -66,10 +66,8 @@ comments are open (`comments_open()`, including automatic closing), the post has
 commenting needs no account. Otherwise the comment stays private. Adjust it with
 `reader_experience/can_publish_as_comment`.
 
-The REST routes (`rx/v1/rating/{id}/tekst`, `rx/v1/rating/{id}/vervolg`), their parameters (`tekst`,
-`actie`, `naam`), the stored vote values (`ja`, `nee`) and the follow-up actions (`publiceren`,
-`contact`, `overslaan`) are a data and wire format shared with the database and the JavaScript.
-They are not translated and not renamed.
+The REST routes are `rx/v1/rating/{id}/text` and `rx/v1/rating/{id}/follow-up`. Votes are stored as
+`like` or `dislike`; follow-up actions are `publish`, `contact` and `skip`.
 
 ## Adding a module or block
 

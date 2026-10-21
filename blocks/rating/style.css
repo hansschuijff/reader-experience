@@ -7,7 +7,7 @@
 
 .rx-rating__question { font-weight: 600; margin: 0 0 8px; }
 .rx-rating__text,
-.rx-rating__naam,
+.rx-rating__name,
 .rx-rating__email {
 	width: 100%;
 	box-sizing: border-box;
@@ -21,9 +21,9 @@
 
 .rx-rating__actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin: 8px 0 0; }
 .rx-rating__skip,
-.rx-rating__vervolg-nee { padding: 4px 10px; border-radius: 6px; }
+.rx-rating__follow-up-no { padding: 4px 10px; border-radius: 6px; }
 .rx-rating__send,
-.rx-rating__vervolg-ja {
+.rx-rating__follow-up-yes {
 	font: inherit;
 	font-size: 0.8125rem;
 	padding: 4px 10px;
@@ -82,7 +82,7 @@
 	}
 	.rx-rating__text { min-height: 9em; } /* ≈ 6–7 regels in plaats van de mobiele 3 */
 	.rx-rating__send,
-	.rx-rating__vervolg-ja,
+	.rx-rating__follow-up-yes,
 	.rx-rating__skip,
-	.rx-rating__vervolg-nee { padding: 0.7em 1.8em; font-size: 0.9375rem; }
+	.rx-rating__follow-up-no { padding: 0.7em 1.8em; font-size: 0.9375rem; }
 }

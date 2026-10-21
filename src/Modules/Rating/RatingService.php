@@ -39,10 +39,6 @@ use function wp_strip_all_tags;
  * One token covers the whole short flow: vote, optional comment, and then optionally "post as
  * comment" (after a positive vote) or "contact me" (after a negative vote). The token is only
  * invalidated at the end, not after the comment, because the last step could not happen otherwise.
- *
- * The stored vote values ("ja", "nee") and the follow-up actions ("publiceren", "contact",
- * "overslaan") are data and wire formats shared with the database and the JavaScript. They are
- * deliberately not translated or renamed.
  */
 final class RatingService {
 
@@ -125,7 +121,7 @@ final class RatingService {
 	 * @return bool
 	 */
 	public function attach_text( int $id, string $token, string $text, string $honeypot, string $fingerprint ): bool {
-		if ( ! $this->passes_spam_checks( $honeypot, "rating-tekst:{$fingerprint}", 20 ) ) {
+		if ( ! $this->passes_spam_checks( $honeypot, "rating-text:{$fingerprint}", 20 ) ) {
 			return true;
 		}
 
@@ -161,7 +157,7 @@ final class RatingService {
 	 * @since 0.1.0
 	 * @param int    $id          Feedback id.
 	 * @param string $token       Flow token.
-	 * @param string $action      One of "publiceren", "contact" or "overslaan".
+	 * @param string $action      One of "publish", "contact" or "skip".
 	 * @param string $name        Name of the reader.
 	 * @param string $email       Email address of the reader.
 	 * @param string $honeypot    Value of the honeypot field; must be empty.
@@ -177,7 +173,7 @@ final class RatingService {
 		string $honeypot,
 		string $fingerprint
 	): bool {
-		if ( ! $this->passes_spam_checks( $honeypot, "rating-vervolg:{$fingerprint}", 20 ) ) {
+		if ( ! $this->passes_spam_checks( $honeypot, "rating-follow-up:{$fingerprint}", 20 ) ) {
 			return true;
 		}
 
@@ -195,12 +191,12 @@ final class RatingService {
 		$email = sanitize_email( $email );
 		$text  = trim( (string) $row['text'] );
 
-		if ( 'publiceren' === $action && 'ja' === $row['value'] && '' !== $text && $this->comment_publisher->can_publish( $row['post_id'] ) ) {
+		if ( 'publish' === $action && 'like' === $row['value'] && '' !== $text && $this->comment_publisher->can_publish( $row['post_id'] ) ) {
 			$comment_id = $this->comment_publisher->publish( $row['post_id'], $text, $name, $email );
 			if ( false !== $comment_id ) {
 				$this->repository->set_comment( $id, $comment_id );
 			}
-		} elseif ( 'contact' === $action && 'nee' === $row['value'] && ( '' !== $name || '' !== $email ) ) {
+		} elseif ( 'contact' === $action && 'dislike' === $row['value'] && ( '' !== $name || '' !== $email ) ) {
 			$this->repository->set_contact( $id, $name, $email );
 
 			/**
