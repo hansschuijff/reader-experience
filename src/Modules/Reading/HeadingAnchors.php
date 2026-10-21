@@ -14,6 +14,17 @@ namespace ReaderExperience\Modules\Reading;
 
 use WP_Post;
 
+use function __;
+use function apply_filters;
+use function array_filter;
+use function array_unique;
+use function array_values;
+use function has_block;
+use function in_array;
+use function is_array;
+use function is_string;
+use function trim;
+
 /**
  * Decides, through filters, where the anchor functionality is active.
  *

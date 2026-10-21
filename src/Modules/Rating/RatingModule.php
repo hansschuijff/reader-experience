@@ -19,6 +19,8 @@ use ReaderExperience\Modules\Rating\Admin\PostColumn;
 use ReaderExperience\Modules\Rating\Migrations\AddCommentFieldsToFeedbackTable;
 use ReaderExperience\Modules\Rating\Migrations\CreateFeedbackTable;
 
+use function is_admin;
+
 /**
  * Thumbs up/down with an optional comment, stored for the administrator.
  */

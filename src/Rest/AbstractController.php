@@ -12,6 +12,8 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Rest;
 
+use function add_action;
+
 /**
  * Shared plumbing for the REST controllers of the plugin (namespace rx/v1).
  */

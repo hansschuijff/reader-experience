@@ -20,6 +20,20 @@ use ReaderExperience\Modules\Reading\ReadingModule;
 use ReaderExperience\Modules\Sharing\SharingModule;
 use ReaderExperience\Support\Migrator;
 
+use function add_action;
+use function apply_filters;
+use function array_filter;
+use function array_merge;
+use function array_unique;
+use function array_values;
+use function did_action;
+use function dirname;
+use function is_admin;
+use function load_plugin_textdomain;
+use function ltrim;
+use function plugin_basename;
+use function plugin_dir_path;
+
 /**
  * Builds the modules, runs the migrations and registers the blocks.
  */

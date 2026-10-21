@@ -17,6 +17,15 @@ use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
 
+use function __;
+use function get_post_status;
+use function get_transient;
+use function is_numeric;
+use function is_string;
+use function md5;
+use function register_rest_route;
+use function set_transient;
+
 /**
  * Counts clicks, not successful shares. Sent with sendBeacon, so no response body is needed.
  */

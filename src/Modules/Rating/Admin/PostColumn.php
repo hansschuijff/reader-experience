@@ -15,6 +15,12 @@ namespace ReaderExperience\Modules\Rating\Admin;
 use ReaderExperience\Modules\Rating\FeedbackRepository;
 use ReaderExperience\Support\Icons;
 
+use function __;
+use function add_action;
+use function add_filter;
+use function array_sum;
+use function printf;
+
 /**
  * Adds a column with the number of thumbs up and down to the posts list.
  */

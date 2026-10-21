@@ -15,6 +15,18 @@ namespace ReaderExperience\Modules\Rating\Admin;
 use ReaderExperience\Modules\Rating\FeedbackRepository;
 use ReaderExperience\Support\Icons;
 
+use function __;
+use function add_action;
+use function admin_url;
+use function esc_html;
+use function esc_html__;
+use function esc_url;
+use function get_edit_post_link;
+use function implode;
+use function printf;
+use function sprintf;
+use function wp_add_dashboard_widget;
+
 /**
  * Shows the most recent feedback that has a comment on the WordPress dashboard.
  */

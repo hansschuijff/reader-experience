@@ -27,6 +27,16 @@ declare( strict_types=1 );
 
 namespace ReaderExperience;
 
+use function add_action;
+use function defined;
+use function is_readable;
+use function register_activation_hook;
+use function spl_autoload_register;
+use function str_replace;
+use function str_starts_with;
+use function strlen;
+use function substr;
+
 defined( 'ABSPATH' ) || exit;
 
 const VERSION     = '0.2.0';

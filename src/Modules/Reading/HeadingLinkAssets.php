@@ -14,6 +14,18 @@ namespace ReaderExperience\Modules\Reading;
 
 use WP_Post;
 
+use function add_action;
+use function defined;
+use function filemtime;
+use function get_queried_object;
+use function is_singular;
+use function plugin_dir_path;
+use function plugin_dir_url;
+use function wp_add_inline_script;
+use function wp_enqueue_script;
+use function wp_enqueue_style;
+use function wp_json_encode;
+
 use const ReaderExperience\PLUGIN_FILE;
 
 /**

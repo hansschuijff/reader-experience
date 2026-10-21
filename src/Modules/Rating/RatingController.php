@@ -18,6 +18,17 @@ use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
 
+use function __;
+use function bin2hex;
+use function get_post_status;
+use function in_array;
+use function is_numeric;
+use function is_string;
+use function random_bytes;
+use function register_rest_route;
+use function strlen;
+use function trim;
+
 /**
  * Routes under rx/v1 for the rating flow: vote, optional comment, optional follow-up.
  *

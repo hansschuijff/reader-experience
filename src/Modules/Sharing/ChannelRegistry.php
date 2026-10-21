@@ -12,6 +12,10 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Sharing;
 
+use function __;
+use function apply_filters;
+use function rawurlencode;
+
 /**
  * Share channels as URL templates, filterable.
  *

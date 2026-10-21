@@ -15,6 +15,30 @@ namespace ReaderExperience\Modules\Rating\Admin;
 use ReaderExperience\Modules\Rating\FeedbackRepository;
 use ReaderExperience\Support\Icons;
 
+use function __;
+use function add_action;
+use function add_management_page;
+use function add_query_arg;
+use function admin_url;
+use function ceil;
+use function check_admin_referer;
+use function current_user_can;
+use function esc_attr;
+use function esc_html;
+use function esc_html_e;
+use function esc_js;
+use function esc_url;
+use function get_edit_post_link;
+use function max;
+use function mysql2date;
+use function paginate_links;
+use function printf;
+use function remove_query_arg;
+use function selected;
+use function strtoupper;
+use function wp_nonce_url;
+use function wp_safe_redirect;
+
 /**
  * Simple overview under Tools. No WP_List_Table (bulk actions, column visibility): that can come
  * later if there is a need. Shows only feedback with content (a comment, a posted comment or a

@@ -12,6 +12,17 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Blocks;
 
+use function defined;
+use function dirname;
+use function error_log;
+use function filemtime;
+use function is_readable;
+use function plugins_url;
+use function register_block_type;
+use function rtrim;
+use function sprintf;
+use function wp_register_style;
+
 /**
  * Registers blocks from the build folder, based on their block.json.
  * Only blocks of active modules are passed in.

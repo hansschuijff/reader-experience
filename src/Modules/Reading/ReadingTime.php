@@ -12,6 +12,16 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Reading;
 
+use function apply_filters;
+use function ceil;
+use function count;
+use function is_array;
+use function max;
+use function preg_split;
+use function strip_shortcodes;
+use function trim;
+use function wp_strip_all_tags;
+
 /**
  * Counts words and converts that to minutes of reading.
  */

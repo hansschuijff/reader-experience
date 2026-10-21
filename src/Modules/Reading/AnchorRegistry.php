@@ -12,6 +12,9 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Reading;
 
+use function is_string;
+use function sanitize_title;
+
 /**
  * Hands out unique anchors, in order. The same order and the same rules are used when rendering
  * headings and when building the table of contents, so both end up with the same ids.

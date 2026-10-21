@@ -14,6 +14,23 @@ namespace ReaderExperience\Modules\Rating;
 
 use ReaderExperience\Support\RateLimiter;
 
+use function apply_filters;
+use function bin2hex;
+use function do_action;
+use function function_exists;
+use function hash;
+use function hash_equals;
+use function in_array;
+use function mb_substr;
+use function random_bytes;
+use function sanitize_email;
+use function sanitize_text_field;
+use function strtotime;
+use function substr;
+use function time;
+use function trim;
+use function wp_strip_all_tags;
+
 /**
  * Validation, token handling and spam protection around a rating. The database itself stays in
  * FeedbackRepository, and posting as a comment in CommentPublisher, so this class can be tested

@@ -12,6 +12,8 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Support;
 
+use function apply_filters;
+
 /**
  * Central registry of the line icons used in the bar and the blocks. Every icon is 24x24, draws
  * with currentColor and can be overridden per key, so a theme or site-specific plugin can supply

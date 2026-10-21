@@ -14,6 +14,11 @@ namespace ReaderExperience\Support;
 
 use ReaderExperience\Contracts\MigrationInterface;
 
+use function get_option;
+use function in_array;
+use function is_array;
+use function update_option;
+
 /**
  * Simple migration runner. Every migration runs at most once, tracked in an option.
  * No core with its own migration system is available, so for now this belongs to the plugin.

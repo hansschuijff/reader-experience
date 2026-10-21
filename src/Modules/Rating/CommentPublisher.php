@@ -12,6 +12,16 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Rating;
 
+use function __;
+use function apply_filters;
+use function comments_open;
+use function function_exists;
+use function get_option;
+use function is_wp_error;
+use function post_password_required;
+use function trim;
+use function wp_new_comment;
+
 /**
  * Posts a rating with a comment as a real comment, through the normal WordPress comment pipeline
  * (wp_new_comment). That means: normal moderation handling (including automatic approval if the

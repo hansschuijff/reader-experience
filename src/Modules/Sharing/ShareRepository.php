@@ -12,6 +12,8 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Sharing;
 
+use function current_time;
+
 /**
  * Counts per post, channel and day. No personal data in this table.
  */

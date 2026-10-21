@@ -15,6 +15,21 @@ namespace ReaderExperience\Modules\Reading;
 use WP_HTML_Tag_Processor;
 use WP_Post;
 
+use function add_filter;
+use function array_column;
+use function array_filter;
+use function array_values;
+use function count;
+use function get_post;
+use function html_entity_decode;
+use function is_string;
+use function max;
+use function min;
+use function parse_blocks;
+use function preg_match;
+use function trim;
+use function wp_strip_all_tags;
+
 /**
  * Gives headings (h2 to h4) an anchor and builds the list for the table of contents.
  *

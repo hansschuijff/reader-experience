@@ -12,6 +12,10 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Support;
 
+use function get_transient;
+use function md5;
+use function set_transient;
+
 /**
  * Short, anonymous rate limiting based on transients. No IP addresses are stored: the caller
  * passes its own key (already hashed, for example).

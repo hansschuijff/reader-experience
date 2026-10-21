@@ -12,6 +12,15 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Rating;
 
+use function array_fill_keys;
+use function array_map;
+use function array_merge;
+use function current_time;
+use function gmdate;
+use function implode;
+use function max;
+use function strtoupper;
+
 /**
  * Database access for ratings. Contains no validation or token logic; that lives in RatingService.
  */

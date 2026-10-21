@@ -12,6 +12,16 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Rating;
 
+use function __;
+use function add_action;
+use function admin_url;
+use function apply_filters;
+use function get_bloginfo;
+use function get_option;
+use function get_the_title;
+use function sprintf;
+use function wp_mail;
+
 /**
  * A short email to the site administrator for new feedback worth reading (a comment, or a
  * contact request). A bare thumb without text deliberately sends no email: that would be too
