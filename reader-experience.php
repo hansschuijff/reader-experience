@@ -24,7 +24,7 @@ namespace ReaderExperience;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION = '0.1.0';
+const VERSION = '0.2.0';
 const PLUGIN_FILE = __FILE__;
 
 if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
@@ -58,6 +58,6 @@ add_action(
 register_activation_hook(
 	__FILE__,
 	static function (): void {
-		Plugin::onActivate( __FILE__ );
+		Plugin::on_activate( __FILE__ );
 	}
 );

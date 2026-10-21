@@ -19,7 +19,7 @@ $variant = ( 'bar' === ( $attributes['variant'] ?? 'inline' ) ) ? 'bar' : 'inlin
 
 // Mag een toelichting bij een positieve waardering als reactie geplaatst worden? Niet als
 // reacties op dit bericht dicht staan (of een account vereisen): dan bieden we het ook niet aan.
-$can_comment = ( new CommentPublisher() )->canPublish( $post_id );
+$can_comment = ( new CommentPublisher() )->can_publish( $post_id );
 $unique  = wp_unique_id( 'rx-rating-' );
 
 $rest = array(

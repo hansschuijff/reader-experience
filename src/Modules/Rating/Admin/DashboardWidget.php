@@ -28,7 +28,7 @@ final class DashboardWidget {
 	}
 
 	public function render(): void {
-		$items = $this->repository->recentWithText( 10 );
+		$items = $this->repository->recent_with_text( 10 );
 
 		if ( ! $items ) {
 			echo '<p>' . esc_html__( 'Nog geen feedback met een toelichting.', 'reader-experience' ) . '</p>';

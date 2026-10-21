@@ -6,6 +6,7 @@ namespace ReaderExperience\Modules\Rating\Migrations;
 
 use ReaderExperience\Contracts\MigrationInterface;
 use ReaderExperience\Modules\Rating\FeedbackRepository;
+use wpdb;
 
 final class CreateFeedbackTable implements MigrationInterface {
 
@@ -13,7 +14,7 @@ final class CreateFeedbackTable implements MigrationInterface {
 		return '2026_09_29_feedback';
 	}
 
-	public function up( \wpdb $db ): void {
+	public function up( wpdb $db ): void {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$table   = ( new FeedbackRepository() )->table();

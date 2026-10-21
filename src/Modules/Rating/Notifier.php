@@ -17,12 +17,12 @@ namespace ReaderExperience\Modules\Rating;
 final class Notifier {
 
 	public function register(): void {
-		add_action( 'reader_experience/feedback_text_added', array( $this, 'notifyText' ), 10, 3 );
-		add_action( 'reader_experience/feedback_contact_requested', array( $this, 'notifyContact' ), 10, 2 );
+		add_action( 'reader_experience/feedback_text_added', array( $this, 'notify_text' ), 10, 3 );
+		add_action( 'reader_experience/feedback_contact_requested', array( $this, 'notify_contact' ), 10, 2 );
 	}
 
-	public function notifyText( int $id, int $postId, string $text ): void {
-		if ( ! $this->shouldNotify() ) {
+	public function notify_text( int $id, int $post_id, string $text ): void {
+		if ( ! $this->should_notify() ) {
 			return;
 		}
 
@@ -31,15 +31,15 @@ final class Notifier {
 			sprintf(
 				/* translators: 1: artikeltitel, 2: toelichting, 3: link naar het overzicht */
 				__( "Bij \"%1\$s\":\n\n%2\$s\n\nBekijk alle feedback: %3\$s", 'reader-experience' ),
-				get_the_title( $postId ),
+				get_the_title( $post_id ),
 				$text,
 				admin_url( 'tools.php?page=rx-feedback' )
 			)
 		);
 	}
 
-	public function notifyContact( int $id, int $postId ): void {
-		if ( ! $this->shouldNotify() ) {
+	public function notify_contact( int $id, int $post_id ): void {
+		if ( ! $this->should_notify() ) {
 			return;
 		}
 
@@ -48,13 +48,13 @@ final class Notifier {
 			sprintf(
 				/* translators: 1: artikeltitel, 2: link naar het overzicht */
 				__( "Bij \"%1\$s\" is een contactverzoek binnengekomen.\n\nBekijk de gegevens: %2\$s", 'reader-experience' ),
-				get_the_title( $postId ),
+				get_the_title( $post_id ),
 				admin_url( 'tools.php?page=rx-feedback' )
 			)
 		);
 	}
 
-	private function shouldNotify(): bool {
+	private function should_notify(): bool {
 		return (bool) apply_filters( 'reader_experience/notify_on_feedback', true );
 	}
 

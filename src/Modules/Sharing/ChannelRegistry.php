@@ -75,7 +75,7 @@ final class ChannelRegistry {
 		return apply_filters( 'reader_experience/share_channels', $channels );
 	}
 
-	public function isValid( string $channel ): bool {
+	public function is_valid( string $channel ): bool {
 		return 'copy' === $channel || isset( $this->channels()[ $channel ] );
 	}
 }

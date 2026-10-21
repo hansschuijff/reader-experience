@@ -26,10 +26,10 @@ final class FeedbackPage {
 	}
 
 	public function register(): void {
-		add_action( 'admin_menu', array( $this, 'addPage' ) );
+		add_action( 'admin_menu', array( $this, 'add_page' ) );
 	}
 
-	public function addPage(): void {
+	public function add_page(): void {
 		$hook = add_management_page(
 			__( 'Reader Experience feedback', 'reader-experience' ),
 			__( 'Feedback', 'reader-experience' ),
@@ -38,10 +38,10 @@ final class FeedbackPage {
 			array( $this, 'render' )
 		);
 
-		add_action( "admin_head-{$hook}", array( $this, 'printStyle' ) );
+		add_action( "admin_head-{$hook}", array( $this, 'print_style' ) );
 	}
 
-	public function printStyle(): void {
+	public function print_style(): void {
 		echo '<style>.rx-admin-icon svg{width:16px;height:16px;vertical-align:text-bottom;}</style>';
 	}
 
@@ -50,26 +50,26 @@ final class FeedbackPage {
 			return;
 		}
 
-		$this->maybeHandleDelete();
+		$this->maybe_handle_delete();
 
 		$page    = max( 1, (int) ( $_GET['paged'] ?? 1 ) ); // phpcs:ignore WordPress.Security.NonceVerification
-		$postId  = (int) ( $_GET['rx_post'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification
+		$post_id  = (int) ( $_GET['rx_post'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification
 		$orderby = ( 'post_title' === ( $_GET['orderby'] ?? '' ) ) ? 'post_title' : 'created'; // phpcs:ignore WordPress.Security.NonceVerification
 		$order   = ( 'ASC' === strtoupper( (string) ( $_GET['order'] ?? '' ) ) ) ? 'ASC' : 'DESC'; // phpcs:ignore WordPress.Security.NonceVerification
 
 		$result     = $this->repository->paginated(
 			$page,
 			self::PER_PAGE,
-			array( 'post_id' => $postId, 'orderby' => $orderby, 'order' => $order )
+			array( 'post_id' => $post_id, 'orderby' => $orderby, 'order' => $order )
 		);
-		$totalPages = (int) max( 1, ceil( $result['total'] / self::PER_PAGE ) );
-		$posts      = $this->repository->postsWithContent();
+		$total_pages = (int) max( 1, ceil( $result['total'] / self::PER_PAGE ) );
+		$posts      = $this->repository->posts_with_content();
 		$icons      = array( 'ja' => Icons::get( 'thumb_up' ), 'nee' => Icons::get( 'thumb_down' ) );
 
-		$sortLink = static function ( string $column, string $label ) use ( $orderby, $order, $postId ) {
-			$nextOrder = ( $column === $orderby && 'DESC' === $order ) ? 'ASC' : 'DESC';
+		$sort_link = static function ( string $column, string $label ) use ( $orderby, $order, $post_id ) {
+			$next_order = ( $column === $orderby && 'DESC' === $order ) ? 'ASC' : 'DESC';
 			$url       = add_query_arg(
-				array( 'orderby' => $column, 'order' => $nextOrder, 'rx_post' => $postId ?: null ),
+				array( 'orderby' => $column, 'order' => $next_order, 'rx_post' => $post_id ?: null ),
 				admin_url( 'tools.php?page=rx-feedback' )
 			);
 			$arrow = $column === $orderby ? ( 'ASC' === $order ? ' ↑' : ' ↓' ) : '';
@@ -85,7 +85,7 @@ final class FeedbackPage {
 				<select name="rx_post" id="rx-post-filter" onchange="this.form.submit()">
 					<option value="0"><?php esc_html_e( 'Alle artikelen', 'reader-experience' ); ?></option>
 					<?php foreach ( $posts as $post ) : ?>
-						<option value="<?php echo (int) $post['post_id']; ?>" <?php selected( $postId, $post['post_id'] ); ?>>
+						<option value="<?php echo (int) $post['post_id']; ?>" <?php selected( $post_id, $post['post_id'] ); ?>>
 							<?php echo esc_html( $post['post_title'] ?: __( '(zonder titel)', 'reader-experience' ) ); ?>
 						</option>
 					<?php endforeach; ?>
@@ -96,11 +96,11 @@ final class FeedbackPage {
 			<table class="widefat striped">
 				<thead>
 					<tr>
-						<th><?php $sortLink( 'post_title', __( 'Artikel', 'reader-experience' ) ); ?></th>
+						<th><?php $sort_link( 'post_title', __( 'Artikel', 'reader-experience' ) ); ?></th>
 						<th><?php esc_html_e( 'Waardering', 'reader-experience' ); ?></th>
 						<th><?php esc_html_e( 'Toelichting', 'reader-experience' ); ?></th>
 						<th><?php esc_html_e( 'Vervolg', 'reader-experience' ); ?></th>
-						<th><?php $sortLink( 'created', __( 'Datum', 'reader-experience' ) ); ?></th>
+						<th><?php $sort_link( 'created', __( 'Datum', 'reader-experience' ) ); ?></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -141,7 +141,7 @@ final class FeedbackPage {
 				</tbody>
 			</table>
 
-			<?php if ( $totalPages > 1 ) : ?>
+			<?php if ( $total_pages > 1 ) : ?>
 				<p class="tablenav">
 					<span class="pagination-links">
 						<?php
@@ -150,8 +150,8 @@ final class FeedbackPage {
 								'base'     => add_query_arg( 'paged', '%#%' ),
 								'format'   => '',
 								'current'  => $page,
-								'total'    => $totalPages,
-								'add_args' => array( 'page' => 'rx-feedback', 'rx_post' => $postId ?: null, 'orderby' => $orderby, 'order' => $order ),
+								'total'    => $total_pages,
+								'add_args' => array( 'page' => 'rx-feedback', 'rx_post' => $post_id ?: null, 'orderby' => $orderby, 'order' => $order ),
 							)
 						);
 						?>
@@ -162,7 +162,7 @@ final class FeedbackPage {
 		<?php
 	}
 
-	private function maybeHandleDelete(): void {
+	private function maybe_handle_delete(): void {
 		$id = (int) ( $_GET['rx_delete'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification
 		if ( $id <= 0 ) {
 			return;

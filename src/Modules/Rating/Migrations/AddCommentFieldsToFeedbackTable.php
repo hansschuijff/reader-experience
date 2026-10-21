@@ -6,6 +6,7 @@ namespace ReaderExperience\Modules\Rating\Migrations;
 
 use ReaderExperience\Contracts\MigrationInterface;
 use ReaderExperience\Modules\Rating\FeedbackRepository;
+use wpdb;
 
 /**
  * dbDelta() vergelijkt de volledige gewenste tabeldefinitie met wat er al staat en past
@@ -18,7 +19,7 @@ final class AddCommentFieldsToFeedbackTable implements MigrationInterface {
 		return '2026_09_30_feedback_comment_fields';
 	}
 
-	public function up( \wpdb $db ): void {
+	public function up( wpdb $db ): void {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$table   = ( new FeedbackRepository() )->table();

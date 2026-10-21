@@ -16,6 +16,6 @@ $target = isset( $attributes['target'] ) && '' !== trim( (string) $attributes['t
 	: '.wp-block-post-content';
 
 $color       = isset( $attributes['color'] ) ? (string) $attributes['color'] : '';
-$inlineStyle = '' !== $color ? sprintf( '--rx-progress-color:%s;', esc_attr( $color ) ) : '';
+$inline_style = '' !== $color ? sprintf( '--rx-progress-color:%s;', esc_attr( $color ) ) : '';
 ?>
-<div <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-progress', 'aria-hidden' => 'true', 'data-rx-target' => $target, 'style' => $inlineStyle ) ); ?>><span class="rx-progress__bar"></span></div>
+<div <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-progress', 'aria-hidden' => 'true', 'data-rx-target' => $target, 'style' => $inline_style ) ); ?>><span class="rx-progress__bar"></span></div>

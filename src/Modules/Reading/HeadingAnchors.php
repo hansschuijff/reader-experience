@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace ReaderExperience\Modules\Reading;
 
+use WP_Post;
+
 /**
  * Beslist, via filters, waar de ankerfunctionaliteit actief is.
  *
@@ -41,51 +43,51 @@ final class HeadingAnchors {
 	 *
 	 * @var string[]|null
 	 */
-	private ?array $postTypes = null;
+	private ?array $post_types = null;
 
 	/**
-	 * Uitkomst van isEnabledFor() per bericht, zodat de filters niet per kop opnieuw lopen.
+	 * Uitkomst van is_enabled_for() per bericht, zodat de filters niet per kop opnieuw lopen.
 	 *
 	 * @var array<int,bool>
 	 */
 	private array $enabled = array();
 
 	/**
-	 * Uitkomst van needsIdsFor() per bericht.
+	 * Uitkomst van needs_ids_for() per bericht.
 	 *
 	 * @var array<int,bool>
 	 */
-	private array $needsIds = array();
+	private array $needs_ids = array();
 
 	/**
 	 * Post types waarvoor de functionaliteit aan staat.
 	 *
 	 * @return string[]
 	 */
-	public function postTypes(): array {
-		if ( null === $this->postTypes ) {
+	public function post_types(): array {
+		if ( null === $this->post_types ) {
 			$types = apply_filters( 'reader_experience/heading_anchors_post_types', array() );
 
-			$this->postTypes = is_array( $types )
+			$this->post_types = is_array( $types )
 				? array_values( array_unique( array_filter( $types, 'is_string' ) ) )
 				: array();
 		}
 
-		return $this->postTypes;
+		return $this->post_types;
 	}
 
 	/**
 	 * Staat de volledige functionaliteit (id's, knop, assets) aan voor dit bericht?
 	 *
-	 * @param \WP_Post|null $post Het bericht.
+	 * @param WP_Post|null $post Het bericht.
 	 */
-	public function isEnabledFor( ?\WP_Post $post ): bool {
+	public function is_enabled_for( ?WP_Post $post ): bool {
 		if ( null === $post ) {
 			return false;
 		}
 
 		if ( ! isset( $this->enabled[ $post->ID ] ) ) {
-			$default = in_array( $post->post_type, $this->postTypes(), true );
+			$default = in_array( $post->post_type, $this->post_types(), true );
 
 			$this->enabled[ $post->ID ] = (bool) apply_filters( 'reader_experience/heading_anchors_enabled', $default, $post );
 		}
@@ -97,45 +99,45 @@ final class HeadingAnchors {
 	 * Moeten de koppen in dit bericht een id krijgen? Ja als de functionaliteit aan staat,
 	 * of als het bericht een inhoudsopgave bevat die die id's nodig heeft.
 	 *
-	 * @param \WP_Post|null $post Het bericht.
+	 * @param WP_Post|null $post Het bericht.
 	 */
-	public function needsIdsFor( ?\WP_Post $post ): bool {
+	public function needs_ids_for( ?WP_Post $post ): bool {
 		if ( null === $post ) {
 			return false;
 		}
 
-		if ( ! isset( $this->needsIds[ $post->ID ] ) ) {
-			$this->needsIds[ $post->ID ] = $this->isEnabledFor( $post ) || has_block( self::TOC_BLOCK, $post );
+		if ( ! isset( $this->needs_ids[ $post->ID ] ) ) {
+			$this->needs_ids[ $post->ID ] = $this->is_enabled_for( $post ) || has_block( self::TOC_BLOCK, $post );
 		}
 
-		return $this->needsIds[ $post->ID ];
+		return $this->needs_ids[ $post->ID ];
 	}
 
 	/**
 	 * Mag de meegeleverde CSS geladen worden?
 	 *
-	 * @param \WP_Post $post Het bericht.
+	 * @param WP_Post $post Het bericht.
 	 */
-	public function loadCss( \WP_Post $post ): bool {
+	public function load_css( WP_Post $post ): bool {
 		return (bool) apply_filters( 'reader_experience/heading_anchors_load_css', true, $post );
 	}
 
 	/**
 	 * Mag de meegeleverde JS geladen worden?
 	 *
-	 * @param \WP_Post $post Het bericht.
+	 * @param WP_Post $post Het bericht.
 	 */
-	public function loadJs( \WP_Post $post ): bool {
+	public function load_js( WP_Post $post ): bool {
 		return (bool) apply_filters( 'reader_experience/heading_anchors_load_js', true, $post );
 	}
 
 	/**
 	 * Opties voor de JS, na filteren opgeschoond tot geldige waarden.
 	 *
-	 * @param \WP_Post $post Het bericht.
+	 * @param WP_Post $post Het bericht.
 	 * @return array{position:string,container:string[],labels:array{copy:string,copied:string}}
 	 */
-	public function config( \WP_Post $post ): array {
+	public function config( WP_Post $post ): array {
 		$config = apply_filters(
 			'reader_experience/heading_anchors_config',
 			array(

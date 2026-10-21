@@ -23,26 +23,26 @@ final class CommentPublisher {
 	 *
 	 * Een site kan dit oordeel bijsturen met het filter reader_experience/can_publish_as_comment.
 	 */
-	public function canPublish( int $postId ): bool {
+	public function can_publish( int $post_id ): bool {
 		if ( ! function_exists( 'comments_open' ) ) {
 			return false; // Alleen relevant in geïsoleerde tests zonder WordPress.
 		}
 
-		$allowed = comments_open( $postId )
-			&& ! post_password_required( $postId )
+		$allowed = comments_open( $post_id )
+			&& ! post_password_required( $post_id )
 			&& ! get_option( 'comment_registration' );
 
-		return (bool) apply_filters( 'reader_experience/can_publish_as_comment', $allowed, $postId );
+		return (bool) apply_filters( 'reader_experience/can_publish_as_comment', $allowed, $post_id );
 	}
 
 	/** @return int|false Het nieuwe reactie-id, of false als plaatsen niet lukte of niet mag. */
-	public function publish( int $postId, string $text, string $name, string $email ) {
-		if ( ! function_exists( 'wp_new_comment' ) || ! $this->canPublish( $postId ) ) {
+	public function publish( int $post_id, string $text, string $name, string $email ) {
+		if ( ! function_exists( 'wp_new_comment' ) || ! $this->can_publish( $post_id ) ) {
 			return false;
 		}
 
-		$commentData = array(
-			'comment_post_ID'      => $postId,
+		$comment_data = array(
+			'comment_post_ID'      => $post_id,
 			'comment_content'      => $text,
 			'comment_author'       => '' !== trim( $name ) ? $name : __( 'Anoniem', 'reader-experience' ),
 			'comment_author_email' => $email,
@@ -52,7 +52,7 @@ final class CommentPublisher {
 
 		// Tweede argument true: geef een WP_Error terug bij een probleem in plaats van
 		// de request af te breken met wp_die(), wat in een REST-context niet past.
-		$result = wp_new_comment( $commentData, true );
+		$result = wp_new_comment( $comment_data, true );
 
 		if ( is_wp_error( $result ) ) {
 			return false;

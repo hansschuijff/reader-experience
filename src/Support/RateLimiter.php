@@ -10,7 +10,7 @@ namespace ReaderExperience\Support;
  */
 final class RateLimiter {
 
-	public function tooMany( string $bucket, int $limit, int $windowSeconds ): bool {
+	public function too_many( string $bucket, int $limit, int $window_seconds ): bool {
 		$key   = 'rx_rl_' . md5( $bucket );
 		$count = (int) get_transient( $key );
 
@@ -18,7 +18,7 @@ final class RateLimiter {
 			return true;
 		}
 
-		set_transient( $key, $count + 1, $windowSeconds );
+		set_transient( $key, $count + 1, $window_seconds );
 		return false;
 	}
 

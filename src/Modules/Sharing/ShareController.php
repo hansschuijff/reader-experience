@@ -22,14 +22,14 @@ final class ShareController extends AbstractController {
 		$this->repository = new ShareRepository();
 	}
 
-	public function registerRoutes(): void {
+	public function register_routes(): void {
 		register_rest_route(
 			self::NAMESPACE,
 			'/share',
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'handle' ),
-				'permission_callback' => $this->publicPermission(),
+				'permission_callback' => $this->public_permission(),
 				'args'                => array(
 					'post_id' => array(
 						'required'          => true,
@@ -39,7 +39,7 @@ final class ShareController extends AbstractController {
 					'channel' => array(
 						'required'          => true,
 						'type'              => 'string',
-						'validate_callback' => fn ( $v ): bool => is_string( $v ) && $this->channels->isValid( $v ),
+						'validate_callback' => fn ( $v ): bool => is_string( $v ) && $this->channels->is_valid( $v ),
 					),
 				),
 			)
@@ -47,18 +47,18 @@ final class ShareController extends AbstractController {
 	}
 
 	public function handle( WP_REST_Request $request ) {
-		$postId  = (int) $request->get_param( 'post_id' );
+		$post_id  = (int) $request->get_param( 'post_id' );
 		$channel = (string) $request->get_param( 'channel' );
 
-		if ( 'publish' !== get_post_status( $postId ) ) {
+		if ( 'publish' !== get_post_status( $post_id ) ) {
 			return new WP_Error( 'rx_invalid_post', __( 'Onbekend artikel.', 'reader-experience' ), array( 'status' => 404 ) );
 		}
 
-		if ( $this->alreadyCountedRecently( $postId, $channel ) ) {
+		if ( $this->already_counted_recently( $post_id, $channel ) ) {
 			return new WP_REST_Response( null, 204 );
 		}
 
-		$this->repository->increment( $postId, $channel );
+		$this->repository->increment( $post_id, $channel );
 		return new WP_REST_Response( null, 204 );
 	}
 
@@ -66,9 +66,9 @@ final class ShareController extends AbstractController {
 	 * Lichte, korte deduplicatie tegen dubbelklikken en verversen, zonder IP-adressen op te slaan:
 	 * de sleutel wordt gehasht en de transient vervalt vanzelf.
 	 */
-	private function alreadyCountedRecently( int $postId, string $channel ): bool {
+	private function already_counted_recently( int $post_id, string $channel ): bool {
 		$fingerprint = (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) . (string) ( $_SERVER['HTTP_USER_AGENT'] ?? '' );
-		$key         = 'rx_share_' . md5( $postId . '|' . $channel . '|' . $fingerprint );
+		$key         = 'rx_share_' . md5( $post_id . '|' . $channel . '|' . $fingerprint );
 
 		if ( get_transient( $key ) ) {
 			return true;

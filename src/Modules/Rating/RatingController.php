@@ -13,21 +13,21 @@ use WP_REST_Response;
 final class RatingController extends AbstractController {
 
 	private RatingService $service;
-	private RateLimiter $rateLimiter;
+	private RateLimiter $rate_limiter;
 
 	public function __construct() {
 		$this->service     = new RatingService();
-		$this->rateLimiter = new RateLimiter();
+		$this->rate_limiter = new RateLimiter();
 	}
 
-	public function registerRoutes(): void {
+	public function register_routes(): void {
 		register_rest_route(
 			self::NAMESPACE,
 			'/rating',
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'create' ),
-				'permission_callback' => $this->publicPermission(),
+				'permission_callback' => $this->public_permission(),
 				'args'                => array(
 					'post_id' => array(
 						'required'          => true,
@@ -35,7 +35,7 @@ final class RatingController extends AbstractController {
 					),
 					'value'   => array(
 						'required'          => true,
-						'validate_callback' => fn ( $v ): bool => is_string( $v ) && $this->service->isValidValue( $v ),
+						'validate_callback' => fn ( $v ): bool => is_string( $v ) && $this->service->is_valid_value( $v ),
 					),
 					'website' => array( 'required' => false ), // honeypot: hoort altijd leeg te zijn
 				),
@@ -47,8 +47,8 @@ final class RatingController extends AbstractController {
 			'/rating/(?P<id>\d+)/tekst',
 			array(
 				'methods'             => 'POST',
-				'callback'            => array( $this, 'attachText' ),
-				'permission_callback' => $this->publicPermission(),
+				'callback'            => array( $this, 'attach_text' ),
+				'permission_callback' => $this->public_permission(),
 				'args'                => array(
 					'id'      => array( 'validate_callback' => static fn ( $v ): bool => is_numeric( $v ) && (int) $v > 0 ),
 					'token'   => array(
@@ -69,8 +69,8 @@ final class RatingController extends AbstractController {
 			'/rating/(?P<id>\d+)/vervolg',
 			array(
 				'methods'             => 'POST',
-				'callback'            => array( $this, 'resolveFollowUp' ),
-				'permission_callback' => $this->publicPermission(),
+				'callback'            => array( $this, 'resolve_follow_up' ),
+				'permission_callback' => $this->public_permission(),
 				'args'                => array(
 					'id'      => array( 'validate_callback' => static fn ( $v ): bool => is_numeric( $v ) && (int) $v > 0 ),
 					'token'   => array(
@@ -90,17 +90,17 @@ final class RatingController extends AbstractController {
 	}
 
 	public function create( WP_REST_Request $request ) {
-		$postId = (int) $request->get_param( 'post_id' );
+		$post_id = (int) $request->get_param( 'post_id' );
 
-		if ( 'publish' !== get_post_status( $postId ) ) {
+		if ( 'publish' !== get_post_status( $post_id ) ) {
 			return new WP_Error( 'rx_invalid_post', __( 'Onbekend artikel.', 'reader-experience' ), array( 'status' => 404 ) );
 		}
 
 		$result = $this->service->submit(
-			$postId,
+			$post_id,
 			(string) $request->get_param( 'value' ),
 			(string) $request->get_param( 'website' ),
-			$this->rateLimiter->fingerprint()
+			$this->rate_limiter->fingerprint()
 		);
 
 		if ( null === $result ) {
@@ -117,27 +117,27 @@ final class RatingController extends AbstractController {
 		return new WP_REST_Response( $result, 201 );
 	}
 
-	public function attachText( WP_REST_Request $request ) {
-		$this->service->attachText(
+	public function attach_text( WP_REST_Request $request ) {
+		$this->service->attach_text(
 			(int) $request->get_param( 'id' ),
 			(string) $request->get_param( 'token' ),
 			(string) $request->get_param( 'tekst' ),
 			(string) $request->get_param( 'website' ),
-			$this->rateLimiter->fingerprint()
+			$this->rate_limiter->fingerprint()
 		);
 
 		return new WP_REST_Response( null, 204 );
 	}
 
-	public function resolveFollowUp( WP_REST_Request $request ) {
-		$this->service->resolveFollowUp(
+	public function resolve_follow_up( WP_REST_Request $request ) {
+		$this->service->resolve_follow_up(
 			(int) $request->get_param( 'id' ),
 			(string) $request->get_param( 'token' ),
 			(string) $request->get_param( 'actie' ),
 			(string) ( $request->get_param( 'naam' ) ?? '' ),
 			(string) ( $request->get_param( 'email' ) ?? '' ),
 			(string) $request->get_param( 'website' ),
-			$this->rateLimiter->fingerprint()
+			$this->rate_limiter->fingerprint()
 		);
 
 		return new WP_REST_Response( null, 204 );

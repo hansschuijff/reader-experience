@@ -34,7 +34,7 @@ final class Plugin {
 	}
 
 	public function start(): void {
-		$this->modules = $this->buildModules();
+		$this->modules = $this->build_modules();
 
 		foreach ( $this->modules as $module ) {
 			$module->register();
@@ -44,10 +44,10 @@ final class Plugin {
 		// request te draaien. Ze lopen bij activatie en verder alleen in de admin, zodat
 		// een nieuwe migratie na een update alsnog snel wordt opgepikt.
 		if ( is_admin() ) {
-			$this->runMigrations();
+			$this->run_migrations();
 		}
 
-		$this->onInit(
+		$this->on_init(
 			function (): void {
 				load_plugin_textdomain(
 					'reader-experience',
@@ -55,13 +55,13 @@ final class Plugin {
 					dirname( plugin_basename( $this->file ) ) . '/languages'
 				);
 
-				( new BlockRegistrar( $this->path( 'build/blocks' ) ) )->register( $this->blockSlugs() );
+				( new BlockRegistrar( $this->path( 'build/blocks' ) ) )->register( $this->block_slugs() );
 			}
 		);
 	}
 
 	/** @return ModuleInterface[] */
-	private function buildModules(): array {
+	private function build_modules(): array {
 		$modules = array(
 			new ReadingModule(),
 			new BarModule(),
@@ -82,7 +82,7 @@ final class Plugin {
 	}
 
 	/** @return string[] */
-	private function blockSlugs(): array {
+	private function block_slugs(): array {
 		$slugs = array();
 		foreach ( $this->modules as $module ) {
 			$slugs = array_merge( $slugs, $module->blocks() );
@@ -90,7 +90,7 @@ final class Plugin {
 		return array_values( array_unique( $slugs ) );
 	}
 
-	private function runMigrations(): void {
+	private function run_migrations(): void {
 		$migrations = array();
 		foreach ( $this->modules as $module ) {
 			$migrations = array_merge( $migrations, $module->migrations() );
@@ -99,17 +99,17 @@ final class Plugin {
 	}
 
 	/** Vanuit register_activation_hook, zodat de tabellen er bij het inschakelen direct staan. */
-	public static function onActivate( string $file ): void {
+	public static function on_activate( string $file ): void {
 		$instance = self::$instance ?? new self( $file );
-		$instance->modules = $instance->modules ?: $instance->buildModules();
-		$instance->runMigrations();
+		$instance->modules = $instance->modules ?: $instance->build_modules();
+		$instance->run_migrations();
 	}
 
 	private function path( string $relative ): string {
 		return plugin_dir_path( $this->file ) . ltrim( $relative, '/' );
 	}
 
-	private function onInit( callable $callback ): void {
+	private function on_init( callable $callback ): void {
 		if ( did_action( 'init' ) > 0 ) {
 			$callback();
 			return;

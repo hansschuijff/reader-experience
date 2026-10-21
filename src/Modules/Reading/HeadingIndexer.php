@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace ReaderExperience\Modules\Reading;
 
+use WP_HTML_Tag_Processor;
+use WP_Post;
+
 /**
  * Geeft koppen (h2 t/m h4) een anker en bouwt de lijst voor de inhoudsopgave.
  *
@@ -40,13 +43,13 @@ final class HeadingIndexer {
 	public function register(): void {
 		add_filter( 'the_content', array( $this, 'start' ), 1 );
 		add_filter( 'the_content', array( $this, 'end' ), PHP_INT_MAX );
-		add_filter( 'render_block_core/heading', array( $this, 'addAnchor' ), 10, 2 );
+		add_filter( 'render_block_core/heading', array( $this, 'add_anchor' ), 10, 2 );
 	}
 
 	public function start( $content ) {
 		if ( 0 === $this->depth ) {
 			$this->registry->reset();
-			$this->active = $this->anchors->needsIdsFor( get_post() );
+			$this->active = $this->anchors->needs_ids_for( get_post() );
 		}
 		++$this->depth;
 		return $content;
@@ -65,14 +68,14 @@ final class HeadingIndexer {
 	 * @param array<string,mixed>  $block
 	 * @return mixed
 	 */
-	public function addAnchor( $html, $block = array() ) {
+	public function add_anchor( $html, $block = array() ) {
 		// Alleen koppen binnen de berichttekst tellen mee, niet die uit templates,
 		// en alleen als het beleid dat voor dit bericht toestaat.
 		if ( 0 === $this->depth || ! $this->active || ! is_string( $html ) || '' === $html ) {
 			return $html;
 		}
 
-		$processor = new \WP_HTML_Tag_Processor( $html );
+		$processor = new WP_HTML_Tag_Processor( $html );
 		if ( ! $processor->next_tag() ) {
 			return $html;
 		}
@@ -89,7 +92,7 @@ final class HeadingIndexer {
 		$existing = $processor->get_attribute( 'id' );
 		$existing = is_string( $existing ) && '' !== $existing ? $existing : null;
 
-		$id = $this->registry->claim( $existing, self::plainText( $html ) );
+		$id = $this->registry->claim( $existing, self::plain_text( $html ) );
 
 		if ( null !== $existing ) {
 			return $html;
@@ -102,22 +105,22 @@ final class HeadingIndexer {
 	/**
 	 * @return array<int,array{id:string,text:string,level:int}>
 	 */
-	public static function headingsForPost( int $postId, int $maxLevel = 3 ): array {
-		if ( ! isset( self::$cache[ $postId ] ) ) {
-			$post = get_post( $postId );
+	public static function headings_for_post( int $post_id, int $max_level = 3 ): array {
+		if ( ! isset( self::$cache[ $post_id ] ) ) {
+			$post = get_post( $post_id );
 			$out  = array();
 
-			if ( $post instanceof \WP_Post ) {
+			if ( $post instanceof WP_Post ) {
 				self::walk( parse_blocks( $post->post_content ), new AnchorRegistry(), $out, 0 );
 			}
 
-			self::$cache[ $postId ] = $out;
+			self::$cache[ $post_id ] = $out;
 		}
 
 		return array_values(
 			array_filter(
-				self::$cache[ $postId ],
-				static fn ( array $item ): bool => $item['level'] <= $maxLevel
+				self::$cache[ $post_id ],
+				static fn ( array $item ): bool => $item['level'] <= $max_level
 			)
 		);
 	}
@@ -134,7 +137,7 @@ final class HeadingIndexer {
 				$level = (int) ( $block['attrs']['level'] ?? 2 );
 
 				if ( $level >= self::MIN_LEVEL && $level <= self::MAX_LEVEL ) {
-					$text     = self::plainText( (string) ( $block['innerHTML'] ?? '' ) );
+					$text     = self::plain_text( (string) ( $block['innerHTML'] ?? '' ) );
 					$existing = $block['attrs']['anchor'] ?? null;
 					$id       = $registry->claim( is_string( $existing ) ? $existing : null, $text );
 
@@ -148,7 +151,7 @@ final class HeadingIndexer {
 				}
 			} elseif ( 'core/block' === $name && $guard < 3 && ! empty( $block['attrs']['ref'] ) ) {
 				$ref = get_post( (int) $block['attrs']['ref'] );
-				if ( $ref instanceof \WP_Post && 'wp_block' === $ref->post_type ) {
+				if ( $ref instanceof WP_Post && 'wp_block' === $ref->post_type ) {
 					self::walk( parse_blocks( $ref->post_content ), $registry, $out, $guard + 1 );
 				}
 			}
@@ -169,17 +172,17 @@ final class HeadingIndexer {
 	 * @param array<int,array{id:string,text:string,level:int}> $items
 	 * @return array<int,array{item:array{id:string,text:string,level:int},children:array<int,array{id:string,text:string,level:int}>}>
 	 */
-	public static function groupByTopLevel( array $items ): array {
+	public static function group_by_top_level( array $items ): array {
 		if ( ! $items ) {
 			return array();
 		}
 
-		$topLevel = min( array_column( $items, 'level' ) );
+		$top_level = min( array_column( $items, 'level' ) );
 		$groups   = array();
 		$current  = null;
 
 		foreach ( $items as $item ) {
-			if ( $item['level'] === $topLevel ) {
+			if ( $item['level'] === $top_level ) {
 				$current  = array( 'item' => $item, 'children' => array() );
 				$groups[] = $current;
 			} elseif ( null !== $current ) {
@@ -192,7 +195,7 @@ final class HeadingIndexer {
 		return $groups;
 	}
 
-	private static function plainText( string $html ): string {
+	private static function plain_text( string $html ): string {
 		return trim( html_entity_decode( wp_strip_all_tags( $html ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
 	}
 }

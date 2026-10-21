@@ -23,11 +23,11 @@ final class RatingService {
 
 	public function __construct(
 		private readonly FeedbackRepository $repository = new FeedbackRepository(),
-		private readonly RateLimiter $rateLimiter = new RateLimiter(),
-		private readonly CommentPublisher $commentPublisher = new CommentPublisher()
+		private readonly RateLimiter $rate_limiter = new RateLimiter(),
+		private readonly CommentPublisher $comment_publisher = new CommentPublisher()
 	) {}
 
-	public function isValidValue( string $value ): bool {
+	public function is_valid_value( string $value ): bool {
 		return in_array( $value, FeedbackRepository::VALUES, true );
 	}
 
@@ -35,14 +35,14 @@ final class RatingService {
 	 * @return array{id:int,token:string}|null Null bij spam (honeypot) of te veel pogingen;
 	 *                                          de aanroeper doet dan net alsof het gelukt is.
 	 */
-	public function submit( int $postId, string $value, string $honeypot, string $fingerprint ): ?array {
-		if ( ! $this->passesSpamChecks( $honeypot, "rating:{$postId}:{$fingerprint}", 5 ) ) {
+	public function submit( int $post_id, string $value, string $honeypot, string $fingerprint ): ?array {
+		if ( ! $this->passes_spam_checks( $honeypot, "rating:{$post_id}:{$fingerprint}", 5 ) ) {
 			return null;
 		}
 
-		$token     = $this->generateToken();
-		$tokenHash = $this->hashToken( $token );
-		$id        = $this->repository->create( $postId, $value, $tokenHash, time() + self::TOKEN_TTL_SECONDS );
+		$token     = $this->generate_token();
+		$token_hash = $this->hash_token( $token );
+		$id        = $this->repository->create( $post_id, $value, $token_hash, time() + self::TOKEN_TTL_SECONDS );
 
 		return array(
 			'id'    => $id,
@@ -54,18 +54,18 @@ final class RatingService {
 	 * Altijd true, ook bij spam of een ongeldig token: er wordt nooit weggegeven
 	 * waarom iets niet echt is verwerkt.
 	 */
-	public function attachText( int $id, string $token, string $text, string $honeypot, string $fingerprint ): bool {
-		if ( ! $this->passesSpamChecks( $honeypot, "rating-tekst:{$fingerprint}", 20 ) ) {
+	public function attach_text( int $id, string $token, string $text, string $honeypot, string $fingerprint ): bool {
+		if ( ! $this->passes_spam_checks( $honeypot, "rating-tekst:{$fingerprint}", 20 ) ) {
 			return true;
 		}
 
-		$row = $this->validRow( $id, $token );
+		$row = $this->valid_row( $id, $token );
 		if ( null === $row ) {
 			return true;
 		}
 
-		$clean = $this->sanitizeText( $text );
-		$this->repository->setTextIfEmpty( $id, $clean );
+		$clean = $this->sanitize_text( $text );
+		$this->repository->set_text_if_empty( $id, $clean );
 
 		if ( '' !== $clean ) {
 			do_action( 'reader_experience/feedback_text_added', $id, $row['post_id'], $clean );
@@ -79,7 +79,7 @@ final class RatingService {
 	 * negatieve stem "neem contact op". Maakt hierna altijd het token ongeldig, ook
 	 * bij "overslaan": de korte sessie is dan afgerond.
 	 */
-	public function resolveFollowUp(
+	public function resolve_follow_up(
 		int $id,
 		string $token,
 		string $action,
@@ -88,17 +88,17 @@ final class RatingService {
 		string $honeypot,
 		string $fingerprint
 	): bool {
-		if ( ! $this->passesSpamChecks( $honeypot, "rating-vervolg:{$fingerprint}", 20 ) ) {
+		if ( ! $this->passes_spam_checks( $honeypot, "rating-vervolg:{$fingerprint}", 20 ) ) {
 			return true;
 		}
 
-		$row = $this->validRow( $id, $token );
+		$row = $this->valid_row( $id, $token );
 		if ( null === $row ) {
 			return true;
 		}
 
 		if ( $row['comment_id'] > 0 || $row['wants_contact'] ) {
-			$this->repository->invalidateToken( $id ); // Deze stap is al eens gedaan.
+			$this->repository->invalidate_token( $id ); // Deze stap is al eens gedaan.
 			return true;
 		}
 
@@ -106,21 +106,21 @@ final class RatingService {
 		$email = sanitize_email( $email );
 		$text  = trim( (string) $row['text'] );
 
-		if ( 'publiceren' === $action && 'ja' === $row['value'] && '' !== $text && $this->commentPublisher->canPublish( $row['post_id'] ) ) {
-			$commentId = $this->commentPublisher->publish( $row['post_id'], $text, $name, $email );
-			if ( false !== $commentId ) {
-				$this->repository->setComment( $id, $commentId );
+		if ( 'publiceren' === $action && 'ja' === $row['value'] && '' !== $text && $this->comment_publisher->can_publish( $row['post_id'] ) ) {
+			$comment_id = $this->comment_publisher->publish( $row['post_id'], $text, $name, $email );
+			if ( false !== $comment_id ) {
+				$this->repository->set_comment( $id, $comment_id );
 			}
 		} elseif ( 'contact' === $action && 'nee' === $row['value'] && ( '' !== $name || '' !== $email ) ) {
-			$this->repository->setContact( $id, $name, $email );
+			$this->repository->set_contact( $id, $name, $email );
 			do_action( 'reader_experience/feedback_contact_requested', $id, $row['post_id'] );
 		}
 
-		$this->repository->invalidateToken( $id );
+		$this->repository->invalidate_token( $id );
 		return true;
 	}
 
-	private function passesSpamChecks( string $honeypot, string $bucket, int $limit ): bool {
+	private function passes_spam_checks( string $honeypot, string $bucket, int $limit ): bool {
 		if ( '' !== trim( $honeypot ) ) {
 			return false;
 		}
@@ -133,19 +133,19 @@ final class RatingService {
 			return false;
 		}
 
-		return ! $this->rateLimiter->tooMany( $bucket, $limit, HOUR_IN_SECONDS );
+		return ! $this->rate_limiter->too_many( $bucket, $limit, HOUR_IN_SECONDS );
 	}
 
 	/**
 	 * @return array{post_id:int,value:string,text:?string,comment_id:int,wants_contact:bool}|null
 	 */
-	private function validRow( int $id, string $token ): ?array {
+	private function valid_row( int $id, string $token ): ?array {
 		$row = $this->repository->find( $id );
 		if ( null === $row || null === $row['token_hash'] ) {
 			return null;
 		}
 
-		if ( ! hash_equals( $row['token_hash'], $this->hashToken( $token ) ) ) {
+		if ( ! hash_equals( $row['token_hash'], $this->hash_token( $token ) ) ) {
 			return null;
 		}
 
@@ -157,7 +157,7 @@ final class RatingService {
 		return $row;
 	}
 
-	private function sanitizeText( string $text ): string {
+	private function sanitize_text( string $text ): string {
 		$clean = trim( wp_strip_all_tags( $text ) );
 		if ( function_exists( 'mb_substr' ) ) {
 			return mb_substr( $clean, 0, self::MAX_TEXT_LENGTH );
@@ -165,11 +165,11 @@ final class RatingService {
 		return substr( $clean, 0, self::MAX_TEXT_LENGTH );
 	}
 
-	private function generateToken(): string {
+	private function generate_token(): string {
 		return bin2hex( random_bytes( 16 ) );
 	}
 
-	private function hashToken( string $token ): string {
+	private function hash_token( string $token ): string {
 		return hash( 'sha256', $token );
 	}
 }

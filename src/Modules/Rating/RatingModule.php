@@ -9,7 +9,6 @@ use ReaderExperience\Modules\Rating\Admin\DashboardWidget;
 use ReaderExperience\Modules\Rating\Admin\FeedbackPage;
 use ReaderExperience\Modules\Rating\Admin\PostColumn;
 use ReaderExperience\Modules\Rating\Migrations\AddCommentFieldsToFeedbackTable;
-use ReaderExperience\Modules\Rating\Notifier;
 use ReaderExperience\Modules\Rating\Migrations\CreateFeedbackTable;
 
 final class RatingModule extends AbstractModule {

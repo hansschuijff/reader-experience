@@ -17,8 +17,8 @@ if ( ! $post_id ) {
 $max_level      = max( 2, min( 4, (int) ( $attributes['maxLevel'] ?? 3 ) ) );
 $min_items      = max( 1, (int) ( $attributes['minItems'] ?? 3 ) );
 $style          = ( 'compact' === ( $attributes['style'] ?? 'standard' ) ) ? 'compact' : 'standard';
-$collapseNested = ! empty( $attributes['collapseNested'] );
-$items          = HeadingIndexer::headingsForPost( $post_id, $max_level );
+$collapse_nested = ! empty( $attributes['collapseNested'] );
+$items          = HeadingIndexer::headings_for_post( $post_id, $max_level );
 
 if ( count( $items ) < $min_items ) {
 	return;
@@ -59,9 +59,9 @@ $render_link = static function ( array $item ): void {
 <details <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-toc rx-toc--' . $style, 'open' => '', 'id' => 'rx-toc', 'style' => $inline_style ) ); ?>>
 	<summary class="rx-toc__summary"><?php echo esc_html( $title ); ?></summary>
 
-	<?php if ( $collapseNested ) : ?>
+	<?php if ( $collapse_nested ) : ?>
 		<ul class="rx-toc__list rx-toc__list--grouped">
-			<?php foreach ( HeadingIndexer::groupByTopLevel( $items ) as $group ) : ?>
+			<?php foreach ( HeadingIndexer::group_by_top_level( $items ) as $group ) : ?>
 				<?php if ( $group['children'] ) : ?>
 					<li class="rx-toc__group">
 						<details class="rx-toc__group-toggle">

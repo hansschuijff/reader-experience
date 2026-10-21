@@ -16,27 +16,27 @@ final class PostColumn {
 	}
 
 	public function register(): void {
-		add_filter( 'manage_post_posts_columns', array( $this, 'addColumn' ) );
-		add_action( 'manage_post_posts_custom_column', array( $this, 'renderColumn' ), 10, 2 );
-		add_action( 'admin_head-edit.php', array( $this, 'printStyle' ) );
+		add_filter( 'manage_post_posts_columns', array( $this, 'add_column' ) );
+		add_action( 'manage_post_posts_custom_column', array( $this, 'render_column' ), 10, 2 );
+		add_action( 'admin_head-edit.php', array( $this, 'print_style' ) );
 	}
 
-	public function printStyle(): void {
+	public function print_style(): void {
 		echo '<style>.rx-admin-icon svg{width:14px;height:14px;vertical-align:text-bottom;margin-inline-end:2px;}</style>';
 	}
 
 	/** @param array<string,string> $columns */
-	public function addColumn( array $columns ): array {
+	public function add_column( array $columns ): array {
 		$columns['rx_feedback'] = __( 'Waardering', 'reader-experience' );
 		return $columns;
 	}
 
-	public function renderColumn( string $column, int $postId ): void {
+	public function render_column( string $column, int $post_id ): void {
 		if ( 'rx_feedback' !== $column ) {
 			return;
 		}
 
-		$totals = $this->repository->totalsForPost( $postId );
+		$totals = $this->repository->totals_for_post( $post_id );
 		$total  = array_sum( $totals );
 
 		if ( 0 === $total ) {

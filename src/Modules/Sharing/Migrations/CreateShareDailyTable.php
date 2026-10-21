@@ -6,6 +6,7 @@ namespace ReaderExperience\Modules\Sharing\Migrations;
 
 use ReaderExperience\Contracts\MigrationInterface;
 use ReaderExperience\Modules\Sharing\ShareRepository;
+use wpdb;
 
 final class CreateShareDailyTable implements MigrationInterface {
 
@@ -13,7 +14,7 @@ final class CreateShareDailyTable implements MigrationInterface {
 		return '2026_09_29_share_daily';
 	}
 
-	public function up( \wpdb $db ): void {
+	public function up( wpdb $db ): void {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$table   = ( new ShareRepository() )->table();

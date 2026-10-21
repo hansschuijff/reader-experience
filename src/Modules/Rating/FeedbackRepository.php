@@ -17,16 +17,16 @@ final class FeedbackRepository {
 		return $wpdb->prefix . 'rx_feedback';
 	}
 
-	public function create( int $postId, string $value, string $tokenHash, int $tokenExpires ): int {
+	public function create( int $post_id, string $value, string $token_hash, int $token_expires ): int {
 		global $wpdb;
 
 		$wpdb->insert(
 			$this->table(),
 			array(
-				'post_id'       => $postId,
+				'post_id'       => $post_id,
 				'value'         => $value,
-				'token_hash'    => $tokenHash,
-				'token_expires' => gmdate( 'Y-m-d H:i:s', $tokenExpires ),
+				'token_hash'    => $token_hash,
+				'token_expires' => gmdate( 'Y-m-d H:i:s', $token_expires ),
 				'created'       => current_time( 'mysql', true ),
 			),
 			array( '%d', '%s', '%s', '%s', '%s' )
@@ -65,7 +65,7 @@ final class FeedbackRepository {
 	}
 
 	/** Zet de toelichting, maar alleen als er nog geen stond (één keer bruikbaar per rij). */
-	public function setTextIfEmpty( int $id, string $text ): void {
+	public function set_text_if_empty( int $id, string $text ): void {
 		global $wpdb;
 
 		$wpdb->query(
@@ -77,12 +77,12 @@ final class FeedbackRepository {
 		);
 	}
 
-	public function setComment( int $id, int $commentId ): void {
+	public function set_comment( int $id, int $comment_id ): void {
 		global $wpdb;
-		$wpdb->update( $this->table(), array( 'comment_id' => $commentId ), array( 'id' => $id ), array( '%d' ), array( '%d' ) );
+		$wpdb->update( $this->table(), array( 'comment_id' => $comment_id ), array( 'id' => $id ), array( '%d' ), array( '%d' ) );
 	}
 
-	public function setContact( int $id, string $name, string $email ): void {
+	public function set_contact( int $id, string $name, string $email ): void {
 		global $wpdb;
 		$wpdb->update(
 			$this->table(),
@@ -98,17 +98,17 @@ final class FeedbackRepository {
 	}
 
 	/** Maakt het token voorgoed onbruikbaar. Aan het einde van de hele (korte) flow, niet per stap. */
-	public function invalidateToken( int $id ): void {
+	public function invalidate_token( int $id ): void {
 		global $wpdb;
 		$wpdb->update( $this->table(), array( 'token_hash' => null ), array( 'id' => $id ), array( '%s' ), array( '%d' ) );
 	}
 
 	/** @return array<string,int> */
-	public function totalsForPost( int $postId ): array {
+	public function totals_for_post( int $post_id ): array {
 		global $wpdb;
 
 		$rows = $wpdb->get_results(
-			$wpdb->prepare( "SELECT value, COUNT(*) AS total FROM {$this->table()} WHERE post_id = %d GROUP BY value", $postId ),
+			$wpdb->prepare( "SELECT value, COUNT(*) AS total FROM {$this->table()} WHERE post_id = %d GROUP BY value", $post_id ),
 			ARRAY_A
 		);
 
@@ -124,7 +124,7 @@ final class FeedbackRepository {
 	/**
 	 * @return array<int,array<string,mixed>>
 	 */
-	public function recentWithText( int $limit = 20 ): array {
+	public function recent_with_text( int $limit = 20 ): array {
 		global $wpdb;
 
 		$rows = $wpdb->get_results(
@@ -147,44 +147,44 @@ final class FeedbackRepository {
 	 * @param array{post_id?:int,only_with_content?:bool,orderby?:string,order?:string} $args
 	 * @return array{rows:array<int,array<string,mixed>>,total:int}
 	 */
-	public function paginated( int $page, int $perPage = 20, array $args = array() ): array {
+	public function paginated( int $page, int $per_page = 20, array $args = array() ): array {
 		global $wpdb;
 
-		$postId           = isset( $args['post_id'] ) ? (int) $args['post_id'] : 0;
-		$onlyWithContent  = $args['only_with_content'] ?? true;
+		$post_id           = isset( $args['post_id'] ) ? (int) $args['post_id'] : 0;
+		$only_with_content  = $args['only_with_content'] ?? true;
 		$orderby          = ( 'post_title' === ( $args['orderby'] ?? '' ) ) ? 'p.post_title' : 'f.created';
 		$order            = ( 'ASC' === strtoupper( $args['order'] ?? '' ) ) ? 'ASC' : 'DESC';
-		$offset           = max( 0, ( $page - 1 ) * $perPage );
+		$offset           = max( 0, ( $page - 1 ) * $per_page );
 
 		$where  = array( '1=1' );
 		$values = array();
 
-		if ( $postId > 0 ) {
+		if ( $post_id > 0 ) {
 			$where[]  = 'f.post_id = %d';
-			$values[] = $postId;
+			$values[] = $post_id;
 		}
-		if ( $onlyWithContent ) {
+		if ( $only_with_content ) {
 			// "Interessant om te lezen": een los duimpje zonder toelichting, zonder
 			// geplaatste reactie en zonder contactverzoek voegt hier niets toe —
 			// die aantallen staan al samengevat in de kolom bij de artikelen.
 			$where[] = "( (f.text IS NOT NULL AND f.text != '') OR f.comment_id > 0 OR f.wants_contact = 1 )";
 		}
 
-		$whereSql = implode( ' AND ', $where );
+		$where_sql = implode( ' AND ', $where );
 
 		$sql = "SELECT f.id, f.post_id, p.post_title, f.value, f.text, f.comment_id, f.wants_contact, f.contact_name, f.contact_email, f.created
 				 FROM {$this->table()} f
 				 LEFT JOIN {$wpdb->posts} p ON p.ID = f.post_id
-				 WHERE {$whereSql}
+				 WHERE {$where_sql}
 				 ORDER BY {$orderby} {$order}
 				 LIMIT %d OFFSET %d";
 
-		$rows = $wpdb->get_results( $wpdb->prepare( $sql, array_merge( $values, array( $perPage, $offset ) ) ), ARRAY_A );
+		$rows = $wpdb->get_results( $wpdb->prepare( $sql, array_merge( $values, array( $per_page, $offset ) ) ), ARRAY_A );
 
-		$countSql = "SELECT COUNT(*) FROM {$this->table()} f LEFT JOIN {$wpdb->posts} p ON p.ID = f.post_id WHERE {$whereSql}";
+		$count_sql = "SELECT COUNT(*) FROM {$this->table()} f LEFT JOIN {$wpdb->posts} p ON p.ID = f.post_id WHERE {$where_sql}";
 		$total    = $values
-			? (int) $wpdb->get_var( $wpdb->prepare( $countSql, $values ) )
-			: (int) $wpdb->get_var( $countSql );
+			? (int) $wpdb->get_var( $wpdb->prepare( $count_sql, $values ) )
+			: (int) $wpdb->get_var( $count_sql );
 
 		return array(
 			'rows'  => (array) $rows,
@@ -203,7 +203,7 @@ final class FeedbackRepository {
 	 *
 	 * @return array<int,array{post_id:int,post_title:string}>
 	 */
-	public function postsWithContent(): array {
+	public function posts_with_content(): array {
 		global $wpdb;
 
 		$rows = $wpdb->get_results(

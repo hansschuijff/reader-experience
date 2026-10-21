@@ -9,6 +9,9 @@ declare(strict_types=1);
 
 namespace ReaderExperience\Modules\Reading;
 
+use WP_Post;
+use const ReaderExperience\PLUGIN_FILE;
+
 /**
  * Registreert het losse (ongebundelde) "kopieer link"-icoontje bij koppen.
  *
@@ -45,14 +48,14 @@ final class HeadingLinkAssets {
 		}
 
 		$post = get_queried_object();
-		if ( ! $post instanceof \WP_Post || ! $this->anchors->isEnabledFor( $post ) ) {
+		if ( ! $post instanceof WP_Post || ! $this->anchors->is_enabled_for( $post ) ) {
 			return;
 		}
 
-		$uri = plugin_dir_url( \ReaderExperience\PLUGIN_FILE );
-		$dir = plugin_dir_path( \ReaderExperience\PLUGIN_FILE );
+		$uri = plugin_dir_url( PLUGIN_FILE );
+		$dir = plugin_dir_path( PLUGIN_FILE );
 
-		if ( $this->anchors->loadCss( $post ) ) {
+		if ( $this->anchors->load_css( $post ) ) {
 			wp_enqueue_style(
 				self::HANDLE,
 				$uri . 'assets/css/heading-anchor-links.css',
@@ -61,7 +64,7 @@ final class HeadingLinkAssets {
 			);
 		}
 
-		if ( $this->anchors->loadJs( $post ) ) {
+		if ( $this->anchors->load_js( $post ) ) {
 			wp_enqueue_script(
 				self::HANDLE,
 				$uri . 'assets/js/heading-anchor-links.js',
