@@ -20,11 +20,13 @@ during the style round. Hans: correct what is wrong; delete what you do not want
 - `snake_case` for functions, methods, properties and variables. `CamelCase` only for class names
   and namespaces. `kebab-case` for slugs, handles, CSS classes and tokens.
 - Class files are named after the class (PSR-4), no `class-` prefix.
-- Import with `use` at the top; never `\WP_Post` in the code. (confirm) `core-functionality-oop` also
-  imports WordPress functions (`use function __;`); this plugin does not yet.
+- Import with `use` at the top; never `\WP_Post` in the code. In namespaced files also import every
+  function (`use function __;`, `use function is_array;`), like `core-functionality-oop`. Order:
+  classes, then functions, then constants. Constants are not imported. Block render templates are in
+  the global namespace and need no imports.
 - File docblock with `@package`, `@author Hans Schuijff <@hansschuijff>`, `@license`, `@since`;
   a docblock for every class, method, property, constant and hook (`@since`, `@param`, `@return`).
-- `declare( strict_types=1 );` with spaces (the core plugin is mixed; the spaced form is the target).
+- `declare( strict_types=1 );` with spaces inside the parentheses, as WPCS spacing suggests.
 - Hooks are `reader_experience/<name>`. Every hook is documented in the code and listed in the
   README table (hook, type, default, arguments, example).
 
