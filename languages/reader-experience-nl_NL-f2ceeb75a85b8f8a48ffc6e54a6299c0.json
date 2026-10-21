@@ -1,0 +1,72 @@
+{
+	"translation-revision-date": "2026-10-21 20:27+0000",
+	"generator": "reader-experience tooling",
+	"source": "build/blocks/toc/index.js",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "nl_NL",
+				"plural-forms": "nplurals=2; plural=(n != 1);"
+			},
+			"Settings": [
+				"Instellingen"
+			],
+			"Title": [
+				"Titel"
+			],
+			"Leave empty for \"Contents\".": [
+				"Leeg laten voor \"Inhoud\"."
+			],
+			"Show headings up to level": [
+				"Toon koppen tot niveau"
+			],
+			"Hide this block when there are fewer headings than this": [
+				"Verberg dit blok bij minder dan dit aantal koppen"
+			],
+			"This is a threshold to hide the whole table of contents on a short article, not a way to shorten a long list.": [
+				"Dit is een drempel om de hele inhoudsopgave te verbergen bij een kort artikel, geen manier om een lange lijst in te korten."
+			],
+			"Style": [
+				"Stijl"
+			],
+			"Default": [
+				"Standaard"
+			],
+			"Compact (lighter, suited for a sidebar)": [
+				"Compact (lichter, geschikt voor een zijbalk)"
+			],
+			"Collapsible sub-levels per top-level heading": [
+				"Subniveaus inklapbaar per hoofdkop"
+			],
+			"Useful with many headings: H3/H4 only appear after a click on their H2.": [
+				"Handig bij veel koppen: H3/H4 verschijnen dan pas na een klik op de bijbehorende H2."
+			],
+			"Text size (px)": [
+				"Tekstgrootte (px)"
+			],
+			"Empty (0) uses the default size of the chosen style.": [
+				"Leeg (0) gebruikt de standaardgrootte van de gekozen stijl."
+			],
+			"Colour": [
+				"Kleur"
+			],
+			"Text": [
+				"Tekst"
+			],
+			"Background": [
+				"Achtergrond"
+			],
+			"Contents": [
+				"Inhoud"
+			],
+			"Headings are filled in here automatically…": [
+				"Koppen worden hier automatisch ingevuld…"
+			],
+			"(on the site, from the article text)": [
+				"(op de site, uit de artikeltekst)"
+			]
+		}
+	}
+}

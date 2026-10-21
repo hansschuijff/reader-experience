@@ -1,0 +1,30 @@
+{
+	"translation-revision-date": "2026-10-21 20:27+0000",
+	"generator": "reader-experience tooling",
+	"source": "build/blocks/rating/index.js",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "nl_NL",
+				"plural-forms": "nplurals=2; plural=(n != 1);"
+			},
+			"Settings": [
+				"Instellingen"
+			],
+			"Display": [
+				"Weergave"
+			],
+			"Determines the size and whether the explanation unfolds inline or appears in a separate panel. Both fit equally well at the bottom of the article and in the interaction bar.": [
+				"Bepaalt formaat en of de toelichting inline uitklapt of in een los paneeltje verschijnt. Beide passen zowel los onderaan het artikel als in de interactiebalk."
+			],
+			"Large, with text (inline)": [
+				"Groot, met tekst (inline)"
+			],
+			"Compact, icons only (bar)": [
+				"Compact, alleen iconen (balk)"
+			]
+		}
+	}
+}

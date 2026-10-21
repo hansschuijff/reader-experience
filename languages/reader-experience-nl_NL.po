@@ -1,0 +1,571 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Reader Experience\n"
+"Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
+"POT-Creation-Date: 2026-10-21 20:27+0000\n"
+"PO-Revision-Date: 2026-10-21 20:27+0000\n"
+"Last-Translator: Hans Schuijff\n"
+"Language-Team: Dutch\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: reader-experience\n"
+
+#. Block title
+#: blocks/comments-link/block.json
+msgctxt "block title"
+msgid "Comments (link)"
+msgstr "Reacties (link)"
+
+#. Block description
+#: blocks/comments-link/block.json
+msgctxt "block description"
+msgid ""
+"Shows the number of comments and jumps to the comment form. Meant as a child"
+" of the interaction bar."
+msgstr ""
+"Toont het aantal reacties en springt naar het reactieformulier. Bedoeld als "
+"kind van de interactiebalk."
+
+#: blocks/comments-link/index.js:11
+msgid "14 comments"
+msgstr "14 reacties"
+
+#: blocks/comments-link/render.php:26
+msgid "Comments"
+msgstr "Reacties"
+
+#. %d: number of comments
+#: blocks/comments-link/render.php:32
+msgid "%d comment"
+msgid_plural "%d comments"
+msgstr[0] "%d reactie"
+msgstr[1] "%d reacties"
+
+#. Block description
+#: blocks/interaction-bar/block.json
+msgctxt "block description"
+msgid ""
+"Fixed bar at the bottom of the screen with sharing, comments and rating. "
+"Hides when scrolling down."
+msgstr ""
+"Vaste balk onderaan het scherm met delen, reacties en waardering. Verbergt "
+"bij omlaag scrollen."
+
+#. Block title
+#: blocks/interaction-bar/block.json
+msgctxt "block title"
+msgid "Interaction bar"
+msgstr "Interactiebalk"
+
+#. Block title
+#: blocks/rating/block.json
+msgctxt "block title"
+msgid "Rating"
+msgstr "Waardering"
+
+#. Block description
+#: blocks/rating/block.json
+msgctxt "block description"
+msgid ""
+"Thumbs up/down, visible right away. Optionally followed by an explanation "
+"and, depending on the vote, an offer to post it as a comment or to get in "
+"touch."
+msgstr ""
+"Duim omhoog/omlaag, direct zichtbaar. Optioneel gevolgd door een toelichting"
+" en, afhankelijk van de stem, het aanbod om die als reactie te plaatsen of "
+"contact op te nemen."
+
+#: blocks/rating/index.js:13 blocks/reading-progress/index.js:12
+#: blocks/reading-time/index.js:11 blocks/toc/index.js:19
+msgid "Settings"
+msgstr "Instellingen"
+
+#: blocks/rating/index.js:15
+msgid "Display"
+msgstr "Weergave"
+
+#: blocks/rating/index.js:16
+msgid ""
+"Determines the size and whether the explanation unfolds inline or appears in"
+" a separate panel. Both fit equally well at the bottom of the article and in"
+" the interaction bar."
+msgstr ""
+"Bepaalt formaat en of de toelichting inline uitklapt of in een los paneeltje"
+" verschijnt. Beide passen zowel los onderaan het artikel als in de "
+"interactiebalk."
+
+#: blocks/rating/index.js:19
+msgid "Large, with text (inline)"
+msgstr "Groot, met tekst (inline)"
+
+#: blocks/rating/index.js:20
+msgid "Compact, icons only (bar)"
+msgstr "Compact, alleen iconen (balk)"
+
+#: blocks/rating/render.php:102
+msgid "Thanks for your response"
+msgstr "Bedankt voor je reactie"
+
+#: blocks/rating/render.php:106
+msgid "Enable JavaScript to be able to respond."
+msgstr "Schakel JavaScript in om te kunnen reageren."
+
+#: blocks/rating/render.php:40 blocks/rating/render.php:42
+msgid "Useful"
+msgstr "Nuttig"
+
+#: blocks/rating/render.php:44 blocks/rating/render.php:46
+msgid "Not useful"
+msgstr "Niet nuttig"
+
+#: blocks/rating/render.php:55
+msgid "Thanks for your thumb. What did you like about this page?"
+msgstr "Bedankt voor je duim. Wat vond je goed aan deze pagina?"
+
+#: blocks/rating/render.php:56
+msgid "Thanks for your thumb. What could we improve about this page?"
+msgstr "Bedankt voor je duim. Wat kunnen we verbeteren aan deze pagina?"
+
+#: blocks/rating/render.php:58
+msgid "Explanation (optional)"
+msgstr "Toelichting (optioneel)"
+
+#: blocks/rating/render.php:59
+msgid "Optional"
+msgstr "Optioneel"
+
+#: blocks/rating/render.php:61
+msgid "Leave this field empty"
+msgstr "Laat dit veld leeg"
+
+#: blocks/rating/render.php:65
+msgid "Skip"
+msgstr "Overslaan"
+
+#: blocks/rating/render.php:66
+msgid "Send"
+msgstr "Versturen"
+
+#: blocks/rating/render.php:74
+msgid "May we post your comment below the article?"
+msgstr "Mag je reactie onder het artikel geplaatst worden?"
+
+#: blocks/rating/render.php:75
+msgid "How can we contact you if we have more questions?"
+msgstr "Hoe mogen we je benaderen als we nog vragen hebben?"
+
+#: blocks/rating/render.php:78 blocks/rating/render.php:79
+msgid "Name"
+msgstr "Naam"
+
+#: blocks/rating/render.php:80 blocks/rating/render.php:81
+msgid "Email address"
+msgstr "E-mailadres"
+
+#: blocks/rating/render.php:86
+msgid "Please enter your name and a valid email address."
+msgstr "Vul je naam en een geldig e-mailadres in."
+
+#: blocks/rating/render.php:90
+msgid "No, thanks"
+msgstr "Nee, dank je"
+
+#: blocks/rating/render.php:95
+msgid "Yes, post it"
+msgstr "Ja, plaats het"
+
+#: blocks/rating/render.php:96
+msgid "Yes, that is fine"
+msgstr "Ja, dat mag"
+
+#. Block title
+#: blocks/reading-progress/block.json
+msgctxt "block title"
+msgid "Reading progress"
+msgstr "Leesvoortgang"
+
+#. Block description
+#: blocks/reading-progress/block.json
+msgctxt "block description"
+msgid ""
+"Thin bar at the top of the screen that shows how far the visitor is in the "
+"article."
+msgstr ""
+"Dunne balk bovenaan het scherm die laat zien hoever de bezoeker in het "
+"artikel is."
+
+#: blocks/reading-progress/index.js:14
+msgid "Element to follow (CSS selector)"
+msgstr "Element dat gevolgd wordt (CSS-selector)"
+
+#: blocks/reading-progress/index.js:15
+msgid ""
+"Defaults to .wp-block-post-content (block themes). With a classic theme use "
+"the class of your content container, for example .entry-content. Even "
+"without a correct value a common container is tried automatically."
+msgstr ""
+"Standaard .wp-block-post-content (FSE-thema's). Gebruik bij een klassiek "
+"thema de class van je content-container, bijvoorbeeld .entry-content. Ook "
+"zonder juiste waarde wordt automatisch een veelvoorkomende container "
+"geprobeerd."
+
+#: blocks/reading-progress/index.js:21 blocks/toc/index.js:69
+msgid "Colour"
+msgstr "Kleur"
+
+#: blocks/reading-progress/index.js:27
+msgid "Bar colour"
+msgstr "Balkkleur"
+
+#: blocks/reading-progress/index.js:37
+msgid "Reading progress bar (thin bar at the top of the screen on the site)"
+msgstr "Leesvoortgangsbalk (dunne balk bovenaan het scherm op de site)"
+
+#. Block title
+#: blocks/reading-time/block.json
+msgctxt "block title"
+msgid "Reading time"
+msgstr "Leestijd"
+
+#. Block description
+#: blocks/reading-time/block.json
+msgctxt "block description"
+msgid ""
+"Shows the estimated reading time of the article, optionally as the time "
+"remaining while reading."
+msgstr ""
+"Toont de geschatte leestijd van het artikel, eventueel als resterende tijd "
+"tijdens het lezen."
+
+#: blocks/reading-time/index.js:13
+msgid "Show the remaining time while reading"
+msgstr "Toon resterende tijd tijdens het lezen"
+
+#: blocks/reading-time/index.js:21
+msgid "~12 min left (example)"
+msgstr "nog ~12 min (voorbeeld)"
+
+#: blocks/reading-time/index.js:22
+msgid "12 min read (example)"
+msgstr "12 min leestijd (voorbeeld)"
+
+#. %d: number of minutes left
+#: blocks/reading-time/render.php:28
+msgid "~%d min left"
+msgstr "nog ~%d min"
+
+#. %d: number of minutes left
+#: blocks/reading-time/render.php:29
+msgid "Finished"
+msgstr "Uitgelezen"
+
+#. %d: number of minutes
+#: blocks/reading-time/render.php:36
+msgid "%d min read"
+msgid_plural "%d min read"
+msgstr[0] "%d min leestijd"
+msgstr[1] "%d min leestijd"
+
+#. Block title
+#: blocks/share/block.json
+msgctxt "block title"
+msgid "Share"
+msgstr "Delen"
+
+#. Block description
+#: blocks/share/block.json
+msgctxt "block description"
+msgid ""
+"Share button. The system menu on mobile, a popover with channels and a copy "
+"button on desktop. Meant as a child of the interaction bar or to be placed "
+"on its own."
+msgstr ""
+"Deelknop. Op mobiel het systeemmenu, op desktop een popover met kanalen en "
+"kopieerknop. Bedoeld als kind van de interactiebalk of los te plaatsen."
+
+#: blocks/share/render.php:24 blocks/share/render.php:26
+#: blocks/share/render.php:29 blocks/share/index.js:12
+msgid "Share"
+msgstr "Delen"
+
+#: blocks/share/render.php:44
+msgid "Copied"
+msgstr "Gekopieerd"
+
+#: blocks/share/render.php:46
+msgid "Copy"
+msgstr "Kopieer"
+
+#. Block title
+#: blocks/toc-open/block.json
+msgctxt "block title"
+msgid "Contents (button)"
+msgstr "Inhoud (knop)"
+
+#. Block description
+#: blocks/toc-open/block.json
+msgctxt "block description"
+msgid ""
+"Jumps to the table of contents of the article and opens it. Only appears "
+"when the article contains a table of contents block. Meant as a child of the"
+" interaction bar."
+msgstr ""
+"Springt naar de inhoudsopgave van het artikel en klapt hem open. Verschijnt "
+"alleen als het artikel een inhoudsopgaveblok bevat. Bedoeld als kind van de "
+"interactiebalk."
+
+#: blocks/toc-open/render.php:23 blocks/toc-open/render.php:25
+#: blocks/toc/render.php:29 blocks/toc-open/index.js:11 blocks/toc/index.js:88
+msgid "Contents"
+msgstr "Inhoud"
+
+#. Block description
+#: blocks/toc/block.json
+msgctxt "block description"
+msgid ""
+"Automatic table of contents from the headings of the article, marking where "
+"the visitor is."
+msgstr ""
+"Automatische inhoudsopgave uit de koppen van het artikel, met markering van "
+"de plek waar de bezoeker is."
+
+#. Block title
+#: blocks/toc/block.json
+msgctxt "block title"
+msgid "Table of contents"
+msgstr "Inhoudsopgave"
+
+#: blocks/toc/index.js:21
+msgid "Title"
+msgstr "Titel"
+
+#: blocks/toc/index.js:22
+msgid "Leave empty for \"Contents\"."
+msgstr "Leeg laten voor \"Inhoud\"."
+
+#: blocks/toc/index.js:27
+msgid "Show headings up to level"
+msgstr "Toon koppen tot niveau"
+
+#: blocks/toc/index.js:37
+msgid "Hide this block when there are fewer headings than this"
+msgstr "Verberg dit blok bij minder dan dit aantal koppen"
+
+#: blocks/toc/index.js:38
+msgid ""
+"This is a threshold to hide the whole table of contents on a short article, "
+"not a way to shorten a long list."
+msgstr ""
+"Dit is een drempel om de hele inhoudsopgave te verbergen bij een kort "
+"artikel, geen manier om een lange lijst in te korten."
+
+#: blocks/toc/index.js:45
+msgid "Style"
+msgstr "Stijl"
+
+#: blocks/toc/index.js:48
+msgid "Default"
+msgstr "Standaard"
+
+#: blocks/toc/index.js:49
+msgid "Compact (lighter, suited for a sidebar)"
+msgstr "Compact (lichter, geschikt voor een zijbalk)"
+
+#: blocks/toc/index.js:54
+msgid "Collapsible sub-levels per top-level heading"
+msgstr "Subniveaus inklapbaar per hoofdkop"
+
+#: blocks/toc/index.js:55
+msgid ""
+"Useful with many headings: H3/H4 only appear after a click on their H2."
+msgstr ""
+"Handig bij veel koppen: H3/H4 verschijnen dan pas na een klik op de "
+"bijbehorende H2."
+
+#: blocks/toc/index.js:60
+msgid "Text size (px)"
+msgstr "Tekstgrootte (px)"
+
+#: blocks/toc/index.js:61
+msgid "Empty (0) uses the default size of the chosen style."
+msgstr "Leeg (0) gebruikt de standaardgrootte van de gekozen stijl."
+
+#: blocks/toc/index.js:75
+msgid "Text"
+msgstr "Tekst"
+
+#: blocks/toc/index.js:80
+msgid "Background"
+msgstr "Achtergrond"
+
+#: blocks/toc/index.js:91
+msgid "Headings are filled in here automatically…"
+msgstr "Koppen worden hier automatisch ingevuld…"
+
+#: blocks/toc/index.js:94
+msgid "(on the site, from the article text)"
+msgstr "(op de site, uit de artikeltekst)"
+
+#. Description of the plugin
+#: reader-experience.php:4
+msgid ""
+"Reading tools and interaction for long articles: table of contents, reading "
+"time, sharing and ratings."
+msgstr ""
+"Leesfuncties en interactie voor lange artikelen: inhoudsopgave, leestijd, "
+"delen en waardering."
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:105
+msgid "View all feedback"
+msgstr "Alle feedback bekijken"
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:56
+msgid "Recent feedback"
+msgstr "Recente feedback"
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:71
+msgid "No feedback with a comment yet."
+msgstr "Nog geen feedback met een toelichting."
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:84
+msgid "posted as a comment"
+msgstr "geplaatst als reactie"
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:88
+msgid "wants contact"
+msgstr "wil contact"
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:95
+#: src/Modules/Rating/Admin/FeedbackPage.php:150
+#: src/Modules/Rating/Admin/FeedbackPage.php:176
+msgid "(untitled)"
+msgstr "(zonder titel)"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:145
+msgid "Article:"
+msgstr "Artikel:"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:147
+msgid "All articles"
+msgstr "Alle artikelen"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:154
+msgid "Filter"
+msgstr "Filteren"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:160
+msgid "Article"
+msgstr "Artikel"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:161
+#: src/Modules/Rating/Admin/PostColumn.php:67
+msgid "Rating"
+msgstr "Waardering"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:162
+msgid "Explanation"
+msgstr "Toelichting"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:163
+msgid "Follow-up"
+msgstr "Vervolg"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:164
+msgid "Date"
+msgstr "Datum"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:170
+msgid "No feedback yet."
+msgstr "Nog geen feedback."
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:183
+msgid "Comment posted"
+msgstr "Reactie geplaatst"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:197
+msgid "Delete this feedback?"
+msgstr "Deze feedback verwijderen?"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:198
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:72
+msgid "Reader Experience feedback"
+msgstr "Reader Experience feedback"
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:73
+#: src/Modules/Rating/Admin/FeedbackPage.php:141
+msgid "Feedback"
+msgstr "Feedback"
+
+#: src/Modules/Rating/CommentPublisher.php:76
+msgid "Anonymous"
+msgstr "Anoniem"
+
+#: src/Modules/Rating/Notifier.php:52
+msgid "New feedback with a comment"
+msgstr "Nieuwe feedback met toelichting"
+
+#. 1: post title, 2: the reader's comment, 3: link to the feedback overview
+#: src/Modules/Rating/Notifier.php:55
+msgid ""
+"On \"%1$s\":\n"
+"\n"
+"%2$s\n"
+"\n"
+"View all feedback: %3$s"
+msgstr ""
+"Bij \"%1$s\":\n"
+"\n"
+"%2$s\n"
+"\n"
+"Bekijk alle feedback: %3$s"
+
+#: src/Modules/Rating/Notifier.php:77
+msgid "Someone wants to be contacted after giving feedback"
+msgstr "Iemand wil contact na feedback"
+
+#. 1: post title, 2: link to the feedback overview
+#: src/Modules/Rating/Notifier.php:80
+msgid ""
+"On \"%1$s\" a contact request came in.\n"
+"\n"
+"View the details: %2$s"
+msgstr ""
+"Bij \"%1$s\" is een contactverzoek binnengekomen.\n"
+"\n"
+"Bekijk de gegevens: %2$s"
+
+#: src/Modules/Rating/RatingController.php:136
+#: src/Modules/Sharing/ShareController.php:88
+msgid "Unknown article."
+msgstr "Onbekend artikel."
+
+#: src/Modules/Reading/HeadingAnchors.php:207
+msgid "Copy link to this section"
+msgstr "Kopieer link naar dit onderdeel"
+
+#: src/Modules/Reading/HeadingAnchors.php:208
+msgid "Link copied"
+msgstr "Link gekopieerd"
+
+#: src/Modules/Sharing/ChannelRegistry.php:40
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: src/Modules/Sharing/ChannelRegistry.php:47
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: src/Modules/Sharing/ChannelRegistry.php:54
+msgid "Facebook"
+msgstr "Facebook"
+
+#: src/Modules/Sharing/ChannelRegistry.php:61
+msgid "Email"
+msgstr "E-mail"

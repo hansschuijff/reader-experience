@@ -1,0 +1,33 @@
+{
+	"translation-revision-date": "2026-10-21 20:27+0000",
+	"generator": "reader-experience tooling",
+	"source": "build/blocks/reading-progress/index.js",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "nl_NL",
+				"plural-forms": "nplurals=2; plural=(n != 1);"
+			},
+			"Settings": [
+				"Instellingen"
+			],
+			"Element to follow (CSS selector)": [
+				"Element dat gevolgd wordt (CSS-selector)"
+			],
+			"Defaults to .wp-block-post-content (block themes). With a classic theme use the class of your content container, for example .entry-content. Even without a correct value a common container is tried automatically.": [
+				"Standaard .wp-block-post-content (FSE-thema's). Gebruik bij een klassiek thema de class van je content-container, bijvoorbeeld .entry-content. Ook zonder juiste waarde wordt automatisch een veelvoorkomende container geprobeerd."
+			],
+			"Colour": [
+				"Kleur"
+			],
+			"Bar colour": [
+				"Balkkleur"
+			],
+			"Reading progress bar (thin bar at the top of the screen on the site)": [
+				"Leesvoortgangsbalk (dunne balk bovenaan het scherm op de site)"
+			]
+		}
+	}
+}

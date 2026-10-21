@@ -1,0 +1,529 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Reader Experience\n"
+"Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
+"POT-Creation-Date: 2026-10-21 20:27+0000\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: reader-experience\n"
+
+#. Block title
+#: blocks/comments-link/block.json
+msgctxt "block title"
+msgid "Comments (link)"
+msgstr ""
+
+#. Block description
+#: blocks/comments-link/block.json
+msgctxt "block description"
+msgid ""
+"Shows the number of comments and jumps to the comment form. Meant as a child"
+" of the interaction bar."
+msgstr ""
+
+#: blocks/comments-link/index.js:11
+msgid "14 comments"
+msgstr ""
+
+#: blocks/comments-link/render.php:26
+msgid "Comments"
+msgstr ""
+
+#. %d: number of comments
+#: blocks/comments-link/render.php:32
+msgid "%d comment"
+msgid_plural "%d comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#. Block description
+#: blocks/interaction-bar/block.json
+msgctxt "block description"
+msgid ""
+"Fixed bar at the bottom of the screen with sharing, comments and rating. "
+"Hides when scrolling down."
+msgstr ""
+
+#. Block title
+#: blocks/interaction-bar/block.json
+msgctxt "block title"
+msgid "Interaction bar"
+msgstr ""
+
+#. Block title
+#: blocks/rating/block.json
+msgctxt "block title"
+msgid "Rating"
+msgstr ""
+
+#. Block description
+#: blocks/rating/block.json
+msgctxt "block description"
+msgid ""
+"Thumbs up/down, visible right away. Optionally followed by an explanation "
+"and, depending on the vote, an offer to post it as a comment or to get in "
+"touch."
+msgstr ""
+
+#: blocks/rating/index.js:13 blocks/reading-progress/index.js:12
+#: blocks/reading-time/index.js:11 blocks/toc/index.js:19
+msgid "Settings"
+msgstr ""
+
+#: blocks/rating/index.js:15
+msgid "Display"
+msgstr ""
+
+#: blocks/rating/index.js:16
+msgid ""
+"Determines the size and whether the explanation unfolds inline or appears in"
+" a separate panel. Both fit equally well at the bottom of the article and in"
+" the interaction bar."
+msgstr ""
+
+#: blocks/rating/index.js:19
+msgid "Large, with text (inline)"
+msgstr ""
+
+#: blocks/rating/index.js:20
+msgid "Compact, icons only (bar)"
+msgstr ""
+
+#: blocks/rating/render.php:102
+msgid "Thanks for your response"
+msgstr ""
+
+#: blocks/rating/render.php:106
+msgid "Enable JavaScript to be able to respond."
+msgstr ""
+
+#: blocks/rating/render.php:40 blocks/rating/render.php:42
+msgid "Useful"
+msgstr ""
+
+#: blocks/rating/render.php:44 blocks/rating/render.php:46
+msgid "Not useful"
+msgstr ""
+
+#: blocks/rating/render.php:55
+msgid "Thanks for your thumb. What did you like about this page?"
+msgstr ""
+
+#: blocks/rating/render.php:56
+msgid "Thanks for your thumb. What could we improve about this page?"
+msgstr ""
+
+#: blocks/rating/render.php:58
+msgid "Explanation (optional)"
+msgstr ""
+
+#: blocks/rating/render.php:59
+msgid "Optional"
+msgstr ""
+
+#: blocks/rating/render.php:61
+msgid "Leave this field empty"
+msgstr ""
+
+#: blocks/rating/render.php:65
+msgid "Skip"
+msgstr ""
+
+#: blocks/rating/render.php:66
+msgid "Send"
+msgstr ""
+
+#: blocks/rating/render.php:74
+msgid "May we post your comment below the article?"
+msgstr ""
+
+#: blocks/rating/render.php:75
+msgid "How can we contact you if we have more questions?"
+msgstr ""
+
+#: blocks/rating/render.php:78 blocks/rating/render.php:79
+msgid "Name"
+msgstr ""
+
+#: blocks/rating/render.php:80 blocks/rating/render.php:81
+msgid "Email address"
+msgstr ""
+
+#: blocks/rating/render.php:86
+msgid "Please enter your name and a valid email address."
+msgstr ""
+
+#: blocks/rating/render.php:90
+msgid "No, thanks"
+msgstr ""
+
+#: blocks/rating/render.php:95
+msgid "Yes, post it"
+msgstr ""
+
+#: blocks/rating/render.php:96
+msgid "Yes, that is fine"
+msgstr ""
+
+#. Block title
+#: blocks/reading-progress/block.json
+msgctxt "block title"
+msgid "Reading progress"
+msgstr ""
+
+#. Block description
+#: blocks/reading-progress/block.json
+msgctxt "block description"
+msgid ""
+"Thin bar at the top of the screen that shows how far the visitor is in the "
+"article."
+msgstr ""
+
+#: blocks/reading-progress/index.js:14
+msgid "Element to follow (CSS selector)"
+msgstr ""
+
+#: blocks/reading-progress/index.js:15
+msgid ""
+"Defaults to .wp-block-post-content (block themes). With a classic theme use "
+"the class of your content container, for example .entry-content. Even "
+"without a correct value a common container is tried automatically."
+msgstr ""
+
+#: blocks/reading-progress/index.js:21 blocks/toc/index.js:69
+msgid "Colour"
+msgstr ""
+
+#: blocks/reading-progress/index.js:27
+msgid "Bar colour"
+msgstr ""
+
+#: blocks/reading-progress/index.js:37
+msgid "Reading progress bar (thin bar at the top of the screen on the site)"
+msgstr ""
+
+#. Block title
+#: blocks/reading-time/block.json
+msgctxt "block title"
+msgid "Reading time"
+msgstr ""
+
+#. Block description
+#: blocks/reading-time/block.json
+msgctxt "block description"
+msgid ""
+"Shows the estimated reading time of the article, optionally as the time "
+"remaining while reading."
+msgstr ""
+
+#: blocks/reading-time/index.js:13
+msgid "Show the remaining time while reading"
+msgstr ""
+
+#: blocks/reading-time/index.js:21
+msgid "~12 min left (example)"
+msgstr ""
+
+#: blocks/reading-time/index.js:22
+msgid "12 min read (example)"
+msgstr ""
+
+#. %d: number of minutes left
+#: blocks/reading-time/render.php:28
+msgid "~%d min left"
+msgstr ""
+
+#. %d: number of minutes left
+#: blocks/reading-time/render.php:29
+msgid "Finished"
+msgstr ""
+
+#. %d: number of minutes
+#: blocks/reading-time/render.php:36
+msgid "%d min read"
+msgid_plural "%d min read"
+msgstr[0] ""
+msgstr[1] ""
+
+#. Block title
+#: blocks/share/block.json
+msgctxt "block title"
+msgid "Share"
+msgstr ""
+
+#. Block description
+#: blocks/share/block.json
+msgctxt "block description"
+msgid ""
+"Share button. The system menu on mobile, a popover with channels and a copy "
+"button on desktop. Meant as a child of the interaction bar or to be placed "
+"on its own."
+msgstr ""
+
+#: blocks/share/render.php:24 blocks/share/render.php:26
+#: blocks/share/render.php:29 blocks/share/index.js:12
+msgid "Share"
+msgstr ""
+
+#: blocks/share/render.php:44
+msgid "Copied"
+msgstr ""
+
+#: blocks/share/render.php:46
+msgid "Copy"
+msgstr ""
+
+#. Block title
+#: blocks/toc-open/block.json
+msgctxt "block title"
+msgid "Contents (button)"
+msgstr ""
+
+#. Block description
+#: blocks/toc-open/block.json
+msgctxt "block description"
+msgid ""
+"Jumps to the table of contents of the article and opens it. Only appears "
+"when the article contains a table of contents block. Meant as a child of the"
+" interaction bar."
+msgstr ""
+
+#: blocks/toc-open/render.php:23 blocks/toc-open/render.php:25
+#: blocks/toc/render.php:29 blocks/toc-open/index.js:11 blocks/toc/index.js:88
+msgid "Contents"
+msgstr ""
+
+#. Block description
+#: blocks/toc/block.json
+msgctxt "block description"
+msgid ""
+"Automatic table of contents from the headings of the article, marking where "
+"the visitor is."
+msgstr ""
+
+#. Block title
+#: blocks/toc/block.json
+msgctxt "block title"
+msgid "Table of contents"
+msgstr ""
+
+#: blocks/toc/index.js:21
+msgid "Title"
+msgstr ""
+
+#: blocks/toc/index.js:22
+msgid "Leave empty for \"Contents\"."
+msgstr ""
+
+#: blocks/toc/index.js:27
+msgid "Show headings up to level"
+msgstr ""
+
+#: blocks/toc/index.js:37
+msgid "Hide this block when there are fewer headings than this"
+msgstr ""
+
+#: blocks/toc/index.js:38
+msgid ""
+"This is a threshold to hide the whole table of contents on a short article, "
+"not a way to shorten a long list."
+msgstr ""
+
+#: blocks/toc/index.js:45
+msgid "Style"
+msgstr ""
+
+#: blocks/toc/index.js:48
+msgid "Default"
+msgstr ""
+
+#: blocks/toc/index.js:49
+msgid "Compact (lighter, suited for a sidebar)"
+msgstr ""
+
+#: blocks/toc/index.js:54
+msgid "Collapsible sub-levels per top-level heading"
+msgstr ""
+
+#: blocks/toc/index.js:55
+msgid ""
+"Useful with many headings: H3/H4 only appear after a click on their H2."
+msgstr ""
+
+#: blocks/toc/index.js:60
+msgid "Text size (px)"
+msgstr ""
+
+#: blocks/toc/index.js:61
+msgid "Empty (0) uses the default size of the chosen style."
+msgstr ""
+
+#: blocks/toc/index.js:75
+msgid "Text"
+msgstr ""
+
+#: blocks/toc/index.js:80
+msgid "Background"
+msgstr ""
+
+#: blocks/toc/index.js:91
+msgid "Headings are filled in here automatically…"
+msgstr ""
+
+#: blocks/toc/index.js:94
+msgid "(on the site, from the article text)"
+msgstr ""
+
+#. Description of the plugin
+#: reader-experience.php:4
+msgid ""
+"Reading tools and interaction for long articles: table of contents, reading "
+"time, sharing and ratings."
+msgstr ""
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:105
+msgid "View all feedback"
+msgstr ""
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:56
+msgid "Recent feedback"
+msgstr ""
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:71
+msgid "No feedback with a comment yet."
+msgstr ""
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:84
+msgid "posted as a comment"
+msgstr ""
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:88
+msgid "wants contact"
+msgstr ""
+
+#: src/Modules/Rating/Admin/DashboardWidget.php:95
+#: src/Modules/Rating/Admin/FeedbackPage.php:150
+#: src/Modules/Rating/Admin/FeedbackPage.php:176
+msgid "(untitled)"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:145
+msgid "Article:"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:147
+msgid "All articles"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:154
+msgid "Filter"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:160
+msgid "Article"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:161
+#: src/Modules/Rating/Admin/PostColumn.php:67
+msgid "Rating"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:162
+msgid "Explanation"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:163
+msgid "Follow-up"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:164
+msgid "Date"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:170
+msgid "No feedback yet."
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:183
+msgid "Comment posted"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:197
+msgid "Delete this feedback?"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:198
+msgid "Delete"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:72
+msgid "Reader Experience feedback"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:73
+#: src/Modules/Rating/Admin/FeedbackPage.php:141
+msgid "Feedback"
+msgstr ""
+
+#: src/Modules/Rating/CommentPublisher.php:76
+msgid "Anonymous"
+msgstr ""
+
+#: src/Modules/Rating/Notifier.php:52
+msgid "New feedback with a comment"
+msgstr ""
+
+#. 1: post title, 2: the reader's comment, 3: link to the feedback overview
+#: src/Modules/Rating/Notifier.php:55
+msgid ""
+"On \"%1$s\":\n"
+"\n"
+"%2$s\n"
+"\n"
+"View all feedback: %3$s"
+msgstr ""
+
+#: src/Modules/Rating/Notifier.php:77
+msgid "Someone wants to be contacted after giving feedback"
+msgstr ""
+
+#. 1: post title, 2: link to the feedback overview
+#: src/Modules/Rating/Notifier.php:80
+msgid ""
+"On \"%1$s\" a contact request came in.\n"
+"\n"
+"View the details: %2$s"
+msgstr ""
+
+#: src/Modules/Rating/RatingController.php:136
+#: src/Modules/Sharing/ShareController.php:88
+msgid "Unknown article."
+msgstr ""
+
+#: src/Modules/Reading/HeadingAnchors.php:207
+msgid "Copy link to this section"
+msgstr ""
+
+#: src/Modules/Reading/HeadingAnchors.php:208
+msgid "Link copied"
+msgstr ""
+
+#: src/Modules/Sharing/ChannelRegistry.php:40
+msgid "WhatsApp"
+msgstr ""
+
+#: src/Modules/Sharing/ChannelRegistry.php:47
+msgid "LinkedIn"
+msgstr ""
+
+#: src/Modules/Sharing/ChannelRegistry.php:54
+msgid "Facebook"
+msgstr ""
+
+#: src/Modules/Sharing/ChannelRegistry.php:61
+msgid "Email"
+msgstr ""
