@@ -4,6 +4,8 @@ DRAFT: written from the code of this plugin and `core-functionality-oop`, and fr
 during the style round. Hans: correct what is wrong; delete what you do not want. Items marked
 "(confirm)" are guesses.
 
+Architecture, decisions and the reasons behind them: `docs/ARCHITECTURE.md`. Keep it up to date when a decision changes.
+
 ## How we work
 
 - Advice first, then build. For anything that is hard to redo, ask before building.
