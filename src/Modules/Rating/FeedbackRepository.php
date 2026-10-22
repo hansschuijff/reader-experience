@@ -12,9 +12,14 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Modules\Rating;
 
+use function absint;
+use function array_fill;
 use function array_fill_keys;
+use function array_filter;
 use function array_map;
 use function array_merge;
+use function array_values;
+use function count;
 use function current_time;
 use function gmdate;
 use function implode;
@@ -293,6 +298,27 @@ final class FeedbackRepository {
 	public function delete( int $id ): void {
 		global $wpdb;
 		$wpdb->delete( $this->table(), array( 'id' => $id ), array( '%d' ) );
+	}
+
+	/**
+	 * Deletes several rows at once.
+	 *
+	 * @since 0.2.0
+	 * @param int[] $ids Row ids.
+	 * @return int Number of deleted rows.
+	 */
+	public function delete_many( array $ids ): int {
+		global $wpdb;
+
+		$ids = array_values( array_filter( array_map( 'absint', $ids ) ) );
+		if ( ! $ids ) {
+			return 0;
+		}
+
+		$placeholders = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
+		$deleted      = $wpdb->query( $wpdb->prepare( "DELETE FROM {$this->table()} WHERE id IN ({$placeholders})", $ids ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+
+		return (int) $deleted;
 	}
 
 	/**

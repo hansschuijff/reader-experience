@@ -65,7 +65,7 @@ final class DashboardWidget {
 	public function add(): void {
 		wp_add_dashboard_widget(
 			'rx_feedback_widget',
-			__( 'Recent feedback', 'reader-experience' ),
+			__( 'Recent reader feedback', 'reader-experience' ),
 			array( $this, 'render' )
 		);
 	}
@@ -114,7 +114,7 @@ final class DashboardWidget {
 		printf(
 			'<p><a href="%s">%s</a></p>',
 			esc_url( admin_url( 'edit-comments.php?page=rx-feedback' ) ),
-			esc_html__( 'View all feedback', 'reader-experience' )
+			esc_html__( 'View all reader feedback', 'reader-experience' )
 		);
 	}
 }

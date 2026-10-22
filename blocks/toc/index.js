@@ -89,13 +89,13 @@ registerBlockType( metadata.name, {
 					<ol className="rx-toc__list">
 						{ /* Spans, not links: a link takes the click and focus, so the block was not selected. */ }
 						<li className="rx-toc__item rx-toc__item--l2">
-							<span className="rx-toc__link">{ __( 'Headings are filled in here automatically…', 'reader-experience' ) }</span>
-						</li>
-						<li className="rx-toc__item rx-toc__item--l3">
-							<span className="rx-toc__link">{ __( '(on the site, from the article text)', 'reader-experience' ) }</span>
+							<span className="rx-toc__link">{ __( 'This table of contents is filled in automatically', 'reader-experience' ) }</span>
 						</li>
 						<li className="rx-toc__item rx-toc__item--l2">
-							<span className="rx-toc__link">…</span>
+							<span className="rx-toc__link">{ __( 'with links to the headings in the text', 'reader-experience' ) }</span>
+						</li>
+						<li className="rx-toc__item rx-toc__item--l2">
+							<span className="rx-toc__link">{ __( 'Choose which heading levels to show in the block settings', 'reader-experience' ) }</span>
 						</li>
 					</ol>
 				</div>

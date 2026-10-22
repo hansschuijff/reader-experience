@@ -37,8 +37,8 @@
 	color: inherit;
 	text-decoration: none;
 }
-.rx-toc__item--l3 :is(a, .rx-toc__link) { padding-inline-start: 1.5rem; }
-.rx-toc__item--l4 :is(a, .rx-toc__link) { padding-inline-start: 2.25rem; }
+.rx-toc__item--l3 a { padding-inline-start: 1.5rem; }
+.rx-toc__item--l4 a { padding-inline-start: 2.25rem; }
 /* Hover must not lower the contrast of the text: underline plus a faint tint instead of fading it. */
 .rx-toc__item a:hover {
 	text-decoration: underline;

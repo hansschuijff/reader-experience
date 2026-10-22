@@ -61,11 +61,14 @@
 			"Contents": [
 				"Inhoud"
 			],
-			"Headings are filled in here automatically…": [
-				"Koppen worden hier automatisch ingevuld…"
+			"This table of contents is filled in automatically": [
+				"Deze inhoudsopgave wordt automatisch gevuld"
 			],
-			"(on the site, from the article text)": [
-				"(op de site, uit de artikeltekst)"
+			"with links to the headings in the text": [
+				"met links naar koppen in de tekst"
+			],
+			"Choose which heading levels to show in the block settings": [
+				"Kies in de blokinstellingen welke kopniveaus je wilt tonen"
 			]
 		}
 	}

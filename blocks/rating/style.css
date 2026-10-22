@@ -12,11 +12,21 @@
 .rx-rating__email {
 	width: 100%;
 	box-sizing: border-box;
+	margin: 0 0 10px;
+	padding: 0.65em 0.85em;
 	font: inherit;
-	font-size: 0.875rem;
-	margin-bottom: 6px;
+	/* Same size as the theme's body text (and at least 16px, so iOS does not zoom in on focus). */
+	font-size: 1rem;
+	line-height: 1.4;
+	color: inherit;
+	background: var(--c-bg, Canvas);
+	border: 1px solid var(--c-border, ButtonBorder);
+	border-radius: 6px;
 }
-.rx-rating__fields { display: flex; flex-direction: column; gap: 4px; margin: 8px 0; }
+.rx-rating__text:focus,
+.rx-rating__name:focus,
+.rx-rating__email:focus { outline: 2px solid var(--c-accent, Highlight); outline-offset: 1px; }
+.rx-rating__fields { display: flex; flex-direction: column; gap: 0; margin: 8px 0; }
 .rx-rating__field-error { font-size: 0.75rem; color: var(--c-danger, crimson); margin: -2px 0 4px; }
 .rx-rating__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 

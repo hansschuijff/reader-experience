@@ -403,12 +403,12 @@ msgid "Background"
 msgstr "Achtergrond"
 
 #: blocks/toc/index.js:91
-msgid "Headings are filled in here automatically…"
-msgstr "Koppen worden hier automatisch ingevuld…"
+msgid "This table of contents is filled in automatically"
+msgstr "Deze inhoudsopgave wordt automatisch gevuld"
 
 #: blocks/toc/index.js:94
-msgid "(on the site, from the article text)"
-msgstr "(op de site, uit de artikeltekst)"
+msgid "with links to the headings in the text"
+msgstr "met links naar koppen in de tekst"
 
 #. Description of the plugin
 #: reader-experience.php:4
@@ -420,12 +420,12 @@ msgstr ""
 "delen en waardering."
 
 #: src/Modules/Rating/Admin/DashboardWidget.php:105
-msgid "View all feedback"
-msgstr "Alle feedback bekijken"
+msgid "View all reader feedback"
+msgstr "Alle lezersfeedback bekijken"
 
 #: src/Modules/Rating/Admin/DashboardWidget.php:56
-msgid "Recent feedback"
-msgstr "Recente feedback"
+msgid "Recent reader feedback"
+msgstr "Recente lezersfeedback"
 
 #: src/Modules/Rating/Admin/DashboardWidget.php:71
 msgid "No feedback with a comment yet."
@@ -467,12 +467,12 @@ msgid "Rating"
 msgstr "Waardering"
 
 #: src/Modules/Rating/Admin/FeedbackPage.php:162
-msgid "Explanation"
-msgstr "Toelichting"
+msgid "Reaction"
+msgstr "Reactie"
 
 #: src/Modules/Rating/Admin/FeedbackPage.php:163
-msgid "Follow-up"
-msgstr "Vervolg"
+msgid "Sender"
+msgstr "Afzender"
 
 #: src/Modules/Rating/Admin/FeedbackPage.php:164
 msgid "Date"
@@ -486,22 +486,9 @@ msgstr "Nog geen feedback."
 msgid "Comment posted"
 msgstr "Reactie geplaatst"
 
-#: src/Modules/Rating/Admin/FeedbackPage.php:197
-msgid "Delete this feedback?"
-msgstr "Deze feedback verwijderen?"
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:198
-msgid "Delete"
-msgstr "Verwijderen"
-
 #: src/Modules/Rating/Admin/FeedbackPage.php:72
-msgid "Reader Experience feedback"
-msgstr "Reader Experience feedback"
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:73
-#: src/Modules/Rating/Admin/FeedbackPage.php:141
-msgid "Feedback"
-msgstr "Feedback"
+msgid "Reader feedback"
+msgstr "Lezersfeedback"
 
 #: src/Modules/Rating/CommentPublisher.php:76
 msgid "Anonymous"
@@ -573,3 +560,23 @@ msgstr "E-mail"
 #: blocks/share/render.php
 msgid "Link to this article"
 msgstr "Link naar dit artikel"
+
+msgid "Choose which heading levels to show in the block settings"
+msgstr "Kies in de blokinstellingen welke kopniveaus je wilt tonen"
+
+msgid "Delete selected"
+msgstr "Geselecteerde verwijderen"
+
+msgid "Select all"
+msgstr "Alles selecteren"
+
+msgid "Select this feedback"
+msgstr "Selecteer deze feedback"
+
+msgid "Delete the selected feedback?"
+msgstr "De geselecteerde feedback verwijderen?"
+
+msgid "%d feedback item deleted."
+msgid_plural "%d feedback items deleted."
+msgstr[0] "%d feedbackitem verwijderd."
+msgstr[1] "%d feedbackitems verwijderd."

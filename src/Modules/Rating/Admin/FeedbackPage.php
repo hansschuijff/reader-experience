@@ -16,17 +16,20 @@ use ReaderExperience\Modules\Rating\FeedbackRepository;
 use ReaderExperience\Support\Icons;
 
 use function __;
+use function _n;
+use function absint;
 use function add_action;
 use function add_comments_page;
 use function add_query_arg;
 use function admin_url;
+use function array_map;
 use function ceil;
 use function check_admin_referer;
 use function current_user_can;
 use function esc_attr;
+use function esc_attr__;
 use function esc_html;
 use function esc_html_e;
-use function esc_js;
 use function esc_url;
 use function get_edit_post_link;
 use function max;
@@ -35,9 +38,12 @@ use function paginate_links;
 use function printf;
 use function remove_query_arg;
 use function selected;
+use function sprintf;
 use function strtoupper;
-use function wp_nonce_url;
+use function wp_get_referer;
+use function wp_nonce_field;
 use function wp_safe_redirect;
+use function wp_unslash;
 
 /**
  * Simple overview under Comments. No WP_List_Table (bulk actions, column visibility): that can come
@@ -59,7 +65,7 @@ final class FeedbackPage {
 	 *
 	 * @var string
 	 */
-	private const NONCE_ACTION = 'rx_feedback_delete';
+	private const NONCE_ACTION = 'rx_feedback_bulk_delete';
 
 	/**
 	 * Database access.
@@ -93,8 +99,8 @@ final class FeedbackPage {
 	 */
 	public function add_page(): void {
 		$hook = add_comments_page(
-			__( 'Reader Experience feedback', 'reader-experience' ),
-			__( 'Feedback', 'reader-experience' ),
+			__( 'Reader feedback', 'reader-experience' ),
+			__( 'Reader feedback', 'reader-experience' ),
 			'moderate_comments',
 			'rx-feedback',
 			array( $this, 'render' )
@@ -124,7 +130,8 @@ final class FeedbackPage {
 			return;
 		}
 
-		$this->maybe_handle_delete();
+		$this->maybe_handle_bulk_delete();
+		$deleted = (int) ( $_GET['rx_deleted'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification -- Only a number for a notice.
 
 		$page    = max( 1, (int) ( $_GET['paged'] ?? 1 ) ); // phpcs:ignore WordPress.Security.NonceVerification
 		$post_id = (int) ( $_GET['rx_post'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification
@@ -162,7 +169,22 @@ final class FeedbackPage {
 		};
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Feedback', 'reader-experience' ); ?></h1>
+			<h1 class="wp-heading-inline"><?php esc_html_e( 'Reader feedback', 'reader-experience' ); ?></h1>
+			<hr class="wp-header-end">
+
+			<?php if ( $deleted > 0 ) : ?>
+				<div class="notice notice-success is-dismissible"><p>
+					<?php
+					echo esc_html(
+						sprintf(
+							/* translators: %d: number of deleted feedback items */
+							_n( '%d feedback item deleted.', '%d feedback items deleted.', $deleted, 'reader-experience' ),
+							$deleted
+						)
+					);
+					?>
+				</p></div>
+			<?php endif; ?>
 
 			<form method="get" style="margin: 1em 0;">
 				<input type="hidden" name="page" value="rx-feedback">
@@ -178,53 +200,84 @@ final class FeedbackPage {
 				<noscript><button type="submit"><?php esc_html_e( 'Filter', 'reader-experience' ); ?></button></noscript>
 			</form>
 
-			<table class="widefat striped">
-				<thead>
-					<tr>
-						<th><?php $sort_link( 'post_title', __( 'Article', 'reader-experience' ) ); ?></th>
-						<th><?php esc_html_e( 'Rating', 'reader-experience' ); ?></th>
-						<th><?php esc_html_e( 'Explanation', 'reader-experience' ); ?></th>
-						<th><?php esc_html_e( 'Follow-up', 'reader-experience' ); ?></th>
-						<th><?php $sort_link( 'created', __( 'Date', 'reader-experience' ) ); ?></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if ( ! $result['rows'] ) : ?>
-						<tr><td colspan="6"><?php esc_html_e( 'No feedback yet.', 'reader-experience' ); ?></td></tr>
-					<?php endif; ?>
-					<?php foreach ( $result['rows'] as $row ) : ?>
+			<form method="post" id="rx-feedback-form">
+				<?php wp_nonce_field( self::NONCE_ACTION ); ?>
+				<div class="tablenav top">
+					<div class="alignleft actions">
+						<button
+							type="submit"
+							name="rx_bulk_delete"
+							value="1"
+							class="button action"
+							id="rx-bulk-delete"
+							data-rx-confirm="<?php echo esc_attr__( 'Delete the selected feedback?', 'reader-experience' ); ?>"
+							disabled
+						><?php esc_html_e( 'Delete selected', 'reader-experience' ); ?></button>
+					</div>
+				</div>
+
+				<table class="wp-list-table widefat fixed striped">
+					<thead>
 						<tr>
-							<td>
-								<a href="<?php echo esc_url( (string) get_edit_post_link( (int) $row['post_id'] ) ); ?>">
-									<?php echo esc_html( (string) ( $row['post_title'] ? $row['post_title'] : __( '(untitled)', 'reader-experience' ) ) ); ?>
-								</a>
+							<td class="manage-column column-cb check-column">
+								<input type="checkbox" id="rx-select-all" aria-label="<?php esc_attr_e( 'Select all', 'reader-experience' ); ?>">
 							</td>
-							<td><span class="rx-admin-icon"><?php echo $icons[ $row['value'] ] ?? ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></td>
-							<td><?php echo esc_html( (string) ( $row['text'] ?? '' ) ); ?></td>
-							<td>
-								<?php if ( ! empty( $row['comment_id'] ) ) : ?>
-									<a href="<?php echo esc_url( admin_url( 'comment.php?action=editcomment&c=' . (int) $row['comment_id'] ) ); ?>"><?php esc_html_e( 'Comment posted', 'reader-experience' ); ?></a>
-								<?php elseif ( ! empty( $row['wants_contact'] ) ) : ?>
-									<?php echo esc_html( (string) ( $row['contact_name'] ?? '' ) ); ?>
-									<?php if ( ! empty( $row['contact_email'] ) ) : ?>
-										&nbsp;&lt;<a href="<?php echo esc_url( 'mailto:' . $row['contact_email'] ); ?>"><?php echo esc_html( $row['contact_email'] ); ?></a>&gt;
-									<?php endif; ?>
-								<?php else : ?>
-									—
-								<?php endif; ?>
-							</td>
-							<td><?php echo esc_html( mysql2date( 'j M Y H:i', (string) $row['created'] ) ); ?></td>
-							<td>
-								<a
-									href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'rx_delete' => (int) $row['id'] ) ), self::NONCE_ACTION ) ); ?>"
-									onclick="return confirm('<?php echo esc_js( __( 'Delete this feedback?', 'reader-experience' ) ); ?>')"
-								><?php esc_html_e( 'Delete', 'reader-experience' ); ?></a>
-							</td>
+							<th><?php $sort_link( 'post_title', __( 'Article', 'reader-experience' ) ); ?></th>
+							<th style="width:5em"><?php esc_html_e( 'Rating', 'reader-experience' ); ?></th>
+							<th style="width:35%"><?php esc_html_e( 'Reaction', 'reader-experience' ); ?></th>
+							<th><?php esc_html_e( 'Sender', 'reader-experience' ); ?></th>
+							<th style="width:10em"><?php $sort_link( 'created', __( 'Date', 'reader-experience' ) ); ?></th>
 						</tr>
-					<?php endforeach; ?>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<?php if ( ! $result['rows'] ) : ?>
+							<tr><td colspan="6"><?php esc_html_e( 'No feedback yet.', 'reader-experience' ); ?></td></tr>
+						<?php endif; ?>
+						<?php foreach ( $result['rows'] as $row ) : ?>
+							<tr>
+								<th scope="row" class="check-column">
+									<input type="checkbox" name="rx_ids[]" value="<?php echo (int) $row['id']; ?>" aria-label="<?php esc_attr_e( 'Select this feedback', 'reader-experience' ); ?>">
+								</th>
+								<td>
+									<a href="<?php echo esc_url( (string) get_edit_post_link( (int) $row['post_id'] ) ); ?>">
+										<?php echo esc_html( (string) ( $row['post_title'] ? $row['post_title'] : __( '(untitled)', 'reader-experience' ) ) ); ?>
+									</a>
+								</td>
+								<td><span class="rx-admin-icon"><?php echo $icons[ $row['value'] ] ?? ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></td>
+								<td><?php echo esc_html( (string) ( $row['text'] ?? '' ) ); ?></td>
+								<td>
+									<?php if ( ! empty( $row['comment_id'] ) ) : ?>
+										<a href="<?php echo esc_url( admin_url( 'comment.php?action=editcomment&c=' . (int) $row['comment_id'] ) ); ?>"><?php esc_html_e( 'Comment posted', 'reader-experience' ); ?></a>
+									<?php elseif ( ! empty( $row['wants_contact'] ) ) : ?>
+										<?php echo esc_html( (string) ( $row['contact_name'] ?? '' ) ); ?>
+										<?php if ( ! empty( $row['contact_email'] ) ) : ?>
+											&nbsp;&lt;<a href="<?php echo esc_url( 'mailto:' . $row['contact_email'] ); ?>"><?php echo esc_html( $row['contact_email'] ); ?></a>&gt;
+										<?php endif; ?>
+									<?php else : ?>
+										—
+									<?php endif; ?>
+								</td>
+								<td><?php echo esc_html( mysql2date( 'j M Y H:i', (string) $row['created'] ) ); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			</form>
+			<script>
+				( function () {
+					var form = document.getElementById( 'rx-feedback-form' );
+					var all = document.getElementById( 'rx-select-all' );
+					var button = document.getElementById( 'rx-bulk-delete' );
+					if ( ! form || ! all || ! button ) { return; }
+					var boxes = function () { return Array.prototype.slice.call( form.querySelectorAll( 'input[name="rx_ids[]"]' ) ); };
+					var update = function () { button.disabled = ! boxes().some( function ( box ) { return box.checked; } ); };
+					all.addEventListener( 'change', function () { boxes().forEach( function ( box ) { box.checked = all.checked; } ); update(); } );
+					form.addEventListener( 'change', update );
+					form.addEventListener( 'submit', function ( event ) {
+						if ( ! window.confirm( button.getAttribute( 'data-rx-confirm' ) ) ) { event.preventDefault(); }
+					} );
+				}() );
+			</script>
 
 			<?php if ( $total_pages > 1 ) : ?>
 				<p class="tablenav">
@@ -253,20 +306,23 @@ final class FeedbackPage {
 	}
 
 	/**
-	 * Deletes a row when the request asks for it (with a valid nonce) and redirects back.
+	 * Deletes the selected rows when the form was submitted (with a valid nonce), then redirects
+	 * back with the number of deleted rows, so a refresh does not submit the form again.
 	 *
 	 * @return void
 	 */
-	private function maybe_handle_delete(): void {
-		$id = (int) ( $_GET['rx_delete'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification
-		if ( $id <= 0 ) {
+	private function maybe_handle_bulk_delete(): void {
+		if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || empty( $_POST['rx_bulk_delete'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification -- Checked below.
 			return;
 		}
 
 		check_admin_referer( self::NONCE_ACTION );
-		$this->repository->delete( $id );
 
-		wp_safe_redirect( remove_query_arg( array( 'rx_delete', '_wpnonce' ) ) );
+		$ids     = array_map( 'absint', (array) wp_unslash( $_POST['rx_ids'] ?? array() ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Cast to integers.
+		$deleted = $this->repository->delete_many( $ids );
+		$back    = wp_get_referer() ? (string) wp_get_referer() : admin_url( 'edit-comments.php?page=rx-feedback' );
+
+		wp_safe_redirect( add_query_arg( 'rx_deleted', $deleted, remove_query_arg( 'rx_deleted', $back ) ) );
 		exit;
 	}
 }

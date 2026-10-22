@@ -371,11 +371,11 @@ msgid "Background"
 msgstr ""
 
 #: blocks/toc/index.js:91
-msgid "Headings are filled in here automatically…"
+msgid "This table of contents is filled in automatically"
 msgstr ""
 
 #: blocks/toc/index.js:94
-msgid "(on the site, from the article text)"
+msgid "with links to the headings in the text"
 msgstr ""
 
 #. Description of the plugin
@@ -386,11 +386,11 @@ msgid ""
 msgstr ""
 
 #: src/Modules/Rating/Admin/DashboardWidget.php:105
-msgid "View all feedback"
+msgid "View all reader feedback"
 msgstr ""
 
 #: src/Modules/Rating/Admin/DashboardWidget.php:56
-msgid "Recent feedback"
+msgid "Recent reader feedback"
 msgstr ""
 
 #: src/Modules/Rating/Admin/DashboardWidget.php:71
@@ -433,11 +433,11 @@ msgid "Rating"
 msgstr ""
 
 #: src/Modules/Rating/Admin/FeedbackPage.php:162
-msgid "Explanation"
+msgid "Reaction"
 msgstr ""
 
 #: src/Modules/Rating/Admin/FeedbackPage.php:163
-msgid "Follow-up"
+msgid "Sender"
 msgstr ""
 
 #: src/Modules/Rating/Admin/FeedbackPage.php:164
@@ -452,21 +452,8 @@ msgstr ""
 msgid "Comment posted"
 msgstr ""
 
-#: src/Modules/Rating/Admin/FeedbackPage.php:197
-msgid "Delete this feedback?"
-msgstr ""
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:198
-msgid "Delete"
-msgstr ""
-
 #: src/Modules/Rating/Admin/FeedbackPage.php:72
-msgid "Reader Experience feedback"
-msgstr ""
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:73
-#: src/Modules/Rating/Admin/FeedbackPage.php:141
-msgid "Feedback"
+msgid "Reader feedback"
 msgstr ""
 
 #: src/Modules/Rating/CommentPublisher.php:76
@@ -531,3 +518,23 @@ msgstr ""
 #: blocks/share/render.php
 msgid "Link to this article"
 msgstr ""
+
+msgid "Choose which heading levels to show in the block settings"
+msgstr ""
+
+msgid "Delete selected"
+msgstr ""
+
+msgid "Select all"
+msgstr ""
+
+msgid "Select this feedback"
+msgstr ""
+
+msgid "Delete the selected feedback?"
+msgstr ""
+
+msgid "%d feedback item deleted."
+msgid_plural "%d feedback items deleted."
+msgstr[0] ""
+msgstr[1] ""
