@@ -94,7 +94,7 @@ stays available for places such as a sidebar, widget area or navigation.
 ## Resume reading
 
 The "Resume reading" block remembers how far a visitor got in a long article and which heading they were at. On a
-return visit a small notice offers "Continue reading at: <heading>" with **Continue** and **Start over**. Place it once
+return visit a small notice offers "Continue where you left off?" with the heading below it ("From: <heading>"), and **Continue** and **Start over**. Place it once
 in the single post template, like the reading progress bar.
 
 - The position lives in the visitor's own browser (`localStorage`, key `dwp-rx-resume:<post id>`). Nothing is sent to

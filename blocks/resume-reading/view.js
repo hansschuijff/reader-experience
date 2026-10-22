@@ -129,7 +129,7 @@ function init( notice ) {
 		return;
 	}
 
-	const label = notice.querySelector( '.dwp-rx-resume__label' );
+	const from = notice.querySelector( '.dwp-rx-resume__from' );
 	const title = notice.querySelector( '.dwp-rx-resume__heading' );
 	const continueButton = notice.querySelector( '.dwp-rx-resume__continue' );
 	const restartButton = notice.querySelector( '.dwp-rx-resume__restart' );
@@ -165,23 +165,30 @@ function init( notice ) {
 		window.setTimeout( () => {
 			if ( ! showing ) {
 				notice.hidden = true;
+				// Belt and braces: a stylesheet that overrides [hidden] must never leave an invisible layer over the page.
+				notice.style.display = 'none';
 			}
 		}, 250 );
 	};
 
 	const show = ( position, headings ) => {
 		const heading = findHeading( headings, position );
-		label.textContent = heading ? notice.dataset.dwpRxLabelHeading : notice.dataset.dwpRxLabelPlain;
+		// The question always shows; the heading line only when the heading can still be found.
+		from.hidden = ! heading;
 		title.textContent = heading ? position.text : '';
 
-		// Sit above the interaction bar when there is one.
+		// Sit above the interaction bar when there is one, wherever its top edge is (it may float above the bottom of the screen).
 		const bar = document.querySelector( '.dwp-rx-bar:not(.dwp-rx-bar--hidden)' );
 		if ( bar && 'fixed' === window.getComputedStyle( bar ).position ) {
-			notice.style.setProperty( '--dwp-rx-resume-bottom', bar.getBoundingClientRect().height + 12 + 'px' );
+			const barTop = bar.getBoundingClientRect().top;
+			if ( barTop > 0 && barTop < window.innerHeight ) {
+				notice.style.setProperty( '--dwp-rx-resume-bottom', window.innerHeight - barTop + 12 + 'px' );
+			}
 		}
 
 		showing = true;
 		notice.hidden = false;
+		notice.style.removeProperty( 'display' );
 		// Next frame, so the transition has a starting point.
 		window.requestAnimationFrame( () => notice.classList.add( 'is-visible' ) );
 

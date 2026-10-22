@@ -41,19 +41,20 @@ $target = isset( $attributes['target'] ) && '' !== trim( (string) $attributes['t
 
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
-		'class'                     => 'dwp-rx-resume',
-		'role'                      => 'status',
-		'hidden'                    => true,
-		'data-dwp-rx-post'          => (string) $post_id,
-		'data-dwp-rx-target'        => $target,
-		'data-dwp-rx-seconds'       => (string) max( 0, (int) ( $attributes['displaySeconds'] ?? 20 ) ),
-		'data-dwp-rx-label-heading' => __( 'Continue reading at:', 'reader-experience' ),
-		'data-dwp-rx-label-plain'   => __( 'Continue where you left off?', 'reader-experience' ),
+		'class'               => 'dwp-rx-resume',
+		'role'                => 'status',
+		'hidden'              => true,
+		'data-dwp-rx-post'    => (string) $post_id,
+		'data-dwp-rx-target'  => $target,
+		'data-dwp-rx-seconds' => (string) max( 0, (int) ( $attributes['displaySeconds'] ?? 20 ) ),
 	)
 );
 ?>
 <div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>>
-	<p class="dwp-rx-resume__text"><span class="dwp-rx-resume__label"></span> <strong class="dwp-rx-resume__heading"></strong></p>
+	<p class="dwp-rx-resume__text">
+		<span class="dwp-rx-resume__label"><?php esc_html_e( 'Continue where you left off?', 'reader-experience' ); ?></span>
+		<span class="dwp-rx-resume__from" hidden><?php esc_html_e( 'From:', 'reader-experience' ); ?> <strong class="dwp-rx-resume__heading"></strong></span>
+	</p>
 	<div class="dwp-rx-resume__actions">
 		<button type="button" class="dwp-rx-resume__continue wp-element-button"><?php esc_html_e( 'Continue', 'reader-experience' ); ?></button>
 		<button type="button" class="dwp-rx-resume__restart"><?php esc_html_e( 'Start over', 'reader-experience' ); ?></button>

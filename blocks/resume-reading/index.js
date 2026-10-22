@@ -35,8 +35,9 @@ registerBlockType( metadata.name, {
 				</PanelBody>
 			</InspectorControls>
 			<div { ...useBlockProps( { className: 'dwp-rx-resume-preview' } ) }>
-				<strong>{ __( 'Continue reading at:', 'reader-experience' ) }</strong>{ ' ' }
-				<span>{ __( 'A heading from the article (example)', 'reader-experience' ) }</span>
+				<strong>{ __( 'Continue where you left off?', 'reader-experience' ) }</strong>
+				<br />
+				<span>{ __( 'From:', 'reader-experience' ) } { __( 'A heading from the article (example)', 'reader-experience' ) }</span>
 				<p>{ __( 'On the site this notice appears only to visitors who return to a long article they did not finish.', 'reader-experience' ) }</p>
 			</div>
 		</>

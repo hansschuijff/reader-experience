@@ -26,12 +26,18 @@
 	line-height: 1.4;
 	opacity: 0;
 	transform: translate( -50%, 8px );
-	transition: opacity 0.2s ease, transform 0.2s ease;
+	/* Invisible means untouchable too: a faded-out notice must never catch clicks meant for the bar below it. */
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 }
 .dwp-rx-resume[hidden] { display: none !important; }
 .dwp-rx-resume.is-visible {
 	opacity: 1;
 	transform: translate( -50%, 0 );
+	visibility: visible;
+	pointer-events: auto;
+	transition-delay: 0s;
 }
 .dwp-rx-resume .dwp-rx-resume__text {
 	flex: 1 1 12rem;
@@ -39,6 +45,9 @@
 	margin: 0;
 	padding: 0;
 }
+.dwp-rx-resume .dwp-rx-resume__label { display: block; }
+.dwp-rx-resume .dwp-rx-resume__from { display: block; margin-top: 2px; }
+.dwp-rx-resume .dwp-rx-resume__from[hidden] { display: none; }
 .dwp-rx-resume .dwp-rx-resume__heading { font-weight: 600; overflow-wrap: anywhere; }
 .dwp-rx-resume__actions { display: flex; flex: none; align-items: center; gap: 12px; }
 
@@ -53,10 +62,22 @@
 	color: var( --c-surface, Canvas );
 	background: var( --c-accent, CanvasText );
 }
-:where( .dwp-rx-resume__restart ) {
+.dwp-rx-resume .dwp-rx-resume__continue,
+.dwp-rx-resume .dwp-rx-resume__restart {
+	width: auto;
+	margin: 0;
+	font-size: inherit;
+	line-height: 1.2;
+	letter-spacing: normal;
+	text-transform: none;
+}
+/* A quiet text link next to the main button; themes style every <button> like a call to action. */
+.dwp-rx-resume .dwp-rx-resume__restart {
 	padding: 0.4em 0;
 	border: 0;
-	font: inherit;
+	border-radius: 0;
+	box-shadow: none;
+	font-weight: 400;
 	color: inherit;
 	background: none;
 	text-decoration: underline;

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 19:11+0000\n"
+"POT-Creation-Date: 2026-10-22 20:03+0000\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -424,29 +424,29 @@ msgstr ""
 msgid "0 keeps it until the visitor chooses."
 msgstr ""
 
-#: blocks/resume-reading/index.js:39
+#: blocks/resume-reading/index.js:40
 msgid "A heading from the article (example)"
 msgstr ""
 
-#: blocks/resume-reading/index.js:40
+#: blocks/resume-reading/index.js:41
 msgid ""
 "On the site this notice appears only to visitors who return to a long "
 "article they did not finish."
 msgstr ""
 
-#: blocks/resume-reading/render.php:50 blocks/resume-reading/index.js:38
-msgid "Continue reading at:"
-msgstr ""
-
-#: blocks/resume-reading/render.php:51
+#: blocks/resume-reading/render.php:55 blocks/resume-reading/index.js:38
 msgid "Continue where you left off?"
 msgstr ""
 
-#: blocks/resume-reading/render.php:58
-msgid "Continue"
+#: blocks/resume-reading/render.php:56 blocks/resume-reading/index.js:40
+msgid "From:"
 msgstr ""
 
 #: blocks/resume-reading/render.php:59
+msgid "Continue"
+msgstr ""
+
+#: blocks/resume-reading/render.php:60
 msgid "Start over"
 msgstr ""
 

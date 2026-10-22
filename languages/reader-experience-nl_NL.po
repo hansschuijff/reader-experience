@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 19:11+0000\n"
-"PO-Revision-Date: 2026-10-22 19:11+0000\n"
+"POT-Creation-Date: 2026-10-22 20:03+0000\n"
+"PO-Revision-Date: 2026-10-22 20:03+0000\n"
 "Last-Translator: Hans Schuijff\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -459,11 +459,11 @@ msgstr "Toon de melding gedurende (seconden)"
 msgid "0 keeps it until the visitor chooses."
 msgstr "0 laat de melding staan tot de bezoeker kiest."
 
-#: blocks/resume-reading/index.js:39
+#: blocks/resume-reading/index.js:40
 msgid "A heading from the article (example)"
 msgstr "Een kop uit het artikel (voorbeeld)"
 
-#: blocks/resume-reading/index.js:40
+#: blocks/resume-reading/index.js:41
 msgid ""
 "On the site this notice appears only to visitors who return to a long "
 "article they did not finish."
@@ -471,19 +471,19 @@ msgstr ""
 "Op de site verschijnt deze melding alleen bij bezoekers die terugkomen bij "
 "een lang artikel dat ze niet uitlazen."
 
-#: blocks/resume-reading/render.php:50 blocks/resume-reading/index.js:38
-msgid "Continue reading at:"
-msgstr "Verder lezen bij:"
-
-#: blocks/resume-reading/render.php:51
+#: blocks/resume-reading/render.php:55 blocks/resume-reading/index.js:38
 msgid "Continue where you left off?"
-msgstr "Verder gaan waar je was gebleven?"
+msgstr "Doorgaan waar je was gebleven?"
 
-#: blocks/resume-reading/render.php:58
-msgid "Continue"
-msgstr "Verder"
+#: blocks/resume-reading/render.php:56 blocks/resume-reading/index.js:40
+msgid "From:"
+msgstr "Vanaf:"
 
 #: blocks/resume-reading/render.php:59
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: blocks/resume-reading/render.php:60
 msgid "Start over"
 msgstr "Begin opnieuw"
 

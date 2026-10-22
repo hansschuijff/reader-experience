@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-22 19:11+0000",
+	"translation-revision-date": "2026-10-22 20:03+0000",
 	"generator": "reader-experience tooling",
 	"source": "build/blocks/resume-reading/index.js",
 	"domain": "messages",
@@ -31,8 +31,11 @@
 			"Defaults to .wp-block-post-content (block themes). With a classic theme use the class of your content container, for example .entry-content. Even without a correct value a common container is tried automatically.": [
 				"Standaard .wp-block-post-content (FSE-thema's). Gebruik bij een klassiek thema de class van je content-container, bijvoorbeeld .entry-content. Ook zonder juiste waarde wordt automatisch een veelvoorkomende container geprobeerd."
 			],
-			"Continue reading at:": [
-				"Verder lezen bij:"
+			"Continue where you left off?": [
+				"Doorgaan waar je was gebleven?"
+			],
+			"From:": [
+				"Vanaf:"
 			],
 			"A heading from the article (example)": [
 				"Een kop uit het artikel (voorbeeld)"
