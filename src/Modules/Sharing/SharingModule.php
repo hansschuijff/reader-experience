@@ -14,6 +14,7 @@ namespace ReaderExperience\Modules\Sharing;
 
 use ReaderExperience\Modules\AbstractModule;
 use ReaderExperience\Modules\Sharing\Migrations\CreateShareDailyTable;
+use ReaderExperience\Support\Migrations\RenameLegacyTable;
 
 /**
  * The share button and popover, and the click counter behind it.
@@ -53,6 +54,9 @@ final class SharingModule extends AbstractModule {
 	 * @since 0.1.0
 	 */
 	public function migrations(): array {
-		return array( new CreateShareDailyTable() );
+		return array(
+			new CreateShareDailyTable(),
+			new RenameLegacyTable( '2026_10_22_rename_share_daily_table', 'rx_share_daily', ( new ShareRepository() )->table() ),
+		);
 	}
 }

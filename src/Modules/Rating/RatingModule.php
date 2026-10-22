@@ -18,6 +18,7 @@ use ReaderExperience\Modules\Rating\Admin\FeedbackPage;
 use ReaderExperience\Modules\Rating\Admin\PostColumn;
 use ReaderExperience\Modules\Rating\Migrations\AddCommentFieldsToFeedbackTable;
 use ReaderExperience\Modules\Rating\Migrations\CreateFeedbackTable;
+use ReaderExperience\Support\Migrations\RenameLegacyTable;
 
 use function is_admin;
 
@@ -66,6 +67,10 @@ final class RatingModule extends AbstractModule {
 	 * @since 0.1.0
 	 */
 	public function migrations(): array {
-		return array( new CreateFeedbackTable(), new AddCommentFieldsToFeedbackTable() );
+		return array(
+			new CreateFeedbackTable(),
+			new AddCommentFieldsToFeedbackTable(),
+			new RenameLegacyTable( '2026_10_22_rename_feedback_table', 'rx_feedback', ( new FeedbackRepository() )->table() ),
+		);
 	}
 }
