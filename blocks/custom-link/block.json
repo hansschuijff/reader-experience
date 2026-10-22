@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "reader-experience/quick-link",
-	"title": "Quick link",
+	"name": "reader-experience/custom-link",
+	"title": "Custom link",
 	"category": "widgets",
 	"icon": "admin-links",
 	"description": "A button with an icon in the interaction bar that links to a page, for example a help page. Meant as a child of the interaction bar.",

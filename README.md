@@ -81,9 +81,9 @@ modal overlay. It closes with the close button, the Contents button, Escape, a t
 browser's back button, and on a small screen also when you choose a heading. The inline TOC block
 stays available for places such as a sidebar, widget area or navigation.
 
-## Quick link
+## Custom link
 
-The "Quick link" block is a child of the interaction bar: an icon button with a label, an address and an
+The "Custom link" block is a child of the interaction bar: an icon button with a label, an address and an
 optional new tab. The bar shows only the icon; the label is the tooltip and what screen readers read. It
 is meant for something like a help page, so readers who wonder what the bar is for can find out. Allowed
 addresses are web, `mailto:`, `tel:`, relative addresses and `#anchors`; anything else renders nothing.

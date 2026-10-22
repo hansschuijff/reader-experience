@@ -1,7 +1,7 @@
 {
-	"translation-revision-date": "2026-10-22 16:13+0000",
+	"translation-revision-date": "2026-10-22 16:27+0000",
 	"generator": "reader-experience tooling",
-	"source": "build/blocks/quick-link/index.js",
+	"source": "build/blocks/custom-link/index.js",
 	"domain": "messages",
 	"locale_data": {
 		"messages": {

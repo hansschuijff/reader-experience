@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 16:13+0000\n"
-"PO-Revision-Date: 2026-10-22 16:13+0000\n"
+"POT-Creation-Date: 2026-10-22 16:27+0000\n"
+"PO-Revision-Date: 2026-10-22 16:27+0000\n"
 "Last-Translator: Hans Schuijff\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -46,6 +46,76 @@ msgstr[0] "%d reactie"
 msgstr[1] "%d reacties"
 
 #. Block description
+#: blocks/custom-link/block.json
+msgctxt "block description"
+msgid ""
+"A button with an icon in the interaction bar that links to a page, for "
+"example a help page. Meant as a child of the interaction bar."
+msgstr ""
+"Knop met icoon in de interactiebalk die naar een pagina linkt, bijvoorbeeld "
+"een uitlegpagina. Bedoeld als kind van de interactiebalk."
+
+#. Block title
+#: blocks/custom-link/block.json
+msgctxt "block title"
+msgid "Custom link"
+msgstr "Aangepaste link"
+
+#: blocks/custom-link/index.js:12 blocks/rating/index.js:13
+#: blocks/reading-progress/index.js:12 blocks/reading-time/index.js:11
+#: blocks/toc-open/index.js:13 blocks/toc/index.js:19
+msgid "Settings"
+msgstr "Instellingen"
+
+#: blocks/custom-link/index.js:14
+msgid "Label"
+msgstr "Label"
+
+#: blocks/custom-link/index.js:15
+msgid ""
+"Read out by screen readers and shown as a tooltip; the bar itself shows only"
+" the icon."
+msgstr ""
+"Wordt voorgelezen door schermlezers en getoond als tooltip; de balk zelf "
+"toont alleen het icoon."
+
+#: blocks/custom-link/index.js:20
+msgid "Address (URL)"
+msgstr "Adres (URL)"
+
+#: blocks/custom-link/index.js:21
+msgid "A page, a #anchor, or a mailto: or tel: link."
+msgstr "Een pagina, een #anker, of een mailto:- of tel:-link."
+
+#: blocks/custom-link/index.js:27
+msgid "Icon"
+msgstr "Icoon"
+
+#: blocks/custom-link/index.js:30
+msgid "Question mark"
+msgstr "Vraagteken"
+
+#: blocks/custom-link/index.js:31
+msgid "Information"
+msgstr "Informatie"
+
+#: blocks/custom-link/index.js:32
+msgid "Home"
+msgstr "Home"
+
+#: blocks/custom-link/index.js:34
+msgid "Phone"
+msgstr "Telefoon"
+
+#: blocks/custom-link/index.js:39
+msgid "Open in a new tab"
+msgstr "Openen in een nieuw tabblad"
+
+#: blocks/custom-link/render.php:33 blocks/custom-link/index.js:47
+msgid "Link"
+msgstr "Link"
+
+#. Block description
 #: blocks/interaction-bar/block.json
 msgctxt "block description"
 msgid ""
@@ -60,76 +130,6 @@ msgstr ""
 msgctxt "block title"
 msgid "Interaction bar"
 msgstr "Interactiebalk"
-
-#. Block description
-#: blocks/quick-link/block.json
-msgctxt "block description"
-msgid ""
-"A button with an icon in the interaction bar that links to a page, for "
-"example a help page. Meant as a child of the interaction bar."
-msgstr ""
-"Knop met icoon in de interactiebalk die naar een pagina linkt, bijvoorbeeld "
-"een uitlegpagina. Bedoeld als kind van de interactiebalk."
-
-#. Block title
-#: blocks/quick-link/block.json
-msgctxt "block title"
-msgid "Quick link"
-msgstr "Snelle link"
-
-#: blocks/quick-link/index.js:12 blocks/rating/index.js:13
-#: blocks/reading-progress/index.js:12 blocks/reading-time/index.js:11
-#: blocks/toc-open/index.js:13 blocks/toc/index.js:19
-msgid "Settings"
-msgstr "Instellingen"
-
-#: blocks/quick-link/index.js:14
-msgid "Label"
-msgstr "Label"
-
-#: blocks/quick-link/index.js:15
-msgid ""
-"Read out by screen readers and shown as a tooltip; the bar itself shows only"
-" the icon."
-msgstr ""
-"Wordt voorgelezen door schermlezers en getoond als tooltip; de balk zelf "
-"toont alleen het icoon."
-
-#: blocks/quick-link/index.js:20
-msgid "Address (URL)"
-msgstr "Adres (URL)"
-
-#: blocks/quick-link/index.js:21
-msgid "A page, a #anchor, or a mailto: or tel: link."
-msgstr "Een pagina, een #anker, of een mailto:- of tel:-link."
-
-#: blocks/quick-link/index.js:27
-msgid "Icon"
-msgstr "Icoon"
-
-#: blocks/quick-link/index.js:30
-msgid "Question mark"
-msgstr "Vraagteken"
-
-#: blocks/quick-link/index.js:31
-msgid "Information"
-msgstr "Informatie"
-
-#: blocks/quick-link/index.js:32
-msgid "Home"
-msgstr "Home"
-
-#: blocks/quick-link/index.js:34
-msgid "Phone"
-msgstr "Telefoon"
-
-#: blocks/quick-link/index.js:39
-msgid "Open in a new tab"
-msgstr "Openen in een nieuw tabblad"
-
-#: blocks/quick-link/render.php:32 blocks/quick-link/index.js:47
-msgid "Link"
-msgstr "Link"
 
 #. Block title
 #: blocks/rating/block.json
@@ -728,6 +728,6 @@ msgstr "LinkedIn"
 msgid "Facebook"
 msgstr "Facebook"
 
-#: src/Modules/Sharing/ChannelRegistry.php:66 blocks/quick-link/index.js:33
+#: src/Modules/Sharing/ChannelRegistry.php:66 blocks/custom-link/index.js:33
 msgid "Email"
 msgstr "E-mail"

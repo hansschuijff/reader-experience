@@ -1,6 +1,6 @@
 <?php
 /**
- * Render template of the quick link block.
+ * Render template of the custom link block.
  *
  * @package ReaderExperience
  * @author  Hans Schuijff <@hansschuijff>

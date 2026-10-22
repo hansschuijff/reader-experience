@@ -34,6 +34,6 @@ final class BarModule extends AbstractModule {
 	 * @since 0.1.0
 	 */
 	public function blocks(): array {
-		return array( 'interaction-bar', 'comments-link', 'toc-open', 'quick-link' );
+		return array( 'interaction-bar', 'comments-link', 'toc-open', 'custom-link' );
 	}
 }
