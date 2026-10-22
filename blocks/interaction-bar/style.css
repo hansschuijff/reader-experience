@@ -76,12 +76,11 @@
 	left: auto;
 	right: auto;
 	bottom: auto;
-	/* As wide as the icons need and centred, like the bar on the page; not the full width of the editor. */
-	width: fit-content;
-	min-width: 16rem;
-	max-width: 100%;
+	/* Full width of its column, like the other blocks, so it is easy to select however many icons it holds. */
+	width: auto;
+	max-width: none;
 	transform: none;
-	margin-inline: auto;
+	margin-inline: 0;
 	border-radius: 12px;
 	border: 1px dashed var(--c-border, ButtonBorder);
 	box-shadow: none;
