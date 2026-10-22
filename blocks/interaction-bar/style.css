@@ -77,14 +77,11 @@
 	right: auto;
 	bottom: auto;
 	/*
-	 * As wide as the other blocks: the content width of the theme, centred with auto margins. It is set
-	 * here instead of left to the editor's layout rules, because the plain ".dwp-rx-bar" rule for the
-	 * front end would otherwise win from them. Full width where the theme sets no content width.
+	 * Width, max-width and margins are left to the editor's own layout rules, so the bar is as wide as
+	 * the other blocks and centred like them. Only the front-end geometry is reset here.
 	 */
 	width: auto;
-	max-width: var(--wp--style--global--content-size, none);
 	transform: none;
-	margin-inline: auto;
 	border-radius: 12px;
 	border: 1px dashed var(--c-border, ButtonBorder);
 	box-shadow: none;
