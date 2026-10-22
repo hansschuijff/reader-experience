@@ -64,25 +64,29 @@
 }
 .dwp-rx-resume .dwp-rx-resume__continue,
 .dwp-rx-resume .dwp-rx-resume__restart {
+	box-sizing: border-box;
 	width: auto;
+	min-height: 0;
 	margin: 0;
+	padding: 0.5em 1em;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	box-shadow: none;
 	font-size: inherit;
+	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: normal;
 	text-transform: none;
-}
-/* A quiet text link next to the main button; themes style every <button> like a call to action. */
-.dwp-rx-resume .dwp-rx-resume__restart {
-	padding: 0.4em 0;
-	border: 0;
-	border-radius: 0;
-	box-shadow: none;
-	font-weight: 400;
-	color: inherit;
-	background: none;
-	text-decoration: underline;
+	text-decoration: none;
 	cursor: pointer;
 }
+/* The second choice is an outlined button of the same size: themes style every <button> like a call to action. */
+.dwp-rx-resume .dwp-rx-resume__restart {
+	color: inherit;
+	background: none;
+	border: 1px solid var( --dwp-rx-panel-border, #ddd );
+}
+.dwp-rx-resume .dwp-rx-resume__restart:hover { background: color-mix( in srgb, currentColor 8%, transparent ); }
 .dwp-rx-resume button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
 @media ( prefers-reduced-motion: reduce ) {

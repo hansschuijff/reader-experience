@@ -108,6 +108,10 @@
 	background: var( --dwp-rx-badge-bg, #ddd );
 	border-radius: 4px;
 }
+/* The plus/minus box takes the place of the level badge on a row that folds. */
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__group-toggle > summary > a::before { display: none; }
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__group-toggle > summary > a { padding-inline-start: 0; }
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__toggle { margin-inline-start: 0.25rem; }
 .dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item--l3 a { padding-inline-start: 1rem; }
 .dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item--l4 a { padding-inline-start: 1.75rem; }
 .dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item a[aria-current] { background: color-mix( in srgb, currentColor 8%, transparent ); }

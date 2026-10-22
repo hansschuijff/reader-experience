@@ -118,7 +118,12 @@ export function buildList( list, entries, group ) {
 		details.className = 'dwp-rx-toc__group-toggle';
 		const summary = document.createElement( 'summary' );
 		summary.className = 'dwp-rx-toc__item dwp-rx-toc__item--l' + entry.level;
-		summary.appendChild( createLink( entry ) );
+		// A plus or minus in front of the title (drawn by CSS from the open state). It is part of the
+		// summary, so clicking it folds or unfolds the group, while the title itself still jumps.
+		const toggle = document.createElement( 'span' );
+		toggle.className = 'dwp-rx-toc__toggle';
+		toggle.setAttribute( 'aria-hidden', 'true' );
+		summary.append( toggle, createLink( entry ) );
 		const sub = document.createElement( 'ul' );
 		sub.className = 'dwp-rx-toc__sublist';
 		children.forEach( ( child ) => sub.appendChild( createItem( child ) ) );

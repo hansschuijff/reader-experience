@@ -61,16 +61,49 @@
 	font-weight: 600;
 }
 
-/* Grouped/collapsible variant: the top-level heading is itself a <summary>. */
-.dwp-rx-toc__group-toggle > summary { list-style: none !important; cursor: pointer; }
-.dwp-rx-toc__group-toggle > summary::-webkit-details-marker { display: none; }
-.dwp-rx-toc__group-toggle > summary::before {
-	content: '›';
-	display: inline-block;
-	width: 1em;
-	transition: transform 0.15s ease;
+/*
+ * Grouped/collapsible variant: the top-level heading is itself a <summary>, with a small plus or
+ * minus box in front of the title. Themes like to give <details> and <summary> a border, padding
+ * and a marker of their own, so those are reset here.
+ */
+.dwp-rx-toc .dwp-rx-toc__group-toggle {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	box-shadow: none;
 }
-.dwp-rx-toc__group-toggle[open] > summary::before { transform: rotate(90deg); }
+.dwp-rx-toc .dwp-rx-toc__group-toggle > summary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	font-weight: inherit;
+	list-style: none !important;
+	cursor: pointer;
+}
+.dwp-rx-toc .dwp-rx-toc__group-toggle > summary::marker { content: ''; }
+.dwp-rx-toc .dwp-rx-toc__group-toggle > summary::-webkit-details-marker { display: none; }
+.dwp-rx-toc .dwp-rx-toc__group-toggle > summary > a { flex: 1 1 auto; min-width: 0; }
+/* Same size and colours as the level badge in the panel, so titles line up with the rows without a group. */
+.dwp-rx-toc .dwp-rx-toc__toggle {
+	flex: none;
+	box-sizing: border-box;
+	min-width: 2.75em;
+	padding: 0.1em 0.4em;
+	font-size: 0.75em;
+	font-weight: 600;
+	line-height: 1.4;
+	text-align: center;
+	color: var( --dwp-rx-badge-text, #1e1e1e );
+	background: var( --dwp-rx-badge-bg, #ddd );
+	border-radius: 4px;
+}
+.dwp-rx-toc .dwp-rx-toc__toggle::before { content: '+'; }
+.dwp-rx-toc .dwp-rx-toc__group-toggle[open] > summary .dwp-rx-toc__toggle::before { content: '\2212'; }
 .dwp-rx-toc .dwp-rx-toc__sublist { list-style: none !important; margin: 0; padding: 0; }
 
 /* Compact style: lighter and smaller, fits a narrow sidebar better. */
