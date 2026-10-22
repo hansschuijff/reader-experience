@@ -25,7 +25,7 @@ document.querySelectorAll( '[data-dwp-rx-share]' ).forEach( ( root ) => {
 			try {
 				await navigator.share( { title, url } );
 			} catch ( error ) {
-				// Geannuleerd door de bezoeker: geen verdere actie nodig.
+				// Cancelled by the visitor: nothing further to do.
 			}
 			return;
 		}
@@ -52,7 +52,7 @@ document.querySelectorAll( '[data-dwp-rx-share]' ).forEach( ( root ) => {
 				copyLabel.textContent = original;
 			}, 1500 );
 		} catch ( error ) {
-			// Klembord niet beschikbaar (bijvoorbeeld geen HTTPS): geen verdere actie.
+			// Clipboard not available (for example no HTTPS): nothing further to do.
 		}
 	} );
 } );

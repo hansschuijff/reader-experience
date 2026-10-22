@@ -26,17 +26,15 @@
 }
 
 /*
- * Elke directe child van de balk (of het nu zelf een knop is, zoals bij Reacties
- * en Inhoud, of een wrapper-div met een eigen paneel erin, zoals bij Delen en
- * Waardering) centreert zijn eigen inhoud verticaal. Zonder dit werden wrapper-
- * divs door de standaard "stretch" wel opgerekt, maar centreerden ze hun eigen
- * inhoud niet, waardoor bijvoorbeeld het deelicoon naar boven schoof.
+ * Every direct child of the bar (a button itself, like Comments and Contents, or a wrapper div
+ * with a panel inside, like Share and Rating) centres its own content vertically. Without this,
+ * wrapper divs were stretched by the default "stretch" but did not centre their own content, so
+ * the share icon, for example, moved to the top.
  *
- * Bewust GEEN flex:1 (meer): dat liet de slots even BREED zijn, maar omdat het
- * waarderingsslot twee duimen bevat en de rest één icoon, botsten de slots op
- * hun minimale inhoudsbreedte en liepen de tussenruimtes alsnog uiteen.
- * "space-evenly" op de rij hierboven verdeelt de ruimte juist gelijk tussen én
- * rond de knoppen, ongeacht hun eigen breedte — passender voor een icoonbalk.
+ * Deliberately NO flex:1 (any more): that made the slots equally WIDE, but because the rating
+ * slot holds two thumbs and the rest one icon each, the slots collided at their minimum content
+ * width and the gaps still came out uneven. "space-evenly" on the row above spreads the space
+ * equally between and around the buttons, whatever their own width, which suits an icon bar.
  */
 .dwp-rx-bar__inner > * {
 	display: flex;
@@ -55,7 +53,7 @@
 	display: contents;
 }
 
-/* Binnen de balk zelf: iconen-only, tekst blijft voor schermlezers en als title-tooltip. */
+/* Inside the bar itself: icons only; the text stays for screen readers and as a title tooltip. */
 .dwp-rx-bar .dwp-rx-bar__label {
 	position: absolute;
 	width: 1px;
@@ -66,11 +64,11 @@
 }
 
 /*
- * Editorweergave: geen vaste positie, anders is de balk niet te bewerken.
- * Dubbele klasse (.dwp-rx-bar.dwp-rx-bar--editor) voor extra specificiteit: zo wint deze
- * altijd van de losstaande ".dwp-rx-bar"-regel in de media query hieronder, ook als
- * de editor zelf breder dan 782px is. Zonder deze expliciete reset bleef bijvoorbeeld
- * de desktop-transform actief op een position:static element, wat de layout brak.
+ * Editor view: no fixed position, otherwise the bar cannot be edited. Doubled class
+ * (.dwp-rx-bar.dwp-rx-bar--editor) for extra specificity: it always beats the plain ".dwp-rx-bar"
+ * rule in the media query below, even when the editor itself is wider than 782px. Without this
+ * explicit reset the desktop transform stayed active on a position:static element, which broke
+ * the layout.
  */
 .dwp-rx-bar.dwp-rx-bar--editor {
 	/* Relative, not static: the editor draws the selection outline against the nearest positioned ancestor. */
@@ -95,10 +93,9 @@
 	overflow-x: auto;
 }
 /*
- * In de editor hoeven de slots niet op te rekken om de volle breedte te vullen
- * (dat is alleen nuttig voor de echte balk onderaan het scherm). Natuurlijke
- * breedte per icoon geeft hier een rustigere, meer "werkbalk"-achtige rij,
- * en voorkomt dat het bredere waarderingsslot (twee duimen) als enige omslaat.
+ * In the editor the slots need not stretch to fill the full width (that only helps the real bar
+ * at the bottom of the screen). Natural width per icon gives a calmer, more toolbar-like row and
+ * keeps the wider rating slot (two thumbs) from being the only one that wraps.
  */
 .dwp-rx-bar--editor .dwp-rx-bar__inner > * { flex: 0 0 auto; }
 
@@ -112,11 +109,10 @@
 .dwp-rx-bar--editor .dwp-rx-bar__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
 
 /*
- * Op een breder scherm hoeft de balk niet de volle browserbreedte te claimen:
- * gecentreerd binnen de leesbreedte, met een duidelijke rand en schaduw zodat
- * hij niet over het hoofd wordt gezien. Hij blijft hier ook altijd zichtbaar
- * (zie interaction-bar/view.js): op mobiel is wegscrollen en terugkomen prettig,
- * op desktop voelde een verdwijnende balk eerder als een foutje.
+ * On a wider screen the bar need not claim the full browser width: centred, with a clear border
+ * and shadow so it is not overlooked. It also stays visible here (see interaction-bar/view.js):
+ * on mobile, scrolling away and coming back is pleasant; on desktop a disappearing bar felt more
+ * like a mistake.
  */
 @media (min-width: 782px) {
 	.dwp-rx-bar {

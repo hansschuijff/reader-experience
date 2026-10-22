@@ -1,8 +1,8 @@
 /**
- * Dezelfde iconen als src/Support/Icons.php, maar dan voor editor-previews.
- * Twee plekken met dezelfde bron is niet ideaal, maar er is geen praktische
- * manier om PHP-render-time iconen en JS-build-time previews één bron te
- * laten delen zonder extra tooling. Wijzig je een icoon, doe het op beide plekken.
+ * The same icons as src/Support/Icons.php, but for editor previews. Two places with the same
+ * source is not ideal, but there is no practical way to let PHP render-time icons and JS
+ * build-time previews share one source without extra tooling. If you change an icon, do it in
+ * both places.
  */
 export const ICONS = {
 	comments:

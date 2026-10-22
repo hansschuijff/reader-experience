@@ -1,7 +1,7 @@
-name: Build en release
+name: Build and release
 
-# Draait automatisch bij het pushen van een versietag (bijv. v1.0.0), of
-# handmatig via "Run workflow" voor een bestaande tag.
+# Runs automatically when a version tag is pushed (for example v1.0.0), or
+# manually through "Run workflow" for an existing tag.
 on:
   push:
     tags:
@@ -12,7 +12,7 @@ on:
         description: 'Bestaande tag om opnieuw te releasen (bijv. v1.0.0)'
         required: true
 
-# Nodig om een release aan te mogen maken met de standaard GITHUB_TOKEN.
+# Needed to be allowed to create a release with the default GITHUB_TOKEN.
 permissions:
   contents: write
 
@@ -23,26 +23,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Code uitchecken
+      - name: Check out the code
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.tag || github.ref }}
 
-      - name: Node.js instellen
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      # npm install i.p.v. npm ci: werkt ook zonder gecommit package-lock.json.
-      # Heb je er wel een, dan mag dit later naar "npm ci" voor reproduceerbaardere builds.
-      - name: Afhankelijkheden installeren
+      # npm install instead of npm ci: also works without a committed package-lock.json.
+      # If you do have one, this can later become "npm ci" for more reproducible builds.
+      - name: Install dependencies
         run: npm install
 
-      - name: Blokken bouwen
+      - name: Build the blocks
         run: npm run build
 
-      - name: Versie bepalen
+      - name: Determine the version
         id: version
         run: |
           TAG="${{ github.event.inputs.tag || github.ref_name }}"
@@ -50,20 +50,20 @@ jobs:
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      # Vangt de meest voorkomende vergissing: de tag gepusht maar de
-      # "Version:"-regel in de hoofdplugin in het bestand vergeten bij te werken.
-      - name: Versie in pluginheader controleren
+      # Catches the most common mistake: the tag was pushed but the "Version:" line in the main
+      # plugin file was not updated.
+      - name: Check the version in the plugin header
         run: |
           HEADER_VERSION=$(grep -m1 -oP 'Version:\s*\K[0-9][0-9A-Za-z.\-]*' reader-experience.php)
           if [ "$HEADER_VERSION" != "${{ steps.version.outputs.version }}" ]; then
-            echo "::error::Tag-versie (${{ steps.version.outputs.version }}) komt niet overeen met de 'Version:'-regel in reader-experience.php ($HEADER_VERSION)."
+            echo "::error::Tag version (${{ steps.version.outputs.version }}) does not match the 'Version:' line in reader-experience.php ($HEADER_VERSION)."
             exit 1
           fi
 
-      # Een schone kopie zonder ontwikkel-only bestanden, in een map met de
-      # pluginslug als naam: dat is de map die in wp-content/plugins terechtkomt
-      # zodra iemand de zip via het WordPress-adminscherm uploadt.
-      - name: Releasebestanden klaarzetten
+      # A clean copy without development-only files, in a folder named after the plugin slug:
+      # that is the folder that ends up in wp-content/plugins when someone uploads the zip through
+      # the WordPress admin screen.
+      - name: Prepare the release files
         run: |
           mkdir -p "dist/${PLUGIN_SLUG}"
           rsync -a \
@@ -77,12 +77,12 @@ jobs:
             --exclude='.distignore' \
             ./ "dist/${PLUGIN_SLUG}/"
 
-      - name: Zip maken
+      - name: Create the zip
         run: |
           cd dist
           zip -r "../${PLUGIN_SLUG}-${{ steps.version.outputs.version }}.zip" "${PLUGIN_SLUG}"
 
-      - name: Release aanmaken met de zip als bijlage
+      - name: Create the release with the zip attached
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.tag }}

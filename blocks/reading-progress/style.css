@@ -19,11 +19,10 @@
 	width: auto;
 }
 /*
- * De adminbar is alleen op bredere schermen "fixed"; WordPress zelf maakt hem
- * daaronder (tot ~783px) niet-vast, waardoor hij met de pagina meescrolt. Onze
- * balk hield daar geen rekening mee en bleef altijd 32px lager beginnen, ook
- * als er geen vaste adminbar meer was om voor te compenseren — zichtbaar als
- * een balk die een stukje onder de schermrand dwars door de inhoud loopt.
+ * The admin bar is only "fixed" on wider screens; below that (up to ~783px) WordPress makes it
+ * non-fixed, so it scrolls with the page. Our bar did not account for that and always started
+ * 32px lower, even when there was no fixed admin bar left to compensate for: visible as a bar
+ * running through the content a little below the edge of the screen.
  */
 @media (min-width: 783px) {
 	body.admin-bar .dwp-rx-progress {
@@ -41,7 +40,7 @@
 	.dwp-rx-progress { display: none; }
 }
 
-/* Editorweergave: een herkenbaar "kaartje" in plaats van een platte tekstregel. */
+/* Editor view: a recognisable "card" instead of a flat line of text. */
 .dwp-rx-progress-preview {
 	display: flex;
 	align-items: center;

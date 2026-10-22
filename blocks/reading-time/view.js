@@ -8,7 +8,7 @@ document.querySelectorAll( '[data-dwp-rx-remaining]' ).forEach( ( el ) => {
 	}
 
 	const total = Number( el.dataset.dwpRxMinutes ) || 1;
-	const remainingText = el.dataset.dwpRxLabelRemaining || 'nog ~%d min';
+	const remainingText = el.dataset.dwpRxLabelRemaining || '~%d min left';
 	const doneText = el.dataset.dwpRxLabelDone || '';
 
 	watchArticle( target, ( progress ) => {

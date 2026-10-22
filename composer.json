@@ -1,6 +1,6 @@
 {
 	"name": "dewitteprins/reader-experience",
-	"description": "Leesfuncties en interactie voor lange artikelen.",
+	"description": "Reading tools and interaction for long articles.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-only",
 	"require": {

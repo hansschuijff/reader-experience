@@ -35,7 +35,7 @@
 .dwp-rx-rating__follow-up-no { padding: 4px 10px; border-radius: 6px; }
 .dwp-rx-rating .dwp-rx-rating__done { margin: 0; text-align: center; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
 
-/* Inline: los blok onderaan het artikel. Het paneel klapt gewoon uit in de tekststroom. */
+/* Inline: a separate block at the end of the article. The panel simply unfolds in the text flow. */
 .dwp-rx-rating--inline { max-width: 24rem; }
 .dwp-rx-rating--inline .dwp-rx-rating__thumb-label { display: inline; }
 .dwp-rx-rating--inline .dwp-rx-rating__panel {
@@ -45,7 +45,7 @@
 	border-radius: 12px;
 }
 
-/* Bar: compact, iconen-only, geen label onder de duim. */
+/* Bar: compact, icons only, no label under the thumb. */
 .dwp-rx-rating--bar .dwp-rx-rating__thumb-label { display: none; }
 .dwp-rx-rating--bar { position: relative; }
 .dwp-rx-rating--bar .dwp-rx-rating__panel {
@@ -68,10 +68,9 @@
 .dwp-rx-rating--bar .dwp-rx-rating__panel[hidden] { display: none; }
 
 /*
- * Zelfde redenering als bij het deelpaneel: op desktop is de balk zelf al compact
- * en gecentreerd, dus de mobiele 16px-marge is hier niet nodig en maakt een
- * invoervenster onnodig krap. Groter, en t.o.v. het scherm gecentreerd in plaats
- * van rechts uitgelijnd aan de balk.
+ * Same reasoning as for the share panel: on desktop the bar itself is already compact and
+ * centred, so the mobile 16px margin is not needed here and makes an input window needlessly
+ * tight. Larger, and centred on the screen instead of right-aligned to the bar.
  */
 @media (min-width: 782px) {
 	.dwp-rx-rating--bar .dwp-rx-rating__panel {

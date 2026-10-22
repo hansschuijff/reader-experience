@@ -1,10 +1,9 @@
 /**
- * Gedeelde open/sluit-logica voor "vaste, gecentreerde" paneeltjes (het deelmenu,
- * het waarderingspaneel). Vast en gecentreerd in plaats van boven de knop verankerd,
- * zodat er nooit een deel van het paneel buiten het scherm kan vallen.
+ * Shared open/close logic for "fixed, centred" panels (the share menu, the rating panel). Fixed
+ * and centred instead of anchored above the button, so no part of the panel can ever fall off
+ * screen.
  *
- * Elk paneel-element krijgt het attribuut [data-dwp-rx-panel]. Er is er telkens maar
- * één tegelijk open.
+ * Every panel element gets the attribute [data-dwp-rx-panel]. Only one is open at a time.
  */
 
 function allPanels() {
@@ -43,7 +42,7 @@ export function togglePanel( panel ) {
 
 let wired = false;
 
-/** Eenmalig: klik buiten een paneel en Escape sluiten alles. */
+/** Once only: a click outside a panel and Escape close everything. */
 export function wireGlobalPopoverBehaviour() {
 	if ( wired ) {
 		return;
@@ -51,11 +50,10 @@ export function wireGlobalPopoverBehaviour() {
 	wired = true;
 
 	document.addEventListener( 'click', ( event ) => {
-		// Beste poging, niet geverifieerd op een echt toestel: bij gebaarnavigatie
-		// op Android kan een terugveeg vanaf de onderrand soms als een gewone tik
-		// op de pagina binnenkomen vóórdat het OS 'm als systeemgebaar afhandelt.
-		// Een tik vlak bij de onderrand negeren we daarom voor het sluiten van een
-		// paneel; daar staat toch niets klikbaars van ons buiten de balk/het paneel zelf.
+		// Best effort, not verified on a real device: with gesture navigation on Android a back swipe
+		// from the bottom edge can arrive as a plain tap on the page before the OS handles it as a
+		// system gesture. A tap right at the bottom edge is therefore ignored for closing a panel;
+		// nothing clickable of ours sits there outside the bar and the panel itself.
 		if ( event.clientY >= window.innerHeight - 24 ) {
 			return;
 		}

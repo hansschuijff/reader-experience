@@ -1,18 +1,18 @@
 /*
- * "Kopieer link"-icoontje bij koppen. Wordt door assets/js/heading-anchor-links.js in de kop
- * gezet, vóór of achter de tekst (modifier --before / --after).
+ * "Copy link" icon on headings. assets/js/heading-anchor-links.js puts it in the heading, before or
+ * after the text (modifier --before / --after).
  *
- * Vervangen door eigen CSS kan: laat het filter reader_experience/heading_anchors_load_css false
- * teruggeven en laad zelf een stylesheet voor deze classes.
+ * To use your own CSS instead: let the filter reader_experience/heading_anchors_load_css return
+ * false and load a stylesheet for these classes yourself.
  */
 
 .dwp-rx-heading-link {
 	all: unset;
 	box-sizing: border-box;
 	cursor: pointer;
-	-webkit-tap-highlight-color: transparent; /* zie assets/css/base.css voor de reden */
+	-webkit-tap-highlight-color: transparent; /* see assets/css/base.css for the reason */
 
-	/* Anker voor de toast. */
+	/* Anchor for the toast. */
 	position: relative;
 	display: inline-flex;
 	align-items: center;
@@ -20,8 +20,8 @@
 	vertical-align: middle;
 
 	/*
-	 * Vaste pixelwaarden, bewust geen em's: anders schaalt het icoontje mee met het lettertype
-	 * van de kop (groter bij een h2 dan bij een h4) en lijkt het een onderdeel van de typografie.
+	 * Fixed pixel values, deliberately not em: otherwise the icon scales with the heading's font
+	 * (bigger on an h2 than on an h4) and looks like part of the typography.
 	 */
 	width: 20px;
 	height: 20px;
@@ -32,28 +32,27 @@
 }
 
 /*
- * Voor de tekst: "hangend" in de linkermarge. De negatieve marge trekt het icoon naar links,
- * de positieve marge erachter vult dat aan, zodat de koptekst zelf niet verschuift. Omdat het
- * een inline element is dat als eerste in de kop staat, lijnt het uit met de EERSTE regel,
- * ook als de kop over meerdere regels loopt.
+ * Before the text: "hanging" in the left margin. The negative margin pulls the icon to the left,
+ * the positive margin after it makes up for that, so the heading text itself does not move. As it
+ * is an inline element at the start of the heading, it lines up with the FIRST line, even when
+ * the heading wraps over several lines.
  */
 .dwp-rx-heading-link--before {
 	margin-inline: -24px 4px;
 }
 
-/* Achter de tekst: inline, direct na de laatste woorden. */
+/* After the text: inline, right after the last words. */
 .dwp-rx-heading-link--after {
 	margin-inline-start: 0.35em;
 }
 
 /*
- * Op brede schermen krijgt het icoon achter de tekst GEEN layoutbreedte: de negatieve
- * eindmarge heft zijn eigen breedte (en de marge ervoor) precies op. Zonder dit valt het
- * icoon als de laatste regel van een kop bijna vol is op een regel van zichzelf, en omdat
- * het ook onzichtbaar ruimte inneemt wordt zo'n kop dan permanent een regel hoger. Nu staat
- * het icoon na de tekst en hangt het zo nodig een stukje buiten de kolom, net als --before
- * links doet. Op smalle schermen kan dat een horizontale scrollbalk geven, daar blijft het
- * gewone inline gedrag.
+ * On wide screens the icon after the text takes NO layout width: the negative end margin
+ * cancels its own width (and the margin before it) exactly. Without this, when the last line of
+ * a heading is almost full the icon wraps onto a line of its own, and because it also takes up
+ * invisible space such a heading would permanently be one line taller. Now the icon follows the
+ * text and, if needed, hangs a little outside the column, like --before does on the left. On
+ * narrow screens that could cause a horizontal scrollbar, so the plain inline behaviour stays.
  */
 @media (min-width: 601px) {
 	.dwp-rx-heading-link--after {
@@ -67,10 +66,10 @@
 }
 
 /*
- * Thema's stylen vaak "button:hover" en "button:focus" (achtergrond, rand, schaduw). Dat
- * selector-type heeft meer gewicht dan één class, dus "all: unset" hierboven wint daar niet
- * van. Dubbele class zorgt dat deze toestanden wél winnen, zonder "all: unset" te herhalen:
- * dat zette ook de transitie terug en gaf een flikkerend icoon.
+ * Themes often style "button:hover" and "button:focus" (background, border, shadow). That
+ * selector type outweighs a single class, so "all: unset" above does not beat it. A doubled
+ * class makes these states win, without repeating "all: unset": that also reset the transition
+ * and made the icon flicker.
  */
 .dwp-rx-heading-link.dwp-rx-heading-link:hover,
 .dwp-rx-heading-link.dwp-rx-heading-link:focus,
@@ -94,9 +93,9 @@
 }
 
 /*
- * Bevestiging na het kopiëren. Links uitgelijnd op het icoon (niet gecentreerd): bij een
- * icoon in de linkermarge zou een gecentreerd ballonnetje buiten beeld kunnen vallen.
- * Typografie expliciet teruggezet, want dit zit binnen de kop en erft anders de kopstijl.
+ * Confirmation after copying. Aligned to the start of the icon (not centred): with an icon in the
+ * left margin a centred bubble could fall off screen. Typography is reset explicitly, because
+ * this sits inside the heading and would otherwise inherit the heading style.
  */
 .dwp-rx-heading-link__toast {
 	position: absolute;
@@ -121,14 +120,14 @@
 	transform: translateY(0);
 }
 
-/* Een hangend icoon heeft links ruimte nodig; op een smal scherm is die er niet. */
+/* A hanging icon needs room on the left; a narrow screen has none. */
 @media (max-width: 600px) {
 	.dwp-rx-heading-link--before {
 		display: none;
 	}
 }
 
-/* Zonder muis is er geen hover: het icoon achter de tekst dan altijd zacht zichtbaar maken. */
+/* Without a mouse there is no hover: show the icon after the text softly at all times. */
 @media (hover: none) {
 	.dwp-rx-heading-link--after {
 		opacity: 0.55;

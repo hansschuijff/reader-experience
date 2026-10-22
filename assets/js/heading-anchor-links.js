@@ -1,13 +1,13 @@
 /**
- * Voegt bij koppen (h2–h4) met een id een klein "kopieer link"-icoontje toe.
+ * Adds a small "copy link" icon to headings (h2-h4) that have an id.
  *
- * Bewust losse, ongebundelde JS: dit draait op elk bericht waarvoor het aan staat, ongeacht
- * welke blokken er gebruikt worden, en heeft dus geen eigen block.json.
+ * Deliberately plain, unbundled JS: it runs on every post it is enabled for, whatever blocks are
+ * used, and so has no block.json of its own.
  *
- * Opties komen uit window.dwpRxHeadingAnchors (gezet door de plugin, zie HeadingAnchors::config()):
- *   position   'before' (standaard) of 'after': voor of achter de koptekst
- *   container  selector of lijst selectors; de eerste die bestaat is het artikel
- *   labels     { copy, copied }: al vertaald door PHP
+ * Options come from window.dwpRxHeadingAnchors (set by the plugin, see HeadingAnchors::config()):
+ *   position   'before' (default) or 'after': before or after the heading text
+ *   container  selector or list of selectors; the first one that exists is the article
+ *   labels     { copy, copied }: already translated by PHP
  */
 ( function () {
 	var config = window.dwpRxHeadingAnchors || {};
@@ -21,8 +21,8 @@
 			? [].concat( config.container )
 			: [ '.wp-block-post-content', '.entry-content', 'article' ];
 
-	// Zelfde "kopieer naar klembord"-icoon als elders in de plugin (twee overlappende
-	// rechthoeken): dat maakt meteen duidelijk wat de knop doet.
+	// Same "copy to clipboard" icon as elsewhere in the plugin (two overlapping rectangles):
+	// it makes clear at once what the button does.
 	var ICON =
 		'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 
@@ -31,7 +31,7 @@
 		try {
 			container = document.querySelector( candidates[ i ] );
 		} catch ( e ) {
-			// Ongeldige selector uit een filter: overslaan, de volgende proberen.
+			// Invalid selector from a filter: skip it, try the next one.
 		}
 	}
 	if ( ! container ) {
@@ -50,8 +50,8 @@
 		button.setAttribute( 'aria-label', copyLabel );
 		button.setAttribute( 'title', copyLabel );
 
-		// Pas gevuld op het moment van kopiëren: een permanent aanwezige tekst zou
-		// ongezien in de kop meelezen voor schermlezers en bij het selecteren van de kop.
+		// Only filled at the moment of copying: a permanently present text would be read along
+		// unseen in the heading by screen readers and when the heading is selected.
 		var toast = document.createElement( 'span' );
 		toast.className = 'dwp-rx-heading-link__toast';
 		toast.setAttribute( 'role', 'status' );
@@ -64,7 +64,7 @@
 			var url = window.location.href.split( '#' )[ 0 ] + '#' + heading.id;
 
 			if ( ! navigator.clipboard ) {
-				return; // Geen klembord (bijvoorbeeld geen HTTPS): geen verdere actie.
+				return; // No clipboard (for example no HTTPS): nothing further to do.
 			}
 
 			navigator.clipboard.writeText( url ).then(
@@ -82,7 +82,7 @@
 					}, 1500 );
 				},
 				function () {
-					// Klembord geweigerd: geen verdere actie.
+					// Clipboard refused: nothing further to do.
 				}
 			);
 		} );

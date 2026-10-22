@@ -30,8 +30,8 @@ async function postJson( url, body ) {
 }
 
 function isValidEmail( value ) {
-	// Lichte controle, geen volledige RFC-validatie: alleen bedoeld om de
-	// overduidelijke tikfout op te vangen, niet om iets te blokkeren.
+	// A light check, not full RFC validation: only meant to catch the obvious typo, not to
+	// block anything.
 	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( value );
 }
 
@@ -43,8 +43,8 @@ document.querySelectorAll( '[data-dwp-rx-rating]' ).forEach( ( root ) => {
 	const questionEl = panel.querySelector( '[data-dwp-rx-step-question]' );
 	const textarea = panel.querySelector( '.dwp-rx-rating__text' );
 
-	// In de balk krijgt het paneel een eigen id, zodat het als "vast, gecentreerd"
-	// paneeltje via de gedeelde popover-module beheerd kan worden.
+	// In the bar the panel gets an id of its own, so the shared popover module can manage it as a
+	// "fixed, centred" panel.
 	if ( isBar ) {
 		panel.id = panel.id || 'dwp-rx-rating-panel-' + postId + '-' + Math.random().toString( 36 ).slice( 2, 7 );
 	}
@@ -66,9 +66,9 @@ document.querySelectorAll( '[data-dwp-rx-rating]' ).forEach( ( root ) => {
 
 	let current = { id: null, token: null, value: null };
 
-	// Geen "op slot" na een keuze: nogmaals klikken op dezelfde duim doet niets,
-	// op de andere duim klikken wijzigt de stem gewoon (een nieuwe, losse waardering;
-	// er is toch geen account om een eerdere mee te koppelen).
+	// No "lock" after a choice: clicking the same thumb again does nothing, clicking the other
+	// thumb simply changes the vote (a new, separate rating; there is no account to link an earlier
+	// one to anyway).
 	thumbsWrap.querySelectorAll( '[data-dwp-rx-value]' ).forEach( ( button ) => {
 		button.addEventListener( 'click', async () => {
 			const value = button.dataset.dwpRxValue;
@@ -82,9 +82,8 @@ document.querySelectorAll( '[data-dwp-rx-rating]' ).forEach( ( root ) => {
 				b.setAttribute( 'aria-pressed', String( b === button ) );
 			} );
 
-			// Bij het wisselen van stem hoort een schone lei: anders blijft oude
-			// tekst staan en kan die bij opnieuw versturen aan de nieuwe stem
-			// vast komen te hangen, met een dubbel ogende reactie tot gevolg.
+			// Switching the vote starts with a clean slate: otherwise old text stays and, when sent
+			// again, could get attached to the new vote, giving an apparently duplicate reaction.
 			if ( textarea ) {
 				textarea.value = '';
 			}
@@ -168,9 +167,9 @@ document.querySelectorAll( '[data-dwp-rx-rating]' ).forEach( ( root ) => {
 
 		const action = 'like' === current.value ? 'publish' : 'contact';
 
-		// Staan reacties op deze pagina dicht (of vereisen ze een account), dan is er niets te
-		// plaatsen: de toelichting blijft privé en we ronden gewoon af. De server houdt dezelfde
-		// controle aan, dit voorkomt alleen dat iemand een aanbod ziet dat niet kan.
+		// If comments are closed on this page (or need an account) there is nothing to publish: the
+		// explanation stays private and we simply finish. The server applies the same check; this
+		// only stops someone from seeing an offer that cannot be fulfilled.
 		if ( 'publish' === action && '1' !== root.dataset.dwpRxCanComment ) {
 			postJson( root.dataset.dwpRxRestFollowupBase + current.id + '/follow-up', {
 				token: current.token,
@@ -203,8 +202,8 @@ document.querySelectorAll( '[data-dwp-rx-rating]' ).forEach( ( root ) => {
 				return;
 			}
 
-			// Naam en e-mail zijn hier niet optioneel: zonder die gegevens kan de
-			// reactie niet geplaatst, of kan er geen contact opgenomen worden.
+			// Name and email are not optional here: without them the comment cannot be posted, or
+			// no contact can be made.
 			const name = ( nameInput?.value || '' ).trim();
 			const email = ( emailInput?.value || '' ).trim();
 			if ( '' === name || '' === email || ! isValidEmail( email ) ) {

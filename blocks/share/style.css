@@ -4,7 +4,7 @@
 	position: fixed;
 	box-sizing: border-box;
 	inset-inline: 16px;      /* vaste marge tot beide randen: kan per constructie nooit overlopen */
-	margin-inline: auto;     /* krimpt naar max-width zodra er ruimte is, verlaat de marges nooit */
+	margin-inline: auto;     /* shrinks to max-width as soon as there is room, never leaves the margins */
 	max-width: 22rem;
 	/* Above the bar (about 56px high), not over it. */
 	bottom: calc( 72px + env(safe-area-inset-bottom, 0px) );
@@ -46,12 +46,12 @@
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
-	/* Geen eigen kleur (zoals e-mail): een neutrale ronde achtergrond i.p.v. wit-op-wit. */
+	/* No colour of its own (like email): a neutral round background instead of white on white. */
 	background: var(--c-bg, ButtonFace);
 	color: var(--c-text, CanvasText);
 }
 .dwp-rx-share__channel-icon[style*='background'] {
-	/* Wel een merkkleur: het lijnicoon wit tekenen zodat het op de kleur afsteekt. */
+	/* A brand colour: draw the line icon in white so it stands out against the colour. */
 	color: #fff;
 }
 .dwp-rx-share__channel-icon svg { width: 16px; height: 16px; }
@@ -84,11 +84,10 @@
 .dwp-rx-share__copy-icon svg { width: 16px; height: 16px; }
 
 /*
- * Op desktop is de balk zelf compact en gecentreerd (zie interaction-bar/style.css),
- * dus de vaste 16px-marge die op mobiel een overloop voorkwam is daar niet meer nodig
- * en maakt het paneel onnodig krap. Dit is in feite een invoervenster, dus op desktop
- * mag het ruim de dubbele breedte krijgen en gewoon t.o.v. het scherm centreren in
- * plaats van rechts uitgelijnd aan de balk te hangen.
+ * On desktop the bar itself is compact and centred (see interaction-bar/style.css), so the fixed
+ * 16px margin that prevented overflow on mobile is no longer needed there and only makes the
+ * panel needlessly tight. This is in effect an input window, so on desktop it may be about twice
+ * as wide and simply centre on the screen instead of hanging right-aligned to the bar.
  */
 @media (min-width: 782px) {
 	.dwp-rx-share__popover {

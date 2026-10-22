@@ -1,8 +1,7 @@
 /**
- * Vindt het element waarvan de leesvoortgang gevolgd moet worden. Probeert eerst
- * de opgegeven selector; valt daarna terug op een paar veelgebruikte content-
- * containers, zodat dit ook buiten een FSE-thema (waar .wp-block-post-content
- * niet bestaat) iets vindt. Geeft null terug als niets past.
+ * Finds the element whose reading progress is to be tracked. Tries the given selector first, then
+ * falls back on a few common content containers, so it also finds something outside a block theme
+ * (where .wp-block-post-content does not exist). Returns null when nothing fits.
  */
 export function resolveTarget( preferred ) {
 	const candidates = [ preferred, '.wp-block-post-content', '.entry-content', 'article', 'main' ].filter(
@@ -18,9 +17,9 @@ export function resolveTarget( preferred ) {
 }
 
 /**
- * Volgt hoe ver de bezoeker in een element is gescrold (0 tot 1).
- * 0 = bovenkant van het element op de bovenkant van het scherm,
- * 1 = onderkant van het element op de onderkant van het scherm.
+ * Tracks how far the visitor has scrolled through an element (0 to 1).
+ * 0 = top of the element at the top of the screen,
+ * 1 = bottom of the element at the bottom of the screen.
  */
 export function watchArticle( target, callback ) {
 	let queued = false;
@@ -48,7 +47,7 @@ export function watchArticle( target, callback ) {
 	window.addEventListener( 'scroll', schedule, { passive: true } );
 	window.addEventListener( 'resize', schedule );
 	if ( 'ResizeObserver' in window ) {
-		// Afbeeldingen die later laden veranderen de hoogte van het artikel.
+		// Images that load later change the height of the article.
 		new ResizeObserver( schedule ).observe( target );
 	}
 	compute();

@@ -1,13 +1,12 @@
 /**
- * Verbergt de balk bij omlaag scrollen, toont hem weer bij omhoog scrollen.
- * Stuurt een event zodat open paneeltjes van kindblokken (delen, waardering)
- * zichzelf sluiten, zonder dat dit blok hun specifieke classes hoeft te kennen.
+ * Hides the bar when scrolling down and shows it again when scrolling up. Sends an event so open
+ * panels of child blocks (share, rating) close themselves, without this block having to know
+ * their specific classes.
  *
- * Belangrijk: zolang er een paneel open staat, doet deze logica niets. Op mobiel
- * verschuift de pagina vaak even wanneer het toetsenbord opent (om het actieve
- * veld zichtbaar te houden); zonder deze uitzondering werd dat ten onrechte als
- * "naar beneden scrollen" gelezen, waardoor de balk zichzelf verborg en daarbij
- * het paneel sloot waar iemand net in aan het typen was.
+ * Important: while a panel is open, this logic does nothing. On mobile the page often shifts a
+ * little when the keyboard opens (to keep the active field visible); without this exception that
+ * was wrongly read as "scrolling down", so the bar hid itself and closed the panel someone was
+ * typing in.
  */
 import { anyPanelOpen } from '../shared/popover';
 
@@ -25,9 +24,8 @@ document.querySelectorAll( '.dwp-rx-bar' ).forEach( ( bar ) => {
 			return;
 		}
 
-		// Op desktop is de balk klein en gecentreerd: die blijft gewoon altijd in beeld.
-		// Alleen op mobiel, waar hij de volle breedte onderaan beslaat, is wegscrollen
-		// en teruggkomen bij omhoog scrollen prettig.
+		// On desktop the bar is small and centred: it simply stays in view. Only on mobile, where it
+		// spans the full width at the bottom, is scrolling away and coming back on scroll up pleasant.
 		if ( isDesktop.matches ) {
 			bar.classList.remove( 'dwp-rx-bar--hidden' );
 			lastY = window.scrollY;

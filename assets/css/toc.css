@@ -9,11 +9,10 @@
 .dwp-rx-toc__summary { cursor: pointer; font-weight: 600; padding: 0.25rem 0; }
 
 /*
- * De !important hieronder is bewust: in de blokeditor draait dit naast WordPress'
- * eigen standaard editorstijlen voor lijsten (bedoeld voor het core Lijst-blok),
- * en de laadvolgorde daarvan t.o.v. onze eigen stylesheet is niet te voorspellen
- * of te beïnvloeden. Zonder dit won die standaardstijl soms, waardoor de
- * inhoudsopgave als onopgemaakte platte tekst oogde in plaats van als lijst.
+ * The !important below is deliberate: in the block editor this runs alongside WordPress' own
+ * default editor styles for lists (meant for the core List block), and their load order relative
+ * to our own stylesheet cannot be predicted or influenced. Without it that default style
+ * sometimes won, so the table of contents looked like unformatted plain text instead of a list.
  */
 .dwp-rx-toc .dwp-rx-toc__list {
 	position: relative;
@@ -37,10 +36,9 @@
 	padding: 0.3rem 0.75rem;
 	border-inline-start: 2px solid transparent;
 	/*
-	 * Bewust "inherit" en geen eigen kleur: zo'n explicitie waarde op dit descendant-
-	 * element blokkeert anders de tekstkleur die iemand via de blokinstellingen
-	 * (achtergrond/tekst) op het blok zelf kiest, want "color" erft normaal gewoon
-	 * door tot een kind-element zelf iets anders opgeeft.
+	 * Deliberately "inherit" and no colour of its own: an explicit value on this descendant would
+	 * otherwise block the text colour someone picks in the block settings (background/text) on the
+	 * block itself, because "color" normally inherits until a child sets something else.
 	 */
 	color: inherit;
 	/* Themes often bold every link in the content (".entry-content a"). */
@@ -63,7 +61,7 @@
 	font-weight: 600;
 }
 
-/* Gegroepeerde/inklapbare variant: de hoofdkop is zelf een <summary>. */
+/* Grouped/collapsible variant: the top-level heading is itself a <summary>. */
 .dwp-rx-toc__group-toggle > summary { list-style: none !important; cursor: pointer; }
 .dwp-rx-toc__group-toggle > summary::-webkit-details-marker { display: none; }
 .dwp-rx-toc__group-toggle > summary::before {
@@ -75,14 +73,14 @@
 .dwp-rx-toc__group-toggle[open] > summary::before { transform: rotate(90deg); }
 .dwp-rx-toc .dwp-rx-toc__sublist { list-style: none !important; margin: 0; padding: 0; }
 
-/* Compacte stijl: lichter, kleiner, past beter in een smalle zijbalk. */
+/* Compact style: lighter and smaller, fits a narrow sidebar better. */
 .dwp-rx-toc--compact { font-size: var(--dwp-rx-toc-font-size, 0.8125rem); }
 .dwp-rx-toc--compact .dwp-rx-toc__summary { font-weight: 500; }
 .dwp-rx-toc--compact .dwp-rx-toc__list { border-inline-start-width: 1px; opacity: 0.95; }
 .dwp-rx-toc--compact .dwp-rx-toc__item a { padding-block: 0.2rem; }
 .dwp-rx-toc--compact .dwp-rx-toc__item a[aria-current] { font-weight: 500; }
 
-/* Ankersprongen komen niet onder een vaste header terecht. Pas de variabele aan op je thema. */
+/* Anchor jumps do not end up under a fixed header. Adjust the variable for your theme. */
 .wp-block-post-content :is(h2, h3, h4)[id],
 .entry-content :is(h2, h3, h4)[id],
 [data-dwp-rx-heading] {
