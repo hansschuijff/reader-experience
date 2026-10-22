@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-22 15:53+0000",
+	"translation-revision-date": "2026-10-22 16:08+0000",
 	"generator": "reader-experience tooling",
 	"source": "build/blocks/toc-open/index.js",
 	"domain": "messages",
@@ -28,17 +28,17 @@
 			"Right": [
 				"Rechts"
 			],
-			"Page when the panel is open": [
-				"Pagina als het paneel open is"
+			"How the panel is shown": [
+				"Weergave van het paneel"
 			],
-			"On wide screens the page can move aside to make room. Choose \"Stay put\" if your theme does not cope with that.": [
-				"Op brede schermen kan de pagina opzij schuiven om ruimte te maken. Kies \"Blijft staan\" als je thema daar niet goed mee omgaat."
+			"On wide screens the panel can sit beside the page, which moves aside to make room. Choose \"Over the page\" if your theme does not cope with that.": [
+				"Op brede schermen kan het paneel naast de pagina staan, die opzij schuift om ruimte te maken. Kies \"Over de pagina\" als je thema daar niet goed mee omgaat."
 			],
-			"Move aside on wide screens": [
-				"Schuift opzij op brede schermen"
+			"Beside the page on wide screens": [
+				"Naast de pagina op brede schermen"
 			],
-			"Stay put (panel floats over it)": [
-				"Blijft staan (paneel zweeft erover)"
+			"Over the page": [
+				"Over de pagina"
 			],
 			"Show headings up to level": [
 				"Toon koppen tot niveau"

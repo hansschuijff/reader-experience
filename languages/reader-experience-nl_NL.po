@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 15:53+0000\n"
-"PO-Revision-Date: 2026-10-22 15:53+0000\n"
+"POT-Creation-Date: 2026-10-22 16:08+0000\n"
+"PO-Revision-Date: 2026-10-22 16:08+0000\n"
 "Last-Translator: Hans Schuijff\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -346,24 +346,25 @@ msgid "Right"
 msgstr "Rechts"
 
 #: blocks/toc-open/index.js:30
-msgid "Page when the panel is open"
-msgstr "Pagina als het paneel open is"
+msgid "How the panel is shown"
+msgstr "Weergave van het paneel"
 
 #: blocks/toc-open/index.js:31
 msgid ""
-"On wide screens the page can move aside to make room. Choose \"Stay put\" if"
-" your theme does not cope with that."
+"On wide screens the panel can sit beside the page, which moves aside to make"
+" room. Choose \"Over the page\" if your theme does not cope with that."
 msgstr ""
-"Op brede schermen kan de pagina opzij schuiven om ruimte te maken. Kies "
-"\"Blijft staan\" als je thema daar niet goed mee omgaat."
+"Op brede schermen kan het paneel naast de pagina staan, die opzij schuift om"
+" ruimte te maken. Kies \"Over de pagina\" als je thema daar niet goed mee "
+"omgaat."
 
 #: blocks/toc-open/index.js:34
-msgid "Move aside on wide screens"
-msgstr "Schuift opzij op brede schermen"
+msgid "Beside the page on wide screens"
+msgstr "Naast de pagina op brede schermen"
 
 #: blocks/toc-open/index.js:35
-msgid "Stay put (panel floats over it)"
-msgstr "Blijft staan (paneel zweeft erover)"
+msgid "Over the page"
+msgstr "Over de pagina"
 
 #: blocks/toc-open/index.js:40 blocks/toc/index.js:27
 msgid "Show headings up to level"

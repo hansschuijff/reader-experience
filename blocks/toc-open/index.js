@@ -27,12 +27,12 @@ registerBlockType( metadata.name, {
 						onChange={ ( side ) => setAttributes( { side } ) }
 					/>
 					<SelectControl
-						label={ __( 'Page when the panel is open', 'reader-experience' ) }
-						help={ __( 'On wide screens the page can move aside to make room. Choose "Stay put" if your theme does not cope with that.', 'reader-experience' ) }
+						label={ __( 'How the panel is shown', 'reader-experience' ) }
+						help={ __( 'On wide screens the panel can sit beside the page, which moves aside to make room. Choose "Over the page" if your theme does not cope with that.', 'reader-experience' ) }
 						value={ attributes.push }
 						options={ [
-							{ label: __( 'Move aside on wide screens', 'reader-experience' ), value: 'auto' },
-							{ label: __( 'Stay put (panel floats over it)', 'reader-experience' ), value: 'never' },
+							{ label: __( 'Beside the page on wide screens', 'reader-experience' ), value: 'auto' },
+							{ label: __( 'Over the page', 'reader-experience' ), value: 'never' },
 						] }
 						onChange={ ( push ) => setAttributes( { push } ) }
 					/>

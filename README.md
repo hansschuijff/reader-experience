@@ -72,11 +72,11 @@ The "Contents" button in the interaction bar opens the same list in a side panel
 the list view in the block editor. The panel is part of that button; there is no standalone option.
 Block settings: panel title, side (left or right, default left), the deepest heading level, the
 minimum number of headings (the button stays hidden below it), collapsible sub-levels, an optional
-block with characters, words and reading time (off by default) and whether the page moves aside.
+block with characters, words and reading time (off by default) and how the panel is shown (beside the page, or over it).
 Each entry has a small badge with its heading level, like the list view in the block editor. On a
 large screen the panel is non-modal and stays open while you read; from 1100px up the page moves
 aside to make room for it (padding on `<html>`, so the theme lays itself out in the space that is
-left; set "Stay put" if a theme does not cope, then the panel floats over the page); on a small screen (up to 781px) it is a
+left; choose "Over the page" in the block settings if a theme does not cope, then the panel floats over the page); on a small screen (up to 781px) it is a
 modal overlay. It closes with the close button, the Contents button, Escape, a tap outside it or the
 browser's back button, and on a small screen also when you choose a heading. The inline TOC block
 stays available for places such as a sidebar, widget area or navigation.
