@@ -569,3 +569,7 @@ msgstr "Facebook"
 #: src/Modules/Sharing/ChannelRegistry.php:61
 msgid "Email"
 msgstr "E-mail"
+
+#: blocks/share/render.php
+msgid "Link to this article"
+msgstr "Link naar dit artikel"

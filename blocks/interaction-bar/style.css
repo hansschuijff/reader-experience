@@ -7,7 +7,11 @@
 	background: var(--c-surface, Canvas);
 	border-top: 1px solid var(--c-border, ButtonBorder);
 	padding-bottom: env(safe-area-inset-bottom, 0px);
-	transform: translateY(0);
+	/*
+	 * No transform while visible. A transformed element becomes the containing block of its
+	 * position: fixed descendants, so the share and rating panels were positioned against the bar
+	 * instead of the screen (and overlapped it). Only the hidden state moves the bar.
+	 */
 	transition: transform 0.2s ease;
 }
 .rx-bar.rx-bar--hidden { transform: translateY(100%); }
@@ -76,6 +80,7 @@
 	width: auto;
 	max-width: none;
 	transform: none;
+	margin-inline: 0;
 	border-radius: 12px;
 	border: 1px dashed var(--c-border, ButtonBorder);
 	box-shadow: none;
@@ -104,17 +109,18 @@
  */
 @media (min-width: 782px) {
 	.rx-bar {
-		left: 50%;
-		right: auto;
+		/* Centred without a transform: see the note on .rx-bar. */
+		left: 0;
+		right: 0;
+		margin-inline: auto;
 		bottom: 24px;
-		transform: translateX(-50%);
 		width: fit-content;
 		max-width: calc(100% - 48px);
 		border: 1px solid var(--c-border, ButtonBorder);
 		border-radius: 999px;
 		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 	}
-	.rx-bar.rx-bar--hidden { transform: translateX(-50%); }
+	.rx-bar.rx-bar--hidden { transform: none; }
 	.rx-bar__inner { padding: 6px 10px; max-width: none; }
 }
 

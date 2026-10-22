@@ -6,7 +6,8 @@
 	inset-inline: 16px;      /* vaste marge tot beide randen: kan per constructie nooit overlopen */
 	margin-inline: auto;     /* krimpt naar max-width zodra er ruimte is, verlaat de marges nooit */
 	max-width: 22rem;
-	bottom: max(20px, env(safe-area-inset-bottom, 0px) + 16px);
+	/* Above the bar (about 56px high), not over it. */
+	bottom: calc( 72px + env(safe-area-inset-bottom, 0px) );
 	max-height: 80vh;
 	overflow: auto;
 	background: var(--c-surface, Canvas);
@@ -57,22 +58,47 @@
 
 .rx-share__copyrow {
 	display: flex;
-	align-items: center;
-	gap: 6px;
-	margin-top: 8px;
-	padding: 4px 4px 4px 10px;
-	background: var(--c-bg, Canvas);
-	border-radius: 8px;
+	align-items: stretch;
+	gap: 8px;
+	margin-top: 10px;
 }
+/* The link looks like a field (background and border) and is one: it can be selected and copied. */
 .rx-share__url {
 	flex: 1;
+	min-width: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 8px 12px;
+	font: inherit;
 	font-size: 0.8125rem;
 	color: var(--c-text-muted, GrayText);
-	white-space: nowrap;
-	overflow: hidden;
+	background: var(--c-bg, Canvas);
+	border: 1px solid var(--c-border, ButtonBorder);
+	border-radius: 8px;
 	text-overflow: ellipsis;
 }
-.rx-share__copy { gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 0.8125rem; }
+.rx-share__url:focus { color: var(--c-text, CanvasText); outline: 2px solid var(--c-accent, Highlight); outline-offset: 1px; }
+.rx-share__copy {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	flex: none;
+	margin: 0;
+	padding: 8px 14px;
+	font: inherit;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	line-height: 1.2;
+	color: var(--c-accent-contrast, HighlightText);
+	background: var(--c-accent, Highlight);
+	border: 1px solid transparent;
+	border-radius: 8px;
+	cursor: pointer;
+}
+.rx-share__copy:hover { filter: brightness( 1.1 ); }
+.rx-share__copy:focus-visible { outline: 2px solid var(--c-accent, Highlight); outline-offset: 2px; }
+.rx-share__copy-icon { display: inline-flex; }
+.rx-share__copy-icon svg { width: 16px; height: 16px; }
 
 /*
  * Op desktop is de balk zelf compact en gecentreerd (zie interaction-bar/style.css),
@@ -86,6 +112,8 @@
 		inset-inline: auto;
 		left: 50%;
 		transform: translateX(-50%);
+		/* The desktop bar floats 24px above the bottom edge and is about 56px high. */
+		bottom: 6.25rem;
 		max-width: 32rem;
 		padding: 20px;
 	}
@@ -93,5 +121,6 @@
 	.rx-share__channel { padding: 10px 14px; font-size: 0.9375rem; }
 	.rx-share__channel-icon { width: 32px; height: 32px; }
 	.rx-share__channel-icon svg { width: 18px; height: 18px; }
-	.rx-share__copy { padding: 0.7em 1.8em; }
+	.rx-share__copy { padding: 0.6em 1.4em; font-size: 0.9375rem; }
+	.rx-share__url { font-size: 0.9375rem; padding: 0.6em 0.9em; }
 }

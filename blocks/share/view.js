@@ -36,15 +36,20 @@ document.querySelectorAll( '[data-rx-share]' ).forEach( ( root ) => {
 		link.addEventListener( 'click', () => report( root, link.dataset.rxChannel ) );
 	} );
 
+	// Selecting the whole link on focus makes a manual copy one keystroke.
+	root.querySelector( '.rx-share__url' )?.addEventListener( 'focus', ( event ) => event.target.select() );
+
 	const copyButton = root.querySelector( '[data-rx-copy]' );
+	const copyLabel = copyButton?.querySelector( '[data-rx-copy-label]' );
 	copyButton?.addEventListener( 'click', async () => {
 		try {
 			await navigator.clipboard.writeText( url );
-			const original = copyButton.textContent;
-			copyButton.textContent = copyButton.dataset.rxCopiedLabel || 'Copied';
+			// Only the label changes, so the icon (and the start state) stay intact.
+			const original = copyLabel.textContent;
+			copyLabel.textContent = copyButton.dataset.rxCopiedLabel || 'Copied';
 			report( root, 'copy' );
 			setTimeout( () => {
-				copyButton.textContent = original;
+				copyLabel.textContent = original;
 			}, 1500 );
 		} catch ( error ) {
 			// Klembord niet beschikbaar (bijvoorbeeld geen HTTPS): geen verdere actie.

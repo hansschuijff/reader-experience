@@ -527,3 +527,7 @@ msgstr ""
 #: src/Modules/Sharing/ChannelRegistry.php:61
 msgid "Email"
 msgstr ""
+
+#: blocks/share/render.php
+msgid "Link to this article"
+msgstr ""

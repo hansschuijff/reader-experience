@@ -83,18 +83,19 @@ registerBlockType( metadata.name, {
 					/>
 				</InspectorControls>
 				<div
-					{ ...useBlockProps( { className: 'rx-toc rx-toc--' + attributes.style, style: previewStyle } ) }
+					{ ...useBlockProps( { className: 'rx-toc rx-toc--editor rx-toc--' + attributes.style, style: previewStyle } ) }
 				>
 					<p className="rx-toc__summary">{ attributes.title || __( 'Contents', 'reader-experience' ) }</p>
 					<ol className="rx-toc__list">
+						{ /* Spans, not links: a link takes the click and focus, so the block was not selected. */ }
 						<li className="rx-toc__item rx-toc__item--l2">
-							<a href="#">{ __( 'Headings are filled in here automatically…', 'reader-experience' ) }</a>
+							<span className="rx-toc__link">{ __( 'Headings are filled in here automatically…', 'reader-experience' ) }</span>
 						</li>
 						<li className="rx-toc__item rx-toc__item--l3">
-							<a href="#">{ __( '(on the site, from the article text)', 'reader-experience' ) }</a>
+							<span className="rx-toc__link">{ __( '(on the site, from the article text)', 'reader-experience' ) }</span>
 						</li>
 						<li className="rx-toc__item rx-toc__item--l2">
-							<a href="#">…</a>
+							<span className="rx-toc__link">…</span>
 						</li>
 					</ol>
 				</div>

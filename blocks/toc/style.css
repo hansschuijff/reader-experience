@@ -22,7 +22,8 @@
 	overflow: auto;
 	border-inline-start: 1px solid var(--c-border, rgba(128, 128, 128, 0.4));
 }
-.rx-toc__item a {
+.rx-toc__item a,
+.rx-toc__item .rx-toc__link {
 	display: block !important;
 	margin-inline-start: -1px;
 	padding: 0.3rem 0.75rem;
@@ -36,9 +37,14 @@
 	color: inherit;
 	text-decoration: none;
 }
-.rx-toc__item--l3 a { padding-inline-start: 1.5rem; }
-.rx-toc__item--l4 a { padding-inline-start: 2.25rem; }
-.rx-toc__item a:hover { opacity: 0.75; }
+.rx-toc__item--l3 :is(a, .rx-toc__link) { padding-inline-start: 1.5rem; }
+.rx-toc__item--l4 :is(a, .rx-toc__link) { padding-inline-start: 2.25rem; }
+/* Hover must not lower the contrast of the text: underline plus a faint tint instead of fading it. */
+.rx-toc__item a:hover {
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+	background: color-mix( in srgb, currentColor 8%, transparent );
+}
 .rx-toc__item a[aria-current] {
 	border-inline-start-color: var(--c-accent, currentColor);
 	font-weight: 600;
@@ -55,6 +61,26 @@
 }
 .rx-toc__group-toggle[open] > summary::before { transform: rotate(90deg); }
 .rx-toc__sublist { list-style: none !important; margin: 0; padding: 0; }
+
+/*
+ * Editor preview: the same dashed outline as the other blocks, and the list is forced to look like
+ * the front end (the editor's own list styles for ul/ol would otherwise win).
+ */
+.rx-toc--editor {
+	padding: 10px 12px;
+	border: 1px dashed var(--c-border, ButtonBorder);
+	border-radius: 8px;
+}
+.rx-toc--editor .rx-toc__list {
+	list-style: none !important;
+	margin: 0.5rem 0 0 !important;
+	padding: 0 !important;
+	max-height: none;
+	overflow: visible;
+}
+.rx-toc--editor .rx-toc__item { list-style: none !important; margin: 0 !important; padding: 0; }
+.rx-toc--editor .rx-toc__item::marker { content: none; }
+.rx-toc--editor .rx-toc__link { cursor: default; }
 
 /* Compacte stijl: lichter, kleiner, past beter in een smalle zijbalk. */
 .rx-toc--compact { font-size: var(--rx-toc-font-size, 0.8125rem); }
