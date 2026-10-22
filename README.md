@@ -91,6 +91,22 @@ modal overlay. It closes with the close button, the Contents button, Escape, a t
 browser's back button, and on a small screen also when you choose a heading. The inline TOC block
 stays available for places such as a sidebar, widget area or navigation.
 
+## Resume reading
+
+The "Resume reading" block remembers how far a visitor got in a long article and which heading they were at. On a
+return visit a small notice offers "Continue reading at: <heading>" with **Continue** and **Start over**. Place it once
+in the single post template, like the reading progress bar.
+
+- The position lives in the visitor's own browser (`localStorage`, key `dwp-rx-resume:<post id>`). Nothing is sent to
+  the server and nothing is counted.
+- It only applies to articles of at least a set reading time (default 5 minutes); shorter ones get no markup at all.
+- It is forgotten when the article is read to the end (95%), after 90 days, or on "Start over".
+- The notice does not appear for a link with a `#hash`, when the browser restores the scroll position itself (back,
+  reload), or when the visitor is already near the stored position. It never scrolls by itself and disappears after the
+  chosen number of seconds (0 keeps it until the visitor chooses).
+- If your site needs consent before anything is stored in the browser, add this to your consent rules (or leave the
+  block out until consent is given).
+
 ## Comments link
 
 The comments button in the bar shows the number of comments. Where it jumps to is a block setting: automatic (the comments

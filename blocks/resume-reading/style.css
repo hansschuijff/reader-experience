@@ -1,0 +1,82 @@
+/*
+ * The notice sits at the bottom of the screen, above the interaction bar when there is one (the
+ * script sets --dwp-rx-resume-bottom to the bar's height). Colours come from the theme's custom
+ * properties with system colours as fallback.
+ */
+.dwp-rx-resume {
+	position: fixed;
+	left: 50%;
+	bottom: var( --dwp-rx-resume-bottom, calc( 12px + env( safe-area-inset-bottom, 0px ) ) );
+	z-index: 10000;
+	box-sizing: border-box;
+	width: min( 30rem, calc( 100vw - 24px ) );
+	margin: 0 !important;
+	padding: 12px 14px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px 14px;
+	color: var( --c-text, CanvasText );
+	background: var( --c-surface, Canvas );
+	border: 1px solid var( --dwp-rx-panel-border, #ddd );
+	border-radius: 10px;
+	box-shadow: 0 4px 24px rgba( 0, 0, 0, 0.15 );
+	font-size: 0.9375rem;
+	line-height: 1.4;
+	opacity: 0;
+	transform: translate( -50%, 8px );
+	transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.dwp-rx-resume[hidden] { display: none !important; }
+.dwp-rx-resume.is-visible {
+	opacity: 1;
+	transform: translate( -50%, 0 );
+}
+.dwp-rx-resume .dwp-rx-resume__text {
+	flex: 1 1 12rem;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+}
+.dwp-rx-resume .dwp-rx-resume__heading { font-weight: 600; overflow-wrap: anywhere; }
+.dwp-rx-resume__actions { display: flex; flex: none; align-items: center; gap: 12px; }
+
+/* Zero-specificity defaults, so a theme's button styles (or wp-element-button) take over. */
+:where( .dwp-rx-resume__continue ) {
+	padding: 0.4em 0.9em;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+	color: var( --c-surface, Canvas );
+	background: var( --c-accent, CanvasText );
+}
+:where( .dwp-rx-resume__restart ) {
+	padding: 0.4em 0;
+	border: 0;
+	font: inherit;
+	color: inherit;
+	background: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.dwp-rx-resume button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+@media ( prefers-reduced-motion: reduce ) {
+	.dwp-rx-resume { transition: none; }
+}
+@media print {
+	.dwp-rx-resume { display: none !important; }
+}
+
+/* Editor view. */
+.dwp-rx-resume-preview {
+	padding: 10px 12px;
+	border: 1px dashed var( --c-border, ButtonBorder );
+	border-radius: 8px;
+	font-size: 0.8125rem;
+	color: var( --c-text-muted, GrayText );
+}
+.dwp-rx-resume-preview p { margin: 6px 0 0; }

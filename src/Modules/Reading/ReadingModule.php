@@ -47,6 +47,6 @@ final class ReadingModule extends AbstractModule {
 	 * @since 0.1.0
 	 */
 	public function blocks(): array {
-		return array( 'reading-time', 'reading-progress', 'toc' );
+		return array( 'reading-time', 'reading-progress', 'toc', 'resume-reading' );
 	}
 }

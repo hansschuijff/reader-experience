@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reader-experience/resume-reading",
+	"title": "Resume reading",
+	"category": "widgets",
+	"icon": "backup",
+	"description": "Remembers how far a visitor got in a long article and, on a return visit, offers to continue at that heading. The position stays in the visitor's own browser.",
+	"textdomain": "reader-experience",
+	"usesContext": [ "postId" ],
+	"attributes": {
+		"target": { "type": "string", "default": ".wp-block-post-content" },
+		"minMinutes": { "type": "number", "default": 5 },
+		"displaySeconds": { "type": "number", "default": 20 }
+	},
+	"supports": { "html": false, "multiple": false },
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

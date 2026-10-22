@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 17:16+0000\n"
+"POT-Creation-Date: 2026-10-22 19:11+0000\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,8 +27,8 @@ msgstr ""
 
 #: blocks/comments-link/index.js:12 blocks/custom-link/index.js:12
 #: blocks/rating/index.js:13 blocks/reading-progress/index.js:12
-#: blocks/reading-time/index.js:11 blocks/toc-open/index.js:13
-#: blocks/toc/index.js:19
+#: blocks/reading-time/index.js:11 blocks/resume-reading/index.js:12
+#: blocks/toc-open/index.js:13 blocks/toc/index.js:19
 msgid "Settings"
 msgstr ""
 
@@ -325,11 +325,11 @@ msgid ""
 "article."
 msgstr ""
 
-#: blocks/reading-progress/index.js:14
+#: blocks/reading-progress/index.js:14 blocks/resume-reading/index.js:30
 msgid "Element to follow (CSS selector)"
 msgstr ""
 
-#: blocks/reading-progress/index.js:15
+#: blocks/reading-progress/index.js:15 blocks/resume-reading/index.js:31
 msgid ""
 "Defaults to .wp-block-post-content (block themes). With a classic theme use "
 "the class of your content container, for example .entry-content. Even "
@@ -390,6 +390,65 @@ msgid "%d min read"
 msgid_plural "%d min read"
 msgstr[0] ""
 msgstr[1] ""
+
+#. Block description
+#: blocks/resume-reading/block.json
+msgctxt "block description"
+msgid ""
+"Remembers how far a visitor got in a long article and, on a return visit, "
+"offers to continue at that heading. The position stays in the visitor's own "
+"browser."
+msgstr ""
+
+#. Block title
+#: blocks/resume-reading/block.json
+msgctxt "block title"
+msgid "Resume reading"
+msgstr ""
+
+#: blocks/resume-reading/index.js:14
+msgid "Only for articles of at least (minutes of reading)"
+msgstr ""
+
+#: blocks/resume-reading/index.js:15
+msgid ""
+"Shorter articles are read in one go, so they get no notice and nothing is "
+"remembered."
+msgstr ""
+
+#: blocks/resume-reading/index.js:22
+msgid "Show the notice for (seconds)"
+msgstr ""
+
+#: blocks/resume-reading/index.js:23
+msgid "0 keeps it until the visitor chooses."
+msgstr ""
+
+#: blocks/resume-reading/index.js:39
+msgid "A heading from the article (example)"
+msgstr ""
+
+#: blocks/resume-reading/index.js:40
+msgid ""
+"On the site this notice appears only to visitors who return to a long "
+"article they did not finish."
+msgstr ""
+
+#: blocks/resume-reading/render.php:50 blocks/resume-reading/index.js:38
+msgid "Continue reading at:"
+msgstr ""
+
+#: blocks/resume-reading/render.php:51
+msgid "Continue where you left off?"
+msgstr ""
+
+#: blocks/resume-reading/render.php:58
+msgid "Continue"
+msgstr ""
+
+#: blocks/resume-reading/render.php:59
+msgid "Start over"
+msgstr ""
 
 #. Block title
 #: blocks/share/block.json

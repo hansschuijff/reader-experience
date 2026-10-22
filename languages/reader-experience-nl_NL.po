@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 17:16+0000\n"
-"PO-Revision-Date: 2026-10-22 17:16+0000\n"
+"POT-Creation-Date: 2026-10-22 19:11+0000\n"
+"PO-Revision-Date: 2026-10-22 19:11+0000\n"
 "Last-Translator: Hans Schuijff\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -32,8 +32,8 @@ msgstr ""
 
 #: blocks/comments-link/index.js:12 blocks/custom-link/index.js:12
 #: blocks/rating/index.js:13 blocks/reading-progress/index.js:12
-#: blocks/reading-time/index.js:11 blocks/toc-open/index.js:13
-#: blocks/toc/index.js:19
+#: blocks/reading-time/index.js:11 blocks/resume-reading/index.js:12
+#: blocks/toc-open/index.js:13 blocks/toc/index.js:19
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -349,11 +349,11 @@ msgstr ""
 "Dunne balk bovenaan het scherm die laat zien hoever de bezoeker in het "
 "artikel is."
 
-#: blocks/reading-progress/index.js:14
+#: blocks/reading-progress/index.js:14 blocks/resume-reading/index.js:30
 msgid "Element to follow (CSS selector)"
 msgstr "Element dat gevolgd wordt (CSS-selector)"
 
-#: blocks/reading-progress/index.js:15
+#: blocks/reading-progress/index.js:15 blocks/resume-reading/index.js:31
 msgid ""
 "Defaults to .wp-block-post-content (block themes). With a classic theme use "
 "the class of your content container, for example .entry-content. Even "
@@ -420,6 +420,72 @@ msgid "%d min read"
 msgid_plural "%d min read"
 msgstr[0] "%d min leestijd"
 msgstr[1] "%d min leestijd"
+
+#. Block description
+#: blocks/resume-reading/block.json
+msgctxt "block description"
+msgid ""
+"Remembers how far a visitor got in a long article and, on a return visit, "
+"offers to continue at that heading. The position stays in the visitor's own "
+"browser."
+msgstr ""
+"Onthoudt hoever een bezoeker in een lang artikel kwam en biedt bij "
+"terugkomst aan om bij die kop verder te gaan. De positie blijft in de eigen "
+"browser van de bezoeker."
+
+#. Block title
+#: blocks/resume-reading/block.json
+msgctxt "block title"
+msgid "Resume reading"
+msgstr "Verder lezen"
+
+#: blocks/resume-reading/index.js:14
+msgid "Only for articles of at least (minutes of reading)"
+msgstr "Alleen voor artikelen van minstens (minuten leestijd)"
+
+#: blocks/resume-reading/index.js:15
+msgid ""
+"Shorter articles are read in one go, so they get no notice and nothing is "
+"remembered."
+msgstr ""
+"Kortere artikelen lees je in één keer uit, dus ze krijgen geen melding en er"
+" wordt niets onthouden."
+
+#: blocks/resume-reading/index.js:22
+msgid "Show the notice for (seconds)"
+msgstr "Toon de melding gedurende (seconden)"
+
+#: blocks/resume-reading/index.js:23
+msgid "0 keeps it until the visitor chooses."
+msgstr "0 laat de melding staan tot de bezoeker kiest."
+
+#: blocks/resume-reading/index.js:39
+msgid "A heading from the article (example)"
+msgstr "Een kop uit het artikel (voorbeeld)"
+
+#: blocks/resume-reading/index.js:40
+msgid ""
+"On the site this notice appears only to visitors who return to a long "
+"article they did not finish."
+msgstr ""
+"Op de site verschijnt deze melding alleen bij bezoekers die terugkomen bij "
+"een lang artikel dat ze niet uitlazen."
+
+#: blocks/resume-reading/render.php:50 blocks/resume-reading/index.js:38
+msgid "Continue reading at:"
+msgstr "Verder lezen bij:"
+
+#: blocks/resume-reading/render.php:51
+msgid "Continue where you left off?"
+msgstr "Verder gaan waar je was gebleven?"
+
+#: blocks/resume-reading/render.php:58
+msgid "Continue"
+msgstr "Verder"
+
+#: blocks/resume-reading/render.php:59
+msgid "Start over"
+msgstr "Begin opnieuw"
 
 #. Block title
 #: blocks/share/block.json

@@ -1,0 +1,45 @@
+{
+	"translation-revision-date": "2026-10-22 19:11+0000",
+	"generator": "reader-experience tooling",
+	"source": "build/blocks/resume-reading/index.js",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "nl_NL",
+				"plural-forms": "nplurals=2; plural=(n != 1);"
+			},
+			"Settings": [
+				"Instellingen"
+			],
+			"Only for articles of at least (minutes of reading)": [
+				"Alleen voor artikelen van minstens (minuten leestijd)"
+			],
+			"Shorter articles are read in one go, so they get no notice and nothing is remembered.": [
+				"Kortere artikelen lees je in één keer uit, dus ze krijgen geen melding en er wordt niets onthouden."
+			],
+			"Show the notice for (seconds)": [
+				"Toon de melding gedurende (seconden)"
+			],
+			"0 keeps it until the visitor chooses.": [
+				"0 laat de melding staan tot de bezoeker kiest."
+			],
+			"Element to follow (CSS selector)": [
+				"Element dat gevolgd wordt (CSS-selector)"
+			],
+			"Defaults to .wp-block-post-content (block themes). With a classic theme use the class of your content container, for example .entry-content. Even without a correct value a common container is tried automatically.": [
+				"Standaard .wp-block-post-content (FSE-thema's). Gebruik bij een klassiek thema de class van je content-container, bijvoorbeeld .entry-content. Ook zonder juiste waarde wordt automatisch een veelvoorkomende container geprobeerd."
+			],
+			"Continue reading at:": [
+				"Verder lezen bij:"
+			],
+			"A heading from the article (example)": [
+				"Een kop uit het artikel (voorbeeld)"
+			],
+			"On the site this notice appears only to visitors who return to a long article they did not finish.": [
+				"Op de site verschijnt deze melding alleen bij bezoekers die terugkomen bij een lang artikel dat ze niet uitlazen."
+			]
+		}
+	}
+}

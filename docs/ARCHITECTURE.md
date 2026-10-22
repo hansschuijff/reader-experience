@@ -55,7 +55,7 @@ reader-experience/
 │       ├── Sharing/   SharingModule, ChannelRegistry, ShareRepository, ShareController, Migrations/
 │       └── Rating/    RatingModule, RatingService, FeedbackRepository, RatingController, CommentPublisher, Notifier,
 │                      Migrations/, Admin/ (PostColumn, DashboardWidget, FeedbackPage)
-├── blocks/                        reading-time, reading-progress, toc, interaction-bar, comments-link, toc-open, custom-link, share,
+├── blocks/                        reading-time, reading-progress, resume-reading, toc, interaction-bar, comments-link, toc-open, custom-link, share,
 │                                  rating; shared/ (toc.js, popover.js, article-progress.js, icons.js)
 ├── assets/                        css/base.css, css/toc.css, heading anchor CSS/JS (plain, unbundled)
 ├── languages/                     .pot, nl_NL .po/.mo and editor JSON
@@ -69,6 +69,7 @@ filter `reader_experience/modules`.
 
 | Topic | Decision | Reason |
 |---|---|---|
+| Resume reading | Position in `localStorage` only, per post; a block with a hidden notice that the script shows | Needs no server, no counters and no personal data; works with page caching |
 | One plugin, internal modules | Reading tools and interaction together | Blocks bring a JS build and change more often than the core; a split is possible later along reading / interaction |
 | Share counts | Not shown | Facebook and X no longer provide public counts; low numbers backfire |
 | Share clicks | Counted per channel per day, visible in admin only | Shows which channels are alive; it measures clicks, not completed shares |
@@ -94,7 +95,8 @@ filter `reader_experience/modules`.
 
 ## Not doing
 
-Share counts, star ratings, public thumbs-down, a free-form bar builder, a word counter for visitors (statistics in the
+Recognition questions ("do you recognise this?") after an article: too blunt for the intended tone; recognition should come
+from the writing. Share counts, star ratings, public thumbs-down, a free-form bar builder, a word counter for visitors (statistics in the
 panel are optional and per block).
 
 ## Data
@@ -129,7 +131,8 @@ themes) are verified there by hand. There is no automated integration test again
 ## Open points
 
 - Planned: previous/next article navigation.
-- Scroll depth analytics with a privacy-friendly tool; read-aloud only if asked for.
+- Scroll depth analytics with a privacy-friendly tool (events for the tool of choice, such as Hotjar, once consent is
+  settled); read-aloud only if asked for.
 - `GET /state` or a REST refresh of the comment count if cached pages show stale numbers.
 - Which share channels make sense (now WhatsApp, LinkedIn, Facebook, email; extend with `reader_experience/share_channels`).
 - Possibly turn `FeedbackPage` into a `WP_List_Table` (sorting, filtering).
