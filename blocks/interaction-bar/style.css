@@ -85,10 +85,12 @@
 	border: 1px dashed var(--c-border, ButtonBorder);
 	box-shadow: none;
 }
-.rx-bar--editor .rx-bar__inner {
+.rx-bar--editor {
+	display: flex;
+	align-items: stretch;
 	flex-wrap: nowrap;
 	justify-content: center;
-	max-width: none;
+	padding: 6px 10px;
 	overflow-x: auto;
 }
 /*
@@ -97,7 +99,7 @@
  * breedte per icoon geeft hier een rustigere, meer "werkbalk"-achtige rij,
  * en voorkomt dat het bredere waarderingsslot (twee duimen) als enige omslaat.
  */
-.rx-bar--editor .rx-bar__inner > * { flex: 0 0 auto; }
+.rx-bar--editor > * { flex: 0 0 auto; }
 .rx-bar--editor .rx-bar__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
 
 /*
