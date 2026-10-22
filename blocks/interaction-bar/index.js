@@ -1,5 +1,5 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, useInnerBlocksProps, InnerBlocks } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import metadata from './block.json';
 import './style.css';
 
@@ -18,19 +18,11 @@ const TEMPLATE = [
 ];
 
 registerBlockType( metadata.name, {
-	edit: () => {
-		/*
-		 * The wrapper itself is the container of the inner blocks (one element, not a wrapper around
-		 * a second one). Otherwise the inner container covers the whole bar and a click next to the
-		 * icons never reaches the bar, so the bar could not be selected by clicking it.
-		 */
-		const innerBlocksProps = useInnerBlocksProps( useBlockProps( { className: 'rx-bar rx-bar--editor' } ), {
-			allowedBlocks: ALLOWED_BLOCKS,
-			template: TEMPLATE,
-			orientation: 'horizontal',
-		} );
-		return <div { ...innerBlocksProps } />;
-	},
+	edit: () => (
+		<div { ...useBlockProps( { className: 'rx-bar rx-bar--editor' } ) }>
+			<InnerBlocks allowedBlocks={ ALLOWED_BLOCKS } template={ TEMPLATE } orientation="horizontal" />
+		</div>
+	),
 	save: () => (
 		<div { ...useBlockProps.save( { className: 'rx-bar' } ) }>
 			<div className="rx-bar__inner">

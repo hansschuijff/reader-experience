@@ -73,7 +73,8 @@
  * de desktop-transform actief op een position:static element, wat de layout brak.
  */
 .rx-bar.rx-bar--editor {
-	position: static;
+	/* Relative, not static: the editor draws the selection outline against the nearest positioned ancestor. */
+	position: relative;
 	left: auto;
 	right: auto;
 	bottom: auto;
@@ -85,12 +86,10 @@
 	border: 1px dashed var(--c-border, ButtonBorder);
 	box-shadow: none;
 }
-.rx-bar--editor {
-	display: flex;
-	align-items: stretch;
+.rx-bar--editor .rx-bar__inner {
 	flex-wrap: nowrap;
 	justify-content: center;
-	padding: 6px 10px;
+	max-width: none;
 	overflow-x: auto;
 }
 /*
@@ -99,7 +98,15 @@
  * breedte per icoon geeft hier een rustigere, meer "werkbalk"-achtige rij,
  * en voorkomt dat het bredere waarderingsslot (twee duimen) als enige omslaat.
  */
-.rx-bar--editor > * { flex: 0 0 auto; }
+.rx-bar--editor .rx-bar__inner > * { flex: 0 0 auto; }
+
+/*
+ * The container of the inner blocks covers the whole bar, so a click next to the icons never reached
+ * the bar itself. Clicks now pass through the container to the bar, while the icons stay clickable.
+ */
+.rx-bar--editor .block-editor-inner-blocks,
+.rx-bar--editor .block-editor-block-list__layout { pointer-events: none; }
+.rx-bar--editor .block-editor-block-list__layout > * { pointer-events: auto; }
 .rx-bar--editor .rx-bar__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
 
 /*
