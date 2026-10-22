@@ -17,7 +17,7 @@ use ReaderExperience\Support\Icons;
 
 use function __;
 use function add_action;
-use function add_management_page;
+use function add_comments_page;
 use function add_query_arg;
 use function admin_url;
 use function ceil;
@@ -40,7 +40,7 @@ use function wp_nonce_url;
 use function wp_safe_redirect;
 
 /**
- * Simple overview under Tools. No WP_List_Table (bulk actions, column visibility): that can come
+ * Simple overview under Comments. No WP_List_Table (bulk actions, column visibility): that can come
  * later if there is a need. Shows only feedback with content (a comment, a posted comment or a
  * contact request); a bare thumb without context is not listed here, it already counts in the
  * column next to the posts.
@@ -86,16 +86,16 @@ final class FeedbackPage {
 	}
 
 	/**
-	 * Adds the page under Tools.
+	 * Adds the page under Comments.
 	 *
 	 * @since 0.1.0
 	 * @return void
 	 */
 	public function add_page(): void {
-		$hook = add_management_page(
+		$hook = add_comments_page(
 			__( 'Reader Experience feedback', 'reader-experience' ),
 			__( 'Feedback', 'reader-experience' ),
-			'edit_others_posts',
+			'moderate_comments',
 			'rx-feedback',
 			array( $this, 'render' )
 		);
@@ -120,7 +120,7 @@ final class FeedbackPage {
 	 * @return void
 	 */
 	public function render(): void {
-		if ( ! current_user_can( 'edit_others_posts' ) ) {
+		if ( ! current_user_can( 'moderate_comments' ) ) {
 			return;
 		}
 
@@ -155,7 +155,7 @@ final class FeedbackPage {
 					'order'   => $next_order,
 					'rx_post' => $post_id ? $post_id : null,
 				),
-				admin_url( 'tools.php?page=rx-feedback' )
+				admin_url( 'edit-comments.php?page=rx-feedback' )
 			);
 			$arrow      = $column === $orderby ? ( 'ASC' === $order ? ' ↑' : ' ↓' ) : '';
 			printf( '<a href="%s">%s%s</a>', esc_url( $url ), esc_html( $label ), esc_html( $arrow ) );
@@ -208,7 +208,7 @@ final class FeedbackPage {
 								<?php elseif ( ! empty( $row['wants_contact'] ) ) : ?>
 									<?php echo esc_html( (string) ( $row['contact_name'] ?? '' ) ); ?>
 									<?php if ( ! empty( $row['contact_email'] ) ) : ?>
-										&nbsp;&lt;<a href="mailto:<?php echo esc_attr( $row['contact_email'] ); ?>"><?php echo esc_html( $row['contact_email'] ); ?></a>&gt;
+										&nbsp;&lt;<a href="<?php echo esc_url( 'mailto:' . $row['contact_email'] ); ?>"><?php echo esc_html( $row['contact_email'] ); ?></a>&gt;
 									<?php endif; ?>
 								<?php else : ?>
 									—

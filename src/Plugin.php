@@ -27,13 +27,19 @@ use function array_filter;
 use function array_merge;
 use function array_unique;
 use function array_values;
+use function defined;
+use function determine_locale;
 use function did_action;
 use function dirname;
+use function error_log;
 use function is_admin;
+use function is_textdomain_loaded;
 use function load_plugin_textdomain;
+use function load_textdomain;
 use function ltrim;
 use function plugin_basename;
 use function plugin_dir_path;
+use function sprintf;
 
 /**
  * Builds the modules, runs the migrations and registers the blocks.
@@ -110,6 +116,18 @@ final class Plugin {
 					false,
 					dirname( plugin_basename( $this->file ) ) . '/languages'
 				);
+
+				// Fallback with an absolute path, for installs where plugin_basename() cannot
+				// resolve the folder (for example a symlinked development copy).
+				if ( ! is_textdomain_loaded( 'reader-experience' ) ) {
+					$locale = apply_filters( 'plugin_locale', determine_locale(), 'reader-experience' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core hook.
+					load_textdomain( 'reader-experience', $this->path( "languages/reader-experience-{$locale}.mo" ), $locale );
+				}
+
+				if ( defined( 'WP_DEBUG' ) && WP_DEBUG && ! is_textdomain_loaded( 'reader-experience' ) && 'en_US' !== determine_locale() ) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					error_log( sprintf( 'Reader Experience: no translations loaded for locale %s (looked in %s).', determine_locale(), $this->path( 'languages' ) ) );
+				}
 
 				( new BlockRegistrar( $this->path( 'build/blocks' ) ) )->register( $this->block_slugs() );
 			}

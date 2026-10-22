@@ -113,7 +113,7 @@ final class DashboardWidget {
 
 		printf(
 			'<p><a href="%s">%s</a></p>',
-			esc_url( admin_url( 'tools.php?page=rx-feedback' ) ),
+			esc_url( admin_url( 'edit-comments.php?page=rx-feedback' ) ),
 			esc_html__( 'View all feedback', 'reader-experience' )
 		);
 	}

@@ -14,6 +14,8 @@
 
 declare( strict_types=1 );
 
+use ReaderExperience\Support\CssValue;
+
 if ( ! is_singular() ) {
 	return;
 }
@@ -22,7 +24,7 @@ $target = isset( $attributes['target'] ) && '' !== trim( (string) $attributes['t
 	? (string) $attributes['target']
 	: '.wp-block-post-content';
 
-$color        = isset( $attributes['color'] ) ? (string) $attributes['color'] : '';
+$color        = CssValue::color( (string) ( $attributes['color'] ?? '' ) );
 $inline_style = '' !== $color ? sprintf( '--rx-progress-color:%s;', esc_attr( $color ) ) : '';
 
 $wrapper_attributes = get_block_wrapper_attributes(

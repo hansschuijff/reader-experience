@@ -15,6 +15,7 @@
 declare( strict_types=1 );
 
 use ReaderExperience\Modules\Reading\HeadingIndexer;
+use ReaderExperience\Support\CssValue;
 
 $post_id = (int) ( $block->context['postId'] ?? get_the_ID() );
 if ( ! $post_id ) {
@@ -41,12 +42,14 @@ $title = isset( $attributes['title'] ) && '' !== trim( (string) $attributes['tit
  * text, and differently for a theme colour than for a custom colour. With our own attributes,
  * applied as CSS variables on the wrapper element, the editor behaves exactly like the front end.
  */
-$style_props = array();
-if ( ! empty( $attributes['textColor'] ) ) {
-	$style_props[] = '--rx-toc-text:' . esc_attr( (string) $attributes['textColor'] );
+$style_props      = array();
+$text_color       = CssValue::color( (string) ( $attributes['textColor'] ?? '' ) );
+$background_color = CssValue::color( (string) ( $attributes['backgroundColor'] ?? '' ) );
+if ( '' !== $text_color ) {
+	$style_props[] = '--rx-toc-text:' . esc_attr( $text_color );
 }
-if ( ! empty( $attributes['backgroundColor'] ) ) {
-	$style_props[] = '--rx-toc-bg:' . esc_attr( (string) $attributes['backgroundColor'] );
+if ( '' !== $background_color ) {
+	$style_props[] = '--rx-toc-bg:' . esc_attr( $background_color );
 }
 if ( ! empty( $attributes['fontSize'] ) ) {
 	$style_props[] = '--rx-toc-font-size:' . (int) $attributes['fontSize'] . 'px';
