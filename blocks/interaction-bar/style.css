@@ -78,10 +78,12 @@
 	left: auto;
 	right: auto;
 	bottom: auto;
-	width: auto;
-	max-width: none;
+	/* As wide as the icons need and centred, like the bar on the page; not the full width of the editor. */
+	width: fit-content;
+	min-width: 16rem;
+	max-width: 100%;
 	transform: none;
-	margin-inline: 0;
+	margin-inline: auto;
 	border-radius: 12px;
 	border: 1px dashed var(--c-border, ButtonBorder);
 	box-shadow: none;
@@ -106,7 +108,7 @@
  */
 .rx-bar--editor .block-editor-inner-blocks,
 .rx-bar--editor .block-editor-block-list__layout { pointer-events: none; }
-.rx-bar--editor .block-editor-block-list__layout > * { pointer-events: auto; }
+.rx-bar--editor .block-editor-block-list__layout > * { pointer-events: auto; margin: 0; }
 .rx-bar--editor .rx-bar__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
 
 /*
