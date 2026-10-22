@@ -24,6 +24,12 @@
 	overflow: auto;
 	border-inline-start: 1px solid var(--c-border, rgba(128, 128, 128, 0.4));
 }
+/*
+ * Themes such as Genesis put list-style-type on the <li> (".entry-content ol > li"), which a rule on the
+ * <ol> cannot undo. The items and groups reset it themselves, with the same !important as the list.
+ */
+.rx-toc__item,
+.rx-toc__group { list-style: none !important; }
 .rx-toc__item a,
 .rx-toc__item .rx-toc__link {
 	display: block !important;
