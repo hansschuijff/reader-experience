@@ -15,7 +15,7 @@ namespace ReaderExperience\Rest;
 use function add_action;
 
 /**
- * Shared plumbing for the REST controllers of the plugin (namespace rx/v1).
+ * Shared plumbing for the REST controllers of the plugin (namespace dewitteprins/reader-experience/v1).
  */
 abstract class AbstractController {
 
@@ -24,7 +24,7 @@ abstract class AbstractController {
 	 *
 	 * @var string
 	 */
-	protected const NAMESPACE = 'rx/v1';
+	protected const NAMESPACE = 'dewitteprins/reader-experience/v1';
 
 	/**
 	 * Hooks the route registration into rest_api_init.

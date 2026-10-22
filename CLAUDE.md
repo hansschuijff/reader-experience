@@ -37,7 +37,8 @@ during the style round. Hans: correct what is wrong; delete what you do not want
 - The site is Dutch: every new string gets a nl_NL translation in `languages/`
   (`.pot`, `.po`, `.mo`, and `.json` per block editor script).
 - Data and wire formats are English too: votes `like`/`dislike`, actions `publish`/`contact`/`skip`,
-  routes `/text` and `/follow-up`, fallback anchor `section`.
+  routes `/text` and `/follow-up`, fallback anchor `section`. The REST namespace is
+  `dewitteprins/reader-experience/v1` (vendor/plugin-slug/version, like `dewitteprins/remote-tickets/v1`).
 
 ## CSS and JS
 

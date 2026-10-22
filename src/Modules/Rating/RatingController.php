@@ -30,7 +30,7 @@ use function strlen;
 use function trim;
 
 /**
- * Routes under rx/v1 for the rating flow: vote, optional comment, optional follow-up.
+ * Routes under dewitteprins/reader-experience/v1 for the rating flow: vote, optional comment, optional follow-up.
  */
 final class RatingController extends AbstractController {
 

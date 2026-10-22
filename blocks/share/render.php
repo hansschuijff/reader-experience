@@ -27,7 +27,7 @@ $title = (string) get_the_title( $post_id );
 
 $popover_id = 'rx-share-' . $post_id . '-' . wp_unique_id();
 ?>
-<div <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-share' ) ); ?> data-rx-share data-rx-url="<?php echo esc_url( $url ); ?>" data-rx-title="<?php echo esc_attr( $title ); ?>" data-rx-rest="<?php echo esc_url( rest_url( 'rx/v1/share' ) ); ?>" data-rx-post="<?php echo (int) $post_id; ?>">
+<div <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-share' ) ); ?> data-rx-share data-rx-url="<?php echo esc_url( $url ); ?>" data-rx-title="<?php echo esc_attr( $title ); ?>" data-rx-rest="<?php echo esc_url( rest_url( 'dewitteprins/reader-experience/v1/share' ) ); ?>" data-rx-post="<?php echo (int) $post_id; ?>">
 	<button type="button" class="rx-reset-button rx-bar__button rx-share__trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="<?php echo esc_attr( $popover_id ); ?>" title="<?php esc_attr_e( 'Share', 'reader-experience' ); ?>">
 		<span class="rx-bar__icon" aria-hidden="true"><?php echo Icons::get( 'share' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 		<span class="rx-bar__label"><?php esc_html_e( 'Share', 'reader-experience' ); ?></span>

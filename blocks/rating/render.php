@@ -30,9 +30,9 @@ $can_comment = ( new CommentPublisher() )->can_publish( $post_id );
 $unique      = wp_unique_id( 'rx-rating-' );
 
 $rest = array(
-	'create'   => esc_url_raw( rest_url( 'rx/v1/rating' ) ),
-	'text'     => esc_url_raw( rest_url( 'rx/v1/rating/' ) ), // Followed by {id}/text.
-	'followup' => esc_url_raw( rest_url( 'rx/v1/rating/' ) ), // Followed by {id}/follow-up.
+	'create'   => esc_url_raw( rest_url( 'dewitteprins/reader-experience/v1/rating' ) ),
+	'text'     => esc_url_raw( rest_url( 'dewitteprins/reader-experience/v1/rating/' ) ), // Followed by {id}/text.
+	'followup' => esc_url_raw( rest_url( 'dewitteprins/reader-experience/v1/rating/' ) ), // Followed by {id}/follow-up.
 );
 ?>
 <div <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-rating rx-rating--' . esc_attr( $variant ) ) ); ?>
