@@ -1,15 +1,15 @@
-.rx-rating-preview { display: inline-flex; gap: 10px; padding: 8px; color: var(--c-text-muted, GrayText); }
-.rx-rating__thumbs { display: flex; gap: 6px; }
-/* In the bar the thumbs are plain .rx-bar__button elements (see render.php); only the inline variant needs its own geometry. */
-.rx-rating--inline .rx-rating__thumb { flex-direction: column; gap: 2px; padding: 6px; border-radius: 8px; font-size: 0.75rem; }
+.dwp-rx-rating-preview { display: inline-flex; gap: 10px; padding: 8px; color: var(--c-text-muted, GrayText); }
+.dwp-rx-rating__thumbs { display: flex; gap: 6px; }
+/* In the bar the thumbs are plain .dwp-rx-bar__button elements (see render.php); only the inline variant needs its own geometry. */
+.dwp-rx-rating--inline .dwp-rx-rating__thumb { flex-direction: column; gap: 2px; padding: 6px; border-radius: 8px; font-size: 0.75rem; }
 /* Selected thumb keeps the accent colour, also while hovered (more specific than the shared state rules). */
-.rx-reset-button.rx-reset-button.rx-rating__thumb[aria-pressed="true"] { color: var(--c-accent, Highlight); }
+.dwp-rx-reset-button.dwp-rx-reset-button.dwp-rx-rating__thumb[aria-pressed="true"] { color: var(--c-accent, Highlight); }
 
 /* Modest, whatever the theme does to paragraphs: the panel is a side note, not a heading. */
-.rx-rating .rx-rating__question { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; margin: 0 0 10px; }
-.rx-rating__text,
-.rx-rating__name,
-.rx-rating__email {
+.dwp-rx-rating .dwp-rx-rating__question { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; margin: 0 0 10px; }
+.dwp-rx-rating__text,
+.dwp-rx-rating__name,
+.dwp-rx-rating__email {
 	width: 100%;
 	box-sizing: border-box;
 	margin: 0 0 10px;
@@ -23,22 +23,22 @@
 	border: 1px solid var(--c-border, ButtonBorder);
 	border-radius: 6px;
 }
-.rx-rating__text:focus,
-.rx-rating__name:focus,
-.rx-rating__email:focus { outline: 2px solid var(--c-accent, Highlight); outline-offset: 1px; }
-.rx-rating__fields { display: flex; flex-direction: column; gap: 0; margin: 8px 0; }
-.rx-rating__field-error { font-size: 0.75rem; color: var(--c-danger, crimson); margin: -2px 0 4px; }
-.rx-rating__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.dwp-rx-rating__text:focus,
+.dwp-rx-rating__name:focus,
+.dwp-rx-rating__email:focus { outline: 2px solid var(--c-accent, Highlight); outline-offset: 1px; }
+.dwp-rx-rating__fields { display: flex; flex-direction: column; gap: 0; margin: 8px 0; }
+.dwp-rx-rating__field-error { font-size: 0.75rem; color: var(--c-danger, crimson); margin: -2px 0 4px; }
+.dwp-rx-rating__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-.rx-rating__actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin: 8px 0 0; }
-.rx-rating__skip,
-.rx-rating__follow-up-no { padding: 4px 10px; border-radius: 6px; }
-.rx-rating .rx-rating__done { margin: 0; text-align: center; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
+.dwp-rx-rating__actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin: 8px 0 0; }
+.dwp-rx-rating__skip,
+.dwp-rx-rating__follow-up-no { padding: 4px 10px; border-radius: 6px; }
+.dwp-rx-rating .dwp-rx-rating__done { margin: 0; text-align: center; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
 
 /* Inline: los blok onderaan het artikel. Het paneel klapt gewoon uit in de tekststroom. */
-.rx-rating--inline { max-width: 24rem; }
-.rx-rating--inline .rx-rating__thumb-label { display: inline; }
-.rx-rating--inline .rx-rating__panel {
+.dwp-rx-rating--inline { max-width: 24rem; }
+.dwp-rx-rating--inline .dwp-rx-rating__thumb-label { display: inline; }
+.dwp-rx-rating--inline .dwp-rx-rating__panel {
 	margin-top: 12px;
 	padding: 12px;
 	border: 1px solid var(--c-border, ButtonBorder);
@@ -46,9 +46,9 @@
 }
 
 /* Bar: compact, iconen-only, geen label onder de duim. */
-.rx-rating--bar .rx-rating__thumb-label { display: none; }
-.rx-rating--bar { position: relative; }
-.rx-rating--bar .rx-rating__panel {
+.dwp-rx-rating--bar .dwp-rx-rating__thumb-label { display: none; }
+.dwp-rx-rating--bar { position: relative; }
+.dwp-rx-rating--bar .dwp-rx-rating__panel {
 	position: fixed;
 	box-sizing: border-box;
 	inset-inline: 16px;
@@ -65,7 +65,7 @@
 	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
 	z-index: 10000;
 }
-.rx-rating--bar .rx-rating__panel[hidden] { display: none; }
+.dwp-rx-rating--bar .dwp-rx-rating__panel[hidden] { display: none; }
 
 /*
  * Zelfde redenering als bij het deelpaneel: op desktop is de balk zelf al compact
@@ -74,7 +74,7 @@
  * van rechts uitgelijnd aan de balk.
  */
 @media (min-width: 782px) {
-	.rx-rating--bar .rx-rating__panel {
+	.dwp-rx-rating--bar .dwp-rx-rating__panel {
 		inset-inline: auto;
 		top: 50%;
 		bottom: auto;
@@ -85,7 +85,7 @@
 		max-width: none;
 		padding: 20px;
 	}
-	.rx-rating__text { min-height: 12em; resize: vertical; }
-	.rx-rating__skip,
-	.rx-rating__follow-up-no { padding: 0.7em 1.8em; font-size: 0.9375rem; }
+	.dwp-rx-rating__text { min-height: 12em; resize: vertical; }
+	.dwp-rx-rating__skip,
+	.dwp-rx-rating__follow-up-no { padding: 0.7em 1.8em; font-size: 0.9375rem; }
 }

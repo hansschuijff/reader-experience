@@ -1,12 +1,12 @@
 /* Table of contents list: used by the inline block and by the drawer behind the Contents button. */
-.rx-toc {
-	font-size: var(--rx-toc-font-size, 0.9375rem);
+.dwp-rx-toc {
+	font-size: var(--dwp-rx-toc-font-size, 0.9375rem);
 	line-height: 1.4;
-	color: var(--rx-toc-text, inherit);
-	background: var(--rx-toc-bg, transparent);
+	color: var(--dwp-rx-toc-text, inherit);
+	background: var(--dwp-rx-toc-bg, transparent);
 }
-.rx-toc[hidden] { display: none !important; }
-.rx-toc__summary { cursor: pointer; font-weight: 600; padding: 0.25rem 0; }
+.dwp-rx-toc[hidden] { display: none !important; }
+.dwp-rx-toc__summary { cursor: pointer; font-weight: 600; padding: 0.25rem 0; }
 
 /*
  * De !important hieronder is bewust: in de blokeditor draait dit naast WordPress'
@@ -15,7 +15,7 @@
  * of te beïnvloeden. Zonder dit won die standaardstijl soms, waardoor de
  * inhoudsopgave als onopgemaakte platte tekst oogde in plaats van als lijst.
  */
-.rx-toc .rx-toc__list {
+.dwp-rx-toc .dwp-rx-toc__list {
 	position: relative;
 	list-style: none !important;
 	margin: 0.5rem 0 0;
@@ -26,12 +26,12 @@
 }
 /*
  * Themes such as Genesis put list-style-type on the <li> (".entry-content ol > li") and margins and
- * padding on ".entry-content ol". The selectors here start with .rx-toc so they outrank those.
+ * padding on ".entry-content ol". The selectors here start with .dwp-rx-toc so they outrank those.
  */
-.rx-toc .rx-toc__item,
-.rx-toc .rx-toc__group { list-style: none !important; }
-.rx-toc .rx-toc__item a,
-.rx-toc .rx-toc__item .rx-toc__link {
+.dwp-rx-toc .dwp-rx-toc__item,
+.dwp-rx-toc .dwp-rx-toc__group { list-style: none !important; }
+.dwp-rx-toc .dwp-rx-toc__item a,
+.dwp-rx-toc .dwp-rx-toc__item .dwp-rx-toc__link {
 	display: block !important;
 	margin-inline-start: -1px;
 	padding: 0.3rem 0.75rem;
@@ -47,44 +47,44 @@
 	font-weight: inherit;
 	text-decoration: none;
 }
-.rx-toc .rx-toc__item--l3 a { padding-inline-start: 1.5rem; }
-.rx-toc .rx-toc__item--l4 a { padding-inline-start: 2.25rem; }
+.dwp-rx-toc .dwp-rx-toc__item--l3 a { padding-inline-start: 1.5rem; }
+.dwp-rx-toc .dwp-rx-toc__item--l4 a { padding-inline-start: 2.25rem; }
 /*
  * Hover must not lower the contrast of the text. The text gets a touch heavier instead, drawn with
  * a text-shadow in the current colour so the width does not change (a real font-weight would
  * re-wrap long headings), plus a faint tint. It follows the text colour, so it works in any theme.
  */
-.rx-toc .rx-toc__item a:hover {
+.dwp-rx-toc .dwp-rx-toc__item a:hover {
 	text-shadow: 0 0 0.6px currentColor, 0 0 0.6px currentColor;
 	background: color-mix( in srgb, currentColor 8%, transparent );
 }
-.rx-toc .rx-toc__item a[aria-current] {
+.dwp-rx-toc .dwp-rx-toc__item a[aria-current] {
 	border-inline-start-color: var(--c-accent, currentColor);
 	font-weight: 600;
 }
 
 /* Gegroepeerde/inklapbare variant: de hoofdkop is zelf een <summary>. */
-.rx-toc__group-toggle > summary { list-style: none !important; cursor: pointer; }
-.rx-toc__group-toggle > summary::-webkit-details-marker { display: none; }
-.rx-toc__group-toggle > summary::before {
+.dwp-rx-toc__group-toggle > summary { list-style: none !important; cursor: pointer; }
+.dwp-rx-toc__group-toggle > summary::-webkit-details-marker { display: none; }
+.dwp-rx-toc__group-toggle > summary::before {
 	content: '›';
 	display: inline-block;
 	width: 1em;
 	transition: transform 0.15s ease;
 }
-.rx-toc__group-toggle[open] > summary::before { transform: rotate(90deg); }
-.rx-toc .rx-toc__sublist { list-style: none !important; margin: 0; padding: 0; }
+.dwp-rx-toc__group-toggle[open] > summary::before { transform: rotate(90deg); }
+.dwp-rx-toc .dwp-rx-toc__sublist { list-style: none !important; margin: 0; padding: 0; }
 
 /* Compacte stijl: lichter, kleiner, past beter in een smalle zijbalk. */
-.rx-toc--compact { font-size: var(--rx-toc-font-size, 0.8125rem); }
-.rx-toc--compact .rx-toc__summary { font-weight: 500; }
-.rx-toc--compact .rx-toc__list { border-inline-start-width: 1px; opacity: 0.95; }
-.rx-toc--compact .rx-toc__item a { padding-block: 0.2rem; }
-.rx-toc--compact .rx-toc__item a[aria-current] { font-weight: 500; }
+.dwp-rx-toc--compact { font-size: var(--dwp-rx-toc-font-size, 0.8125rem); }
+.dwp-rx-toc--compact .dwp-rx-toc__summary { font-weight: 500; }
+.dwp-rx-toc--compact .dwp-rx-toc__list { border-inline-start-width: 1px; opacity: 0.95; }
+.dwp-rx-toc--compact .dwp-rx-toc__item a { padding-block: 0.2rem; }
+.dwp-rx-toc--compact .dwp-rx-toc__item a[aria-current] { font-weight: 500; }
 
 /* Ankersprongen komen niet onder een vaste header terecht. Pas de variabele aan op je thema. */
 .wp-block-post-content :is(h2, h3, h4)[id],
 .entry-content :is(h2, h3, h4)[id],
-[data-rx-heading] {
-	scroll-margin-top: var(--rx-anchor-offset, 5rem);
+[data-dwp-rx-heading] {
+	scroll-margin-top: var(--dwp-rx-anchor-offset, 5rem);
 }

@@ -23,7 +23,7 @@
 		"spacing": { "padding": true, "margin": true }
 	},
 	"editorScript": "file:./index.js",
-	"style": [ "rx-base", "rx-toc", "file:./style-index.css" ],
+	"style": [ "dwp-rx-base", "dwp-rx-toc", "file:./style-index.css" ],
 	"viewScript": "file:./view.js",
 	"render": "file:./render.php"
 }

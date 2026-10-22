@@ -65,7 +65,7 @@ final class Notifier {
 				__( "On \"%1\$s\":\n\n%2\$s\n\nView all feedback: %3\$s", 'reader-experience' ),
 				get_the_title( $post_id ),
 				$text,
-				admin_url( 'edit-comments.php?page=rx-feedback' )
+				admin_url( 'edit-comments.php?page=dwp-rx-feedback' )
 			)
 		);
 	}
@@ -89,7 +89,7 @@ final class Notifier {
 				/* translators: 1: post title, 2: link to the feedback overview */
 				__( "On \"%1\$s\" a contact request came in.\n\nView the details: %2\$s", 'reader-experience' ),
 				get_the_title( $post_id ),
-				admin_url( 'edit-comments.php?page=rx-feedback' )
+				admin_url( 'edit-comments.php?page=dwp-rx-feedback' )
 			)
 		);
 	}

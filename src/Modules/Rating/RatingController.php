@@ -141,7 +141,7 @@ final class RatingController extends AbstractController {
 		$post_id = (int) $request->get_param( 'post_id' );
 
 		if ( 'publish' !== get_post_status( $post_id ) ) {
-			return new WP_Error( 'rx_invalid_post', __( 'Unknown article.', 'reader-experience' ), array( 'status' => 404 ) );
+			return new WP_Error( 'dwp_rx_invalid_post', __( 'Unknown article.', 'reader-experience' ), array( 'status' => 404 ) );
 		}
 
 		$result = $this->service->submit(

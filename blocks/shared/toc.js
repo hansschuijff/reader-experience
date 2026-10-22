@@ -7,7 +7,7 @@ import { resolveTarget } from './article-progress';
  * visitor sees (headings from patterns and other plugins included) and does not depend on heading
  * ids or on the anchor link feature.
  *
- * Every heading gets data-rx-heading="<n>", its position among all h2 to h4 in the content. The
+ * Every heading gets data-dwp-rx-heading="<n>", its position among all h2 to h4 in the content. The
  * list links to that, not to an id. When a text is edited the number stays, so the list still
  * leads to roughly the right place; only a heading that is added or removed shifts the numbers
  * after it. If the heading has an id of its own, the link points to it as well and the address
@@ -24,7 +24,7 @@ const reduceMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' );
  */
 export function headingText( heading ) {
 	const copy = heading.cloneNode( true );
-	copy.querySelectorAll( '.rx-heading-link, .rx-heading-link__toast, .screen-reader-text' ).forEach( ( el ) => el.remove() );
+	copy.querySelectorAll( '.dwp-rx-heading-link, .dwp-rx-heading-link__toast, .screen-reader-text' ).forEach( ( el ) => el.remove() );
 	return copy.textContent.replace( /\s+/g, ' ' ).trim();
 }
 
@@ -44,9 +44,9 @@ export function collectEntries( { target = '.wp-block-post-content', maxLevel = 
 	}
 
 	const headings = Array.from( container.querySelectorAll( 'h2, h3, h4' ) ).filter(
-		( heading ) => ! heading.closest( '[data-rx-toc], [data-rx-toc-drawer]' ) && '' !== headingText( heading )
+		( heading ) => ! heading.closest( '[data-dwp-rx-toc], [data-dwp-rx-toc-drawer]' ) && '' !== headingText( heading )
 	);
-	headings.forEach( ( heading, index ) => heading.setAttribute( 'data-rx-heading', String( index ) ) );
+	headings.forEach( ( heading, index ) => heading.setAttribute( 'data-dwp-rx-heading', String( index ) ) );
 
 	const entries = headings
 		.map( ( heading ) => ( { heading, tag: heading.tagName, level: Number( heading.tagName.slice( 1 ) ), text: headingText( heading ) } ) )
@@ -67,15 +67,15 @@ function createLink( entry ) {
 	const a = document.createElement( 'a' );
 	a.href = entry.heading.id ? '#' + encodeURIComponent( entry.heading.id ) : '#';
 	a.textContent = entry.text;
-	a.dataset.rxTarget = entry.heading.dataset.rxHeading;
-	a.dataset.rxTag = entry.tag;
+	a.dataset.dwpRxTarget = entry.heading.dataset.dwpRxHeading;
+	a.dataset.dwpRxTag = entry.tag;
 	entry.a = a;
 	return a;
 }
 
 function createItem( entry ) {
 	const li = document.createElement( 'li' );
-	li.className = 'rx-toc__item rx-toc__item--l' + entry.level;
+	li.className = 'dwp-rx-toc__item dwp-rx-toc__item--l' + entry.level;
 	li.appendChild( createLink( entry ) );
 	return li;
 }
@@ -95,7 +95,7 @@ export function buildList( list, entries, group ) {
 		return;
 	}
 
-	list.classList.add( 'rx-toc__list--grouped' );
+	list.classList.add( 'dwp-rx-toc__list--grouped' );
 
 	const groups = [];
 	entries.forEach( ( entry ) => {
@@ -113,14 +113,14 @@ export function buildList( list, entries, group ) {
 		}
 
 		const li = document.createElement( 'li' );
-		li.className = 'rx-toc__group';
+		li.className = 'dwp-rx-toc__group';
 		const details = document.createElement( 'details' );
-		details.className = 'rx-toc__group-toggle';
+		details.className = 'dwp-rx-toc__group-toggle';
 		const summary = document.createElement( 'summary' );
-		summary.className = 'rx-toc__item rx-toc__item--l' + entry.level;
+		summary.className = 'dwp-rx-toc__item dwp-rx-toc__item--l' + entry.level;
 		summary.appendChild( createLink( entry ) );
 		const sub = document.createElement( 'ul' );
-		sub.className = 'rx-toc__sublist';
+		sub.className = 'dwp-rx-toc__sublist';
 		children.forEach( ( child ) => sub.appendChild( createItem( child ) ) );
 		details.append( summary, sub );
 		li.appendChild( details );
@@ -193,7 +193,7 @@ export function trackActive( entries, scroller ) {
 		if ( active ) {
 			active.a.setAttribute( 'aria-current', 'location' );
 			// If the link sits in a folded group, unfold that group.
-			const group = active.a.closest( '.rx-toc__group-toggle' );
+			const group = active.a.closest( '.dwp-rx-toc__group-toggle' );
 			if ( group && ! group.open ) {
 				group.open = true;
 			}

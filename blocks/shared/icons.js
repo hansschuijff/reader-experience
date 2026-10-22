@@ -18,5 +18,5 @@ export const ICONS = {
 };
 
 export function Icon( { name } ) {
-	return <span className="rx-bar__icon" dangerouslySetInnerHTML={ { __html: ICONS[ name ] || '' } } />;
+	return <span className="dwp-rx-bar__icon" dangerouslySetInnerHTML={ { __html: ICONS[ name ] || '' } } />;
 }

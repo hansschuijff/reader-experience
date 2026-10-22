@@ -65,9 +65,9 @@ registerBlockType( metadata.name, {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...useBlockProps( { className: 'rx-bar__button' } ) }>
+			<div { ...useBlockProps( { className: 'dwp-rx-bar__button' } ) }>
 				<Icon name="toc" />
-				<span className="rx-bar__label">{ __( 'Contents', 'reader-experience' ) }</span>
+				<span className="dwp-rx-bar__label">{ __( 'Contents', 'reader-experience' ) }</span>
 			</div>
 		</>
 	),

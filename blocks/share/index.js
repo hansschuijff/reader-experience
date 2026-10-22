@@ -7,9 +7,9 @@ import './style.css';
 
 registerBlockType( metadata.name, {
 	edit: () => (
-		<div { ...useBlockProps( { className: 'rx-bar__button' } ) }>
+		<div { ...useBlockProps( { className: 'dwp-rx-bar__button' } ) }>
 			<Icon name="share" />
-			<span className="rx-bar__label">{ __( 'Share', 'reader-experience' ) }</span>
+			<span className="dwp-rx-bar__label">{ __( 'Share', 'reader-experience' ) }</span>
 		</div>
 	),
 	save: () => null,

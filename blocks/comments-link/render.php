@@ -30,9 +30,9 @@ if ( '' === $href ) {
 	return;
 }
 ?>
-<a <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-reset-button rx-bar__button' ) ); ?> href="<?php echo esc_url( $href ); ?>" title="<?php esc_attr_e( 'Comments', 'reader-experience' ); ?>">
-	<span class="rx-bar__icon" aria-hidden="true"><?php echo Icons::get( 'comments' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-	<span class="rx-bar__label">
+<a <?php echo get_block_wrapper_attributes( array( 'class' => 'dwp-rx-reset-button dwp-rx-bar__button' ) ); ?> href="<?php echo esc_url( $href ); ?>" title="<?php esc_attr_e( 'Comments', 'reader-experience' ); ?>">
+	<span class="dwp-rx-bar__icon" aria-hidden="true"><?php echo Icons::get( 'comments' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+	<span class="dwp-rx-bar__label">
 		<?php
 		printf(
 			/* translators: %d: number of comments */

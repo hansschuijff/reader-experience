@@ -3,7 +3,7 @@
  * page, back button and Escape close it), on a larger screen it opens non-modally, so the reader
  * keeps reading while it stays open. It floats over the page and takes no room in the layout.
  */
-.rx-toc-drawer {
+.dwp-rx-toc-drawer {
 	position: fixed;
 	top: var( --wp-admin--admin-bar--height, 0px );
 	bottom: 0;
@@ -19,41 +19,41 @@
 	color: var( --c-text, CanvasText );
 	background: var( --c-surface, Canvas );
 	border: 0;
-	border-inline-end: 1px solid var( --rx-panel-border, #ddd );
+	border-inline-end: 1px solid var( --dwp-rx-panel-border, #ddd );
 	box-shadow: 0 0 32px rgba( 0, 0, 0, 0.18 );
 	z-index: 10001;
 }
-.rx-toc-drawer--right {
+.dwp-rx-toc-drawer--right {
 	left: auto;
 	right: 0;
 	border-inline-end: 0;
-	border-inline-start: 1px solid var( --rx-panel-border, #ddd );
+	border-inline-start: 1px solid var( --dwp-rx-panel-border, #ddd );
 }
-.rx-toc-drawer:not( [open] ),
-[data-rx-toc-open][hidden] { display: none !important; }
-.rx-toc-drawer[open] {
+.dwp-rx-toc-drawer:not( [open] ),
+[data-dwp-rx-toc-open][hidden] { display: none !important; }
+.dwp-rx-toc-drawer[open] {
 	display: flex;
 	flex-direction: column;
 	/* The bar centres its direct children; the panel fills its own height and width. */
 	align-items: stretch;
 	justify-content: flex-start;
 }
-.rx-toc-drawer::backdrop { background: rgba( 0, 0, 0, 0.4 ); }
+.dwp-rx-toc-drawer::backdrop { background: rgba( 0, 0, 0, 0.4 ); }
 
-.rx-toc-drawer__header {
+.dwp-rx-toc-drawer__header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: 12px;
 	flex: none;
 	padding: 12px 16px;
-	border-bottom: 1px solid var( --rx-panel-border, #ddd );
+	border-bottom: 1px solid var( --dwp-rx-panel-border, #ddd );
 }
-.rx-toc-drawer__title { font-weight: 600; }
-.rx-toc-drawer__close { display: inline-flex; padding: 6px; border-radius: 8px; cursor: pointer; }
+.dwp-rx-toc-drawer__title { font-weight: 600; }
+.dwp-rx-toc-drawer__close { display: inline-flex; padding: 6px; border-radius: 8px; cursor: pointer; }
 
 /* Characters, words and reading time, as in the editor's overview. */
-.rx-toc-drawer__stats {
+.dwp-rx-toc-drawer__stats {
 	display: grid;
 	grid-template-columns: max-content 1fr;
 	gap: 0.25rem 1.5rem;
@@ -61,13 +61,13 @@
 	margin: 0;
 	padding: 12px 16px;
 	font-size: 0.875rem;
-	border-bottom: 1px solid var( --rx-panel-border, #ddd );
+	border-bottom: 1px solid var( --dwp-rx-panel-border, #ddd );
 }
-.rx-toc-drawer__stats dt { opacity: 0.7; }
-.rx-toc-drawer__stats dd { margin: 0; }
+.dwp-rx-toc-drawer__stats dt { opacity: 0.7; }
+.dwp-rx-toc-drawer__stats dd { margin: 0; }
 
 /* The list scrolls inside the panel, not the panel itself. */
-.rx-toc-drawer__body {
+.dwp-rx-toc-drawer__body {
 	position: relative;
 	flex: 1;
 	min-height: 0;
@@ -79,14 +79,14 @@
  * Like the list view in the block editor: a small grey badge with the heading level in front of
  * each title, so the level is readable without a vertical rule or deep indentation.
  */
-.rx-toc-drawer .rx-toc-drawer__body .rx-toc__list {
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__list {
 	max-height: none;
 	overflow: visible;
 	margin: 0;
 	border-inline-start: 0;
 }
-.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item a,
-.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item .rx-toc__link {
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item a,
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item .dwp-rx-toc__link {
 	display: flex !important;
 	align-items: baseline;
 	gap: 0.5rem;
@@ -95,8 +95,8 @@
 	border-inline-start: 0;
 	border-radius: 4px;
 }
-.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item a::before {
-	content: attr( data-rx-tag );
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item a::before {
+	content: attr( data-dwp-rx-tag );
 	flex: none;
 	min-width: 2em;
 	padding: 0.1em 0.4em;
@@ -104,20 +104,20 @@
 	font-weight: 600;
 	line-height: 1.4;
 	text-align: center;
-	color: var( --rx-badge-text, #1e1e1e );
-	background: var( --rx-badge-bg, #ddd );
+	color: var( --dwp-rx-badge-text, #1e1e1e );
+	background: var( --dwp-rx-badge-bg, #ddd );
 	border-radius: 4px;
 }
-.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item--l3 a { padding-inline-start: 1rem; }
-.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item--l4 a { padding-inline-start: 1.75rem; }
-.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item a[aria-current] { background: color-mix( in srgb, currentColor 8%, transparent ); }
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item--l3 a { padding-inline-start: 1rem; }
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item--l4 a { padding-inline-start: 1.75rem; }
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__item a[aria-current] { background: color-mix( in srgb, currentColor 8%, transparent ); }
 /* A rule only where it means something: next to the sub-levels of a collapsible group. */
-.rx-toc-drawer .rx-toc-drawer__body .rx-toc__sublist { margin-inline-start: 0.75rem; border-inline-start: 1px solid var( --rx-panel-border, #ddd ); }
+.dwp-rx-toc-drawer .dwp-rx-toc-drawer__body .dwp-rx-toc__sublist { margin-inline-start: 0.75rem; border-inline-start: 1px solid var( --dwp-rx-panel-border, #ddd ); }
 
 
 /* On a phone: wider, like a menu overlay. */
 @media ( max-width: 781px ) {
-	.rx-toc-drawer { width: min( 85vw, 24rem ); }
+	.dwp-rx-toc-drawer { width: min( 85vw, 24rem ); }
 }
 
 /*
@@ -125,17 +125,17 @@
  * left. Fixed elements do not follow, so the bar and the reading progress bar are moved by hand.
  * The shadow goes, since the panel no longer overlaps the page.
  */
-html.rx-toc-pushed {
-	padding-inline-start: var( --rx-toc-push-start, 0px );
-	padding-inline-end: var( --rx-toc-push-end, 0px );
+html.dwp-rx-toc-pushed {
+	padding-inline-start: var( --dwp-rx-toc-push-start, 0px );
+	padding-inline-end: var( --dwp-rx-toc-push-end, 0px );
 }
-html.rx-toc-pushed .rx-bar,
-html.rx-toc-pushed .rx-progress {
-	left: var( --rx-toc-push-start, 0px );
-	right: var( --rx-toc-push-end, 0px );
+html.dwp-rx-toc-pushed .dwp-rx-bar,
+html.dwp-rx-toc-pushed .dwp-rx-progress {
+	left: var( --dwp-rx-toc-push-start, 0px );
+	right: var( --dwp-rx-toc-push-end, 0px );
 }
-html.rx-toc-pushed .rx-toc-drawer { box-shadow: none; }
+html.dwp-rx-toc-pushed .dwp-rx-toc-drawer { box-shadow: none; }
 
 @media print {
-	.rx-toc-drawer { display: none !important; }
+	.dwp-rx-toc-drawer { display: none !important; }
 }

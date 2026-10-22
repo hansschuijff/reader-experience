@@ -1,4 +1,4 @@
-.rx-bar {
+.dwp-rx-bar {
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -14,9 +14,9 @@
 	 */
 	transition: transform 0.2s ease;
 }
-.rx-bar.rx-bar--hidden { transform: translateY(100%); }
+.dwp-rx-bar.dwp-rx-bar--hidden { transform: translateY(100%); }
 
-.rx-bar__inner {
+.dwp-rx-bar__inner {
 	display: flex;
 	align-items: stretch;
 	justify-content: space-evenly;
@@ -38,7 +38,7 @@
  * "space-evenly" op de rij hierboven verdeelt de ruimte juist gelijk tussen én
  * rond de knoppen, ongeacht hun eigen breedte — passender voor een icoonbalk.
  */
-.rx-bar__inner > * {
+.dwp-rx-bar__inner > * {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -50,13 +50,13 @@
  * space-evenly spreads out: thumbs close together, the rest far apart. With display: contents the
  * two wrapper boxes disappear from the layout and every thumb becomes a loose icon in the row.
  */
-.rx-bar__inner > .rx-rating--bar,
-.rx-bar__inner > .rx-rating--bar > .rx-rating__thumbs {
+.dwp-rx-bar__inner > .dwp-rx-rating--bar,
+.dwp-rx-bar__inner > .dwp-rx-rating--bar > .dwp-rx-rating__thumbs {
 	display: contents;
 }
 
 /* Binnen de balk zelf: iconen-only, tekst blijft voor schermlezers en als title-tooltip. */
-.rx-bar .rx-bar__label {
+.dwp-rx-bar .dwp-rx-bar__label {
 	position: absolute;
 	width: 1px;
 	height: 1px;
@@ -67,12 +67,12 @@
 
 /*
  * Editorweergave: geen vaste positie, anders is de balk niet te bewerken.
- * Dubbele klasse (.rx-bar.rx-bar--editor) voor extra specificiteit: zo wint deze
- * altijd van de losstaande ".rx-bar"-regel in de media query hieronder, ook als
+ * Dubbele klasse (.dwp-rx-bar.dwp-rx-bar--editor) voor extra specificiteit: zo wint deze
+ * altijd van de losstaande ".dwp-rx-bar"-regel in de media query hieronder, ook als
  * de editor zelf breder dan 782px is. Zonder deze expliciete reset bleef bijvoorbeeld
  * de desktop-transform actief op een position:static element, wat de layout brak.
  */
-.rx-bar.rx-bar--editor {
+.dwp-rx-bar.dwp-rx-bar--editor {
 	/* Relative, not static: the editor draws the selection outline against the nearest positioned ancestor. */
 	position: relative;
 	left: auto;
@@ -88,7 +88,7 @@
 	border: 1px dashed var(--c-border, ButtonBorder);
 	box-shadow: none;
 }
-.rx-bar--editor .rx-bar__inner {
+.dwp-rx-bar--editor .dwp-rx-bar__inner {
 	flex-wrap: nowrap;
 	justify-content: center;
 	max-width: none;
@@ -100,16 +100,16 @@
  * breedte per icoon geeft hier een rustigere, meer "werkbalk"-achtige rij,
  * en voorkomt dat het bredere waarderingsslot (twee duimen) als enige omslaat.
  */
-.rx-bar--editor .rx-bar__inner > * { flex: 0 0 auto; }
+.dwp-rx-bar--editor .dwp-rx-bar__inner > * { flex: 0 0 auto; }
 
 /*
  * The container of the inner blocks covers the whole bar, so a click next to the icons never reached
  * the bar itself. Clicks now pass through the container to the bar, while the icons stay clickable.
  */
-.rx-bar--editor .block-editor-inner-blocks,
-.rx-bar--editor .block-editor-block-list__layout { pointer-events: none; }
-.rx-bar--editor .block-editor-block-list__layout > * { pointer-events: auto; margin: 0; }
-.rx-bar--editor .rx-bar__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+.dwp-rx-bar--editor .block-editor-inner-blocks,
+.dwp-rx-bar--editor .block-editor-block-list__layout { pointer-events: none; }
+.dwp-rx-bar--editor .block-editor-block-list__layout > * { pointer-events: auto; margin: 0; }
+.dwp-rx-bar--editor .dwp-rx-bar__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
 
 /*
  * Op een breder scherm hoeft de balk niet de volle browserbreedte te claimen:
@@ -119,8 +119,8 @@
  * op desktop voelde een verdwijnende balk eerder als een foutje.
  */
 @media (min-width: 782px) {
-	.rx-bar {
-		/* Centred without a transform: see the note on .rx-bar. */
+	.dwp-rx-bar {
+		/* Centred without a transform: see the note on .dwp-rx-bar. */
 		left: 0;
 		right: 0;
 		margin-inline: auto;
@@ -131,10 +131,10 @@
 		border-radius: 999px;
 		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 	}
-	.rx-bar.rx-bar--hidden { transform: none; }
-	.rx-bar__inner { padding: 6px 10px; max-width: none; }
+	.dwp-rx-bar.dwp-rx-bar--hidden { transform: none; }
+	.dwp-rx-bar__inner { padding: 6px 10px; max-width: none; }
 }
 
 @media print {
-	.rx-bar { display: none; }
+	.dwp-rx-bar { display: none; }
 }

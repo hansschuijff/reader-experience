@@ -56,7 +56,7 @@ final class RateLimiter {
 			return false;
 		}
 
-		$key  = 'rx_rl_' . md5( $bucket );
+		$key  = 'dwp_rx_rl_' . md5( $bucket );
 		$now  = time();
 		$data = get_transient( $key );
 

@@ -1,6 +1,6 @@
-.rx-share { position: relative; }
+.dwp-rx-share { position: relative; }
 
-.rx-share__popover {
+.dwp-rx-share__popover {
 	position: fixed;
 	box-sizing: border-box;
 	inset-inline: 16px;      /* vaste marge tot beide randen: kan per constructie nooit overlopen */
@@ -17,14 +17,14 @@
 	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
 	z-index: 10000;
 }
-.rx-share__popover[hidden] { display: none; }
+.dwp-rx-share__popover[hidden] { display: none; }
 
-.rx-share__channels {
+.dwp-rx-share__channels {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 4px;
 }
-.rx-share__channel {
+.dwp-rx-share__channel {
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -34,11 +34,11 @@
 	color: inherit;
 	font-size: 0.875rem;
 }
-.rx-share__channel:hover,
-.rx-share__channel:focus-visible {
+.dwp-rx-share__channel:hover,
+.dwp-rx-share__channel:focus-visible {
 	background: var(--c-bg, Canvas);
 }
-.rx-share__channel-icon {
+.dwp-rx-share__channel-icon {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -50,20 +50,20 @@
 	background: var(--c-bg, ButtonFace);
 	color: var(--c-text, CanvasText);
 }
-.rx-share__channel-icon[style*='background'] {
+.dwp-rx-share__channel-icon[style*='background'] {
 	/* Wel een merkkleur: het lijnicoon wit tekenen zodat het op de kleur afsteekt. */
 	color: #fff;
 }
-.rx-share__channel-icon svg { width: 16px; height: 16px; }
+.dwp-rx-share__channel-icon svg { width: 16px; height: 16px; }
 
-.rx-share__copyrow {
+.dwp-rx-share__copyrow {
 	display: flex;
 	align-items: stretch;
 	gap: 8px;
 	margin-top: 10px;
 }
 /* The link looks like a field (background and border) and is one: it can be selected and copied. */
-.rx-share__url {
+.dwp-rx-share__url {
 	flex: 1;
 	min-width: 0;
 	box-sizing: border-box;
@@ -77,11 +77,11 @@
 	border-radius: 8px;
 	text-overflow: ellipsis;
 }
-.rx-share__url:focus { color: var(--c-text, CanvasText); outline: 2px solid var(--c-accent, Highlight); outline-offset: 1px; }
-.rx-share__copy { flex: none; margin: 0; }
-.rx-share__copy:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
-.rx-share__copy-icon { display: inline-flex; }
-.rx-share__copy-icon svg { width: 16px; height: 16px; }
+.dwp-rx-share__url:focus { color: var(--c-text, CanvasText); outline: 2px solid var(--c-accent, Highlight); outline-offset: 1px; }
+.dwp-rx-share__copy { flex: none; margin: 0; }
+.dwp-rx-share__copy:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.dwp-rx-share__copy-icon { display: inline-flex; }
+.dwp-rx-share__copy-icon svg { width: 16px; height: 16px; }
 
 /*
  * Op desktop is de balk zelf compact en gecentreerd (zie interaction-bar/style.css),
@@ -91,7 +91,7 @@
  * plaats van rechts uitgelijnd aan de balk te hangen.
  */
 @media (min-width: 782px) {
-	.rx-share__popover {
+	.dwp-rx-share__popover {
 		inset-inline: auto;
 		left: 50%;
 		transform: translateX(-50%);
@@ -100,9 +100,9 @@
 		max-width: 32rem;
 		padding: 20px;
 	}
-	.rx-share__channels { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-	.rx-share__channel { padding: 10px 14px; font-size: 0.9375rem; }
-	.rx-share__channel-icon { width: 32px; height: 32px; }
-	.rx-share__channel-icon svg { width: 18px; height: 18px; }
-	.rx-share__url { font-size: 0.9375rem; padding: 0.6em 0.9em; }
+	.dwp-rx-share__channels { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+	.dwp-rx-share__channel { padding: 10px 14px; font-size: 0.9375rem; }
+	.dwp-rx-share__channel-icon { width: 32px; height: 32px; }
+	.dwp-rx-share__channel-icon svg { width: 18px; height: 18px; }
+	.dwp-rx-share__url { font-size: 0.9375rem; padding: 0.6em 0.9em; }
 }

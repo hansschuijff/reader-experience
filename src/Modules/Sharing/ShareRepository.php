@@ -27,7 +27,7 @@ final class ShareRepository {
 	 */
 	public function table(): string {
 		global $wpdb;
-		return $wpdb->prefix . 'rx_share_daily';
+		return $wpdb->prefix . 'dwp_rx_share_daily';
 	}
 
 	/**

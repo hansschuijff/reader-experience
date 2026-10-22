@@ -19,13 +19,13 @@ const TEMPLATE = [
 
 registerBlockType( metadata.name, {
 	edit: () => (
-		<div { ...useBlockProps( { className: 'rx-bar rx-bar--editor' } ) }>
+		<div { ...useBlockProps( { className: 'dwp-rx-bar dwp-rx-bar--editor' } ) }>
 			<InnerBlocks allowedBlocks={ ALLOWED_BLOCKS } template={ TEMPLATE } orientation="horizontal" />
 		</div>
 	),
 	save: () => (
-		<div { ...useBlockProps.save( { className: 'rx-bar' } ) }>
-			<div className="rx-bar__inner">
+		<div { ...useBlockProps.save( { className: 'dwp-rx-bar' } ) }>
+			<div className="dwp-rx-bar__inner">
 				<InnerBlocks.Content />
 			</div>
 		</div>

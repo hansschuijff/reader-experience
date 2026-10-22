@@ -51,15 +51,15 @@ Options in `heading_anchors_config`:
 - `labels`: `copy` (button text and tooltip) and `copied` (confirmation), already translated.
 
 Always return the whole array from this filter. To use your own CSS or JS, return `false` for
-`heading_anchors_load_css` and/or `heading_anchors_load_js` and style the classes `.rx-heading-link`,
-`--before`/`--after` and `.rx-heading-link__toast`. The options for our own JS are in
-`window.rxHeadingAnchors`; a replacement script can read them if it wants to.
+`heading_anchors_load_css` and/or `heading_anchors_load_js` and style the classes `.dwp-rx-heading-link`,
+`--before`/`--after` and `.dwp-rx-heading-link__toast`. The options for our own JS are in
+`window.dwpRxHeadingAnchors`; a replacement script can read them if it wants to.
 
 ## Table of contents
 
 The table of contents block builds its list in the browser from the h2 to h4 headings in the content
 (`.wp-block-post-content`, with `.entry-content`, `article` and `main` as fallbacks). It does not
-depend on heading ids or on the anchor links above: every heading gets `data-rx-heading="<n>"`, its
+depend on heading ids or on the anchor links above: every heading gets `data-dwp-rx-heading="<n>"`, its
 position among the headings, and the list links to that. A text edit keeps the number, so the list
 still leads to about the right place; adding or removing a heading shifts the numbers after it. When
 a heading has an id of its own, the link uses it as well and the address bar gets that hash. The
@@ -88,7 +88,7 @@ comments are open (`comments_open()`, including automatic closing), the post has
 commenting needs no account. Otherwise the comment stays private. Adjust it with
 `reader_experience/can_publish_as_comment`.
 
-The REST routes are `dewitteprins/reader-experience/v1/rating/{id}/text` and `rx/v1/rating/{id}/follow-up`. Votes are stored as
+The REST routes are `dewitteprins/reader-experience/v1/rating/{id}/text` and `dewitteprins/reader-experience/v1/rating/{id}/follow-up`. Votes are stored as
 `like` or `dislike`; follow-up actions are `publish`, `contact` and `skip`.
 
 ## Adding a module or block

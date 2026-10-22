@@ -13,7 +13,7 @@ import { anyPanelOpen } from '../shared/popover';
 
 const isDesktop = window.matchMedia( '(min-width: 782px)' );
 
-document.querySelectorAll( '.rx-bar' ).forEach( ( bar ) => {
+document.querySelectorAll( '.dwp-rx-bar' ).forEach( ( bar ) => {
 	let lastY = window.scrollY;
 	let queued = false;
 
@@ -29,7 +29,7 @@ document.querySelectorAll( '.rx-bar' ).forEach( ( bar ) => {
 		// Alleen op mobiel, waar hij de volle breedte onderaan beslaat, is wegscrollen
 		// en teruggkomen bij omhoog scrollen prettig.
 		if ( isDesktop.matches ) {
-			bar.classList.remove( 'rx-bar--hidden' );
+			bar.classList.remove( 'dwp-rx-bar--hidden' );
 			lastY = window.scrollY;
 			return;
 		}
@@ -40,10 +40,10 @@ document.querySelectorAll( '.rx-bar' ).forEach( ( bar ) => {
 		const nearTop = y < 80;
 
 		if ( nearTop || goingUp ) {
-			bar.classList.remove( 'rx-bar--hidden' );
+			bar.classList.remove( 'dwp-rx-bar--hidden' );
 		} else if ( goingDown ) {
-			bar.classList.add( 'rx-bar--hidden' );
-			document.dispatchEvent( new CustomEvent( 'rx:bar-hidden' ) );
+			bar.classList.add( 'dwp-rx-bar--hidden' );
+			document.dispatchEvent( new CustomEvent( 'dwp-rx:bar-hidden' ) );
 		}
 		lastY = y;
 	};

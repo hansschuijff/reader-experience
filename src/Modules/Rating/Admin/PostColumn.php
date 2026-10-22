@@ -59,7 +59,7 @@ final class PostColumn {
 	 * @return void
 	 */
 	public function print_style(): void {
-		echo '<style>.rx-admin-icon svg{width:14px;height:14px;vertical-align:text-bottom;margin-inline-end:2px;}</style>';
+		echo '<style>.dwp-rx-admin-icon svg{width:14px;height:14px;vertical-align:text-bottom;margin-inline-end:2px;}</style>';
 	}
 
 	/**
@@ -70,7 +70,7 @@ final class PostColumn {
 	 * @return array<string,string>
 	 */
 	public function add_column( array $columns ): array {
-		$columns['rx_feedback'] = __( 'Rating', 'reader-experience' );
+		$columns['dwp_rx_feedback'] = __( 'Rating', 'reader-experience' );
 		return $columns;
 	}
 
@@ -83,7 +83,7 @@ final class PostColumn {
 	 * @return void
 	 */
 	public function render_column( string $column, int $post_id ): void {
-		if ( 'rx_feedback' !== $column ) {
+		if ( 'dwp_rx_feedback' !== $column ) {
 			return;
 		}
 
@@ -96,7 +96,7 @@ final class PostColumn {
 		}
 
 		printf(
-			'<span class="rx-admin-icon">%s %d</span> &nbsp; <span class="rx-admin-icon">%s %d</span>',
+			'<span class="dwp-rx-admin-icon">%s %d</span> &nbsp; <span class="dwp-rx-admin-icon">%s %d</span>',
 			Icons::get( 'thumb_up' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Fixed SVG from the plugin.
 			(int) $totals['like'],
 			Icons::get( 'thumb_down' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Fixed SVG from the plugin.

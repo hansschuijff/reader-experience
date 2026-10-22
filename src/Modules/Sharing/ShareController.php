@@ -94,7 +94,7 @@ final class ShareController extends AbstractController {
 		$channel = (string) $request->get_param( 'channel' );
 
 		if ( 'publish' !== get_post_status( $post_id ) ) {
-			return new WP_Error( 'rx_invalid_post', __( 'Unknown article.', 'reader-experience' ), array( 'status' => 404 ) );
+			return new WP_Error( 'dwp_rx_invalid_post', __( 'Unknown article.', 'reader-experience' ), array( 'status' => 404 ) );
 		}
 
 		if ( $this->already_counted_recently( $post_id, $channel ) ) {
@@ -115,7 +115,7 @@ final class ShareController extends AbstractController {
 	 */
 	private function already_counted_recently( int $post_id, string $channel ): bool {
 		$fingerprint = (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) . (string) ( $_SERVER['HTTP_USER_AGENT'] ?? '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-		$key         = 'rx_share_' . md5( $post_id . '|' . $channel . '|' . $fingerprint );
+		$key         = 'dwp_rx_share_' . md5( $post_id . '|' . $channel . '|' . $fingerprint );
 
 		if ( get_transient( $key ) ) {
 			return true;

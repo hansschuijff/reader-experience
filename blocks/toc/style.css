@@ -2,18 +2,18 @@
  * Editor preview: the same dashed outline as the other blocks, and the list is forced to look like
  * the front end (the editor's own list styles for ul/ol would otherwise win).
  */
-.rx-toc--editor {
+.dwp-rx-toc--editor {
 	padding: 10px 12px;
 	border: 1px dashed var(--c-border, ButtonBorder);
 	border-radius: 8px;
 }
-.rx-toc--editor .rx-toc__list {
+.dwp-rx-toc--editor .dwp-rx-toc__list {
 	list-style: none !important;
 	margin: 0.5rem 0 0 !important;
 	padding: 0 !important;
 	max-height: none;
 	overflow: visible;
 }
-.rx-toc--editor .rx-toc__item { list-style: none !important; margin: 0 !important; padding: 0; }
-.rx-toc--editor .rx-toc__item::marker { content: none; }
-.rx-toc--editor .rx-toc__link { cursor: default; }
+.dwp-rx-toc--editor .dwp-rx-toc__item { list-style: none !important; margin: 0 !important; padding: 0; }
+.dwp-rx-toc--editor .dwp-rx-toc__item::marker { content: none; }
+.dwp-rx-toc--editor .dwp-rx-toc__link { cursor: default; }

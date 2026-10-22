@@ -42,7 +42,7 @@ during the style round. Hans: correct what is wrong; delete what you do not want
 
 ## CSS and JS
 
-- Shared look in `assets/css/base.css` (handle `rx-base`); blocks add only what is specific.
+- Shared look in `assets/css/base.css` (handle `dwp-rx-base`); blocks add only what is specific.
 - Themes style `button:hover` and `a:hover`; use doubled-class selectors where a theme could win.
 - The bar must look the same in the editor and on the front end, in light and dark.
 - Comments in CSS and JS are still partly Dutch (to convert, low priority).

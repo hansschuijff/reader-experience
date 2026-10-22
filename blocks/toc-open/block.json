@@ -20,8 +20,8 @@
 	"viewScript": "file:./view.js",
 	"render": "file:./render.php",
 	"style": [
-		"rx-base",
-		"rx-toc",
+		"dwp-rx-base",
+		"dwp-rx-toc",
 		"file:./style-index.css"
 	],
 	"attributes": {

@@ -1,4 +1,4 @@
-.rx-progress {
+.dwp-rx-progress {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -13,7 +13,7 @@
  * from its offsets, and a max-width keeps it inside the reading column. The bar always spans the
  * full viewport, so the theme's values are reset here, with the same !important where needed.
  */
-.rx-progress.rx-progress {
+.dwp-rx-progress.dwp-rx-progress {
 	margin: 0 !important;
 	max-width: none !important;
 	width: auto;
@@ -26,23 +26,23 @@
  * een balk die een stukje onder de schermrand dwars door de inhoud loopt.
  */
 @media (min-width: 783px) {
-	body.admin-bar .rx-progress {
+	body.admin-bar .dwp-rx-progress {
 		top: var(--wp-admin--admin-bar--height, 32px);
 	}
 }
-.rx-progress__bar {
+.dwp-rx-progress__bar {
 	display: block;
 	height: 100%;
-	background: var(--rx-progress-color, var(--c-accent, currentColor));
+	background: var(--dwp-rx-progress-color, var(--c-accent, currentColor));
 	transform: scaleX(0);
 	transform-origin: 0 50%;
 }
 @media print {
-	.rx-progress { display: none; }
+	.dwp-rx-progress { display: none; }
 }
 
 /* Editorweergave: een herkenbaar "kaartje" in plaats van een platte tekstregel. */
-.rx-progress-preview {
+.dwp-rx-progress-preview {
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -52,7 +52,7 @@
 	font-size: 0.8125rem;
 	color: var(--c-text-muted, GrayText);
 }
-.rx-progress-preview__swatch {
+.dwp-rx-progress-preview__swatch {
 	display: inline-block;
 	width: 2.5rem;
 	height: 4px;

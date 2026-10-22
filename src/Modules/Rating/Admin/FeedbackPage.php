@@ -66,7 +66,7 @@ final class FeedbackPage {
 	 *
 	 * @var string
 	 */
-	private const NONCE_ACTION = 'rx_feedback_bulk_delete';
+	private const NONCE_ACTION = 'dwp_rx_feedback_bulk_delete';
 
 	/**
 	 * Database access.
@@ -103,7 +103,7 @@ final class FeedbackPage {
 	 */
 	public function removable_query_args( $args ) {
 		$args   = (array) $args;
-		$args[] = 'rx_deleted';
+		$args[] = 'dwp_rx_deleted';
 		return $args;
 	}
 
@@ -118,7 +118,7 @@ final class FeedbackPage {
 			__( 'Reader feedback', 'reader-experience' ),
 			__( 'Reader feedback', 'reader-experience' ),
 			'moderate_comments',
-			'rx-feedback',
+			'dwp-rx-feedback',
 			array( $this, 'render' )
 		);
 
@@ -132,7 +132,7 @@ final class FeedbackPage {
 	 * @return void
 	 */
 	public function print_style(): void {
-		echo '<style>.rx-admin-icon svg{width:16px;height:16px;vertical-align:text-bottom;}</style>';
+		echo '<style>.dwp-rx-admin-icon svg{width:16px;height:16px;vertical-align:text-bottom;}</style>';
 	}
 
 	/**
@@ -147,10 +147,10 @@ final class FeedbackPage {
 		}
 
 		$this->maybe_handle_bulk_delete();
-		$deleted = (int) ( $_GET['rx_deleted'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification -- Only a number for a notice.
+		$deleted = (int) ( $_GET['dwp_rx_deleted'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification -- Only a number for a notice.
 
 		$page    = max( 1, (int) ( $_GET['paged'] ?? 1 ) ); // phpcs:ignore WordPress.Security.NonceVerification
-		$post_id = (int) ( $_GET['rx_post'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification
+		$post_id = (int) ( $_GET['dwp_rx_post'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification
 		$orderby = ( 'post_title' === ( $_GET['orderby'] ?? '' ) ) ? 'post_title' : 'created'; // phpcs:ignore WordPress.Security.NonceVerification
 		$order   = ( 'ASC' === strtoupper( (string) ( $_GET['order'] ?? '' ) ) ) ? 'ASC' : 'DESC'; // phpcs:ignore WordPress.Security.NonceVerification
 
@@ -174,11 +174,11 @@ final class FeedbackPage {
 			$next_order = ( $column === $orderby && 'DESC' === $order ) ? 'ASC' : 'DESC';
 			$url        = add_query_arg(
 				array(
-					'orderby' => $column,
-					'order'   => $next_order,
-					'rx_post' => $post_id ? $post_id : null,
+					'orderby'     => $column,
+					'order'       => $next_order,
+					'dwp_rx_post' => $post_id ? $post_id : null,
 				),
-				admin_url( 'edit-comments.php?page=rx-feedback' )
+				admin_url( 'edit-comments.php?page=dwp-rx-feedback' )
 			);
 			$arrow      = $column === $orderby ? ( 'ASC' === $order ? ' ↑' : ' ↓' ) : '';
 			printf( '<a href="%s">%s%s</a>', esc_url( $url ), esc_html( $label ), esc_html( $arrow ) );
@@ -204,9 +204,9 @@ final class FeedbackPage {
 
 			<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 1em 0;">
 			<form method="get" style="margin: 0;">
-				<input type="hidden" name="page" value="rx-feedback">
-				<label for="rx-post-filter"><?php esc_html_e( 'Article:', 'reader-experience' ); ?></label>
-				<select name="rx_post" id="rx-post-filter" onchange="this.form.submit()">
+				<input type="hidden" name="page" value="dwp-rx-feedback">
+				<label for="dwp-rx-post-filter"><?php esc_html_e( 'Article:', 'reader-experience' ); ?></label>
+				<select name="dwp_rx_post" id="dwp-rx-post-filter" onchange="this.form.submit()">
 					<option value="0"><?php esc_html_e( 'All articles', 'reader-experience' ); ?></option>
 					<?php foreach ( $posts as $post_item ) : ?>
 						<option value="<?php echo (int) $post_item['post_id']; ?>" <?php selected( $post_id, $post_item['post_id'] ); ?>>
@@ -220,23 +220,23 @@ final class FeedbackPage {
 			<?php // Same row as the filter; the form attribute ties the button to the table form below. ?>
 			<button
 				type="submit"
-				form="rx-feedback-form"
-				name="rx_bulk_delete"
+				form="dwp-rx-feedback-form"
+				name="dwp_rx_bulk_delete"
 				value="1"
 				class="button action"
-				id="rx-bulk-delete"
-				data-rx-confirm="<?php echo esc_attr__( 'Delete the selected feedback?', 'reader-experience' ); ?>"
+				id="dwp-rx-bulk-delete"
+				data-dwp-rx-confirm="<?php echo esc_attr__( 'Delete the selected feedback?', 'reader-experience' ); ?>"
 				disabled
 			><?php esc_html_e( 'Delete selected', 'reader-experience' ); ?></button>
 			</div>
 
-			<form method="post" id="rx-feedback-form">
+			<form method="post" id="dwp-rx-feedback-form">
 				<?php wp_nonce_field( self::NONCE_ACTION ); ?>
 				<table class="wp-list-table widefat fixed striped">
 					<thead>
 						<tr>
 							<td class="manage-column column-cb check-column">
-								<input type="checkbox" id="rx-select-all" aria-label="<?php esc_attr_e( 'Select all', 'reader-experience' ); ?>">
+								<input type="checkbox" id="dwp-rx-select-all" aria-label="<?php esc_attr_e( 'Select all', 'reader-experience' ); ?>">
 							</td>
 							<th><?php $sort_link( 'post_title', __( 'Article', 'reader-experience' ) ); ?></th>
 							<th style="width:9em"><?php esc_html_e( 'Rating', 'reader-experience' ); ?></th>
@@ -252,14 +252,14 @@ final class FeedbackPage {
 						<?php foreach ( $result['rows'] as $row ) : ?>
 							<tr>
 								<th scope="row" class="check-column">
-									<input type="checkbox" name="rx_ids[]" value="<?php echo (int) $row['id']; ?>" aria-label="<?php esc_attr_e( 'Select this feedback', 'reader-experience' ); ?>">
+									<input type="checkbox" name="dwp_rx_ids[]" value="<?php echo (int) $row['id']; ?>" aria-label="<?php esc_attr_e( 'Select this feedback', 'reader-experience' ); ?>">
 								</th>
 								<td>
 									<a href="<?php echo esc_url( (string) get_edit_post_link( (int) $row['post_id'] ) ); ?>">
 										<?php echo esc_html( (string) ( $row['post_title'] ? $row['post_title'] : __( '(untitled)', 'reader-experience' ) ) ); ?>
 									</a>
 								</td>
-								<td><span class="rx-admin-icon"><?php echo $icons[ $row['value'] ] ?? ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></td>
+								<td><span class="dwp-rx-admin-icon"><?php echo $icons[ $row['value'] ] ?? ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></td>
 								<td><?php echo esc_html( (string) ( $row['text'] ?? '' ) ); ?></td>
 								<td>
 									<?php if ( ! empty( $row['comment_id'] ) ) : ?>
@@ -281,16 +281,16 @@ final class FeedbackPage {
 			</form>
 			<script>
 				( function () {
-					var form = document.getElementById( 'rx-feedback-form' );
-					var all = document.getElementById( 'rx-select-all' );
-					var button = document.getElementById( 'rx-bulk-delete' );
+					var form = document.getElementById( 'dwp-rx-feedback-form' );
+					var all = document.getElementById( 'dwp-rx-select-all' );
+					var button = document.getElementById( 'dwp-rx-bulk-delete' );
 					if ( ! form || ! all || ! button ) { return; }
-					var boxes = function () { return Array.prototype.slice.call( form.querySelectorAll( 'input[name="rx_ids[]"]' ) ); };
+					var boxes = function () { return Array.prototype.slice.call( form.querySelectorAll( 'input[name="dwp_rx_ids[]"]' ) ); };
 					var update = function () { button.disabled = ! boxes().some( function ( box ) { return box.checked; } ); };
 					all.addEventListener( 'change', function () { boxes().forEach( function ( box ) { box.checked = all.checked; } ); update(); } );
 					form.addEventListener( 'change', update );
 					form.addEventListener( 'submit', function ( event ) {
-						if ( ! window.confirm( button.getAttribute( 'data-rx-confirm' ) ) ) { event.preventDefault(); }
+						if ( ! window.confirm( button.getAttribute( 'data-dwp-rx-confirm' ) ) ) { event.preventDefault(); }
 					} );
 				}() );
 			</script>
@@ -306,10 +306,10 @@ final class FeedbackPage {
 								'current'  => $page,
 								'total'    => $total_pages,
 								'add_args' => array(
-									'page'    => 'rx-feedback',
-									'rx_post' => $post_id ? $post_id : null,
-									'orderby' => $orderby,
-									'order'   => $order,
+									'page'        => 'dwp-rx-feedback',
+									'dwp_rx_post' => $post_id ? $post_id : null,
+									'orderby'     => $orderby,
+									'order'       => $order,
 								),
 							)
 						);
@@ -328,17 +328,17 @@ final class FeedbackPage {
 	 * @return void
 	 */
 	private function maybe_handle_bulk_delete(): void {
-		if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || empty( $_POST['rx_bulk_delete'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification -- Checked below.
+		if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || empty( $_POST['dwp_rx_bulk_delete'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification -- Checked below.
 			return;
 		}
 
 		check_admin_referer( self::NONCE_ACTION );
 
-		$ids     = array_map( 'absint', (array) wp_unslash( $_POST['rx_ids'] ?? array() ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Cast to integers.
+		$ids     = array_map( 'absint', (array) wp_unslash( $_POST['dwp_rx_ids'] ?? array() ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Cast to integers.
 		$deleted = $this->repository->delete_many( $ids );
-		$back    = wp_get_referer() ? (string) wp_get_referer() : admin_url( 'edit-comments.php?page=rx-feedback' );
+		$back    = wp_get_referer() ? (string) wp_get_referer() : admin_url( 'edit-comments.php?page=dwp-rx-feedback' );
 
-		wp_safe_redirect( add_query_arg( 'rx_deleted', $deleted, remove_query_arg( 'rx_deleted', $back ) ) );
+		wp_safe_redirect( add_query_arg( 'dwp_rx_deleted', $deleted, remove_query_arg( 'dwp_rx_deleted', $back ) ) );
 		exit;
 	}
 }

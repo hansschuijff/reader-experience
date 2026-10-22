@@ -3,12 +3,12 @@
  * het waarderingspaneel). Vast en gecentreerd in plaats van boven de knop verankerd,
  * zodat er nooit een deel van het paneel buiten het scherm kan vallen.
  *
- * Elk paneel-element krijgt het attribuut [data-rx-panel]. Er is er telkens maar
+ * Elk paneel-element krijgt het attribuut [data-dwp-rx-panel]. Er is er telkens maar
  * één tegelijk open.
  */
 
 function allPanels() {
-	return Array.from( document.querySelectorAll( '[data-rx-panel]' ) );
+	return Array.from( document.querySelectorAll( '[data-dwp-rx-panel]' ) );
 }
 
 export function anyPanelOpen() {
@@ -64,7 +64,7 @@ export function wireGlobalPopoverBehaviour() {
 			if ( panel.hidden ) {
 				return;
 			}
-			const root = panel.closest( '[data-rx-share], [data-rx-rating]' ) || panel;
+			const root = panel.closest( '[data-dwp-rx-share], [data-dwp-rx-rating]' ) || panel;
 			if ( ! root.contains( event.target ) ) {
 				closeAllPanels();
 			}

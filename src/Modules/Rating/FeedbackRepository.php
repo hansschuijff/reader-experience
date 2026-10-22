@@ -46,7 +46,7 @@ final class FeedbackRepository {
 	 */
 	public function table(): string {
 		global $wpdb;
-		return $wpdb->prefix . 'rx_feedback';
+		return $wpdb->prefix . 'dwp_rx_feedback';
 	}
 
 	/**

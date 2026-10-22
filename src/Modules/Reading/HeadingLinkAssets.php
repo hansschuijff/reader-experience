@@ -42,7 +42,7 @@ final class HeadingLinkAssets {
 	 *
 	 * @var string
 	 */
-	private const HANDLE = 'rx-heading-anchor-links';
+	private const HANDLE = 'dwp-rx-heading-anchor-links';
 
 	/**
 	 * Policy.
@@ -113,7 +113,7 @@ final class HeadingLinkAssets {
 			// The options belong to our JS: if that is replaced, the site handles its own options.
 			wp_add_inline_script(
 				self::HANDLE,
-				'window.rxHeadingAnchors=' . wp_json_encode( $this->anchors->config( $post ) ) . ';',
+				'window.dwpRxHeadingAnchors=' . wp_json_encode( $this->anchors->config( $post ) ) . ';',
 				'before'
 			);
 		}

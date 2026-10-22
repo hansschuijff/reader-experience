@@ -26,12 +26,12 @@ $minutes = ( new ReadingTime() )->minutes( (string) get_post_field( 'post_conten
 $extra = array();
 if ( ! empty( $attributes['remaining'] ) ) {
 	$extra = array(
-		'data-rx-remaining'       => '1',
-		'data-rx-minutes'         => (string) $minutes,
-		'data-rx-target'          => (string) ( $attributes['target'] ?? '.wp-block-post-content' ),
+		'data-dwp-rx-remaining'       => '1',
+		'data-dwp-rx-minutes'         => (string) $minutes,
+		'data-dwp-rx-target'          => (string) ( $attributes['target'] ?? '.wp-block-post-content' ),
 		/* translators: %d: number of minutes left */
-		'data-rx-label-remaining' => __( '~%d min left', 'reader-experience' ),
-		'data-rx-label-done'      => __( 'Finished', 'reader-experience' ),
+		'data-dwp-rx-label-remaining' => __( '~%d min left', 'reader-experience' ),
+		'data-dwp-rx-label-done'      => __( 'Finished', 'reader-experience' ),
 	);
 }
 
@@ -41,4 +41,4 @@ $label = sprintf(
 	$minutes
 );
 ?>
-<p <?php echo get_block_wrapper_attributes( $extra ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>><span class="rx-rt__label"><?php echo esc_html( $label ); ?></span></p>
+<p <?php echo get_block_wrapper_attributes( $extra ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>><span class="dwp-rx-rt__label"><?php echo esc_html( $label ); ?></span></p>

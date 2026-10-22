@@ -25,15 +25,15 @@ $target = isset( $attributes['target'] ) && '' !== trim( (string) $attributes['t
 	: '.wp-block-post-content';
 
 $color        = CssValue::color( (string) ( $attributes['color'] ?? '' ) );
-$inline_style = '' !== $color ? sprintf( '--rx-progress-color:%s;', esc_attr( $color ) ) : '';
+$inline_style = '' !== $color ? sprintf( '--dwp-rx-progress-color:%s;', esc_attr( $color ) ) : '';
 
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
-		'class'          => 'rx-progress',
-		'aria-hidden'    => 'true',
-		'data-rx-target' => $target,
-		'style'          => $inline_style,
+		'class'              => 'dwp-rx-progress',
+		'aria-hidden'        => 'true',
+		'data-dwp-rx-target' => $target,
+		'style'              => $inline_style,
 	)
 );
 ?>
-<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>><span class="rx-progress__bar"></span></div>
+<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>><span class="dwp-rx-progress__bar"></span></div>

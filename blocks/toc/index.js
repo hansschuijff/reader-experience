@@ -8,9 +8,9 @@ import './style.css';
 registerBlockType( metadata.name, {
 	edit: ( { attributes, setAttributes } ) => {
 		const previewStyle = {
-			'--rx-toc-text': attributes.textColor || undefined,
-			'--rx-toc-bg': attributes.backgroundColor || undefined,
-			'--rx-toc-font-size': attributes.fontSize ? attributes.fontSize + 'px' : undefined,
+			'--dwp-rx-toc-text': attributes.textColor || undefined,
+			'--dwp-rx-toc-bg': attributes.backgroundColor || undefined,
+			'--dwp-rx-toc-font-size': attributes.fontSize ? attributes.fontSize + 'px' : undefined,
 		};
 
 		return (
@@ -83,19 +83,19 @@ registerBlockType( metadata.name, {
 					/>
 				</InspectorControls>
 				<div
-					{ ...useBlockProps( { className: 'rx-toc rx-toc--editor rx-toc--' + attributes.style, style: previewStyle } ) }
+					{ ...useBlockProps( { className: 'dwp-rx-toc dwp-rx-toc--editor dwp-rx-toc--' + attributes.style, style: previewStyle } ) }
 				>
-					<p className="rx-toc__summary">{ attributes.title || __( 'Contents', 'reader-experience' ) }</p>
-					<ol className="rx-toc__list">
+					<p className="dwp-rx-toc__summary">{ attributes.title || __( 'Contents', 'reader-experience' ) }</p>
+					<ol className="dwp-rx-toc__list">
 						{ /* Spans, not links: a link takes the click and focus, so the block was not selected. */ }
-						<li className="rx-toc__item rx-toc__item--l2">
-							<span className="rx-toc__link">{ __( 'This table of contents is filled in automatically', 'reader-experience' ) }</span>
+						<li className="dwp-rx-toc__item dwp-rx-toc__item--l2">
+							<span className="dwp-rx-toc__link">{ __( 'This table of contents is filled in automatically', 'reader-experience' ) }</span>
 						</li>
-						<li className="rx-toc__item rx-toc__item--l2">
-							<span className="rx-toc__link">{ __( 'with links to the headings in the text', 'reader-experience' ) }</span>
+						<li className="dwp-rx-toc__item dwp-rx-toc__item--l2">
+							<span className="dwp-rx-toc__link">{ __( 'with links to the headings in the text', 'reader-experience' ) }</span>
 						</li>
-						<li className="rx-toc__item rx-toc__item--l2">
-							<span className="rx-toc__link">{ __( 'Choose which heading levels to show in the block settings', 'reader-experience' ) }</span>
+						<li className="dwp-rx-toc__item dwp-rx-toc__item--l2">
+							<span className="dwp-rx-toc__link">{ __( 'Choose which heading levels to show in the block settings', 'reader-experience' ) }</span>
 						</li>
 					</ol>
 				</div>

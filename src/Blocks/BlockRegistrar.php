@@ -40,7 +40,7 @@ final class BlockRegistrar {
 	 *
 	 * @var string
 	 */
-	public const BASE_STYLE_HANDLE = 'rx-base';
+	public const BASE_STYLE_HANDLE = 'dwp-rx-base';
 
 	/**
 	 * Handle of the stylesheet of the table of contents list (assets/css/toc.css), shared by the
@@ -48,7 +48,7 @@ final class BlockRegistrar {
 	 *
 	 * @var string
 	 */
-	public const TOC_STYLE_HANDLE = 'rx-toc';
+	public const TOC_STYLE_HANDLE = 'dwp-rx-toc';
 
 	/**
 	 * Constructor.

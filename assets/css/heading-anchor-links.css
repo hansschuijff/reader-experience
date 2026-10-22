@@ -6,7 +6,7 @@
  * teruggeven en laad zelf een stylesheet voor deze classes.
  */
 
-.rx-heading-link {
+.dwp-rx-heading-link {
 	all: unset;
 	box-sizing: border-box;
 	cursor: pointer;
@@ -37,12 +37,12 @@
  * een inline element is dat als eerste in de kop staat, lijnt het uit met de EERSTE regel,
  * ook als de kop over meerdere regels loopt.
  */
-.rx-heading-link--before {
+.dwp-rx-heading-link--before {
 	margin-inline: -24px 4px;
 }
 
 /* Achter de tekst: inline, direct na de laatste woorden. */
-.rx-heading-link--after {
+.dwp-rx-heading-link--after {
 	margin-inline-start: 0.35em;
 }
 
@@ -56,13 +56,13 @@
  * gewone inline gedrag.
  */
 @media (min-width: 601px) {
-	.rx-heading-link--after {
+	.dwp-rx-heading-link--after {
 		margin-inline: 0.35em calc(-20px - 0.35em);
 	}
 }
 
-:is(h2, h3, h4):hover > .rx-heading-link,
-.rx-heading-link:focus-visible {
+:is(h2, h3, h4):hover > .dwp-rx-heading-link,
+.dwp-rx-heading-link:focus-visible {
 	opacity: 1;
 }
 
@@ -72,9 +72,9 @@
  * van. Dubbele class zorgt dat deze toestanden wél winnen, zonder "all: unset" te herhalen:
  * dat zette ook de transitie terug en gaf een flikkerend icoon.
  */
-.rx-heading-link.rx-heading-link:hover,
-.rx-heading-link.rx-heading-link:focus,
-.rx-heading-link.rx-heading-link:active {
+.dwp-rx-heading-link.dwp-rx-heading-link:hover,
+.dwp-rx-heading-link.dwp-rx-heading-link:focus,
+.dwp-rx-heading-link.dwp-rx-heading-link:active {
 	background: transparent;
 	border: 0;
 	box-shadow: none;
@@ -84,11 +84,11 @@
 	color: var(--c-text, CanvasText);
 }
 
-.rx-heading-link.rx-heading-link:focus:not(:focus-visible) {
+.dwp-rx-heading-link.dwp-rx-heading-link:focus:not(:focus-visible) {
 	outline: 0;
 }
 
-.rx-heading-link.rx-heading-link:focus-visible {
+.dwp-rx-heading-link.dwp-rx-heading-link:focus-visible {
 	outline: 2px solid var(--c-accent, Highlight);
 	outline-offset: 1px;
 }
@@ -98,7 +98,7 @@
  * icoon in de linkermarge zou een gecentreerd ballonnetje buiten beeld kunnen vallen.
  * Typografie expliciet teruggezet, want dit zit binnen de kop en erft anders de kopstijl.
  */
-.rx-heading-link__toast {
+.dwp-rx-heading-link__toast {
 	position: absolute;
 	inset-inline-start: 0;
 	bottom: calc(100% + 6px);
@@ -116,21 +116,21 @@
 	transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.rx-heading-link__toast.is-visible {
+.dwp-rx-heading-link__toast.is-visible {
 	opacity: 1;
 	transform: translateY(0);
 }
 
 /* Een hangend icoon heeft links ruimte nodig; op een smal scherm is die er niet. */
 @media (max-width: 600px) {
-	.rx-heading-link--before {
+	.dwp-rx-heading-link--before {
 		display: none;
 	}
 }
 
 /* Zonder muis is er geen hover: het icoon achter de tekst dan altijd zacht zichtbaar maken. */
 @media (hover: none) {
-	.rx-heading-link--after {
+	.dwp-rx-heading-link--after {
 		opacity: 0.55;
 	}
 }

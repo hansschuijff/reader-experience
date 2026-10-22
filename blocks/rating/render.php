@@ -27,7 +27,7 @@ $variant = ( 'bar' === ( $attributes['variant'] ?? 'inline' ) ) ? 'bar' : 'inlin
 // May a comment on a positive rating be posted as a comment? Not when comments on this post
 // are closed (or require an account): then we do not offer it either.
 $can_comment = ( new CommentPublisher() )->can_publish( $post_id );
-$unique      = wp_unique_id( 'rx-rating-' );
+$unique      = wp_unique_id( 'dwp-rx-rating-' );
 
 $rest = array(
 	'create'   => esc_url_raw( rest_url( 'dewitteprins/reader-experience/v1/rating' ) ),
@@ -35,82 +35,82 @@ $rest = array(
 	'followup' => esc_url_raw( rest_url( 'dewitteprins/reader-experience/v1/rating/' ) ), // Followed by {id}/follow-up.
 );
 ?>
-<div <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-rating rx-rating--' . esc_attr( $variant ) ) ); ?>
-	data-rx-rating
-	data-rx-post="<?php echo (int) $post_id; ?>"
-	data-rx-can-comment="<?php echo $can_comment ? '1' : '0'; ?>"
-	data-rx-rest-create="<?php echo esc_url( $rest['create'] ); ?>"
-	data-rx-rest-text-base="<?php echo esc_url( $rest['text'] ); ?>"
-	data-rx-rest-followup-base="<?php echo esc_url( $rest['followup'] ); ?>"
+<div <?php echo get_block_wrapper_attributes( array( 'class' => 'dwp-rx-rating dwp-rx-rating--' . esc_attr( $variant ) ) ); ?>
+	data-dwp-rx-rating
+	data-dwp-rx-post="<?php echo (int) $post_id; ?>"
+	data-dwp-rx-can-comment="<?php echo $can_comment ? '1' : '0'; ?>"
+	data-dwp-rx-rest-create="<?php echo esc_url( $rest['create'] ); ?>"
+	data-dwp-rx-rest-text-base="<?php echo esc_url( $rest['text'] ); ?>"
+	data-dwp-rx-rest-followup-base="<?php echo esc_url( $rest['followup'] ); ?>"
 >
-	<div class="rx-rating__thumbs" data-rx-step="thumbs">
-		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="like" aria-pressed="false" aria-label="<?php esc_attr_e( 'Like', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Like', 'reader-experience' ); ?>">
+	<div class="dwp-rx-rating__thumbs" data-dwp-rx-step="thumbs">
+		<button type="button" class="dwp-rx-reset-button dwp-rx-rating__thumb<?php echo 'bar' === $variant ? ' dwp-rx-bar__button' : ''; ?>" data-dwp-rx-value="like" aria-pressed="false" aria-label="<?php esc_attr_e( 'Like', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Like', 'reader-experience' ); ?>">
 			<?php echo Icons::get( 'thumb_up' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Fixed, trusted SVG from the plugin itself. ?>
-			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Like', 'reader-experience' ); ?></span>
+			<span class="dwp-rx-rating__thumb-label"><?php esc_html_e( 'Like', 'reader-experience' ); ?></span>
 		</button>
-		<button type="button" class="rx-reset-button rx-rating__thumb<?php echo 'bar' === $variant ? ' rx-bar__button' : ''; ?>" data-rx-value="dislike" aria-pressed="false" aria-label="<?php esc_attr_e( 'Dislike', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Dislike', 'reader-experience' ); ?>">
+		<button type="button" class="dwp-rx-reset-button dwp-rx-rating__thumb<?php echo 'bar' === $variant ? ' dwp-rx-bar__button' : ''; ?>" data-dwp-rx-value="dislike" aria-pressed="false" aria-label="<?php esc_attr_e( 'Dislike', 'reader-experience' ); ?>" title="<?php esc_attr_e( 'Dislike', 'reader-experience' ); ?>">
 			<?php echo Icons::get( 'thumb_down' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-			<span class="rx-rating__thumb-label"><?php esc_html_e( 'Dislike', 'reader-experience' ); ?></span>
+			<span class="dwp-rx-rating__thumb-label"><?php esc_html_e( 'Dislike', 'reader-experience' ); ?></span>
 		</button>
 	</div>
 
-	<div class="rx-rating__panel" data-rx-panel hidden>
-		<div class="rx-rating__step" data-rx-step="text">
+	<div class="dwp-rx-rating__panel" data-dwp-rx-panel hidden>
+		<div class="dwp-rx-rating__step" data-dwp-rx-step="text">
 			<p
-				class="rx-rating__question"
-				data-rx-step-question
-				data-rx-label-like="<?php esc_attr_e( 'Thanks for your thumb. What did you like about this page?', 'reader-experience' ); ?>"
-				data-rx-label-dislike="<?php esc_attr_e( 'Thanks for your thumb. What could we improve about this page?', 'reader-experience' ); ?>"
+				class="dwp-rx-rating__question"
+				data-dwp-rx-step-question
+				data-dwp-rx-label-like="<?php esc_attr_e( 'Thanks for your thumb. What did you like about this page?', 'reader-experience' ); ?>"
+				data-dwp-rx-label-dislike="<?php esc_attr_e( 'Thanks for your thumb. What could we improve about this page?', 'reader-experience' ); ?>"
 			></p>
 			<label class="screen-reader-text" for="<?php echo esc_attr( $unique ); ?>-text"><?php esc_html_e( 'Explanation (optional)', 'reader-experience' ); ?></label>
-			<textarea id="<?php echo esc_attr( $unique ); ?>-text" class="rx-rating__text" rows="3" maxlength="1000" placeholder="<?php esc_attr_e( 'Optional', 'reader-experience' ); ?>"></textarea>
-			<div class="rx-rating__hp" aria-hidden="true">
+			<textarea id="<?php echo esc_attr( $unique ); ?>-text" class="dwp-rx-rating__text" rows="3" maxlength="1000" placeholder="<?php esc_attr_e( 'Optional', 'reader-experience' ); ?>"></textarea>
+			<div class="dwp-rx-rating__hp" aria-hidden="true">
 				<label for="<?php echo esc_attr( $unique ); ?>-website"><?php esc_html_e( 'Leave this field empty', 'reader-experience' ); ?></label>
 				<input type="text" id="<?php echo esc_attr( $unique ); ?>-website" name="website" tabindex="-1" autocomplete="off">
 			</div>
-			<p class="rx-rating__actions">
-				<button type="button" class="rx-reset-button rx-rating__skip"><?php esc_html_e( 'Skip', 'reader-experience' ); ?></button>
-				<button type="button" class="wp-element-button rx-rating__send"><?php esc_html_e( 'Send', 'reader-experience' ); ?></button>
+			<p class="dwp-rx-rating__actions">
+				<button type="button" class="dwp-rx-reset-button dwp-rx-rating__skip"><?php esc_html_e( 'Skip', 'reader-experience' ); ?></button>
+				<button type="button" class="wp-element-button dwp-rx-rating__send"><?php esc_html_e( 'Send', 'reader-experience' ); ?></button>
 			</p>
 		</div>
 
-		<div class="rx-rating__step" data-rx-step="follow-up" hidden>
+		<div class="dwp-rx-rating__step" data-dwp-rx-step="follow-up" hidden>
 			<p
-				class="rx-rating__question"
-				data-rx-follow-up-question
-				data-rx-label-publish="<?php esc_attr_e( 'May we post your comment below the article?', 'reader-experience' ); ?>"
-				data-rx-label-contact="<?php esc_attr_e( 'How can we contact you if we have more questions?', 'reader-experience' ); ?>"
+				class="dwp-rx-rating__question"
+				data-dwp-rx-follow-up-question
+				data-dwp-rx-label-publish="<?php esc_attr_e( 'May we post your comment below the article?', 'reader-experience' ); ?>"
+				data-dwp-rx-label-contact="<?php esc_attr_e( 'How can we contact you if we have more questions?', 'reader-experience' ); ?>"
 			></p>
-			<div class="rx-rating__fields" data-rx-follow-up-fields hidden>
+			<div class="dwp-rx-rating__fields" data-dwp-rx-follow-up-fields hidden>
 				<label class="screen-reader-text" for="<?php echo esc_attr( $unique ); ?>-name"><?php esc_html_e( 'Name', 'reader-experience' ); ?></label>
-				<input type="text" id="<?php echo esc_attr( $unique ); ?>-name" class="rx-rating__name" placeholder="<?php esc_attr_e( 'Name', 'reader-experience' ); ?>" autocomplete="name" required>
+				<input type="text" id="<?php echo esc_attr( $unique ); ?>-name" class="dwp-rx-rating__name" placeholder="<?php esc_attr_e( 'Name', 'reader-experience' ); ?>" autocomplete="name" required>
 				<label class="screen-reader-text" for="<?php echo esc_attr( $unique ); ?>-email"><?php esc_html_e( 'Email address', 'reader-experience' ); ?></label>
-				<input type="email" id="<?php echo esc_attr( $unique ); ?>-email" class="rx-rating__email" placeholder="<?php esc_attr_e( 'Email address', 'reader-experience' ); ?>" autocomplete="email" required>
+				<input type="email" id="<?php echo esc_attr( $unique ); ?>-email" class="dwp-rx-rating__email" placeholder="<?php esc_attr_e( 'Email address', 'reader-experience' ); ?>" autocomplete="email" required>
 				<span
-					class="rx-rating__field-error"
+					class="dwp-rx-rating__field-error"
 					role="alert"
-					data-rx-follow-up-error
-					data-rx-error="<?php esc_attr_e( 'Please enter your name and a valid email address.', 'reader-experience' ); ?>"
+					data-dwp-rx-follow-up-error
+					data-dwp-rx-error="<?php esc_attr_e( 'Please enter your name and a valid email address.', 'reader-experience' ); ?>"
 				></span>
 			</div>
-			<p class="rx-rating__actions">
-				<button type="button" class="rx-reset-button rx-rating__follow-up-no"><?php esc_html_e( 'No, thanks', 'reader-experience' ); ?></button>
+			<p class="dwp-rx-rating__actions">
+				<button type="button" class="dwp-rx-reset-button dwp-rx-rating__follow-up-no"><?php esc_html_e( 'No, thanks', 'reader-experience' ); ?></button>
 				<button
 					type="button"
-					class="wp-element-button rx-rating__follow-up-yes"
-					data-rx-follow-up-yes-label
-					data-rx-label-publish="<?php esc_attr_e( 'Yes, post it', 'reader-experience' ); ?>"
-					data-rx-label-contact="<?php esc_attr_e( 'Yes, that is fine', 'reader-experience' ); ?>"
+					class="wp-element-button dwp-rx-rating__follow-up-yes"
+					data-dwp-rx-follow-up-yes-label
+					data-dwp-rx-label-publish="<?php esc_attr_e( 'Yes, post it', 'reader-experience' ); ?>"
+					data-dwp-rx-label-contact="<?php esc_attr_e( 'Yes, that is fine', 'reader-experience' ); ?>"
 				></button>
 			</p>
 		</div>
 
-		<div class="rx-rating__step" data-rx-step="error" hidden>
-			<p class="rx-rating__done" role="alert"><?php esc_html_e( 'Sorry, that did not work. Please try again later.', 'reader-experience' ); ?></p>
+		<div class="dwp-rx-rating__step" data-dwp-rx-step="error" hidden>
+			<p class="dwp-rx-rating__done" role="alert"><?php esc_html_e( 'Sorry, that did not work. Please try again later.', 'reader-experience' ); ?></p>
 		</div>
 
-		<div class="rx-rating__step" data-rx-step="done" hidden>
-			<p class="rx-rating__done">✓ <?php esc_html_e( 'Thanks for your response', 'reader-experience' ); ?></p>
+		<div class="dwp-rx-rating__step" data-dwp-rx-step="done" hidden>
+			<p class="dwp-rx-rating__done">✓ <?php esc_html_e( 'Thanks for your response', 'reader-experience' ); ?></p>
 		</div>
 	</div>
 

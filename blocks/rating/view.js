@@ -3,12 +3,12 @@ import { openPanel, closeAllPanels, wireGlobalPopoverBehaviour } from '../shared
 wireGlobalPopoverBehaviour();
 
 function storageKey( postId ) {
-	return 'rx-rated-' + postId;
+	return 'dwp-rx-rated-' + postId;
 }
 
 function showStep( panel, name ) {
-	panel.querySelectorAll( '[data-rx-step]' ).forEach( ( el ) => {
-		el.hidden = el.dataset.rxStep !== name;
+	panel.querySelectorAll( '[data-dwp-rx-step]' ).forEach( ( el ) => {
+		el.hidden = el.dataset.dwpRxStep !== name;
 	} );
 }
 
@@ -35,18 +35,18 @@ function isValidEmail( value ) {
 	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( value );
 }
 
-document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
-	const postId = root.dataset.rxPost;
-	const isBar = root.classList.contains( 'rx-rating--bar' );
-	const panel = root.querySelector( '[data-rx-panel]' );
-	const thumbsWrap = root.querySelector( '[data-rx-step="thumbs"]' );
-	const questionEl = panel.querySelector( '[data-rx-step-question]' );
-	const textarea = panel.querySelector( '.rx-rating__text' );
+document.querySelectorAll( '[data-dwp-rx-rating]' ).forEach( ( root ) => {
+	const postId = root.dataset.dwpRxPost;
+	const isBar = root.classList.contains( 'dwp-rx-rating--bar' );
+	const panel = root.querySelector( '[data-dwp-rx-panel]' );
+	const thumbsWrap = root.querySelector( '[data-dwp-rx-step="thumbs"]' );
+	const questionEl = panel.querySelector( '[data-dwp-rx-step-question]' );
+	const textarea = panel.querySelector( '.dwp-rx-rating__text' );
 
 	// In de balk krijgt het paneel een eigen id, zodat het als "vast, gecentreerd"
 	// paneeltje via de gedeelde popover-module beheerd kan worden.
 	if ( isBar ) {
-		panel.id = panel.id || 'rx-rating-panel-' + postId + '-' + Math.random().toString( 36 ).slice( 2, 7 );
+		panel.id = panel.id || 'dwp-rx-rating-panel-' + postId + '-' + Math.random().toString( 36 ).slice( 2, 7 );
 	}
 
 	const openOrShow = () => {
@@ -59,8 +59,8 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 
 	let votedValue = localStorage.getItem( storageKey( postId ) );
 	if ( votedValue ) {
-		thumbsWrap.querySelectorAll( '[data-rx-value]' ).forEach( ( btn ) => {
-			btn.setAttribute( 'aria-pressed', String( btn.dataset.rxValue === votedValue ) );
+		thumbsWrap.querySelectorAll( '[data-dwp-rx-value]' ).forEach( ( btn ) => {
+			btn.setAttribute( 'aria-pressed', String( btn.dataset.dwpRxValue === votedValue ) );
 		} );
 	}
 
@@ -69,16 +69,16 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 	// Geen "op slot" na een keuze: nogmaals klikken op dezelfde duim doet niets,
 	// op de andere duim klikken wijzigt de stem gewoon (een nieuwe, losse waardering;
 	// er is toch geen account om een eerdere mee te koppelen).
-	thumbsWrap.querySelectorAll( '[data-rx-value]' ).forEach( ( button ) => {
+	thumbsWrap.querySelectorAll( '[data-dwp-rx-value]' ).forEach( ( button ) => {
 		button.addEventListener( 'click', async () => {
-			const value = button.dataset.rxValue;
+			const value = button.dataset.dwpRxValue;
 			if ( value === votedValue ) {
 				return;
 			}
 			const previousValue = votedValue;
 			votedValue = value;
 			localStorage.setItem( storageKey( postId ), value );
-			thumbsWrap.querySelectorAll( '[data-rx-value]' ).forEach( ( b ) => {
+			thumbsWrap.querySelectorAll( '[data-dwp-rx-value]' ).forEach( ( b ) => {
 				b.setAttribute( 'aria-pressed', String( b === button ) );
 			} );
 
@@ -89,11 +89,11 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 				textarea.value = '';
 			}
 			if ( questionEl ) {
-				questionEl.textContent = questionEl.dataset[ 'like' === value ? 'rxLabelLike' : 'rxLabelDislike' ] || '';
+				questionEl.textContent = questionEl.dataset[ 'like' === value ? 'dwpRxLabelLike' : 'dwpRxLabelDislike' ] || '';
 			}
 
-			const honeypot = panel.querySelector( '.rx-rating__hp input' );
-			const result = await postJson( root.dataset.rxRestCreate, {
+			const honeypot = panel.querySelector( '.dwp-rx-rating__hp input' );
+			const result = await postJson( root.dataset.dwpRxRestCreate, {
 				post_id: Number( postId ),
 				value,
 				website: honeypot ? honeypot.value : '',
@@ -108,8 +108,8 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 				} else {
 					localStorage.removeItem( storageKey( postId ) );
 				}
-				thumbsWrap.querySelectorAll( '[data-rx-value]' ).forEach( ( b ) => {
-					b.setAttribute( 'aria-pressed', String( b.dataset.rxValue === previousValue ) );
+				thumbsWrap.querySelectorAll( '[data-dwp-rx-value]' ).forEach( ( b ) => {
+					b.setAttribute( 'aria-pressed', String( b.dataset.dwpRxValue === previousValue ) );
 				} );
 				showStep( panel, 'error' );
 				openOrShow();
@@ -123,8 +123,8 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 		} );
 	} );
 
-	const skipButton = panel.querySelector( '.rx-rating__skip' );
-	const sendButton = panel.querySelector( '.rx-rating__send' );
+	const skipButton = panel.querySelector( '.dwp-rx-rating__skip' );
+	const sendButton = panel.querySelector( '.dwp-rx-rating__send' );
 
 	const finish = () => showStep( panel, 'done' );
 
@@ -146,8 +146,8 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 			return;
 		}
 
-		const honeypot = panel.querySelector( '.rx-rating__hp input' );
-		await postJson( root.dataset.rxRestTextBase + current.id + '/text', {
+		const honeypot = panel.querySelector( '.dwp-rx-rating__hp input' );
+		await postJson( root.dataset.dwpRxRestTextBase + current.id + '/text', {
 			token: current.token,
 			text,
 			website: honeypot ? honeypot.value : '',
@@ -157,25 +157,25 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 	} );
 
 	function showFollowUp() {
-		const followUpStep = panel.querySelector( '[data-rx-step="follow-up"]' );
-		const followUpQuestionEl = followUpStep.querySelector( '[data-rx-follow-up-question]' );
-		const fieldsEl = followUpStep.querySelector( '[data-rx-follow-up-fields]' );
-		const errorEl = followUpStep.querySelector( '[data-rx-follow-up-error]' );
-		const yesButton = followUpStep.querySelector( '.rx-rating__follow-up-yes' );
-		const noButton = followUpStep.querySelector( '.rx-rating__follow-up-no' );
-		const nameInput = followUpStep.querySelector( '.rx-rating__name' );
-		const emailInput = followUpStep.querySelector( '.rx-rating__email' );
+		const followUpStep = panel.querySelector( '[data-dwp-rx-step="follow-up"]' );
+		const followUpQuestionEl = followUpStep.querySelector( '[data-dwp-rx-follow-up-question]' );
+		const fieldsEl = followUpStep.querySelector( '[data-dwp-rx-follow-up-fields]' );
+		const errorEl = followUpStep.querySelector( '[data-dwp-rx-follow-up-error]' );
+		const yesButton = followUpStep.querySelector( '.dwp-rx-rating__follow-up-yes' );
+		const noButton = followUpStep.querySelector( '.dwp-rx-rating__follow-up-no' );
+		const nameInput = followUpStep.querySelector( '.dwp-rx-rating__name' );
+		const emailInput = followUpStep.querySelector( '.dwp-rx-rating__email' );
 
 		const action = 'like' === current.value ? 'publish' : 'contact';
 
 		// Staan reacties op deze pagina dicht (of vereisen ze een account), dan is er niets te
 		// plaatsen: de toelichting blijft privé en we ronden gewoon af. De server houdt dezelfde
 		// controle aan, dit voorkomt alleen dat iemand een aanbod ziet dat niet kan.
-		if ( 'publish' === action && '1' !== root.dataset.rxCanComment ) {
-			postJson( root.dataset.rxRestFollowupBase + current.id + '/follow-up', {
+		if ( 'publish' === action && '1' !== root.dataset.dwpRxCanComment ) {
+			postJson( root.dataset.dwpRxRestFollowupBase + current.id + '/follow-up', {
 				token: current.token,
 				action: 'skip',
-				website: panel.querySelector( '.rx-rating__hp input' )?.value || '',
+				website: panel.querySelector( '.dwp-rx-rating__hp input' )?.value || '',
 			} );
 			finish();
 			if ( isBar ) {
@@ -184,7 +184,7 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 			return;
 		}
 
-		const key = 'publish' === action ? 'rxLabelPublish' : 'rxLabelContact';
+		const key = 'publish' === action ? 'dwpRxLabelPublish' : 'dwpRxLabelContact';
 		followUpQuestionEl.textContent = followUpQuestionEl.dataset[ key ] || '';
 		yesButton.textContent = yesButton.dataset[ key ] || '';
 		fieldsEl.hidden = true;
@@ -210,13 +210,13 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 			if ( '' === name || '' === email || ! isValidEmail( email ) ) {
 				if ( errorEl ) {
 					errorEl.textContent =
-						errorEl.dataset.rxError || 'Enter your name and a valid email address.';
+						errorEl.dataset.dwpRxError || 'Enter your name and a valid email address.';
 				}
 				return;
 			}
 
-			const honeypot = panel.querySelector( '.rx-rating__hp input' );
-			await postJson( root.dataset.rxRestFollowupBase + current.id + '/follow-up', {
+			const honeypot = panel.querySelector( '.dwp-rx-rating__hp input' );
+			await postJson( root.dataset.dwpRxRestFollowupBase + current.id + '/follow-up', {
 				token: current.token,
 				action,
 				name,
@@ -230,8 +230,8 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 		};
 
 		noButton.onclick = async () => {
-			const honeypot = panel.querySelector( '.rx-rating__hp input' );
-			await postJson( root.dataset.rxRestFollowupBase + current.id + '/follow-up', {
+			const honeypot = panel.querySelector( '.dwp-rx-rating__hp input' );
+			await postJson( root.dataset.dwpRxRestFollowupBase + current.id + '/follow-up', {
 				token: current.token,
 				action: 'skip',
 				website: honeypot ? honeypot.value : '',

@@ -1,20 +1,20 @@
 /**
- * Shared base stylesheet of Reader Experience, loaded once (handle "rx-base") for every block.
+ * Shared base stylesheet of Reader Experience, loaded once (handle "dwp-rx-base") for every block.
  *
  * Why one shared file: "all: unset" is load-order sensitive. When every block bundle carried its
  * own copy, the one that loaded last decided the padding and size of the bar buttons.
  *
  * Contents:
- * 1. .rx-reset-button  Neutral starting point for every clickable element of the plugin.
+ * 1. .dwp-rx-reset-button  Neutral starting point for every clickable element of the plugin.
  * 2. State rules       Same hover/focus/active look everywhere, immune to theme button styles.
- * 3. .rx-bar__button   One icon button, used by comments, share, table of contents and thumbs.
+ * 3. .dwp-rx-bar__button   One icon button, used by comments, share, table of contents and thumbs.
  *
  * Colours follow the --c-* variables (see the separate dark-mode package), each with a system
  * colour fallback for themes without those variables.
  */
 
 /* 1. Reset ---------------------------------------------------------------------------------- */
-.rx-reset-button {
+.dwp-rx-reset-button {
 	all: unset;
 	box-sizing: border-box;
 	cursor: pointer;
@@ -32,7 +32,7 @@
  * Themes often style button:hover or a:hover (colour, background, box-shadow). Those selectors
  * beat "all: unset" on a single class, so the state rules use a doubled class selector.
  */
-.rx-reset-button.rx-reset-button:is(:hover, :focus, :active) {
+.dwp-rx-reset-button.dwp-rx-reset-button:is(:hover, :focus, :active) {
 	background: transparent;
 	color: var(--c-text, CanvasText);
 	border-color: transparent;
@@ -43,19 +43,19 @@
 	opacity: 1;
 	outline: none;
 }
-.rx-reset-button.rx-reset-button:is(:hover, :focus-visible) {
+.dwp-rx-reset-button.dwp-rx-reset-button:is(:hover, :focus-visible) {
 	background: color-mix(in srgb, currentColor 12%, transparent);
 }
-.rx-reset-button.rx-reset-button:active {
+.dwp-rx-reset-button.dwp-rx-reset-button:active {
 	background: color-mix(in srgb, currentColor 20%, transparent);
 }
-.rx-reset-button.rx-reset-button:focus-visible {
+.dwp-rx-reset-button.dwp-rx-reset-button:focus-visible {
 	outline: 2px solid var(--c-accent, Highlight);
 	outline-offset: 2px;
 }
 
 /* 3. Bar button ----------------------------------------------------------------------------- */
-.rx-bar__button {
+.dwp-rx-bar__button {
 	display: inline-flex;
 	flex-direction: column;
 	align-items: center;
@@ -66,7 +66,7 @@
 	line-height: 1.1;
 	text-decoration: none;
 }
-.rx-bar__icon {
+.dwp-rx-bar__icon {
 	display: inline-flex;
 }
 
@@ -79,7 +79,7 @@
  * wins, and they only fill in what the theme leaves open. The fallback colours are neutral
  * (dark button on light, inverted on dark) instead of a fixed blue.
  */
-:where(.rx-share__copy, .rx-rating__send, .rx-rating__follow-up-yes) {
+:where(.dwp-rx-share__copy, .dwp-rx-rating__send, .dwp-rx-rating__follow-up-yes) {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.4em;

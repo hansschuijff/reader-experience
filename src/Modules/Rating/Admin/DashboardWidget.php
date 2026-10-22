@@ -64,7 +64,7 @@ final class DashboardWidget {
 	 */
 	public function add(): void {
 		wp_add_dashboard_widget(
-			'rx_feedback_widget',
+			'dwp_rx_feedback_widget',
 			__( 'Recent reader feedback', 'reader-experience' ),
 			array( $this, 'render' )
 		);
@@ -84,8 +84,8 @@ final class DashboardWidget {
 			return;
 		}
 
-		echo '<style>.rx-feedback-widget svg{width:14px;height:14px;vertical-align:text-bottom;}</style>';
-		echo '<ul class="rx-feedback-widget">';
+		echo '<style>.dwp-rx-feedback-widget svg{width:14px;height:14px;vertical-align:text-bottom;}</style>';
+		echo '<ul class="dwp-rx-feedback-widget">';
 		foreach ( $items as $item ) {
 			$icon  = Icons::get( 'like' === $item['value'] ? 'thumb_up' : 'thumb_down' );
 			$extra = array();
@@ -113,7 +113,7 @@ final class DashboardWidget {
 
 		printf(
 			'<p><a href="%s">%s</a></p>',
-			esc_url( admin_url( 'edit-comments.php?page=rx-feedback' ) ),
+			esc_url( admin_url( 'edit-comments.php?page=dwp-rx-feedback' ) ),
 			esc_html__( 'View all reader feedback', 'reader-experience' )
 		);
 	}

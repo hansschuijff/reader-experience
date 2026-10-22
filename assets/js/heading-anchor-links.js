@@ -4,13 +4,13 @@
  * Bewust losse, ongebundelde JS: dit draait op elk bericht waarvoor het aan staat, ongeacht
  * welke blokken er gebruikt worden, en heeft dus geen eigen block.json.
  *
- * Opties komen uit window.rxHeadingAnchors (gezet door de plugin, zie HeadingAnchors::config()):
+ * Opties komen uit window.dwpRxHeadingAnchors (gezet door de plugin, zie HeadingAnchors::config()):
  *   position   'before' (standaard) of 'after': voor of achter de koptekst
  *   container  selector of lijst selectors; de eerste die bestaat is het artikel
  *   labels     { copy, copied }: al vertaald door PHP
  */
 ( function () {
-	var config = window.rxHeadingAnchors || {};
+	var config = window.dwpRxHeadingAnchors || {};
 	var labels = config.labels || {};
 	var copyLabel = labels.copy || 'Copy link to this section';
 	var copiedLabel = labels.copied || 'Link copied';
@@ -39,13 +39,13 @@
 	}
 
 	container.querySelectorAll( 'h2[id], h3[id], h4[id]' ).forEach( function ( heading ) {
-		if ( heading.querySelector( '.rx-heading-link' ) ) {
+		if ( heading.querySelector( '.dwp-rx-heading-link' ) ) {
 			return;
 		}
 
 		var button = document.createElement( 'button' );
 		button.type = 'button';
-		button.className = 'rx-heading-link rx-heading-link--' + position;
+		button.className = 'dwp-rx-heading-link dwp-rx-heading-link--' + position;
 		button.innerHTML = ICON;
 		button.setAttribute( 'aria-label', copyLabel );
 		button.setAttribute( 'title', copyLabel );
@@ -53,7 +53,7 @@
 		// Pas gevuld op het moment van kopiëren: een permanent aanwezige tekst zou
 		// ongezien in de kop meelezen voor schermlezers en bij het selecteren van de kop.
 		var toast = document.createElement( 'span' );
-		toast.className = 'rx-heading-link__toast';
+		toast.className = 'dwp-rx-heading-link__toast';
 		toast.setAttribute( 'role', 'status' );
 		button.appendChild( toast );
 

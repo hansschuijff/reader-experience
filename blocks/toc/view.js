@@ -3,12 +3,12 @@ import { buildList, collectEntries, goTo, ready, trackActive } from '../shared/t
 const small = window.matchMedia( '(max-width: 781px)' );
 
 function init( toc ) {
-	const list = toc.querySelector( '.rx-toc__list' );
+	const list = toc.querySelector( '.dwp-rx-toc__list' );
 	const entries = list
 		? collectEntries( {
-			target: toc.dataset.rxTarget || '.wp-block-post-content',
-			maxLevel: Number( toc.dataset.rxMaxLevel ) || 3,
-			minItems: Number( toc.dataset.rxMinItems ) || 3,
+			target: toc.dataset.dwpRxTarget || '.wp-block-post-content',
+			maxLevel: Number( toc.dataset.dwpRxMaxLevel ) || 3,
+			minItems: Number( toc.dataset.dwpRxMinItems ) || 3,
 		} )
 		: null;
 
@@ -17,7 +17,7 @@ function init( toc ) {
 		return;
 	}
 
-	buildList( list, entries, '1' === toc.dataset.rxCollapse );
+	buildList( list, entries, '1' === toc.dataset.dwpRxCollapse );
 	toc.hidden = false;
 
 	// On narrow screens the list starts folded and folds again after a tap.
@@ -38,4 +38,4 @@ function init( toc ) {
 	trackActive( entries, list );
 }
 
-ready( () => document.querySelectorAll( '[data-rx-toc]' ).forEach( init ) );
+ready( () => document.querySelectorAll( '[data-dwp-rx-toc]' ).forEach( init ) );

@@ -7,12 +7,12 @@ const root = document.documentElement;
 
 function init( button ) {
 	const dialog = document.getElementById( button.getAttribute( 'aria-controls' ) );
-	const list = dialog?.querySelector( '.rx-toc__list' );
-	const body = dialog?.querySelector( '.rx-toc-drawer__body' );
+	const list = dialog?.querySelector( '.dwp-rx-toc__list' );
+	const body = dialog?.querySelector( '.dwp-rx-toc-drawer__body' );
 	const entries = list
 		? collectEntries( {
-			maxLevel: Number( dialog.dataset.rxMaxLevel ) || 3,
-			minItems: Number( dialog.dataset.rxMinItems ) || 3,
+			maxLevel: Number( dialog.dataset.dwpRxMaxLevel ) || 3,
+			minItems: Number( dialog.dataset.dwpRxMinItems ) || 3,
 		} )
 		: null;
 
@@ -21,7 +21,7 @@ function init( button ) {
 		return;
 	}
 
-	buildList( list, entries, '1' === dialog.dataset.rxCollapse );
+	buildList( list, entries, '1' === dialog.dataset.dwpRxCollapse );
 	button.hidden = false;
 
 	const tracker = trackActive( entries, body );
@@ -42,25 +42,25 @@ function init( button ) {
 
 	// The page moves aside on a wide screen: the panel's width becomes padding on <html>, so the
 	// theme's own layout (header, content, footer) just gets a narrower viewport to fill.
-	const side = dialog.classList.contains( 'rx-toc-drawer--right' ) ? 'end' : 'start';
-	const pushes = () => 'never' !== dialog.dataset.rxPush && wide.matches && ! small.matches;
+	const side = dialog.classList.contains( 'dwp-rx-toc-drawer--right' ) ? 'end' : 'start';
+	const pushes = () => 'never' !== dialog.dataset.dwpRxPush && wide.matches && ! small.matches;
 	const releasePage = () => {
-		root.classList.remove( 'rx-toc-pushed' );
-		root.style.removeProperty( '--rx-toc-push-start' );
-		root.style.removeProperty( '--rx-toc-push-end' );
+		root.classList.remove( 'dwp-rx-toc-pushed' );
+		root.style.removeProperty( '--dwp-rx-toc-push-start' );
+		root.style.removeProperty( '--dwp-rx-toc-push-end' );
 	};
 	const pushPage = () => {
 		if ( ! pushes() ) {
 			return;
 		}
-		root.style.setProperty( '--rx-toc-push-' + side, dialog.getBoundingClientRect().width + 'px' );
-		root.classList.add( 'rx-toc-pushed' );
+		root.style.setProperty( '--dwp-rx-toc-push-' + side, dialog.getBoundingClientRect().width + 'px' );
+		root.classList.add( 'dwp-rx-toc-pushed' );
 	};
 
 	const open = () => {
 		if ( small.matches ) {
 			dialog.showModal();
-			window.history.pushState( { rxToc: true }, '' );
+			window.history.pushState( { dwpRxToc: true }, '' );
 			pushed = true;
 		} else {
 			dialog.show();
@@ -75,7 +75,7 @@ function init( button ) {
 		releasePage();
 		if ( pushed ) {
 			pushed = false;
-			if ( window.history.state && window.history.state.rxToc ) {
+			if ( window.history.state && window.history.state.dwpRxToc ) {
 				// Take our own history entry away again; the scroll happens after that, because going
 				// back would otherwise restore the earlier scroll position.
 				waiting = true;
@@ -102,11 +102,11 @@ function init( button ) {
 			return;
 		}
 		// Panels of other bar items (share, rating) close, so only one thing is open at a time.
-		document.querySelectorAll( '[data-rx-panel]:not([hidden])' ).forEach( ( panel ) => ( panel.hidden = true ) );
+		document.querySelectorAll( '[data-dwp-rx-panel]:not([hidden])' ).forEach( ( panel ) => ( panel.hidden = true ) );
 		open();
 	} );
 
-	dialog.querySelector( '[data-rx-toc-close]' )?.addEventListener( 'click', () => dialog.close() );
+	dialog.querySelector( '[data-dwp-rx-toc-close]' )?.addEventListener( 'click', () => dialog.close() );
 
 	// A click on the dimmed area outside the panel closes it (modal on a phone).
 	dialog.addEventListener( 'click', ( event ) => {
@@ -143,4 +143,4 @@ function init( button ) {
 	} );
 }
 
-ready( () => document.querySelectorAll( '[data-rx-toc-open]' ).forEach( init ) );
+ready( () => document.querySelectorAll( '[data-dwp-rx-toc-open]' ).forEach( init ) );

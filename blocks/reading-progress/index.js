@@ -29,9 +29,9 @@ registerBlockType( metadata.name, {
 					] }
 				/>
 			</InspectorControls>
-			<div { ...useBlockProps( { className: 'rx-progress-preview' } ) }>
+			<div { ...useBlockProps( { className: 'dwp-rx-progress-preview' } ) }>
 				<span
-					className="rx-progress-preview__swatch"
+					className="dwp-rx-progress-preview__swatch"
 					style={ attributes.color ? { background: attributes.color } : undefined }
 				/>
 				<span>{ __( 'Reading progress bar (thin bar at the top of the screen on the site)', 'reader-experience' ) }</span>

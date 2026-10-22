@@ -11,7 +11,7 @@
 	"parent": [ "reader-experience/interaction-bar" ],
 	"supports": { "html": false },
 	"editorScript": "file:./index.js",
-	"style": ["rx-base", "file:./style-index.css"],
+	"style": ["dwp-rx-base", "file:./style-index.css"],
 	"viewScript": "file:./view.js",
 	"render": "file:./render.php"
 }

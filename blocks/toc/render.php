@@ -39,13 +39,13 @@ $style_props      = array();
 $text_color       = CssValue::color( (string) ( $attributes['textColor'] ?? '' ) );
 $background_color = CssValue::color( (string) ( $attributes['backgroundColor'] ?? '' ) );
 if ( '' !== $text_color ) {
-	$style_props[] = '--rx-toc-text:' . esc_attr( $text_color );
+	$style_props[] = '--dwp-rx-toc-text:' . esc_attr( $text_color );
 }
 if ( '' !== $background_color ) {
-	$style_props[] = '--rx-toc-bg:' . esc_attr( $background_color );
+	$style_props[] = '--dwp-rx-toc-bg:' . esc_attr( $background_color );
 }
 if ( ! empty( $attributes['fontSize'] ) ) {
-	$style_props[] = '--rx-toc-font-size:' . (int) $attributes['fontSize'] . 'px';
+	$style_props[] = '--dwp-rx-toc-font-size:' . (int) $attributes['fontSize'] . 'px';
 }
 $inline_style = implode( ';', $style_props );
 
@@ -56,19 +56,19 @@ $inline_style = implode( ';', $style_props );
  */
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
-		'class'             => 'rx-toc rx-toc--' . $style,
-		'open'              => '',
-		'id'                => 'rx-toc',
-		'style'             => $inline_style,
-		'hidden'            => '',
-		'data-rx-toc'       => '',
-		'data-rx-max-level' => (string) $max_level,
-		'data-rx-min-items' => (string) $min_items,
-		'data-rx-collapse'  => $collapse_nested ? '1' : '0',
+		'class'                 => 'dwp-rx-toc dwp-rx-toc--' . $style,
+		'open'                  => '',
+		'id'                    => 'dwp-rx-toc',
+		'style'                 => $inline_style,
+		'hidden'                => '',
+		'data-dwp-rx-toc'       => '',
+		'data-dwp-rx-max-level' => (string) $max_level,
+		'data-dwp-rx-min-items' => (string) $min_items,
+		'data-dwp-rx-collapse'  => $collapse_nested ? '1' : '0',
 	)
 );
 ?>
 <details <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>>
-	<summary class="rx-toc__summary"><?php echo esc_html( $title ); ?></summary>
-	<ol class="rx-toc__list"></ol>
+	<summary class="dwp-rx-toc__summary"><?php echo esc_html( $title ); ?></summary>
+	<ol class="dwp-rx-toc__list"></ol>
 </details>

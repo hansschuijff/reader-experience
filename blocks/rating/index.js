@@ -23,7 +23,7 @@ registerBlockType( metadata.name, {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...useBlockProps( { className: 'rx-rating-preview' } ) }>
+			<div { ...useBlockProps( { className: 'dwp-rx-rating-preview' } ) }>
 				<Icon name="thumb_up" />
 				<Icon name="thumb_down" />
 			</div>
