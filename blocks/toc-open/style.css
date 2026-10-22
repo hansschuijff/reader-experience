@@ -79,14 +79,14 @@
  * Like the list view in the block editor: a small grey badge with the heading level in front of
  * each title, so the level is readable without a vertical rule or deep indentation.
  */
-.rx-toc-drawer__body .rx-toc__list {
+.rx-toc-drawer .rx-toc-drawer__body .rx-toc__list {
 	max-height: none;
 	overflow: visible;
 	margin: 0;
 	border-inline-start: 0;
 }
-.rx-toc-drawer__body .rx-toc__item a,
-.rx-toc-drawer__body .rx-toc__item .rx-toc__link {
+.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item a,
+.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item .rx-toc__link {
 	display: flex !important;
 	align-items: baseline;
 	gap: 0.5rem;
@@ -95,7 +95,7 @@
 	border-inline-start: 0;
 	border-radius: 4px;
 }
-.rx-toc-drawer__body .rx-toc__item a::before {
+.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item a::before {
 	content: attr( data-rx-tag );
 	flex: none;
 	min-width: 2em;
@@ -108,11 +108,11 @@
 	background: var( --rx-badge-bg, #ddd );
 	border-radius: 4px;
 }
-.rx-toc-drawer__body .rx-toc__item--l3 a { padding-inline-start: 1rem; }
-.rx-toc-drawer__body .rx-toc__item--l4 a { padding-inline-start: 1.75rem; }
-.rx-toc-drawer__body .rx-toc__item a[aria-current] { background: color-mix( in srgb, currentColor 8%, transparent ); }
+.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item--l3 a { padding-inline-start: 1rem; }
+.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item--l4 a { padding-inline-start: 1.75rem; }
+.rx-toc-drawer .rx-toc-drawer__body .rx-toc__item a[aria-current] { background: color-mix( in srgb, currentColor 8%, transparent ); }
 /* A rule only where it means something: next to the sub-levels of a collapsible group. */
-.rx-toc-drawer__body .rx-toc__sublist { margin-inline-start: 0.75rem; border-inline-start: 1px solid var( --rx-panel-border, #ddd ); }
+.rx-toc-drawer .rx-toc-drawer__body .rx-toc__sublist { margin-inline-start: 0.75rem; border-inline-start: 1px solid var( --rx-panel-border, #ddd ); }
 
 
 /* On a phone: wider, like a menu overlay. */
