@@ -1,6 +1,6 @@
 <?php
 /**
- * Heading anchors and the heading list for the table of contents.
+ * Heading ids for the anchor links.
  *
  * @package ReaderExperience\Modules\Reading
  * @author  Hans Schuijff <@hansschuijff>
@@ -16,28 +16,18 @@ use WP_HTML_Tag_Processor;
 use WP_Post;
 
 use function add_filter;
-use function array_column;
-use function array_filter;
-use function array_values;
-use function count;
 use function get_post;
 use function html_entity_decode;
 use function is_string;
 use function max;
-use function min;
-use function parse_blocks;
 use function preg_match;
 use function trim;
 use function wp_strip_all_tags;
 
 /**
- * Gives headings (h2 to h4) an anchor and builds the list for the table of contents.
- *
- * - Anchors are added while the core/heading blocks of the post content render.
- * - The list comes from parse_blocks() on the post content, including synced patterns.
- *
- * Limitation: headings that only come into being through other dynamic blocks (a query loop
- * inside the post, say) and classic, non-block headings are not included.
+ * Gives headings (h2 to h4) an id while the core/heading blocks of the post content render, so
+ * they can be linked to. The table of contents does not depend on this: it builds its list in the
+ * browser from the headings on the page and tags them with its own data attribute.
  *
  * Ids are only added when HeadingAnchors allows it for the post (off by default).
  */
@@ -75,13 +65,6 @@ final class HeadingIndexer {
 	private HeadingAnchors $anchors;
 
 	/**
-	 * Heading lists per post id, built once per request.
-	 *
-	 * @var array<int,array<int,array{id:string,text:string,level:int}>>
-	 */
-	private static array $cache = array();
-
-	/**
 	 * Constructor.
 	 *
 	 * @param HeadingAnchors $anchors Policy.
@@ -113,7 +96,7 @@ final class HeadingIndexer {
 	public function start( $content ) {
 		if ( 0 === $this->depth ) {
 			$this->registry->reset();
-			$this->active = $this->anchors->needs_ids_for( get_post() );
+			$this->active = $this->anchors->is_enabled_for( get_post() );
 		}
 		++$this->depth;
 		return $content;
@@ -174,114 +157,6 @@ final class HeadingIndexer {
 
 		$processor->set_attribute( 'id', $id );
 		return $processor->get_updated_html();
-	}
-
-	/**
-	 * The headings of a post, for the table of contents.
-	 *
-	 * @since 0.1.0
-	 * @param int $post_id   Post id.
-	 * @param int $max_level Deepest heading level to include (2 to 4).
-	 * @return array<int,array{id:string,text:string,level:int}>
-	 */
-	public static function headings_for_post( int $post_id, int $max_level = 3 ): array {
-		if ( ! isset( self::$cache[ $post_id ] ) ) {
-			$post = get_post( $post_id );
-			$out  = array();
-
-			if ( $post instanceof WP_Post ) {
-				self::walk( parse_blocks( $post->post_content ), new AnchorRegistry(), $out, 0 );
-			}
-
-			self::$cache[ $post_id ] = $out;
-		}
-
-		return array_values(
-			array_filter(
-				self::$cache[ $post_id ],
-				static fn ( array $item ): bool => $item['level'] <= $max_level
-			)
-		);
-	}
-
-	/**
-	 * Collects headings from a block tree, following synced patterns (reusable blocks).
-	 *
-	 * @param array<int,array<string,mixed>>                    $blocks   Parsed blocks.
-	 * @param AnchorRegistry                                    $registry Anchor registry.
-	 * @param array<int,array{id:string,text:string,level:int}> $out      Collected headings (by reference).
-	 * @param int                                               $guard    Nesting depth of synced patterns, to stop loops.
-	 * @return void
-	 */
-	private static function walk( array $blocks, AnchorRegistry $registry, array &$out, int $guard ): void {
-		foreach ( $blocks as $block ) {
-			$name = $block['blockName'] ?? null;
-
-			if ( 'core/heading' === $name ) {
-				$level = (int) ( $block['attrs']['level'] ?? 2 );
-
-				if ( $level >= self::MIN_LEVEL && $level <= self::MAX_LEVEL ) {
-					$text     = self::plain_text( (string) ( $block['innerHTML'] ?? '' ) );
-					$existing = $block['attrs']['anchor'] ?? null;
-					$id       = $registry->claim( is_string( $existing ) ? $existing : null, $text );
-
-					if ( '' !== $text ) {
-						$out[] = array(
-							'id'    => $id,
-							'text'  => $text,
-							'level' => $level,
-						);
-					}
-				}
-			} elseif ( 'core/block' === $name && $guard < 3 && ! empty( $block['attrs']['ref'] ) ) {
-				$ref = get_post( (int) $block['attrs']['ref'] );
-				if ( $ref instanceof WP_Post && 'wp_block' === $ref->post_type ) {
-					self::walk( parse_blocks( $ref->post_content ), $registry, $out, $guard + 1 );
-				}
-			}
-
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				self::walk( $block['innerBlocks'], $registry, $out, $guard );
-			}
-		}
-	}
-
-	/**
-	 * Groups a flat heading list by top level (the lowest level in the list, usually h2):
-	 * everything below becomes a child of the most recent top-level heading. Headings that
-	 * come before the first top-level heading (rare) get a group of their own, without children.
-	 *
-	 * @since 0.1.0
-	 * @param array<int,array{id:string,text:string,level:int}> $items Flat heading list.
-	 * @return array<int,array{item:array{id:string,text:string,level:int},children:array<int,array{id:string,text:string,level:int}>}>
-	 */
-	public static function group_by_top_level( array $items ): array {
-		if ( ! $items ) {
-			return array();
-		}
-
-		$top_level = min( array_column( $items, 'level' ) );
-		$groups    = array();
-		$current   = null;
-
-		foreach ( $items as $item ) {
-			if ( $item['level'] === $top_level ) {
-				$current  = array(
-					'item'     => $item,
-					'children' => array(),
-				);
-				$groups[] = $current;
-			} elseif ( null !== $current ) {
-				$groups[ count( $groups ) - 1 ]['children'][] = $item;
-			} else {
-				$groups[] = array(
-					'item'     => $item,
-					'children' => array(),
-				);
-			}
-		}
-
-		return $groups;
 	}
 
 	/**

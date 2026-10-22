@@ -55,10 +55,16 @@ Always return the whole array from this filter. To use your own CSS or JS, retur
 `--before`/`--after` and `.rx-heading-link__toast`. The options for our own JS are in
 `window.rxHeadingAnchors`; a replacement script can read them if it wants to.
 
-**Table of contents exception:** when a post contains a table of contents block, its headings always
-get an id, even if the post type is not switched on; the table of contents links to them. Only the
-ids: button, CSS and JS stay off. If the table of contents sits in a template or sidebar instead of
-the post content, the exception does not apply and the post type has to be switched on.
+## Table of contents
+
+The table of contents block builds its list in the browser from the h2 to h4 headings in the content
+(`.wp-block-post-content`, with `.entry-content`, `article` and `main` as fallbacks). It does not
+depend on heading ids or on the anchor links above: every heading gets `data-rx-heading="<n>"`, its
+position among the headings, and the list links to that. A text edit keeps the number, so the list
+still leads to about the right place; adding or removing a heading shifts the numbers after it. When
+a heading has an id of its own, the link uses it as well and the address bar gets that hash. The
+block stays hidden when the page has fewer headings than the block's minimum, and the "Contents"
+button in the interaction bar is hidden then too. Without JavaScript the block does not show.
 
 ## Rating and comments
 

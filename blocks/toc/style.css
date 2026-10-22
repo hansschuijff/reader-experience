@@ -4,6 +4,7 @@
 	color: var(--rx-toc-text, inherit);
 	background: var(--rx-toc-bg, transparent);
 }
+.rx-toc[hidden] { display: none !important; }
 .rx-toc__summary { cursor: pointer; font-weight: 600; padding: 0.25rem 0; }
 
 /*
@@ -94,6 +95,7 @@
 
 /* Ankersprongen komen niet onder een vaste header terecht. Pas de variabele aan op je thema. */
 .wp-block-post-content :is(h2, h3, h4)[id],
-.entry-content :is(h2, h3, h4)[id] {
+.entry-content :is(h2, h3, h4)[id],
+[data-rx-heading] {
 	scroll-margin-top: var(--rx-anchor-offset, 5rem);
 }

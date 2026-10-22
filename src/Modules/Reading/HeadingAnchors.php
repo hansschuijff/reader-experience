@@ -19,7 +19,6 @@ use function apply_filters;
 use function array_filter;
 use function array_unique;
 use function array_values;
-use function has_block;
 use function in_array;
 use function is_array;
 use function is_string;
@@ -42,13 +41,6 @@ final class HeadingAnchors {
 	public const POSITION_AFTER  = 'after';
 
 	/**
-	 * Name of the table of contents block.
-	 *
-	 * @var string
-	 */
-	private const TOC_BLOCK = 'reader-experience/toc';
-
-	/**
 	 * Post types for which it is switched on, fetched once per request.
 	 *
 	 * @var string[]|null
@@ -61,13 +53,6 @@ final class HeadingAnchors {
 	 * @var array<int,bool>
 	 */
 	private array $enabled = array();
-
-	/**
-	 * Result of needs_ids_for() per post.
-	 *
-	 * @var array<int,bool>
-	 */
-	private array $needs_ids = array();
 
 	/**
 	 * Post types for which the functionality is switched on.
@@ -121,26 +106,6 @@ final class HeadingAnchors {
 		}
 
 		return $this->enabled[ $post->ID ];
-	}
-
-	/**
-	 * Should the headings in this post get an id? Yes when the functionality is on, or when the
-	 * post contains a table of contents that needs those ids.
-	 *
-	 * @since 0.2.0
-	 * @param WP_Post|null $post The post.
-	 * @return bool
-	 */
-	public function needs_ids_for( ?WP_Post $post ): bool {
-		if ( null === $post ) {
-			return false;
-		}
-
-		if ( ! isset( $this->needs_ids[ $post->ID ] ) ) {
-			$this->needs_ids[ $post->ID ] = $this->is_enabled_for( $post ) || has_block( self::TOC_BLOCK, $post );
-		}
-
-		return $this->needs_ids[ $post->ID ];
 	}
 
 	/**

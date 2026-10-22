@@ -14,11 +14,9 @@
 
 declare( strict_types=1 );
 
-use ReaderExperience\Modules\Reading\HeadingIndexer;
 use ReaderExperience\Support\CssValue;
 
-$post_id = (int) ( $block->context['postId'] ?? get_the_ID() );
-if ( ! $post_id ) {
+if ( ! is_singular() ) {
 	return;
 }
 
@@ -26,11 +24,6 @@ $max_level       = max( 2, min( 4, (int) ( $attributes['maxLevel'] ?? 3 ) ) );
 $min_items       = max( 1, (int) ( $attributes['minItems'] ?? 3 ) );
 $style           = ( 'compact' === ( $attributes['style'] ?? 'standard' ) ) ? 'compact' : 'standard';
 $collapse_nested = ! empty( $attributes['collapseNested'] );
-$items           = HeadingIndexer::headings_for_post( $post_id, $max_level );
-
-if ( count( $items ) < $min_items ) {
-	return;
-}
 
 $title = isset( $attributes['title'] ) && '' !== trim( (string) $attributes['title'] )
 	? (string) $attributes['title']
@@ -56,55 +49,26 @@ if ( ! empty( $attributes['fontSize'] ) ) {
 }
 $inline_style = implode( ';', $style_props );
 
-/**
- * Prints the link of one table of contents entry.
- *
- * @param array{id:string,text:string,level:int} $item Heading.
+/*
+ * The list is built in the browser (view.js) from the headings that are on the page, so it always
+ * matches what the visitor sees and does not depend on heading ids. The block stays hidden until
+ * the script has found enough headings.
  */
-$render_link = static function ( array $item ): void {
-	printf(
-		'<a href="#%s">%s</a>',
-		esc_attr( $item['id'] ),
-		esc_html( $item['text'] )
-	);
-};
-
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
-		'class' => 'rx-toc rx-toc--' . $style,
-		'open'  => '',
-		'id'    => 'rx-toc',
-		'style' => $inline_style,
+		'class'             => 'rx-toc rx-toc--' . $style,
+		'open'              => '',
+		'id'                => 'rx-toc',
+		'style'             => $inline_style,
+		'hidden'            => '',
+		'data-rx-toc'       => '',
+		'data-rx-max-level' => (string) $max_level,
+		'data-rx-min-items' => (string) $min_items,
+		'data-rx-collapse'  => $collapse_nested ? '1' : '0',
 	)
 );
 ?>
 <details <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>>
 	<summary class="rx-toc__summary"><?php echo esc_html( $title ); ?></summary>
-
-	<?php if ( $collapse_nested ) : ?>
-		<ul class="rx-toc__list rx-toc__list--grouped">
-			<?php foreach ( HeadingIndexer::group_by_top_level( $items ) as $group ) : ?>
-				<?php if ( $group['children'] ) : ?>
-					<li class="rx-toc__group">
-						<details class="rx-toc__group-toggle">
-							<summary class="rx-toc__item rx-toc__item--l<?php echo (int) $group['item']['level']; ?>"><?php $render_link( $group['item'] ); ?></summary>
-							<ul class="rx-toc__sublist">
-								<?php foreach ( $group['children'] as $child ) : ?>
-									<li class="rx-toc__item rx-toc__item--l<?php echo (int) $child['level']; ?>"><?php $render_link( $child ); ?></li>
-								<?php endforeach; ?>
-							</ul>
-						</details>
-					</li>
-				<?php else : ?>
-					<li class="rx-toc__item rx-toc__item--l<?php echo (int) $group['item']['level']; ?>"><?php $render_link( $group['item'] ); ?></li>
-				<?php endif; ?>
-			<?php endforeach; ?>
-		</ul>
-	<?php else : ?>
-		<ol class="rx-toc__list">
-			<?php foreach ( $items as $item ) : ?>
-				<li class="rx-toc__item rx-toc__item--l<?php echo (int) $item['level']; ?>"><?php $render_link( $item ); ?></li>
-			<?php endforeach; ?>
-		</ol>
-	<?php endif; ?>
+	<ol class="rx-toc__list"></ol>
 </details>
