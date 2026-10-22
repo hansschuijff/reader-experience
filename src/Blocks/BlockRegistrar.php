@@ -12,16 +12,22 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Blocks;
 
+use WP_Block_Type;
+
+use function array_merge;
 use function defined;
 use function dirname;
 use function error_log;
 use function filemtime;
+use function in_array;
 use function is_readable;
 use function plugins_url;
 use function register_block_type;
 use function rtrim;
 use function sprintf;
 use function wp_register_style;
+use function wp_scripts;
+use function wp_set_script_translations;
 
 /**
  * Registers blocks from the build folder, based on their block.json.
@@ -64,7 +70,31 @@ final class BlockRegistrar {
 				continue;
 			}
 
-			register_block_type( $dir );
+			$type = register_block_type( $dir );
+
+			if ( $type instanceof WP_Block_Type ) {
+				$this->set_script_translations( $type );
+			}
+		}
+	}
+
+	/**
+	 * Tells WordPress where the bundled JSON translations of a block's scripts live. Core only
+	 * looks in the global languages folder (wp-content/languages/plugins) unless it is given a path.
+	 *
+	 * @param WP_Block_Type $type Registered block type.
+	 * @return void
+	 */
+	private function set_script_translations( WP_Block_Type $type ): void {
+		$languages = dirname( $this->build_dir, 2 ) . '/languages';
+
+		foreach ( array_merge( $type->editor_script_handles, $type->view_script_handles ) as $handle ) {
+			$script = wp_scripts()->query( (string) $handle );
+
+			// Only scripts that use wp.i18n: do not add the dependency to scripts that do not.
+			if ( $script && in_array( 'wp-i18n', $script->deps, true ) ) {
+				wp_set_script_translations( (string) $handle, 'reader-experience', $languages );
+			}
 		}
 	}
 

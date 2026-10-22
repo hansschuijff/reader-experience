@@ -76,14 +76,16 @@
 @media (min-width: 782px) {
 	.rx-rating--bar .rx-rating__panel {
 		inset-inline: auto;
+		top: 50%;
+		bottom: auto;
 		left: 50%;
-		transform: translateX(-50%);
+		transform: translate( -50%, -50% );
 		/* An explicit width: with left: 50% the box would otherwise shrink to the textarea's intrinsic width. */
-		width: min(40rem, calc(100vw - 32px));
+		width: min( 30rem, calc( 100vw - 32px ) );
 		max-width: none;
 		padding: 20px;
 	}
-	.rx-rating__text { min-height: 9em; } /* ≈ 6–7 regels in plaats van de mobiele 3 */
+	.rx-rating__text { min-height: 12em; resize: vertical; }
 	.rx-rating__send,
 	.rx-rating__follow-up-yes,
 	.rx-rating__skip,

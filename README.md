@@ -97,6 +97,9 @@ translation (`reader-experience-nl_NL.po` and `.mo`) and JSON files with the str
 editor scripts. The JSON files are named after the MD5 of the script path
 (`build/blocks/<slug>/index.js`), which is how WordPress finds them.
 
+Only `nl_NL` is bundled. Other variants of the same language (`nl_NL_formal`, `nl_BE`) fall back to it,
+so the strings are not left in English.
+
 After changing strings, update the template and the translation with WP-CLI, Loco Translate or Poedit:
 
     wp i18n make-pot . languages/reader-experience.pot --exclude=node_modules,vendor,build

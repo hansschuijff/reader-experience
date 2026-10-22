@@ -18,6 +18,7 @@ use ReaderExperience\Modules\Bar\BarModule;
 use ReaderExperience\Modules\Rating\RatingModule;
 use ReaderExperience\Modules\Reading\ReadingModule;
 use ReaderExperience\Modules\Sharing\SharingModule;
+use ReaderExperience\Support\LocaleFallback;
 use ReaderExperience\Support\Migrator;
 
 use function add_action;
@@ -99,6 +100,8 @@ final class Plugin {
 		if ( is_admin() ) {
 			$this->run_migrations();
 		}
+
+		( new LocaleFallback( 'reader-experience', $this->path( 'languages' ) ) )->register();
 
 		$this->on_init(
 			function (): void {

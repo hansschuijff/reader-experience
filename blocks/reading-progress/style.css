@@ -8,12 +8,15 @@
 	pointer-events: none;
 }
 /*
- * Block themes (e.g. Twenty Twenty-Five) put a margin-block-start between the children of a
- * layout, and a margin also shifts a fixed element away from its top offset. That left a gap
- * under the admin bar. The doubled class beats the theme's selectors.
+ * Block themes limit the width of layout children (max-width plus auto margins, the latter with
+ * !important) and add a margin-block-start between them. A margin also shifts a fixed element away
+ * from its offsets, and a max-width keeps it inside the reading column. The bar always spans the
+ * full viewport, so the theme's values are reset here, with the same !important where needed.
  */
 .rx-progress.rx-progress {
-	margin: 0;
+	margin: 0 !important;
+	max-width: none !important;
+	width: auto;
 }
 /*
  * De adminbar is alleen op bredere schermen "fixed"; WordPress zelf maakt hem
