@@ -63,8 +63,19 @@ depend on heading ids or on the anchor links above: every heading gets `data-rx-
 position among the headings, and the list links to that. A text edit keeps the number, so the list
 still leads to about the right place; adding or removing a heading shifts the numbers after it. When
 a heading has an id of its own, the link uses it as well and the address bar gets that hash. The
-block stays hidden when the page has fewer headings than the block's minimum, and the "Contents"
-button in the interaction bar is hidden then too. Without JavaScript the block does not show.
+block stays hidden when the page has fewer headings than the block's minimum. Without JavaScript
+the block does not show.
+
+### Contents button and panel
+
+The "Contents" button in the interaction bar opens the same list in a side panel (a `<dialog>`), like
+the list view in the block editor. The panel is part of that button; there is no standalone option.
+Block settings: panel title, side (left or right, default left), the deepest heading level, the
+minimum number of headings (the button stays hidden below it) and collapsible sub-levels. On a large
+screen the panel is non-modal and stays open while you read; on a small screen (up to 781px) it is a
+modal overlay. It closes with the close button, the Contents button, Escape, a tap outside it or the
+browser's back button, and on a small screen also when you choose a heading. The inline TOC block
+stays available for places such as a sidebar, widget area or navigation.
 
 ## Rating and comments
 

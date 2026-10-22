@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-21 20:27+0000\n"
+"POT-Creation-Date: 2026-10-22 13:12+0000\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,12 +29,12 @@ msgstr ""
 msgid "14 comments"
 msgstr ""
 
-#: blocks/comments-link/render.php:26
+#: blocks/comments-link/render.php:33
 msgid "Comments"
 msgstr ""
 
 #. %d: number of comments
-#: blocks/comments-link/render.php:32
+#: blocks/comments-link/render.php:39
 msgid "%d comment"
 msgid_plural "%d comments"
 msgstr[0] ""
@@ -70,7 +70,8 @@ msgid ""
 msgstr ""
 
 #: blocks/rating/index.js:13 blocks/reading-progress/index.js:12
-#: blocks/reading-time/index.js:11 blocks/toc/index.js:19
+#: blocks/reading-time/index.js:11 blocks/toc-open/index.js:13
+#: blocks/toc/index.js:19
 msgid "Settings"
 msgstr ""
 
@@ -94,79 +95,83 @@ msgid "Compact, icons only (bar)"
 msgstr ""
 
 #: blocks/rating/render.php:102
-msgid "Thanks for your response"
-msgstr ""
-
-#: blocks/rating/render.php:106
-msgid "Enable JavaScript to be able to respond."
-msgstr ""
-
-#: blocks/rating/render.php:40 blocks/rating/render.php:42
-msgid "Like"
-msgstr ""
-
-#: blocks/rating/render.php:44 blocks/rating/render.php:46
-msgid "Dislike"
-msgstr ""
-
-#: blocks/rating/render.php:55
-msgid "Thanks for your thumb. What did you like about this page?"
-msgstr ""
-
-#: blocks/rating/render.php:56
-msgid "Thanks for your thumb. What could we improve about this page?"
-msgstr ""
-
-#: blocks/rating/render.php:58
-msgid "Explanation (optional)"
-msgstr ""
-
-#: blocks/rating/render.php:59
-msgid "Optional"
-msgstr ""
-
-#: blocks/rating/render.php:61
-msgid "Leave this field empty"
-msgstr ""
-
-#: blocks/rating/render.php:65
-msgid "Skip"
-msgstr ""
-
-#: blocks/rating/render.php:66
-msgid "Send"
-msgstr ""
-
-#: blocks/rating/render.php:74
-msgid "May we post your comment below the article?"
-msgstr ""
-
-#: blocks/rating/render.php:75
-msgid "How can we contact you if we have more questions?"
-msgstr ""
-
-#: blocks/rating/render.php:78 blocks/rating/render.php:79
-msgid "Name"
-msgstr ""
-
-#: blocks/rating/render.php:80 blocks/rating/render.php:81
-msgid "Email address"
-msgstr ""
-
-#: blocks/rating/render.php:86
-msgid "Please enter your name and a valid email address."
-msgstr ""
-
-#: blocks/rating/render.php:90
-msgid "No, thanks"
-msgstr ""
-
-#: blocks/rating/render.php:95
 msgid "Yes, post it"
 msgstr ""
 
-#: blocks/rating/render.php:96
+#: blocks/rating/render.php:103
 msgid "Yes, that is fine"
+msgstr ""
+
+#: blocks/rating/render.php:109
+msgid "Sorry, that did not work. Please try again later."
+msgstr ""
+
+#: blocks/rating/render.php:113
+msgid "Thanks for your response"
+msgstr ""
+
+#: blocks/rating/render.php:117
+msgid "Enable JavaScript to be able to respond."
+msgstr ""
+
+#: blocks/rating/render.php:47 blocks/rating/render.php:49
+msgid "Like"
+msgstr ""
+
+#: blocks/rating/render.php:51 blocks/rating/render.php:53
+msgid "Dislike"
+msgstr ""
+
+#: blocks/rating/render.php:62
+msgid "Thanks for your thumb. What did you like about this page?"
+msgstr ""
+
+#: blocks/rating/render.php:63
+msgid "Thanks for your thumb. What could we improve about this page?"
+msgstr ""
+
+#: blocks/rating/render.php:65
+msgid "Explanation (optional)"
+msgstr ""
+
+#: blocks/rating/render.php:66
+msgid "Optional"
+msgstr ""
+
+#: blocks/rating/render.php:68
+msgid "Leave this field empty"
+msgstr ""
+
+#: blocks/rating/render.php:72
+msgid "Skip"
+msgstr ""
+
+#: blocks/rating/render.php:73
+msgid "Send"
+msgstr ""
+
+#: blocks/rating/render.php:81
+msgid "May we post your comment below the article?"
+msgstr ""
+
+#: blocks/rating/render.php:82
+msgid "How can we contact you if we have more questions?"
+msgstr ""
+
+#: blocks/rating/render.php:85 blocks/rating/render.php:86
+msgid "Name"
+msgstr ""
+
+#: blocks/rating/render.php:87 blocks/rating/render.php:88
+msgid "Email address"
+msgstr ""
+
+#: blocks/rating/render.php:93
+msgid "Please enter your name and a valid email address."
+msgstr ""
+
+#: blocks/rating/render.php:97
+msgid "No, thanks"
 msgstr ""
 
 #. Block title
@@ -233,17 +238,17 @@ msgid "12 min read (example)"
 msgstr ""
 
 #. %d: number of minutes left
-#: blocks/reading-time/render.php:28
+#: blocks/reading-time/render.php:33
 msgid "~%d min left"
 msgstr ""
 
 #. %d: number of minutes left
-#: blocks/reading-time/render.php:29
+#: blocks/reading-time/render.php:34
 msgid "Finished"
 msgstr ""
 
 #. %d: number of minutes
-#: blocks/reading-time/render.php:36
+#: blocks/reading-time/render.php:40
 msgid "%d min read"
 msgid_plural "%d min read"
 msgstr[0] ""
@@ -264,17 +269,29 @@ msgid ""
 "on its own."
 msgstr ""
 
-#: blocks/share/render.php:24 blocks/share/render.php:26
-#: blocks/share/render.php:29 blocks/share/index.js:12
+#: blocks/share/render.php:31 blocks/share/render.php:33
+#: blocks/share/render.php:36 blocks/share/index.js:12
 msgid "Share"
 msgstr ""
 
-#: blocks/share/render.php:44
+#: blocks/share/render.php:51
+msgid "Link to this article"
+msgstr ""
+
+#: blocks/share/render.php:52
 msgid "Copied"
 msgstr ""
 
-#: blocks/share/render.php:46
+#: blocks/share/render.php:54
 msgid "Copy"
+msgstr ""
+
+#. Block description
+#: blocks/toc-open/block.json
+msgctxt "block description"
+msgid ""
+"Button in the interaction bar that opens a panel with the table of contents "
+"of the article, built from its headings."
 msgstr ""
 
 #. Block title
@@ -283,18 +300,45 @@ msgctxt "block title"
 msgid "Contents (button)"
 msgstr ""
 
-#. Block description
-#: blocks/toc-open/block.json
-msgctxt "block description"
-msgid ""
-"Jumps to the table of contents of the article and opens it. Only appears "
-"when the article contains a table of contents block. Meant as a child of the"
-" interaction bar."
+#: blocks/toc-open/index.js:15
+msgid "Panel title"
 msgstr ""
 
-#: blocks/toc-open/render.php:23 blocks/toc-open/render.php:25
-#: blocks/toc/render.php:29 blocks/toc-open/index.js:11 blocks/toc/index.js:88
+#: blocks/toc-open/index.js:16 blocks/toc/index.js:22
+msgid "Leave empty for \"Contents\"."
+msgstr ""
+
+#: blocks/toc-open/index.js:21
+msgid "Side of the screen"
+msgstr ""
+
+#: blocks/toc-open/index.js:24
+msgid "Left"
+msgstr ""
+
+#: blocks/toc-open/index.js:25
+msgid "Right"
+msgstr ""
+
+#: blocks/toc-open/index.js:30 blocks/toc/index.js:27
+msgid "Show headings up to level"
+msgstr ""
+
+#: blocks/toc-open/index.js:40
+msgid "Hide this button when there are fewer headings than this"
+msgstr ""
+
+#: blocks/toc-open/index.js:47 blocks/toc/index.js:54
+msgid "Collapsible sub-levels per top-level heading"
+msgstr ""
+
+#: blocks/toc-open/render.php:29 blocks/toc/render.php:30
+#: blocks/toc-open/index.js:55 blocks/toc/index.js:88
 msgid "Contents"
+msgstr ""
+
+#: blocks/toc-open/render.php:61
+msgid "Close"
 msgstr ""
 
 #. Block description
@@ -313,14 +357,6 @@ msgstr ""
 
 #: blocks/toc/index.js:21
 msgid "Title"
-msgstr ""
-
-#: blocks/toc/index.js:22
-msgid "Leave empty for \"Contents\"."
-msgstr ""
-
-#: blocks/toc/index.js:27
-msgid "Show headings up to level"
 msgstr ""
 
 #: blocks/toc/index.js:37
@@ -345,10 +381,6 @@ msgstr ""
 msgid "Compact (lighter, suited for a sidebar)"
 msgstr ""
 
-#: blocks/toc/index.js:54
-msgid "Collapsible sub-levels per top-level heading"
-msgstr ""
-
 #: blocks/toc/index.js:55
 msgid ""
 "Useful with many headings: H3/H4 only appear after a click on their H2."
@@ -370,12 +402,16 @@ msgstr ""
 msgid "Background"
 msgstr ""
 
-#: blocks/toc/index.js:91
+#: blocks/toc/index.js:92
 msgid "This table of contents is filled in automatically"
 msgstr ""
 
-#: blocks/toc/index.js:94
+#: blocks/toc/index.js:95
 msgid "with links to the headings in the text"
+msgstr ""
+
+#: blocks/toc/index.js:98
+msgid "Choose which heading levels to show in the block settings"
 msgstr ""
 
 #. Description of the plugin
@@ -385,87 +421,112 @@ msgid ""
 "time, sharing and ratings."
 msgstr ""
 
-#: src/Modules/Rating/Admin/DashboardWidget.php:105
-msgid "View all reader feedback"
-msgstr ""
-
-#: src/Modules/Rating/Admin/DashboardWidget.php:56
-msgid "Recent reader feedback"
-msgstr ""
-
-#: src/Modules/Rating/Admin/DashboardWidget.php:71
-msgid "No feedback with a comment yet."
-msgstr ""
-
-#: src/Modules/Rating/Admin/DashboardWidget.php:84
-msgid "posted as a comment"
-msgstr ""
-
-#: src/Modules/Rating/Admin/DashboardWidget.php:88
+#: src/Modules/Rating/Admin/DashboardWidget.php:100
 msgid "wants contact"
 msgstr ""
 
-#: src/Modules/Rating/Admin/DashboardWidget.php:95
-#: src/Modules/Rating/Admin/FeedbackPage.php:150
-#: src/Modules/Rating/Admin/FeedbackPage.php:176
+#: src/Modules/Rating/Admin/DashboardWidget.php:107
+#: src/Modules/Rating/Admin/FeedbackPage.php:213
+#: src/Modules/Rating/Admin/FeedbackPage.php:259
 msgid "(untitled)"
 msgstr ""
 
-#: src/Modules/Rating/Admin/FeedbackPage.php:145
-msgid "Article:"
+#: src/Modules/Rating/Admin/DashboardWidget.php:117
+msgid "View all reader feedback"
 msgstr ""
 
-#: src/Modules/Rating/Admin/FeedbackPage.php:147
-msgid "All articles"
+#: src/Modules/Rating/Admin/DashboardWidget.php:68
+msgid "Recent reader feedback"
 msgstr ""
 
-#: src/Modules/Rating/Admin/FeedbackPage.php:154
-msgid "Filter"
+#: src/Modules/Rating/Admin/DashboardWidget.php:83
+msgid "No feedback with a comment yet."
 msgstr ""
 
-#: src/Modules/Rating/Admin/FeedbackPage.php:160
-msgid "Article"
+#: src/Modules/Rating/Admin/DashboardWidget.php:96
+msgid "posted as a comment"
 msgstr ""
 
-#: src/Modules/Rating/Admin/FeedbackPage.php:161
-#: src/Modules/Rating/Admin/PostColumn.php:67
-msgid "Rating"
-msgstr ""
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:162
-msgid "Reaction"
-msgstr ""
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:163
-msgid "Sender"
-msgstr ""
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:164
-msgid "Date"
-msgstr ""
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:170
-msgid "No feedback yet."
-msgstr ""
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:183
-msgid "Comment posted"
-msgstr ""
-
-#: src/Modules/Rating/Admin/FeedbackPage.php:72
+#: src/Modules/Rating/Admin/FeedbackPage.php:118
+#: src/Modules/Rating/Admin/FeedbackPage.php:119
+#: src/Modules/Rating/Admin/FeedbackPage.php:188
 msgid "Reader feedback"
 msgstr ""
 
-#: src/Modules/Rating/CommentPublisher.php:76
+#. %d: number of deleted feedback items
+#: src/Modules/Rating/Admin/FeedbackPage.php:197
+msgid "%d feedback item deleted."
+msgid_plural "%d feedback items deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:208
+msgid "Article:"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:210
+msgid "All articles"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:217
+msgid "Filter"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:228
+msgid "Delete the selected feedback?"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:230
+msgid "Delete selected"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:239
+msgid "Select all"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:241
+msgid "Article"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:242
+#: src/Modules/Rating/Admin/PostColumn.php:73
+msgid "Rating"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:243
+msgid "Reaction"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:244
+msgid "Sender"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:245
+msgid "Date"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:250
+msgid "No feedback yet."
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:255
+msgid "Select this feedback"
+msgstr ""
+
+#: src/Modules/Rating/Admin/FeedbackPage.php:266
+msgid "Comment posted"
+msgstr ""
+
+#: src/Modules/Rating/CommentPublisher.php:86
 msgid "Anonymous"
 msgstr ""
 
-#: src/Modules/Rating/Notifier.php:52
+#: src/Modules/Rating/Notifier.php:62
 msgid "New feedback with a comment"
 msgstr ""
 
 #. 1: post title, 2: the reader's comment, 3: link to the feedback overview
-#: src/Modules/Rating/Notifier.php:55
+#: src/Modules/Rating/Notifier.php:65
 msgid ""
 "On \"%1$s\":\n"
 "\n"
@@ -474,71 +535,43 @@ msgid ""
 "View all feedback: %3$s"
 msgstr ""
 
-#: src/Modules/Rating/Notifier.php:77
+#: src/Modules/Rating/Notifier.php:87
 msgid "Someone wants to be contacted after giving feedback"
 msgstr ""
 
 #. 1: post title, 2: link to the feedback overview
-#: src/Modules/Rating/Notifier.php:80
+#: src/Modules/Rating/Notifier.php:90
 msgid ""
 "On \"%1$s\" a contact request came in.\n"
 "\n"
 "View the details: %2$s"
 msgstr ""
 
-#: src/Modules/Rating/RatingController.php:136
-#: src/Modules/Sharing/ShareController.php:88
+#: src/Modules/Rating/RatingController.php:144
+#: src/Modules/Sharing/ShareController.php:97
 msgid "Unknown article."
 msgstr ""
 
-#: src/Modules/Reading/HeadingAnchors.php:207
+#: src/Modules/Reading/HeadingAnchors.php:183
 msgid "Copy link to this section"
 msgstr ""
 
-#: src/Modules/Reading/HeadingAnchors.php:208
+#: src/Modules/Reading/HeadingAnchors.php:184
 msgid "Link copied"
 msgstr ""
 
-#: src/Modules/Sharing/ChannelRegistry.php:40
+#: src/Modules/Sharing/ChannelRegistry.php:45
 msgid "WhatsApp"
 msgstr ""
 
-#: src/Modules/Sharing/ChannelRegistry.php:47
+#: src/Modules/Sharing/ChannelRegistry.php:52
 msgid "LinkedIn"
 msgstr ""
 
-#: src/Modules/Sharing/ChannelRegistry.php:54
+#: src/Modules/Sharing/ChannelRegistry.php:59
 msgid "Facebook"
 msgstr ""
 
-#: src/Modules/Sharing/ChannelRegistry.php:61
+#: src/Modules/Sharing/ChannelRegistry.php:66
 msgid "Email"
-msgstr ""
-
-#: blocks/share/render.php
-msgid "Link to this article"
-msgstr ""
-
-msgid "Choose which heading levels to show in the block settings"
-msgstr ""
-
-msgid "Delete selected"
-msgstr ""
-
-msgid "Select all"
-msgstr ""
-
-msgid "Select this feedback"
-msgstr ""
-
-msgid "Delete the selected feedback?"
-msgstr ""
-
-msgid "%d feedback item deleted."
-msgid_plural "%d feedback items deleted."
-msgstr[0] ""
-msgstr[1] ""
-
-#: blocks/rating/render.php
-msgid "Sorry, that did not work. Please try again later."
 msgstr ""

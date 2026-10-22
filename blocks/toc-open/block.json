@@ -5,7 +5,7 @@
 	"title": "Contents (button)",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "Jumps to the table of contents of the article and opens it. Only appears when the article contains a table of contents block. Meant as a child of the interaction bar.",
+	"description": "Button in the interaction bar that opens a panel with the table of contents of the article, built from its headings.",
 	"textdomain": "reader-experience",
 	"usesContext": [
 		"postId"
@@ -19,5 +19,35 @@
 	"editorScript": "file:./index.js",
 	"viewScript": "file:./view.js",
 	"render": "file:./render.php",
-	"style": ["rx-base"]
+	"style": [
+		"rx-base",
+		"rx-toc",
+		"file:./style-index.css"
+	],
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"side": {
+			"type": "string",
+			"default": "left",
+			"enum": [
+				"left",
+				"right"
+			]
+		},
+		"maxLevel": {
+			"type": "number",
+			"default": 3
+		},
+		"minItems": {
+			"type": "number",
+			"default": 3
+		},
+		"collapseNested": {
+			"type": "boolean",
+			"default": false
+		}
+	}
 }

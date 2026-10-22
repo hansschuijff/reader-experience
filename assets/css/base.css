@@ -94,6 +94,3 @@
 	cursor: pointer;
 	text-decoration: none;
 }
-
-/* The "Contents" button in the bar is useless when the page has no table of contents to open. */
-html[data-rx-toc="none"] [data-rx-toc-open] { display: none !important; }

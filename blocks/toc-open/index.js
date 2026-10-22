@@ -1,15 +1,60 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, TextControl, SelectControl, RangeControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import metadata from './block.json';
 import { Icon } from '../shared/icons';
+import './style.css';
 
 registerBlockType( metadata.name, {
-	edit: () => (
-		<div { ...useBlockProps( { className: 'rx-bar__button' } ) }>
-			<Icon name="toc" />
-			<span className="rx-bar__label">{ __( 'Contents', 'reader-experience' ) }</span>
-		</div>
+	edit: ( { attributes, setAttributes } ) => (
+		<>
+			<InspectorControls>
+				<PanelBody title={ __( 'Settings', 'reader-experience' ) }>
+					<TextControl
+						label={ __( 'Panel title', 'reader-experience' ) }
+						help={ __( 'Leave empty for "Contents".', 'reader-experience' ) }
+						value={ attributes.title }
+						onChange={ ( title ) => setAttributes( { title } ) }
+					/>
+					<SelectControl
+						label={ __( 'Side of the screen', 'reader-experience' ) }
+						value={ attributes.side }
+						options={ [
+							{ label: __( 'Left', 'reader-experience' ), value: 'left' },
+							{ label: __( 'Right', 'reader-experience' ), value: 'right' },
+						] }
+						onChange={ ( side ) => setAttributes( { side } ) }
+					/>
+					<SelectControl
+						label={ __( 'Show headings up to level', 'reader-experience' ) }
+						value={ String( attributes.maxLevel ) }
+						options={ [
+							{ label: 'H2', value: '2' },
+							{ label: 'H2 en H3', value: '3' },
+							{ label: 'H2 tot en met H4', value: '4' },
+						] }
+						onChange={ ( value ) => setAttributes( { maxLevel: Number( value ) } ) }
+					/>
+					<RangeControl
+						label={ __( 'Hide this button when there are fewer headings than this', 'reader-experience' ) }
+						min={ 1 }
+						max={ 10 }
+						value={ attributes.minItems }
+						onChange={ ( minItems ) => setAttributes( { minItems } ) }
+					/>
+					<ToggleControl
+						label={ __( 'Collapsible sub-levels per top-level heading', 'reader-experience' ) }
+						checked={ attributes.collapseNested }
+						onChange={ ( collapseNested ) => setAttributes( { collapseNested } ) }
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div { ...useBlockProps( { className: 'rx-bar__button' } ) }>
+				<Icon name="toc" />
+				<span className="rx-bar__label">{ __( 'Contents', 'reader-experience' ) }</span>
+			</div>
+		</>
 	),
 	save: () => null,
 } );

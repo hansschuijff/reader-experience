@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-21 20:27+0000",
+	"translation-revision-date": "2026-10-22 13:12+0000",
 	"generator": "reader-experience tooling",
 	"source": "build/blocks/toc-open/index.js",
 	"domain": "messages",
@@ -10,6 +10,33 @@
 				"lang": "nl_NL",
 				"plural-forms": "nplurals=2; plural=(n != 1);"
 			},
+			"Settings": [
+				"Instellingen"
+			],
+			"Panel title": [
+				"Titel van het paneel"
+			],
+			"Leave empty for \"Contents\".": [
+				"Leeg laten voor \"Inhoud\"."
+			],
+			"Side of the screen": [
+				"Kant van het scherm"
+			],
+			"Left": [
+				"Links"
+			],
+			"Right": [
+				"Rechts"
+			],
+			"Show headings up to level": [
+				"Toon koppen tot niveau"
+			],
+			"Hide this button when there are fewer headings than this": [
+				"Verberg deze knop bij minder koppen dan dit"
+			],
+			"Collapsible sub-levels per top-level heading": [
+				"Subniveaus inklapbaar per hoofdkop"
+			],
 			"Contents": [
 				"Inhoud"
 			]

@@ -1,6 +1,6 @@
 <?php
 /**
- * Render template of the table of contents button block.
+ * Render template of the table of contents button and its panel.
  *
  * @package ReaderExperience
  * @author  Hans Schuijff <@hansschuijff>
@@ -16,18 +16,53 @@ declare( strict_types=1 );
 
 use ReaderExperience\Support\Icons;
 
-$post_id = (int) ( $block->context['postId'] ?? get_the_ID() );
-if ( ! $post_id ) {
+if ( ! is_singular() ) {
 	return;
 }
 
-$post = get_post( $post_id );
-if ( ! $post instanceof WP_Post || ! has_block( 'reader-experience/toc', $post ) ) {
-	// No table of contents in this article: the button would have nothing to jump to.
-	return;
-}
+$side      = ( 'right' === ( $attributes['side'] ?? 'left' ) ) ? 'right' : 'left';
+$max_level = max( 2, min( 4, (int) ( $attributes['maxLevel'] ?? 3 ) ) );
+$min_items = max( 1, (int) ( $attributes['minItems'] ?? 3 ) );
+$collapse  = ! empty( $attributes['collapseNested'] );
+$title     = isset( $attributes['title'] ) && '' !== trim( (string) $attributes['title'] )
+	? (string) $attributes['title']
+	: __( 'Contents', 'reader-experience' );
+$panel_id  = wp_unique_id( 'rx-toc-drawer-' );
+
+/*
+ * The panel is built by view.js from the headings on the page. The button stays hidden until the
+ * script has found enough of them, so it never opens an empty panel.
+ */
 ?>
-<button type="button" <?php echo get_block_wrapper_attributes( array( 'class' => 'rx-reset-button rx-bar__button' ) ); ?> data-rx-toc-open data-rx-toc-target="#rx-toc" title="<?php esc_attr_e( 'Contents', 'reader-experience' ); ?>">
+<button
+	type="button"
+	<?php echo get_block_wrapper_attributes( array( 'class' => 'rx-reset-button rx-bar__button' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?>
+	data-rx-toc-open
+	hidden
+	aria-haspopup="dialog"
+	aria-expanded="false"
+	aria-controls="<?php echo esc_attr( $panel_id ); ?>"
+	title="<?php echo esc_attr( $title ); ?>"
+>
 	<span class="rx-bar__icon" aria-hidden="true"><?php echo Icons::get( 'toc' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-	<span class="rx-bar__label"><?php esc_html_e( 'Contents', 'reader-experience' ); ?></span>
+	<span class="rx-bar__label"><?php echo esc_html( $title ); ?></span>
 </button>
+<dialog
+	id="<?php echo esc_attr( $panel_id ); ?>"
+	class="rx-toc-drawer rx-toc-drawer--<?php echo esc_attr( $side ); ?>"
+	data-rx-toc-drawer
+	data-rx-max-level="<?php echo (int) $max_level; ?>"
+	data-rx-min-items="<?php echo (int) $min_items; ?>"
+	data-rx-collapse="<?php echo $collapse ? '1' : '0'; ?>"
+	aria-label="<?php echo esc_attr( $title ); ?>"
+>
+	<div class="rx-toc-drawer__header">
+		<span class="rx-toc-drawer__title"><?php echo esc_html( $title ); ?></span>
+		<button type="button" class="rx-reset-button rx-toc-drawer__close" data-rx-toc-close aria-label="<?php esc_attr_e( 'Close', 'reader-experience' ); ?>">
+			<?php echo Icons::get( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		</button>
+	</div>
+	<nav class="rx-toc rx-toc--standard rx-toc-drawer__body" aria-label="<?php echo esc_attr( $title ); ?>">
+		<ol class="rx-toc__list"></ol>
+	</nav>
+</dialog>

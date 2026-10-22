@@ -43,6 +43,14 @@ final class BlockRegistrar {
 	public const BASE_STYLE_HANDLE = 'rx-base';
 
 	/**
+	 * Handle of the stylesheet of the table of contents list (assets/css/toc.css), shared by the
+	 * inline block and the drawer.
+	 *
+	 * @var string
+	 */
+	public const TOC_STYLE_HANDLE = 'rx-toc';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string $build_dir Absolute path of the build folder with one folder per block.
@@ -57,7 +65,7 @@ final class BlockRegistrar {
 	 * @return void
 	 */
 	public function register( array $slugs ): void {
-		$this->register_base_style();
+		$this->register_shared_styles();
 
 		foreach ( $slugs as $slug ) {
 			$dir = rtrim( $this->build_dir, '/' ) . '/' . $slug;
@@ -99,20 +107,28 @@ final class BlockRegistrar {
 	}
 
 	/**
-	 * Registers the shared base stylesheet, so block.json files can list it in "style".
-	 * It is registered, not enqueued: WordPress loads it only when a block that needs it renders.
+	 * Registers the shared stylesheets, so block.json files can list them in "style".
+	 * They are registered, not enqueued: WordPress loads them only when a block that needs them renders.
 	 *
 	 * @return void
 	 */
-	private function register_base_style(): void {
+	private function register_shared_styles(): void {
 		$root = dirname( $this->build_dir, 2 ); // From build/blocks to the plugin root.
-		$file = $root . '/assets/css/base.css';
 
-		wp_register_style(
-			self::BASE_STYLE_HANDLE,
-			plugins_url( 'assets/css/base.css', $root . '/reader-experience.php' ),
-			array(),
-			is_readable( $file ) ? (string) filemtime( $file ) : null
+		$styles = array(
+			self::BASE_STYLE_HANDLE => 'assets/css/base.css',
+			self::TOC_STYLE_HANDLE  => 'assets/css/toc.css',
 		);
+
+		foreach ( $styles as $handle => $relative ) {
+			$file = $root . '/' . $relative;
+
+			wp_register_style(
+				$handle,
+				plugins_url( $relative, $root . '/reader-experience.php' ),
+				array(),
+				is_readable( $file ) ? (string) filemtime( $file ) : null
+			);
+		}
 	}
 }
