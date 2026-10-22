@@ -93,8 +93,11 @@ The "Custom link" block is a child of the interaction bar: an icon button with a
 optional new tab. The bar shows only the icon; the label is the tooltip and what screen readers read. It
 is meant for something like a help page, so readers who wonder what the bar is for can find out. Allowed
 addresses are web, `mailto:`, `tel:`, relative addresses and `#anchors`; anything else renders nothing.
-Icons: question mark, information, home, email, phone (replaceable with the `reader_experience/icons` filter,
-keys `help`, `info`, `home`, `mail`, `phone`). Add as many as you like.
+Icons: question mark, information, home, email, phone, book, star, heart, bookmark, download, calendar, location and
+person (replaceable with the `reader_experience/icons` filter, keys `help`, `info`, `home`, `mail`, `phone`, `book`,
+`star`, `heart`, `bookmark`, `download`, `calendar`, `pin`, `user`). The last choice in the list, "Icon font class",
+shows a field for the class of an icon font your site already loads, for example Font Awesome
+(`fa-solid fa-circle-question`). Only class-name characters are kept.
 
 ## Rating and comments
 

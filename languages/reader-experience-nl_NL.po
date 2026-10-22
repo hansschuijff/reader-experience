@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 16:58+0000\n"
-"PO-Revision-Date: 2026-10-22 16:58+0000\n"
+"POT-Creation-Date: 2026-10-22 17:05+0000\n"
+"PO-Revision-Date: 2026-10-22 17:05+0000\n"
 "Last-Translator: Hans Schuijff\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -73,12 +73,12 @@ msgstr ""
 msgid "14 comments"
 msgstr "14 reacties"
 
-#: blocks/comments-link/render.php:52
+#: blocks/comments-link/render.php:53
 msgid "Comments"
 msgstr "Reacties"
 
 #. %d: number of comments
-#: blocks/comments-link/render.php:58
+#: blocks/comments-link/render.php:59
 msgid "%d comment"
 msgid_plural "%d comments"
 msgstr[0] "%d reactie"
@@ -172,25 +172,28 @@ msgstr "Locatie"
 msgid "Person"
 msgstr "Persoon"
 
-#: blocks/custom-link/index.js:47
-msgid "Icon class (optional)"
-msgstr "Icoonklasse (optioneel)"
+#: blocks/custom-link/index.js:43
+msgid "Icon font class (enter it below)"
+msgstr "Klasse van een icoonlettertype (vul hem hieronder in)"
 
-#: blocks/custom-link/index.js:48
+#: blocks/custom-link/index.js:49
+msgid "Icon class"
+msgstr "Icoonklasse"
+
+#: blocks/custom-link/index.js:50
 msgid ""
 "For an icon font your site already loads, for example Font Awesome: fa-solid"
-" fa-circle-question. Replaces the icon above. Only letters, digits, hyphens "
-"and spaces are used."
+" fa-circle-question. Only letters, digits, hyphens and spaces are used."
 msgstr ""
 "Voor een icoonlettertype dat je site al laadt, bijvoorbeeld Font Awesome: "
-"fa-solid fa-circle-question. Vervangt het icoon hierboven. Alleen letters, "
-"cijfers, streepjes en spaties worden gebruikt."
+"fa-solid fa-circle-question. Alleen letters, cijfers, streepjes en spaties "
+"worden gebruikt."
 
-#: blocks/custom-link/index.js:53
+#: blocks/custom-link/index.js:56
 msgid "Open in a new tab"
 msgstr "Openen in een nieuw tabblad"
 
-#: blocks/custom-link/render.php:34 blocks/custom-link/index.js:67
+#: blocks/custom-link/render.php:34 blocks/custom-link/index.js:70
 msgid "Link"
 msgstr "Link"
 

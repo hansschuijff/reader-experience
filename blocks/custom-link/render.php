@@ -28,17 +28,21 @@ if ( '' === $url ) {
 
 $icons = array( 'help', 'info', 'home', 'mail', 'phone', 'book', 'star', 'heart', 'bookmark', 'download', 'calendar', 'pin', 'user' );
 $icon  = (string) ( $attributes['icon'] ?? 'help' );
-$icon  = in_array( $icon, $icons, true ) ? $icon : 'help';
+$icon  = ( 'custom' === $icon || in_array( $icon, $icons, true ) ) ? $icon : 'help';
 $label = isset( $attributes['label'] ) && '' !== trim( (string) $attributes['label'] )
 	? trim( (string) $attributes['label'] )
 	: __( 'Link', 'reader-experience' );
 
 /*
- * An optional icon class, for an icon font the site loads itself (Font Awesome, for example). Only
- * letters, digits, hyphens, underscores and spaces survive, so nothing but class names can end up
- * in the attribute.
+ * The icon "custom" uses a class of an icon font the site loads itself (Font Awesome, for example).
+ * Only letters, digits, hyphens, underscores and spaces survive, so nothing but class names can end
+ * up in the attribute. Without a usable class it falls back to the help icon.
  */
-$icon_class = trim( (string) preg_replace( '/\s+/', ' ', (string) preg_replace( '/[^A-Za-z0-9_\- ]/', '', (string) ( $attributes['iconClass'] ?? '' ) ) ) );
+$icon_class = '';
+if ( 'custom' === $icon ) {
+	$icon_class = trim( (string) preg_replace( '/\s+/', ' ', (string) preg_replace( '/[^A-Za-z0-9_\- ]/', '', (string) ( $attributes['iconClass'] ?? '' ) ) ) );
+	$icon       = 'help';
+}
 
 $blank = ! empty( $attributes['newTab'] );
 ?>

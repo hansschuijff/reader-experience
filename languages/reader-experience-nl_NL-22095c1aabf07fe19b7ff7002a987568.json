@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-22 16:58+0000",
+	"translation-revision-date": "2026-10-22 17:05+0000",
 	"generator": "reader-experience tooling",
 	"source": "build/blocks/custom-link/index.js",
 	"domain": "messages",
@@ -67,11 +67,14 @@
 			"Person": [
 				"Persoon"
 			],
-			"Icon class (optional)": [
-				"Icoonklasse (optioneel)"
+			"Icon font class (enter it below)": [
+				"Klasse van een icoonlettertype (vul hem hieronder in)"
 			],
-			"For an icon font your site already loads, for example Font Awesome: fa-solid fa-circle-question. Replaces the icon above. Only letters, digits, hyphens and spaces are used.": [
-				"Voor een icoonlettertype dat je site al laadt, bijvoorbeeld Font Awesome: fa-solid fa-circle-question. Vervangt het icoon hierboven. Alleen letters, cijfers, streepjes en spaties worden gebruikt."
+			"Icon class": [
+				"Icoonklasse"
+			],
+			"For an icon font your site already loads, for example Font Awesome: fa-solid fa-circle-question. Only letters, digits, hyphens and spaces are used.": [
+				"Voor een icoonlettertype dat je site al laadt, bijvoorbeeld Font Awesome: fa-solid fa-circle-question. Alleen letters, cijfers, streepjes en spaties worden gebruikt."
 			],
 			"Open in a new tab": [
 				"Openen in een nieuw tabblad"

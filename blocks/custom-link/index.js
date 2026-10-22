@@ -40,15 +40,18 @@ registerBlockType( metadata.name, {
 							{ label: __( 'Calendar', 'reader-experience' ), value: 'calendar' },
 							{ label: __( 'Location', 'reader-experience' ), value: 'pin' },
 							{ label: __( 'Person', 'reader-experience' ), value: 'user' },
+							{ label: __( 'Icon font class (enter it below)', 'reader-experience' ), value: 'custom' },
 						] }
 						onChange={ ( icon ) => setAttributes( { icon } ) }
 					/>
-					<TextControl
-						label={ __( 'Icon class (optional)', 'reader-experience' ) }
-						help={ __( 'For an icon font your site already loads, for example Font Awesome: fa-solid fa-circle-question. Replaces the icon above. Only letters, digits, hyphens and spaces are used.', 'reader-experience' ) }
-						value={ attributes.iconClass }
-						onChange={ ( iconClass ) => setAttributes( { iconClass } ) }
-					/>
+					{ 'custom' === attributes.icon && (
+						<TextControl
+							label={ __( 'Icon class', 'reader-experience' ) }
+							help={ __( 'For an icon font your site already loads, for example Font Awesome: fa-solid fa-circle-question. Only letters, digits, hyphens and spaces are used.', 'reader-experience' ) }
+							value={ attributes.iconClass }
+							onChange={ ( iconClass ) => setAttributes( { iconClass } ) }
+						/>
+					) }
 					<ToggleControl
 						label={ __( 'Open in a new tab', 'reader-experience' ) }
 						checked={ attributes.newTab }
@@ -57,12 +60,12 @@ registerBlockType( metadata.name, {
 				</PanelBody>
 			</InspectorControls>
 			<div { ...useBlockProps( { className: 'dwp-rx-bar__button' } ) }>
-				{ attributes.iconClass ? (
+				{ 'custom' === attributes.icon && attributes.iconClass ? (
 					<span className="dwp-rx-bar__icon">
 						<i className={ attributes.iconClass.replace( /[^A-Za-z0-9_\- ]/g, '' ) } />
 					</span>
 				) : (
-					<Icon name={ attributes.icon } />
+					<Icon name={ 'custom' === attributes.icon ? 'help' : attributes.icon } />
 				) }
 				<span className="dwp-rx-bar__label">{ attributes.label || __( 'Link', 'reader-experience' ) }</span>
 			</div>

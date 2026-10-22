@@ -38,7 +38,8 @@
 				"download",
 				"calendar",
 				"pin",
-				"user"
+				"user",
+				"custom"
 			]
 		},
 		"newTab": {
