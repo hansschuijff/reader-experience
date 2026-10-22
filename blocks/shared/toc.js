@@ -35,7 +35,7 @@ export function headingText( heading ) {
  * @param {string} options.target   Selector of the content element (with fallbacks).
  * @param {number} options.maxLevel Deepest level to list (2 to 4).
  * @param {number} options.minItems Minimum number of entries; fewer returns null.
- * @return {Object[]|null} Entries { heading, level, text } with relative levels, or null.
+ * @return {Object[]|null} Entries { heading, tag, level, text } with relative levels, or null.
  */
 export function collectEntries( { target = '.wp-block-post-content', maxLevel = 3, minItems = 3 } = {} ) {
 	const container = resolveTarget( target );
@@ -49,7 +49,7 @@ export function collectEntries( { target = '.wp-block-post-content', maxLevel = 
 	headings.forEach( ( heading, index ) => heading.setAttribute( 'data-rx-heading', String( index ) ) );
 
 	const entries = headings
-		.map( ( heading ) => ( { heading, level: Number( heading.tagName.slice( 1 ) ), text: headingText( heading ) } ) )
+		.map( ( heading ) => ( { heading, tag: heading.tagName, level: Number( heading.tagName.slice( 1 ) ), text: headingText( heading ) } ) )
 		.filter( ( entry ) => entry.level <= maxLevel );
 
 	if ( entries.length < minItems ) {
@@ -68,6 +68,7 @@ function createLink( entry ) {
 	a.href = entry.heading.id ? '#' + encodeURIComponent( entry.heading.id ) : '#';
 	a.textContent = entry.text;
 	a.dataset.rxTarget = entry.heading.dataset.rxHeading;
+	a.dataset.rxTag = entry.tag;
 	entry.a = a;
 	return a;
 }

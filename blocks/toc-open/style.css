@@ -19,7 +19,7 @@
 	color: var( --c-text, CanvasText );
 	background: var( --c-surface, Canvas );
 	border: 0;
-	border-inline-end: 1px solid var( --c-border, ButtonBorder );
+	border-inline-end: 1px solid var( --rx-panel-border, #ddd );
 	box-shadow: 0 0 32px rgba( 0, 0, 0, 0.18 );
 	z-index: 10001;
 }
@@ -27,7 +27,7 @@
 	left: auto;
 	right: 0;
 	border-inline-end: 0;
-	border-inline-start: 1px solid var( --c-border, ButtonBorder );
+	border-inline-start: 1px solid var( --rx-panel-border, #ddd );
 }
 .rx-toc-drawer:not( [open] ),
 [data-rx-toc-open][hidden] { display: none !important; }
@@ -47,7 +47,7 @@
 	gap: 12px;
 	flex: none;
 	padding: 12px 16px;
-	border-bottom: 1px solid var( --c-border, ButtonBorder );
+	border-bottom: 1px solid var( --rx-panel-border, #ddd );
 }
 .rx-toc-drawer__title { font-weight: 600; }
 .rx-toc-drawer__close { display: inline-flex; padding: 6px; border-radius: 8px; cursor: pointer; }
@@ -60,7 +60,46 @@
 	overflow: auto;
 	padding: 8px 16px 24px;
 }
-.rx-toc-drawer__body .rx-toc__list { max-height: none; overflow: visible; }
+
+/*
+ * Like the list view in the block editor: a small grey badge with the heading level in front of
+ * each title, so the level is readable without a vertical rule or deep indentation.
+ */
+.rx-toc-drawer__body .rx-toc__list {
+	max-height: none;
+	overflow: visible;
+	margin: 0;
+	border-inline-start: 0;
+}
+.rx-toc-drawer__body .rx-toc__item a,
+.rx-toc-drawer__body .rx-toc__item .rx-toc__link {
+	display: flex !important;
+	align-items: baseline;
+	gap: 0.5rem;
+	margin-inline-start: 0;
+	padding-inline: 0.25rem;
+	border-inline-start: 0;
+	border-radius: 4px;
+}
+.rx-toc-drawer__body .rx-toc__item a::before {
+	content: attr( data-rx-tag );
+	flex: none;
+	min-width: 2em;
+	padding: 0.1em 0.4em;
+	font-size: 0.75em;
+	font-weight: 600;
+	line-height: 1.4;
+	text-align: center;
+	color: var( --rx-badge-text, #1e1e1e );
+	background: var( --rx-badge-bg, #ddd );
+	border-radius: 4px;
+}
+.rx-toc-drawer__body .rx-toc__item--l3 a { padding-inline-start: 1rem; }
+.rx-toc-drawer__body .rx-toc__item--l4 a { padding-inline-start: 1.75rem; }
+.rx-toc-drawer__body .rx-toc__item a[aria-current] { background: color-mix( in srgb, currentColor 8%, transparent ); }
+/* A rule only where it means something: next to the sub-levels of a collapsible group. */
+.rx-toc-drawer__body .rx-toc__sublist { margin-inline-start: 0.75rem; border-inline-start: 1px solid var( --rx-panel-border, #ddd ); }
+
 
 /* On a phone: wider, like a menu overlay. */
 @media ( max-width: 781px ) {

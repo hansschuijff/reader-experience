@@ -31,8 +31,8 @@ registerBlockType( metadata.name, {
 						value={ String( attributes.maxLevel ) }
 						options={ [
 							{ label: 'H2', value: '2' },
-							{ label: 'H2 en H3', value: '3' },
-							{ label: 'H2 tot en met H4', value: '4' },
+							{ label: __( 'H2 and H3', 'reader-experience' ), value: '3' },
+							{ label: __( 'H2 to H4', 'reader-experience' ), value: '4' },
 						] }
 						onChange={ ( value ) => setAttributes( { maxLevel: Number( value ) } ) }
 					/>
