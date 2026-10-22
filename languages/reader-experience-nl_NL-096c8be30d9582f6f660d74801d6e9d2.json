@@ -1,0 +1,54 @@
+{
+	"translation-revision-date": "2026-10-22 16:13+0000",
+	"generator": "reader-experience tooling",
+	"source": "build/blocks/quick-link/index.js",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "nl_NL",
+				"plural-forms": "nplurals=2; plural=(n != 1);"
+			},
+			"Settings": [
+				"Instellingen"
+			],
+			"Label": [
+				"Label"
+			],
+			"Read out by screen readers and shown as a tooltip; the bar itself shows only the icon.": [
+				"Wordt voorgelezen door schermlezers en getoond als tooltip; de balk zelf toont alleen het icoon."
+			],
+			"Address (URL)": [
+				"Adres (URL)"
+			],
+			"A page, a #anchor, or a mailto: or tel: link.": [
+				"Een pagina, een #anker, of een mailto:- of tel:-link."
+			],
+			"Icon": [
+				"Icoon"
+			],
+			"Question mark": [
+				"Vraagteken"
+			],
+			"Information": [
+				"Informatie"
+			],
+			"Home": [
+				"Home"
+			],
+			"Email": [
+				"E-mail"
+			],
+			"Phone": [
+				"Telefoon"
+			],
+			"Open in a new tab": [
+				"Openen in een nieuw tabblad"
+			],
+			"Link": [
+				"Link"
+			]
+		}
+	}
+}

@@ -81,6 +81,15 @@ modal overlay. It closes with the close button, the Contents button, Escape, a t
 browser's back button, and on a small screen also when you choose a heading. The inline TOC block
 stays available for places such as a sidebar, widget area or navigation.
 
+## Quick link
+
+The "Quick link" block is a child of the interaction bar: an icon button with a label, an address and an
+optional new tab. The bar shows only the icon; the label is the tooltip and what screen readers read. It
+is meant for something like a help page, so readers who wonder what the bar is for can find out. Allowed
+addresses are web, `mailto:`, `tel:`, relative addresses and `#anchors`; anything else renders nothing.
+Icons: question mark, information, home, email, phone (replaceable with the `reader_experience/icons` filter,
+keys `help`, `info`, `home`, `mail`, `phone`). Add as many as you like.
+
 ## Rating and comments
 
 A comment on a positive rating is only offered as a WordPress comment when that is possible:

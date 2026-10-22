@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reader-experience/quick-link",
+	"title": "Quick link",
+	"category": "widgets",
+	"icon": "admin-links",
+	"description": "A button with an icon in the interaction bar that links to a page, for example a help page. Meant as a child of the interaction bar.",
+	"textdomain": "reader-experience",
+	"parent": [
+		"reader-experience/interaction-bar"
+	],
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"icon": {
+			"type": "string",
+			"default": "help",
+			"enum": [
+				"help",
+				"info",
+				"home",
+				"mail",
+				"phone"
+			]
+		},
+		"newTab": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": [
+		"dwp-rx-base"
+	]
+}

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 16:08+0000\n"
+"POT-Creation-Date: 2026-10-22 16:13+0000\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,6 +54,72 @@ msgctxt "block title"
 msgid "Interaction bar"
 msgstr ""
 
+#. Block description
+#: blocks/quick-link/block.json
+msgctxt "block description"
+msgid ""
+"A button with an icon in the interaction bar that links to a page, for "
+"example a help page. Meant as a child of the interaction bar."
+msgstr ""
+
+#. Block title
+#: blocks/quick-link/block.json
+msgctxt "block title"
+msgid "Quick link"
+msgstr ""
+
+#: blocks/quick-link/index.js:12 blocks/rating/index.js:13
+#: blocks/reading-progress/index.js:12 blocks/reading-time/index.js:11
+#: blocks/toc-open/index.js:13 blocks/toc/index.js:19
+msgid "Settings"
+msgstr ""
+
+#: blocks/quick-link/index.js:14
+msgid "Label"
+msgstr ""
+
+#: blocks/quick-link/index.js:15
+msgid ""
+"Read out by screen readers and shown as a tooltip; the bar itself shows only"
+" the icon."
+msgstr ""
+
+#: blocks/quick-link/index.js:20
+msgid "Address (URL)"
+msgstr ""
+
+#: blocks/quick-link/index.js:21
+msgid "A page, a #anchor, or a mailto: or tel: link."
+msgstr ""
+
+#: blocks/quick-link/index.js:27
+msgid "Icon"
+msgstr ""
+
+#: blocks/quick-link/index.js:30
+msgid "Question mark"
+msgstr ""
+
+#: blocks/quick-link/index.js:31
+msgid "Information"
+msgstr ""
+
+#: blocks/quick-link/index.js:32
+msgid "Home"
+msgstr ""
+
+#: blocks/quick-link/index.js:34
+msgid "Phone"
+msgstr ""
+
+#: blocks/quick-link/index.js:39
+msgid "Open in a new tab"
+msgstr ""
+
+#: blocks/quick-link/render.php:32 blocks/quick-link/index.js:47
+msgid "Link"
+msgstr ""
+
 #. Block title
 #: blocks/rating/block.json
 msgctxt "block title"
@@ -67,12 +133,6 @@ msgid ""
 "Thumbs up/down, visible right away. Optionally followed by an explanation "
 "and, depending on the vote, an offer to post it as a comment or to get in "
 "touch."
-msgstr ""
-
-#: blocks/rating/index.js:13 blocks/reading-progress/index.js:12
-#: blocks/reading-time/index.js:11 blocks/toc-open/index.js:13
-#: blocks/toc/index.js:19
-msgid "Settings"
 msgstr ""
 
 #: blocks/rating/index.js:15
@@ -620,6 +680,6 @@ msgstr ""
 msgid "Facebook"
 msgstr ""
 
-#: src/Modules/Sharing/ChannelRegistry.php:66
+#: src/Modules/Sharing/ChannelRegistry.php:66 blocks/quick-link/index.js:33
 msgid "Email"
 msgstr ""

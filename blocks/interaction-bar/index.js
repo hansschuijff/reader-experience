@@ -8,6 +8,7 @@ const ALLOWED_BLOCKS = [
 	'reader-experience/comments-link',
 	'reader-experience/share',
 	'reader-experience/toc-open',
+	'reader-experience/quick-link',
 ];
 
 const TEMPLATE = [

@@ -51,11 +51,11 @@ reader-experience/
 │   ├── Support/                   Migrator, Migrations/RenameLegacyTable, RateLimiter, CssValue, Icons, LocaleFallback
 │   └── Modules/
 │       ├── Reading/   ReadingModule, ReadingTime, HeadingAnchors, HeadingIndexer, AnchorRegistry, HeadingLinkAssets
-│       ├── Bar/       BarModule (interaction-bar, comments-link, toc-open)
+│       ├── Bar/       BarModule (interaction-bar, comments-link, toc-open, quick-link)
 │       ├── Sharing/   SharingModule, ChannelRegistry, ShareRepository, ShareController, Migrations/
 │       └── Rating/    RatingModule, RatingService, FeedbackRepository, RatingController, CommentPublisher, Notifier,
 │                      Migrations/, Admin/ (PostColumn, DashboardWidget, FeedbackPage)
-├── blocks/                        reading-time, reading-progress, toc, interaction-bar, comments-link, toc-open, share,
+├── blocks/                        reading-time, reading-progress, toc, interaction-bar, comments-link, toc-open, quick-link, share,
 │                                  rating; shared/ (toc.js, popover.js, article-progress.js, icons.js)
 ├── assets/                        css/base.css, css/toc.css, heading anchor CSS/JS (plain, unbundled)
 ├── languages/                     .pot, nl_NL .po/.mo and editor JSON
@@ -83,6 +83,7 @@ filter `reader_experience/modules`.
 | Comments | Existing WordPress comments; the bar shows the count and scrolls to the form | No system of our own |
 | Table of contents | Built in the browser from h2 to h4: headings get `data-dwp-rx-heading="<n>"` (index based), independent of heading ids and anchor links | Robust against text edits; works with anchor links off. Without JavaScript the block does not show |
 | Contents button | Opens the list in a side panel (`<dialog>`): non-modal and pushing the page aside from 1100px, modal overlay with a history entry on phones (back button closes it). Attributes: title, side, levels, minimum headings, collapsible sub-levels, statistics, display (beside the page or over it) | Like the editor's list view; the page stays fully visible |
+| Quick link | Bar child with a label, URL (web, mailto, tel, relative or #anchor; anything else renders nothing), one of five icons and an optional new tab. Icon only in the bar; the label is the tooltip and the screen reader text | A permanently visible way to point readers to help or contact |
 | Inline TOC block | Stays available for sidebars, widget areas and navigation | The panel is tied to the bar; the block is the standalone variant |
 | Heading anchors | Off by default; own filter-controlled component with copy-link icon; reserved ids and a smarter id component are planned | TOC does not depend on it |
 | Translations | `.pot/.po/.mo` plus Jed JSON for editor scripts; `LocaleFallback` for installs where the text domain does not load; a debug log under `WP_DEBUG` | Seen in practice on one site |
@@ -127,7 +128,7 @@ themes) are verified there by hand. There is no automated integration test again
 
 ## Open points
 
-- Planned: quick-link block (button with icon and custom link, for example a help page), setting for the comments icon
+- Planned: setting for the comments icon
   target (`auto` / comments / form / custom anchor), id component for anchors with reserved ids, previous/next article
   navigation.
 - Scroll depth analytics with a privacy-friendly tool; read-aloud only if asked for.
