@@ -32,8 +32,22 @@ registerBlockType( metadata.name, {
 							{ label: __( 'Home', 'reader-experience' ), value: 'home' },
 							{ label: __( 'Email', 'reader-experience' ), value: 'mail' },
 							{ label: __( 'Phone', 'reader-experience' ), value: 'phone' },
+							{ label: __( 'Book', 'reader-experience' ), value: 'book' },
+							{ label: __( 'Star', 'reader-experience' ), value: 'star' },
+							{ label: __( 'Heart', 'reader-experience' ), value: 'heart' },
+							{ label: __( 'Bookmark', 'reader-experience' ), value: 'bookmark' },
+							{ label: __( 'Download', 'reader-experience' ), value: 'download' },
+							{ label: __( 'Calendar', 'reader-experience' ), value: 'calendar' },
+							{ label: __( 'Location', 'reader-experience' ), value: 'pin' },
+							{ label: __( 'Person', 'reader-experience' ), value: 'user' },
 						] }
 						onChange={ ( icon ) => setAttributes( { icon } ) }
+					/>
+					<TextControl
+						label={ __( 'Icon class (optional)', 'reader-experience' ) }
+						help={ __( 'For an icon font your site already loads, for example Font Awesome: fa-solid fa-circle-question. Replaces the icon above. Only letters, digits, hyphens and spaces are used.', 'reader-experience' ) }
+						value={ attributes.iconClass }
+						onChange={ ( iconClass ) => setAttributes( { iconClass } ) }
 					/>
 					<ToggleControl
 						label={ __( 'Open in a new tab', 'reader-experience' ) }
@@ -43,7 +57,13 @@ registerBlockType( metadata.name, {
 				</PanelBody>
 			</InspectorControls>
 			<div { ...useBlockProps( { className: 'dwp-rx-bar__button' } ) }>
-				<Icon name={ attributes.icon } />
+				{ attributes.iconClass ? (
+					<span className="dwp-rx-bar__icon">
+						<i className={ attributes.iconClass.replace( /[^A-Za-z0-9_\- ]/g, '' ) } />
+					</span>
+				) : (
+					<Icon name={ attributes.icon } />
+				) }
 				<span className="dwp-rx-bar__label">{ attributes.label || __( 'Link', 'reader-experience' ) }</span>
 			</div>
 		</>

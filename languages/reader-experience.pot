@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 16:27+0000\n"
+"POT-Creation-Date: 2026-10-22 16:39+0000\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,11 +98,54 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
+#: blocks/custom-link/index.js:35
+msgid "Book"
+msgstr ""
+
+#: blocks/custom-link/index.js:36
+msgid "Star"
+msgstr ""
+
+#: blocks/custom-link/index.js:37
+msgid "Heart"
+msgstr ""
+
+#: blocks/custom-link/index.js:38
+msgid "Bookmark"
+msgstr ""
+
 #: blocks/custom-link/index.js:39
+msgid "Download"
+msgstr ""
+
+#: blocks/custom-link/index.js:40
+msgid "Calendar"
+msgstr ""
+
+#: blocks/custom-link/index.js:41
+msgid "Location"
+msgstr ""
+
+#: blocks/custom-link/index.js:42
+msgid "Person"
+msgstr ""
+
+#: blocks/custom-link/index.js:47
+msgid "Icon class (optional)"
+msgstr ""
+
+#: blocks/custom-link/index.js:48
+msgid ""
+"For an icon font your site already loads, for example Font Awesome: fa-solid"
+" fa-circle-question. Replaces the icon above. Only letters, digits, hyphens "
+"and spaces are used."
+msgstr ""
+
+#: blocks/custom-link/index.js:53
 msgid "Open in a new tab"
 msgstr ""
 
-#: blocks/custom-link/render.php:33 blocks/custom-link/index.js:47
+#: blocks/custom-link/render.php:34 blocks/custom-link/index.js:67
 msgid "Link"
 msgstr ""
 

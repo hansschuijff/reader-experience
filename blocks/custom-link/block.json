@@ -30,12 +30,24 @@
 				"info",
 				"home",
 				"mail",
-				"phone"
+				"phone",
+				"book",
+				"star",
+				"heart",
+				"bookmark",
+				"download",
+				"calendar",
+				"pin",
+				"user"
 			]
 		},
 		"newTab": {
 			"type": "boolean",
 			"default": false
+		},
+		"iconClass": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"editorScript": "file:./index.js",

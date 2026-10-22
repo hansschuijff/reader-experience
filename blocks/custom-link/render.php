@@ -26,14 +26,29 @@ if ( '' === $url ) {
 	return;
 }
 
-$icons = array( 'help', 'info', 'home', 'mail', 'phone' );
-$icon  = in_array( $attributes['icon'] ?? 'help', $icons, true ) ? $attributes['icon'] : 'help';
+$icons = array( 'help', 'info', 'home', 'mail', 'phone', 'book', 'star', 'heart', 'bookmark', 'download', 'calendar', 'pin', 'user' );
+$icon  = (string) ( $attributes['icon'] ?? 'help' );
+$icon  = in_array( $icon, $icons, true ) ? $icon : 'help';
 $label = isset( $attributes['label'] ) && '' !== trim( (string) $attributes['label'] )
 	? trim( (string) $attributes['label'] )
 	: __( 'Link', 'reader-experience' );
+
+/*
+ * An optional icon class, for an icon font the site loads itself (Font Awesome, for example). Only
+ * letters, digits, hyphens, underscores and spaces survive, so nothing but class names can end up
+ * in the attribute.
+ */
+$icon_class = trim( (string) preg_replace( '/\s+/', ' ', (string) preg_replace( '/[^A-Za-z0-9_\- ]/', '', (string) ( $attributes['iconClass'] ?? '' ) ) ) );
+
 $blank = ! empty( $attributes['newTab'] );
 ?>
 <a <?php echo get_block_wrapper_attributes( array( 'class' => 'dwp-rx-reset-button dwp-rx-bar__button' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by WordPress. ?> href="<?php echo esc_url( $url, $protocols ); ?>" title="<?php echo esc_attr( $label ); ?>"<?php echo $blank ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
-	<span class="dwp-rx-bar__icon" aria-hidden="true"><?php echo Icons::get( $icon ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+	<span class="dwp-rx-bar__icon" aria-hidden="true">
+		<?php if ( '' !== $icon_class ) : ?>
+			<i class="<?php echo esc_attr( $icon_class ); ?>"></i>
+		<?php else : ?>
+			<?php echo Icons::get( $icon ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php endif; ?>
+	</span>
 	<span class="dwp-rx-bar__label"><?php echo esc_html( $label ); ?></span>
 </a>

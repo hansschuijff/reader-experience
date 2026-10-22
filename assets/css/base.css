@@ -69,6 +69,15 @@
 .dwp-rx-bar__icon {
 	display: inline-flex;
 }
+/* An icon font glyph (custom link block) gets the box of an SVG icon. */
+.dwp-rx-bar__icon > i {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	line-height: 20px;
+	text-align: center;
+}
 
 /*
  * Primary buttons in the panels (copy link, send, "yes").
