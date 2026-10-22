@@ -44,6 +44,11 @@ registerBlockType( metadata.name, {
 						onChange={ ( minItems ) => setAttributes( { minItems } ) }
 					/>
 					<ToggleControl
+						label={ __( 'Show characters, words and reading time', 'reader-experience' ) }
+						checked={ attributes.showStats }
+						onChange={ ( showStats ) => setAttributes( { showStats } ) }
+					/>
+					<ToggleControl
 						label={ __( 'Collapsible sub-levels per top-level heading', 'reader-experience' ) }
 						checked={ attributes.collapseNested }
 						onChange={ ( collapseNested ) => setAttributes( { collapseNested } ) }

@@ -45,6 +45,10 @@
 			"type": "number",
 			"default": 3
 		},
+		"showStats": {
+			"type": "boolean",
+			"default": false
+		},
 		"collapseNested": {
 			"type": "boolean",
 			"default": false

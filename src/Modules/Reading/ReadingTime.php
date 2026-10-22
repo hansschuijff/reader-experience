@@ -17,6 +17,7 @@ use function ceil;
 use function count;
 use function is_array;
 use function max;
+use function mb_strlen;
 use function preg_split;
 use function strip_shortcodes;
 use function trim;
@@ -45,6 +46,17 @@ final class ReadingTime {
 		$text  = wp_strip_all_tags( strip_shortcodes( $content ) );
 		$words = preg_split( '/\s+/u', trim( $text ), -1, PREG_SPLIT_NO_EMPTY );
 		return is_array( $words ) ? count( $words ) : 0;
+	}
+
+	/**
+	 * Number of characters in the content, without tags and shortcodes, spaces included.
+	 *
+	 * @since 0.3.0
+	 * @param string $content Post content.
+	 * @return int
+	 */
+	public function character_count( string $content ): int {
+		return mb_strlen( trim( wp_strip_all_tags( strip_shortcodes( $content ) ) ) );
 	}
 
 	/**

@@ -52,6 +52,20 @@
 .rx-toc-drawer__title { font-weight: 600; }
 .rx-toc-drawer__close { display: inline-flex; padding: 6px; border-radius: 8px; cursor: pointer; }
 
+/* Characters, words and reading time, as in the editor's overview. */
+.rx-toc-drawer__stats {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 0.25rem 1.5rem;
+	flex: none;
+	margin: 0;
+	padding: 12px 16px;
+	font-size: 0.875rem;
+	border-bottom: 1px solid var( --rx-panel-border, #ddd );
+}
+.rx-toc-drawer__stats dt { opacity: 0.7; }
+.rx-toc-drawer__stats dd { margin: 0; }
+
 /* The list scrolls inside the panel, not the panel itself. */
 .rx-toc-drawer__body {
 	position: relative;
