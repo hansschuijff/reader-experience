@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 14:36+0000\n"
-"PO-Revision-Date: 2026-10-22 14:36+0000\n"
+"POT-Creation-Date: 2026-10-22 15:53+0000\n"
+"PO-Revision-Date: 2026-10-22 15:53+0000\n"
 "Last-Translator: Hans Schuijff\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -643,11 +643,11 @@ msgstr ""
 msgid "Unknown article."
 msgstr "Onbekend artikel."
 
-#: src/Modules/Reading/HeadingAnchors.php:183
+#: src/Modules/Reading/HeadingAnchors.php:184
 msgid "Copy link to this section"
 msgstr "Kopieer link naar dit onderdeel"
 
-#: src/Modules/Reading/HeadingAnchors.php:184
+#: src/Modules/Reading/HeadingAnchors.php:185
 msgid "Link copied"
 msgstr "Link gekopieerd"
 

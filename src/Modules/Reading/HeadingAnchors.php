@@ -15,13 +15,16 @@ namespace ReaderExperience\Modules\Reading;
 use WP_Post;
 
 use function __;
+use function _doing_it_wrong;
 use function apply_filters;
 use function array_filter;
 use function array_unique;
 use function array_values;
+use function esc_html;
 use function in_array;
 use function is_array;
 use function is_string;
+use function sprintf;
 use function trim;
 
 /**
@@ -157,8 +160,8 @@ final class HeadingAnchors {
 		/**
 		 * Filters the options of the heading anchor JavaScript.
 		 *
-		 * Always return the whole array. If a filter returns anything else, the options are emptied
-		 * and the JavaScript falls back to its built-in English defaults.
+		 * Always return the whole array. A missing or empty label falls back to the translated default
+		 * (with a notice when WP_DEBUG is on); other options that are missing or invalid fall back to their defaults.
 		 *
 		 * @since 0.2.0
 		 *
@@ -174,18 +177,15 @@ final class HeadingAnchors {
 		 * }
 		 * @param WP_Post $post   The post.
 		 */
-		$config = apply_filters(
-			'reader_experience/heading_anchors_config',
-			array(
-				'position'  => self::POSITION_BEFORE,
-				'container' => array( '.wp-block-post-content', '.entry-content', 'article' ),
-				'labels'    => array(
-					'copy'   => __( 'Copy link to this section', 'reader-experience' ),
-					'copied' => __( 'Link copied', 'reader-experience' ),
-				),
+		$defaults = array(
+			'position'  => self::POSITION_BEFORE,
+			'container' => array( '.wp-block-post-content', '.entry-content', 'article' ),
+			'labels'    => array(
+				'copy'   => __( 'Copy link to this section', 'reader-experience' ),
+				'copied' => __( 'Link copied', 'reader-experience' ),
 			),
-			$post
 		);
+		$config   = apply_filters( 'reader_experience/heading_anchors_config', $defaults, $post );
 
 		$config    = is_array( $config ) ? $config : array();
 		$labels    = is_array( $config['labels'] ?? null ) ? $config['labels'] : array();
@@ -195,9 +195,35 @@ final class HeadingAnchors {
 			'position'  => self::POSITION_AFTER === ( $config['position'] ?? '' ) ? self::POSITION_AFTER : self::POSITION_BEFORE,
 			'container' => array_values( array_filter( (array) $container, static fn ( $selector ): bool => is_string( $selector ) && '' !== trim( $selector ) ) ),
 			'labels'    => array(
-				'copy'   => (string) ( $labels['copy'] ?? '' ),
-				'copied' => (string) ( $labels['copied'] ?? '' ),
+				'copy'   => $this->label( $labels, 'copy', $defaults['labels']['copy'] ),
+				'copied' => $this->label( $labels, 'copied', $defaults['labels']['copied'] ),
 			),
 		);
+	}
+
+	/**
+	 * A label from the filtered options, or the translated default when the filter dropped it.
+	 *
+	 * With WP_DEBUG on, a missing label is reported, so a filter that forgot to return it is easy to find.
+	 *
+	 * @since 0.3.0
+	 * @param array<string,mixed> $labels  Labels as returned by the filter.
+	 * @param string              $key     Label key.
+	 * @param string              $fallback Translated default.
+	 * @return string
+	 */
+	private function label( array $labels, string $key, string $fallback ): string {
+		$value = $labels[ $key ] ?? null;
+		if ( is_string( $value ) && '' !== trim( $value ) ) {
+			return $value;
+		}
+
+		_doing_it_wrong(
+			'reader_experience/heading_anchors_config',
+			// Developer-facing, so deliberately not translated.
+			sprintf( 'The label "%s" is missing from the filtered options; the default is used. Return the whole array, including "labels".', esc_html( $key ) ),
+			'0.3.0'
+		);
+		return $fallback;
 	}
 }
