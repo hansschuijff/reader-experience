@@ -69,3 +69,28 @@
 .rx-bar__icon {
 	display: inline-flex;
 }
+
+/*
+ * Primary buttons in the panels (copy link, send, "yes").
+ *
+ * They carry WordPress' .wp-element-button class, so a block theme styles them through Styles →
+ * Blocks → Buttons in the site editor, and a classic theme through its own button rules. These
+ * defaults are wrapped in :where() and therefore have no specificity: anything the theme says
+ * wins, and they only fill in what the theme leaves open. The fallback colours are neutral
+ * (dark button on light, inverted on dark) instead of a fixed blue.
+ */
+:where(.rx-share__copy, .rx-rating__send, .rx-rating__follow-up-yes) {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	box-sizing: border-box;
+	padding: 0.55em 1.1em;
+	font: inherit;
+	line-height: 1.2;
+	color: var(--c-accent-contrast, Canvas);
+	background: var(--c-accent, CanvasText);
+	border: 1px solid transparent;
+	border-radius: 6px;
+	cursor: pointer;
+	text-decoration: none;
+}

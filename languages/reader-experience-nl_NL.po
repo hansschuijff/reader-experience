@@ -580,3 +580,7 @@ msgid "%d feedback item deleted."
 msgid_plural "%d feedback items deleted."
 msgstr[0] "%d feedbackitem verwijderd."
 msgstr[1] "%d feedbackitems verwijderd."
+
+#: blocks/rating/render.php
+msgid "Sorry, that did not work. Please try again later."
+msgstr "Sorry, dat is niet gelukt. Probeer het later opnieuw."

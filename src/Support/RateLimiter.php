@@ -12,9 +12,15 @@ declare( strict_types=1 );
 
 namespace ReaderExperience\Support;
 
+use function apply_filters;
 use function get_transient;
+use function in_array;
+use function is_array;
+use function max;
 use function md5;
 use function set_transient;
+use function time;
+use function wp_get_environment_type;
 
 /**
  * Short, anonymous rate limiting based on transients. No IP addresses are stored: the caller
@@ -32,14 +38,43 @@ final class RateLimiter {
 	 * @return bool True when there have been too many attempts.
 	 */
 	public function too_many( string $bucket, int $limit, int $window_seconds ): bool {
-		$key   = 'rx_rl_' . md5( $bucket );
-		$count = (int) get_transient( $key );
+		/**
+		 * Filters whether rate limiting is active. It is off on local and development
+		 * environments (see wp_get_environment_type()), where one developer clicks the same
+		 * thumb many times and would otherwise be throttled silently.
+		 *
+		 * @since 0.2.0
+		 *
+		 * @param bool $enabled Whether to rate limit.
+		 */
+		$enabled = (bool) apply_filters(
+			'reader_experience/rate_limit_enabled',
+			! in_array( wp_get_environment_type(), array( 'local', 'development' ), true )
+		);
 
-		if ( $count >= $limit ) {
+		if ( ! $enabled ) {
+			return false;
+		}
+
+		$key  = 'rx_rl_' . md5( $bucket );
+		$now  = time();
+		$data = get_transient( $key );
+
+		// A fixed window that starts at the first attempt. Refreshing the expiry on every attempt
+		// (as an earlier version did) kept a visitor blocked for as long as they kept trying.
+		if ( ! is_array( $data ) || ! isset( $data['count'], $data['reset'] ) || $data['reset'] <= $now ) {
+			$data = array(
+				'count' => 0,
+				'reset' => $now + $window_seconds,
+			);
+		}
+
+		if ( $data['count'] >= $limit ) {
 			return true;
 		}
 
-		set_transient( $key, $count + 1, $window_seconds );
+		++$data['count'];
+		set_transient( $key, $data, max( 1, $data['reset'] - $now ) );
 		return false;
 	}
 

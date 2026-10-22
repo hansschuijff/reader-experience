@@ -39,10 +39,13 @@
 }
 .rx-toc__item--l3 a { padding-inline-start: 1.5rem; }
 .rx-toc__item--l4 a { padding-inline-start: 2.25rem; }
-/* Hover must not lower the contrast of the text: underline plus a faint tint instead of fading it. */
+/*
+ * Hover must not lower the contrast of the text. The text gets a touch heavier instead, drawn with
+ * a text-shadow in the current colour so the width does not change (a real font-weight would
+ * re-wrap long headings), plus a faint tint. It follows the text colour, so it works in any theme.
+ */
 .rx-toc__item a:hover {
-	text-decoration: underline;
-	text-underline-offset: 0.2em;
+	text-shadow: 0 0 0.6px currentColor, 0 0 0.6px currentColor;
 	background: color-mix( in srgb, currentColor 8%, transparent );
 }
 .rx-toc__item a[aria-current] {

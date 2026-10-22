@@ -75,6 +75,7 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 			if ( value === votedValue ) {
 				return;
 			}
+			const previousValue = votedValue;
 			votedValue = value;
 			localStorage.setItem( storageKey( postId ), value );
 			thumbsWrap.querySelectorAll( '[data-rx-value]' ).forEach( ( b ) => {
@@ -98,7 +99,24 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 				website: honeypot ? honeypot.value : '',
 			} );
 
-			current = { id: result?.id ?? null, token: result?.token ?? null, value };
+			if ( ! result ) {
+				// The request failed (offline, blocked, wrong URL): say so, and do not remember
+				// the vote, so the same thumb can be tried again.
+				votedValue = previousValue;
+				if ( previousValue ) {
+					localStorage.setItem( storageKey( postId ), previousValue );
+				} else {
+					localStorage.removeItem( storageKey( postId ) );
+				}
+				thumbsWrap.querySelectorAll( '[data-rx-value]' ).forEach( ( b ) => {
+					b.setAttribute( 'aria-pressed', String( b.dataset.rxValue === previousValue ) );
+				} );
+				showStep( panel, 'error' );
+				openOrShow();
+				return;
+			}
+
+			current = { id: result.id ?? null, token: result.token ?? null, value };
 
 			showStep( panel, 'text' );
 			openOrShow();
@@ -108,7 +126,7 @@ document.querySelectorAll( '[data-rx-rating]' ).forEach( ( root ) => {
 	const skipButton = panel.querySelector( '.rx-rating__skip' );
 	const sendButton = panel.querySelector( '.rx-rating__send' );
 
-	const finish = () => showStep( panel, 'klaar' );
+	const finish = () => showStep( panel, 'done' );
 
 	skipButton?.addEventListener( 'click', () => {
 		finish();

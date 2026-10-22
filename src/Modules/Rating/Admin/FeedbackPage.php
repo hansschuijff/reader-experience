@@ -20,6 +20,7 @@ use function _n;
 use function absint;
 use function add_action;
 use function add_comments_page;
+use function add_filter;
 use function add_query_arg;
 use function admin_url;
 use function array_map;
@@ -89,6 +90,21 @@ final class FeedbackPage {
 	 */
 	public function register(): void {
 		add_action( 'admin_menu', array( $this, 'add_page' ) );
+		add_filter( 'removable_query_args', array( $this, 'removable_query_args' ) );
+	}
+
+	/**
+	 * Lets WordPress strip the deleted-count from the address bar after the page loads, as it does
+	 * for its own notices, so a refresh does not show the message again.
+	 *
+	 * @since 0.2.0
+	 * @param string[] $args Query arguments WordPress removes from the URL.
+	 * @return string[]
+	 */
+	public function removable_query_args( $args ) {
+		$args   = (array) $args;
+		$args[] = 'rx_deleted';
+		return $args;
 	}
 
 	/**
@@ -186,7 +202,8 @@ final class FeedbackPage {
 				</p></div>
 			<?php endif; ?>
 
-			<form method="get" style="margin: 1em 0;">
+			<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 1em 0;">
+			<form method="get" style="margin: 0;">
 				<input type="hidden" name="page" value="rx-feedback">
 				<label for="rx-post-filter"><?php esc_html_e( 'Article:', 'reader-experience' ); ?></label>
 				<select name="rx_post" id="rx-post-filter" onchange="this.form.submit()">
@@ -200,22 +217,21 @@ final class FeedbackPage {
 				<noscript><button type="submit"><?php esc_html_e( 'Filter', 'reader-experience' ); ?></button></noscript>
 			</form>
 
+			<?php // Same row as the filter; the form attribute ties the button to the table form below. ?>
+			<button
+				type="submit"
+				form="rx-feedback-form"
+				name="rx_bulk_delete"
+				value="1"
+				class="button action"
+				id="rx-bulk-delete"
+				data-rx-confirm="<?php echo esc_attr__( 'Delete the selected feedback?', 'reader-experience' ); ?>"
+				disabled
+			><?php esc_html_e( 'Delete selected', 'reader-experience' ); ?></button>
+			</div>
+
 			<form method="post" id="rx-feedback-form">
 				<?php wp_nonce_field( self::NONCE_ACTION ); ?>
-				<div class="tablenav top">
-					<div class="alignleft actions">
-						<button
-							type="submit"
-							name="rx_bulk_delete"
-							value="1"
-							class="button action"
-							id="rx-bulk-delete"
-							data-rx-confirm="<?php echo esc_attr__( 'Delete the selected feedback?', 'reader-experience' ); ?>"
-							disabled
-						><?php esc_html_e( 'Delete selected', 'reader-experience' ); ?></button>
-					</div>
-				</div>
-
 				<table class="wp-list-table widefat fixed striped">
 					<thead>
 						<tr>
@@ -223,7 +239,7 @@ final class FeedbackPage {
 								<input type="checkbox" id="rx-select-all" aria-label="<?php esc_attr_e( 'Select all', 'reader-experience' ); ?>">
 							</td>
 							<th><?php $sort_link( 'post_title', __( 'Article', 'reader-experience' ) ); ?></th>
-							<th style="width:5em"><?php esc_html_e( 'Rating', 'reader-experience' ); ?></th>
+							<th style="width:9em"><?php esc_html_e( 'Rating', 'reader-experience' ); ?></th>
 							<th style="width:35%"><?php esc_html_e( 'Reaction', 'reader-experience' ); ?></th>
 							<th><?php esc_html_e( 'Sender', 'reader-experience' ); ?></th>
 							<th style="width:10em"><?php $sort_link( 'created', __( 'Date', 'reader-experience' ) ); ?></th>

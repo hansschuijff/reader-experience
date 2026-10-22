@@ -49,7 +49,7 @@ $popover_id = 'rx-share-' . $post_id . '-' . wp_unique_id();
 		</div>
 		<div class="rx-share__copyrow">
 			<input type="text" class="rx-share__url" value="<?php echo esc_url( $url ); ?>" readonly aria-label="<?php esc_attr_e( 'Link to this article', 'reader-experience' ); ?>">
-			<button type="button" class="rx-share__copy" data-rx-copy data-rx-copied-label="<?php esc_attr_e( 'Copied', 'reader-experience' ); ?>">
+			<button type="button" class="wp-element-button rx-share__copy" data-rx-copy data-rx-copied-label="<?php esc_attr_e( 'Copied', 'reader-experience' ); ?>">
 				<span class="rx-share__copy-icon" aria-hidden="true"><?php echo Icons::get( 'copy' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 				<span class="rx-share__copy-label" data-rx-copy-label><?php esc_html_e( 'Copy', 'reader-experience' ); ?></span>
 			</button>

@@ -70,7 +70,7 @@ $rest = array(
 			</div>
 			<p class="rx-rating__actions">
 				<button type="button" class="rx-reset-button rx-rating__skip"><?php esc_html_e( 'Skip', 'reader-experience' ); ?></button>
-				<button type="button" class="rx-rating__send"><?php esc_html_e( 'Send', 'reader-experience' ); ?></button>
+				<button type="button" class="wp-element-button rx-rating__send"><?php esc_html_e( 'Send', 'reader-experience' ); ?></button>
 			</p>
 		</div>
 
@@ -97,7 +97,7 @@ $rest = array(
 				<button type="button" class="rx-reset-button rx-rating__follow-up-no"><?php esc_html_e( 'No, thanks', 'reader-experience' ); ?></button>
 				<button
 					type="button"
-					class="rx-rating__follow-up-yes"
+					class="wp-element-button rx-rating__follow-up-yes"
 					data-rx-follow-up-yes-label
 					data-rx-label-publish="<?php esc_attr_e( 'Yes, post it', 'reader-experience' ); ?>"
 					data-rx-label-contact="<?php esc_attr_e( 'Yes, that is fine', 'reader-experience' ); ?>"
@@ -105,7 +105,11 @@ $rest = array(
 			</p>
 		</div>
 
-		<div class="rx-rating__step" data-rx-step="klaar" hidden>
+		<div class="rx-rating__step" data-rx-step="error" hidden>
+			<p class="rx-rating__done" role="alert"><?php esc_html_e( 'Sorry, that did not work. Please try again later.', 'reader-experience' ); ?></p>
+		</div>
+
+		<div class="rx-rating__step" data-rx-step="done" hidden>
 			<p class="rx-rating__done">✓ <?php esc_html_e( 'Thanks for your response', 'reader-experience' ); ?></p>
 		</div>
 	</div>

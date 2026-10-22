@@ -78,25 +78,8 @@
 	text-overflow: ellipsis;
 }
 .rx-share__url:focus { color: var(--c-text, CanvasText); outline: 2px solid var(--c-accent, Highlight); outline-offset: 1px; }
-.rx-share__copy {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	flex: none;
-	margin: 0;
-	padding: 8px 14px;
-	font: inherit;
-	font-size: 0.8125rem;
-	font-weight: 500;
-	line-height: 1.2;
-	color: var(--c-accent-contrast, HighlightText);
-	background: var(--c-accent, Highlight);
-	border: 1px solid transparent;
-	border-radius: 8px;
-	cursor: pointer;
-}
-.rx-share__copy:hover { filter: brightness( 1.1 ); }
-.rx-share__copy:focus-visible { outline: 2px solid var(--c-accent, Highlight); outline-offset: 2px; }
+.rx-share__copy { flex: none; margin: 0; }
+.rx-share__copy:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 .rx-share__copy-icon { display: inline-flex; }
 .rx-share__copy-icon svg { width: 16px; height: 16px; }
 
@@ -121,6 +104,5 @@
 	.rx-share__channel { padding: 10px 14px; font-size: 0.9375rem; }
 	.rx-share__channel-icon { width: 32px; height: 32px; }
 	.rx-share__channel-icon svg { width: 18px; height: 18px; }
-	.rx-share__copy { padding: 0.6em 1.4em; font-size: 0.9375rem; }
 	.rx-share__url { font-size: 0.9375rem; padding: 0.6em 0.9em; }
 }

@@ -33,17 +33,6 @@
 .rx-rating__actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin: 8px 0 0; }
 .rx-rating__skip,
 .rx-rating__follow-up-no { padding: 4px 10px; border-radius: 6px; }
-.rx-rating__send,
-.rx-rating__follow-up-yes {
-	font: inherit;
-	font-size: 0.8125rem;
-	padding: 4px 10px;
-	border-radius: 6px;
-	border: 1px solid transparent;
-	background: var(--c-accent, Highlight);
-	color: var(--c-accent-contrast, HighlightText);
-	cursor: pointer;
-}
 .rx-rating .rx-rating__done { margin: 0; text-align: center; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
 
 /* Inline: los blok onderaan het artikel. Het paneel klapt gewoon uit in de tekststroom. */
@@ -97,8 +86,6 @@
 		padding: 20px;
 	}
 	.rx-rating__text { min-height: 12em; resize: vertical; }
-	.rx-rating__send,
-	.rx-rating__follow-up-yes,
 	.rx-rating__skip,
 	.rx-rating__follow-up-no { padding: 0.7em 1.8em; font-size: 0.9375rem; }
 }
