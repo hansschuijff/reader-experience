@@ -93,52 +93,54 @@ final class AnchorRegistry {
 	 * gets the level in front: "h2-comments".
 	 *
 	 * @since 0.1.0
-	 * @param string|null $existing Id the heading already has, if any.
-	 * @param string      $text     Plain text of the heading.
-	 * @param int         $level    Heading level (2 to 4), used for reserved ids.
+	 * @param string|null $existing_id   Id the heading already has, if any.
+	 * @param string      $heading       The heading text without tags.
+	 * @param int         $heading_level Heading level (2 to 4), used for reserved ids.
 	 * @return string
 	 */
-	public function claim( ?string $existing, string $text, int $level = 2 ): string {
-		if ( is_string( $existing ) && '' !== $existing ) {
-			$this->used[ $existing ] = true;
-			return $existing;
+	public function claim( ?string $existing_id, string $heading, int $heading_level = 2 ): string {
+		if ( is_string( $existing_id ) && '' !== $existing_id ) {
+			$this->used[ $existing_id ] = true;
+			return $existing_id;
 		}
 
-		$base = sanitize_title( $text );
-		if ( '' === $base ) {
+		$id = sanitize_title( $heading );
+		if ( '' === $id ) {
 			// Fallback id for headings without usable text.
-			$base = 'section';
+			$id = 'section';
 		}
 
 		/**
 		 * Filters the id a heading would get, before reserved ids and duplicates are dealt with.
 		 *
-		 * Return a plain id (letters, digits, hyphens). Anything else is cleaned up with sanitize_title(),
-		 * and an empty result falls back to "section". Existing ids of a heading are never filtered.
+		 * Use it to shorten, translate or otherwise tidy generated ids. The result still goes through the
+		 * reserved ids check (a reserved id gets "h2-" in front) and the duplicate check ("-2", "-3").
+		 * Return a plain id (letters, digits, hyphens); anything else is cleaned up with sanitize_title(),
+		 * and an empty or invalid result is ignored. A heading's own id is never filtered.
 		 *
 		 * @since 0.3.0
 		 *
-		 * @param string $base  The id made from the heading text, for example "introduction".
-		 * @param string $text  Plain text of the heading.
-		 * @param int    $level Heading level, 2 to 4.
+		 * @param string $id            The id made from the heading text, for example "introduction".
+		 * @param string $heading       The heading text without tags.
+		 * @param int    $heading_level Heading level, 2 to 4.
 		 */
-		$filtered = apply_filters( 'reader_experience/heading_anchor_id', $base, $text, $level );
+		$filtered = apply_filters( 'reader_experience/heading_anchor_id', $id, $heading, $heading_level );
 		$filtered = is_string( $filtered ) ? sanitize_title( $filtered ) : '';
-		$base     = '' !== $filtered ? $filtered : $base;
+		$id       = '' !== $filtered ? $filtered : $id;
 
-		if ( in_array( $base, $this->reserved(), true ) ) {
-			$base = 'h' . $level . '-' . $base;
+		if ( in_array( $id, $this->reserved(), true ) ) {
+			$id = 'h' . $heading_level . '-' . $id;
 		}
 
-		$slug = $base;
-		$n    = 1;
-		while ( isset( $this->used[ $slug ] ) ) {
+		$unique_id = $id;
+		$n         = 1;
+		while ( isset( $this->used[ $unique_id ] ) ) {
 			++$n;
-			$slug = $base . '-' . $n;
+			$unique_id = $id . '-' . $n;
 		}
 
-		$this->used[ $slug ] = true;
-		return $slug;
+		$this->used[ $unique_id ] = true;
+		return $unique_id;
 	}
 
 	/**
