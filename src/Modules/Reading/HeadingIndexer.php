@@ -17,7 +17,9 @@ use WP_Post;
 
 use function add_filter;
 use function get_post;
+use function get_queried_object_id;
 use function html_entity_decode;
+use function is_singular;
 use function is_string;
 use function max;
 use function preg_match;
@@ -96,7 +98,8 @@ final class HeadingIndexer {
 	public function start( $content ) {
 		if ( 0 === $this->depth ) {
 			$this->registry->reset();
-			$this->active = $this->anchors->is_enabled_for( get_post() );
+			$post         = get_post();
+			$this->active = $this->anchors->is_enabled_for( $post ) && self::is_main_post( $post );
 		}
 		++$this->depth;
 		return $content;
@@ -149,7 +152,7 @@ final class HeadingIndexer {
 		$existing = $processor->get_attribute( 'id' );
 		$existing = is_string( $existing ) && '' !== $existing ? $existing : null;
 
-		$id = $this->registry->claim( $existing, self::plain_text( $html ) );
+		$id = $this->registry->claim( $existing, self::plain_text( $html ), $level );
 
 		if ( null !== $existing ) {
 			return $html;
@@ -157,6 +160,19 @@ final class HeadingIndexer {
 
 		$processor->set_attribute( 'id', $id );
 		return $processor->get_updated_html();
+	}
+
+	/**
+	 * Whether this is the post the visitor asked for: a single post or page, not one that is shown
+	 * inside another page (related posts, a query loop on a landing page) or in an archive.
+	 *
+	 * In_the_loop() is deliberately not used: block themes render the post content outside the classic loop.
+	 *
+	 * @param WP_Post|null $post The post whose content is being filtered.
+	 * @return bool
+	 */
+	private static function is_main_post( ?WP_Post $post ): bool {
+		return $post instanceof WP_Post && is_singular() && get_queried_object_id() === (int) $post->ID;
 	}
 
 	/**

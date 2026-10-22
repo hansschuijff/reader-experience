@@ -85,7 +85,7 @@ filter `reader_experience/modules`.
 | Contents button | Opens the list in a side panel (`<dialog>`): non-modal and pushing the page aside from 1100px, modal overlay with a history entry on phones (back button closes it). Attributes: title, side, levels, minimum headings, collapsible sub-levels, statistics, display (beside the page or over it) | Like the editor's list view; the page stays fully visible |
 | Custom link | Bar child with a label, URL (web, mailto, tel, relative or #anchor; anything else renders nothing), one of thirteen icons (or the class of an icon font such as Font Awesome, chosen from the same list) and an optional new tab. Icon only in the bar; the label is the tooltip and the screen reader text | A permanently visible way to point readers to help or contact |
 | Inline TOC block | Stays available for sidebars, widget areas and navigation | The panel is tied to the bar; the block is the standalone variant |
-| Heading anchors | Off by default; own filter-controlled component with copy-link icon; reserved ids and a smarter id component are planned | TOC does not depend on it |
+| Heading anchors | Off by default. `AnchorRegistry` hands out ids: from the text, unique per post, reserved ids (comments, respond, content, ...) get the level in front (`h2-comments`); filters `heading_anchor_id` and `reserved_ids`. Only for the post the visitor asked for (`is_singular()` and the queried id), not for posts shown inside other pages. Copy-link icon via own JS/CSS | Links must never land on theme or comment elements. TOC does not depend on it |
 | Translations | `.pot/.po/.mo` plus Jed JSON for editor scripts; `LocaleFallback` for installs where the text domain does not load; a debug log under `WP_DEBUG` | Seen in practice on one site |
 | Filter labels | Missing or empty labels fall back to the translated default, with `_doing_it_wrong()` under `WP_DEBUG` | Makes a forgotten label easy to find |
 | Migrations | Own small `Migrator` (option with executed ids), runs on activation and in admin | No migration system available |
@@ -117,7 +117,7 @@ Totals are computed with `GROUP BY`, not cached in post meta.
 
 `reader_experience/modules`, `share_channels`, `words_per_minute`, `icons`, `can_publish_as_comment`, `notify_on_feedback`,
 `rating_spam_check`, `rate_limit_enabled`, `heading_anchors_enabled`, `heading_anchors_post_types`,
-`heading_anchors_load_css`, `heading_anchors_load_js`, `heading_anchors_config`. See the README for details.
+`heading_anchors_load_css`, `heading_anchors_load_js`, `heading_anchors_config`, `heading_anchor_id`, `reserved_ids`. See the README for details.
 
 ## Testing
 
@@ -128,9 +128,7 @@ themes) are verified there by hand. There is no automated integration test again
 
 ## Open points
 
-- Planned: setting for the comments icon
-  target (`auto` / comments / form / custom anchor), id component for anchors with reserved ids, previous/next article
-  navigation.
+- Planned: previous/next article navigation.
 - Scroll depth analytics with a privacy-friendly tool; read-aloud only if asked for.
 - `GET /state` or a REST refresh of the comment count if cached pages show stale numbers.
 - Which share channels make sense (now WhatsApp, LinkedIn, Facebook, email; extend with `reader_experience/share_channels`).

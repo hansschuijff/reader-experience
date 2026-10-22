@@ -27,6 +27,8 @@ is the full hook name; every name starts with `reader_experience/`.
 | `reader_experience/heading_anchors_load_js` | filter | `true` | `bool $load, WP_Post $post` | `add_filter( 'reader_experience/heading_anchors_load_js', '__return_false' );` |
 | `reader_experience/heading_anchors_config` | filter | `position` `'before'`, `container` `.wp-block-post-content`, `.entry-content`, `article`, `labels` copy/copied (translated) | `array $config, WP_Post $post` | `add_filter( 'reader_experience/heading_anchors_config', fn ( $config ) => array_merge( $config, array( 'position' => 'after' ) ) );` |
 | `reader_experience/can_publish_as_comment` | filter | `true` when comments are open, the post has no password and commenting needs no account | `bool $allowed, int $post_id` | `add_filter( 'reader_experience/can_publish_as_comment', fn ( $ok, $id ) => $ok && 7 !== $id, 10, 2 );` |
+| `reader_experience/heading_anchor_id` | filter | The id made from the heading text, for example `introduction` | `string $id, string $text, int $level` | `add_filter( 'reader_experience/heading_anchor_id', fn ( $id ) => str_replace( 'introduction', 'intro', $id ) );` |
+| `reader_experience/reserved_ids` | filter | `comments`, `respond`, `content`, `main`, `header`, `footer`, `sidebar`, `navigation` and a few more (see `AnchorRegistry::DEFAULT_RESERVED`) | `string[] $ids` | `add_filter( 'reader_experience/reserved_ids', fn ( $ids ) => array_merge( $ids, array( 'hero' ) ) );` |
 | `reader_experience/notify_on_feedback` | filter | `true` (email the administrator) | `bool $notify` | `add_filter( 'reader_experience/notify_on_feedback', '__return_false' );` |
 | `reader_experience/rate_limit_enabled` | filter | `true`, but `false` when `wp_get_environment_type()` is `local` or `development` | `bool $enabled` | `add_filter( 'reader_experience/rate_limit_enabled', '__return_false' );` |
 | `reader_experience/rating_spam_check` | filter | `true` (let the request through) | `bool $passes` | `add_filter( 'reader_experience/rating_spam_check', fn () => my_captcha_is_valid() );` |
@@ -50,7 +52,15 @@ Options in `heading_anchors_config`:
 - `container`: selector(s) of the element that holds the headings; the first one that exists wins.
 - `labels`: `copy` (button text and tooltip) and `copied` (confirmation), already translated.
 
-Always return the whole array from this filter. To use your own CSS or JS, return `false` for
+Ids are made from the heading text ("Hello world" becomes `hello-world`, a second one `hello-world-2`) and only
+on the post the visitor asked for: a single post or page, not a post shown inside another page or in an archive.
+A heading that already has an id keeps it. A generated id that is also used by WordPress or a theme for one of its
+own elements, such as `comments` or `respond`, gets its level in front instead (`h2-comments`), so a link to the
+heading never lands on the comments section. Add your own with `reader_experience/reserved_ids`, or change any
+generated id with `reader_experience/heading_anchor_id`. Text edits change a generated id; set the id by hand
+in the block's Advanced panel when a link has to stay the same.
+
+Always return the whole array from `heading_anchors_config`. To use your own CSS or JS, return `false` for
 `heading_anchors_load_css` and/or `heading_anchors_load_js` and style the classes `.dwp-rx-heading-link`,
 `--before`/`--after` and `.dwp-rx-heading-link__toast`. The options for our own JS are in
 `window.dwpRxHeadingAnchors`; a replacement script can read them if it wants to.
