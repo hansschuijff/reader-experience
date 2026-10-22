@@ -16,7 +16,7 @@ export const ICONS = {
 	thumb_down:
 		'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V3M22 11v-6a2 2 0 0 0-2-2H8.7a3 3 0 0 0-3 2.4l-1.5 7A2 2 0 0 0 6.2 15H11v4a2 2 0 0 0 2 2l1-1 3-7h5z"/></svg>',
 	help:
-		'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
+		'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 8.5a4.5 4.5 0 1 1 6.9 3.8c-1.5 1-2.4 1.8-2.4 3.7"/><path d="M12 21h.01"/></svg>',
 	info:
 		'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>',
 	home:
