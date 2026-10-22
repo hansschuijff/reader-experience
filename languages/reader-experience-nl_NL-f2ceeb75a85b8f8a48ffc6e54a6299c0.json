@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-22 13:12+0000",
+	"translation-revision-date": "2026-10-22 14:36+0000",
 	"generator": "reader-experience tooling",
 	"source": "build/blocks/toc/index.js",
 	"domain": "messages",
@@ -21,6 +21,12 @@
 			],
 			"Show headings up to level": [
 				"Toon koppen tot niveau"
+			],
+			"H2 and H3": [
+				"H2 en H3"
+			],
+			"H2 to H4": [
+				"H2 tot en met H4"
 			],
 			"Hide this block when there are fewer headings than this": [
 				"Verberg dit blok bij minder dan dit aantal koppen"

@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 13:12+0000\n"
-"PO-Revision-Date: 2026-10-22 13:12+0000\n"
+"POT-Creation-Date: 2026-10-22 14:36+0000\n"
+"PO-Revision-Date: 2026-10-22 14:36+0000\n"
 "Last-Translator: Hans Schuijff\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -345,26 +345,76 @@ msgstr "Links"
 msgid "Right"
 msgstr "Rechts"
 
-#: blocks/toc-open/index.js:30 blocks/toc/index.js:27
+#: blocks/toc-open/index.js:30
+msgid "Page when the panel is open"
+msgstr "Pagina als het paneel open is"
+
+#: blocks/toc-open/index.js:31
+msgid ""
+"On wide screens the page can move aside to make room. Choose \"Stay put\" if"
+" your theme does not cope with that."
+msgstr ""
+"Op brede schermen kan de pagina opzij schuiven om ruimte te maken. Kies "
+"\"Blijft staan\" als je thema daar niet goed mee omgaat."
+
+#: blocks/toc-open/index.js:34
+msgid "Move aside on wide screens"
+msgstr "Schuift opzij op brede schermen"
+
+#: blocks/toc-open/index.js:35
+msgid "Stay put (panel floats over it)"
+msgstr "Blijft staan (paneel zweeft erover)"
+
+#: blocks/toc-open/index.js:40 blocks/toc/index.js:27
 msgid "Show headings up to level"
 msgstr "Toon koppen tot niveau"
 
-#: blocks/toc-open/index.js:40
+#: blocks/toc-open/index.js:44 blocks/toc/index.js:31
+msgid "H2 and H3"
+msgstr "H2 en H3"
+
+#: blocks/toc-open/index.js:45 blocks/toc/index.js:32
+msgid "H2 to H4"
+msgstr "H2 tot en met H4"
+
+#: blocks/toc-open/index.js:50
 msgid "Hide this button when there are fewer headings than this"
 msgstr "Verberg deze knop bij minder koppen dan dit"
 
-#: blocks/toc-open/index.js:47 blocks/toc/index.js:54
+#: blocks/toc-open/index.js:57
+msgid "Show characters, words and reading time"
+msgstr "Toon tekens, woorden en leestijd"
+
+#: blocks/toc-open/index.js:62 blocks/toc/index.js:54
 msgid "Collapsible sub-levels per top-level heading"
 msgstr "Subniveaus inklapbaar per hoofdkop"
 
-#: blocks/toc-open/render.php:29 blocks/toc/render.php:30
-#: blocks/toc-open/index.js:55 blocks/toc/index.js:88
+#: blocks/toc-open/render.php:30 blocks/toc/render.php:30
+#: blocks/toc-open/index.js:70 blocks/toc/index.js:88
 msgid "Contents"
 msgstr "Inhoud"
 
-#: blocks/toc-open/render.php:61
+#: blocks/toc-open/render.php:65
 msgid "Close"
 msgstr "Sluiten"
+
+#. %s: number of minutes
+#: blocks/toc-open/render.php:74
+msgid "%s min"
+msgstr "%s min"
+
+#. %s: number of minutes
+#: blocks/toc-open/render.php:77
+msgid "Characters"
+msgstr "Tekens"
+
+#: blocks/toc-open/render.php:79
+msgid "Words"
+msgstr "Woorden"
+
+#: blocks/toc-open/render.php:81
+msgid "Reading time"
+msgstr "Leestijd"
 
 #. Block description
 #: blocks/toc/block.json

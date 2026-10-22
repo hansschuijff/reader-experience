@@ -27,6 +27,16 @@ registerBlockType( metadata.name, {
 						onChange={ ( side ) => setAttributes( { side } ) }
 					/>
 					<SelectControl
+						label={ __( 'Page when the panel is open', 'reader-experience' ) }
+						help={ __( 'On wide screens the page can move aside to make room. Choose "Stay put" if your theme does not cope with that.', 'reader-experience' ) }
+						value={ attributes.push }
+						options={ [
+							{ label: __( 'Move aside on wide screens', 'reader-experience' ), value: 'auto' },
+							{ label: __( 'Stay put (panel floats over it)', 'reader-experience' ), value: 'never' },
+						] }
+						onChange={ ( push ) => setAttributes( { push } ) }
+					/>
+					<SelectControl
 						label={ __( 'Show headings up to level', 'reader-experience' ) }
 						value={ String( attributes.maxLevel ) }
 						options={ [

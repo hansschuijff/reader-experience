@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-22 13:12+0000",
+	"translation-revision-date": "2026-10-22 14:36+0000",
 	"generator": "reader-experience tooling",
 	"source": "build/blocks/toc-open/index.js",
 	"domain": "messages",
@@ -28,11 +28,32 @@
 			"Right": [
 				"Rechts"
 			],
+			"Page when the panel is open": [
+				"Pagina als het paneel open is"
+			],
+			"On wide screens the page can move aside to make room. Choose \"Stay put\" if your theme does not cope with that.": [
+				"Op brede schermen kan de pagina opzij schuiven om ruimte te maken. Kies \"Blijft staan\" als je thema daar niet goed mee omgaat."
+			],
+			"Move aside on wide screens": [
+				"Schuift opzij op brede schermen"
+			],
+			"Stay put (panel floats over it)": [
+				"Blijft staan (paneel zweeft erover)"
+			],
 			"Show headings up to level": [
 				"Toon koppen tot niveau"
 			],
+			"H2 and H3": [
+				"H2 en H3"
+			],
+			"H2 to H4": [
+				"H2 tot en met H4"
+			],
 			"Hide this button when there are fewer headings than this": [
 				"Verberg deze knop bij minder koppen dan dit"
+			],
+			"Show characters, words and reading time": [
+				"Toon tekens, woorden en leestijd"
 			],
 			"Collapsible sub-levels per top-level heading": [
 				"Subniveaus inklapbaar per hoofdkop"

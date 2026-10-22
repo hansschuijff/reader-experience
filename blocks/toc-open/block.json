@@ -45,6 +45,14 @@
 			"type": "number",
 			"default": 3
 		},
+		"push": {
+			"type": "string",
+			"default": "auto",
+			"enum": [
+				"auto",
+				"never"
+			]
+		},
 		"showStats": {
 			"type": "boolean",
 			"default": false

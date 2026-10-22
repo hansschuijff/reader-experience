@@ -1,6 +1,9 @@
 import { buildList, collectEntries, goTo, ready, trackActive } from '../shared/toc';
 
 const small = window.matchMedia( '(max-width: 781px)' );
+// Wide enough to give up some width to the panel and still leave the article a comfortable column.
+const wide = window.matchMedia( '(min-width: 1100px)' );
+const root = document.documentElement;
 
 function init( button ) {
 	const dialog = document.getElementById( button.getAttribute( 'aria-controls' ) );
@@ -37,6 +40,23 @@ function init( button ) {
 		}
 	};
 
+	// The page moves aside on a wide screen: the panel's width becomes padding on <html>, so the
+	// theme's own layout (header, content, footer) just gets a narrower viewport to fill.
+	const side = dialog.classList.contains( 'rx-toc-drawer--right' ) ? 'end' : 'start';
+	const pushes = () => 'never' !== dialog.dataset.rxPush && wide.matches && ! small.matches;
+	const releasePage = () => {
+		root.classList.remove( 'rx-toc-pushed' );
+		root.style.removeProperty( '--rx-toc-push-start' );
+		root.style.removeProperty( '--rx-toc-push-end' );
+	};
+	const pushPage = () => {
+		if ( ! pushes() ) {
+			return;
+		}
+		root.style.setProperty( '--rx-toc-push-' + side, dialog.getBoundingClientRect().width + 'px' );
+		root.classList.add( 'rx-toc-pushed' );
+	};
+
 	const open = () => {
 		if ( small.matches ) {
 			dialog.showModal();
@@ -46,11 +66,13 @@ function init( button ) {
 			dialog.show();
 		}
 		button.setAttribute( 'aria-expanded', 'true' );
+		pushPage();
 		tracker.update();
 	};
 
 	dialog.addEventListener( 'close', () => {
 		button.setAttribute( 'aria-expanded', 'false' );
+		releasePage();
 		if ( pushed ) {
 			pushed = false;
 			if ( window.history.state && window.history.state.rxToc ) {
@@ -103,6 +125,14 @@ function init( button ) {
 				goTo( entry );
 			}
 		} );
+	} );
+
+	// Window resized while the panel is open: move aside or float, whichever fits now.
+	wide.addEventListener( 'change', () => {
+		if ( dialog.open && ! small.matches ) {
+			releasePage();
+			pushPage();
+		}
 	} );
 
 	// A rotated phone or a resized window: close, since modal and non-modal are different modes.

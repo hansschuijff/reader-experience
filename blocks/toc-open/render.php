@@ -28,6 +28,7 @@ $collapse  = ! empty( $attributes['collapseNested'] );
 $title     = isset( $attributes['title'] ) && '' !== trim( (string) $attributes['title'] )
 	? (string) $attributes['title']
 	: __( 'Contents', 'reader-experience' );
+$push      = ( 'never' === ( $attributes['push'] ?? 'auto' ) ) ? 'never' : 'auto';
 $stats     = ! empty( $attributes['showStats'] );
 $panel_id  = wp_unique_id( 'rx-toc-drawer-' );
 
@@ -55,6 +56,7 @@ $panel_id  = wp_unique_id( 'rx-toc-drawer-' );
 	data-rx-toc-drawer
 	data-rx-max-level="<?php echo (int) $max_level; ?>"
 	data-rx-min-items="<?php echo (int) $min_items; ?>"
+	data-rx-push="<?php echo esc_attr( $push ); ?>"
 	data-rx-collapse="<?php echo $collapse ? '1' : '0'; ?>"
 	aria-label="<?php echo esc_attr( $title ); ?>"
 >

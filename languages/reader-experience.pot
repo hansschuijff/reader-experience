@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 13:12+0000\n"
+"POT-Creation-Date: 2026-10-22 14:36+0000\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -320,25 +320,73 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
-#: blocks/toc-open/index.js:30 blocks/toc/index.js:27
+#: blocks/toc-open/index.js:30
+msgid "Page when the panel is open"
+msgstr ""
+
+#: blocks/toc-open/index.js:31
+msgid ""
+"On wide screens the page can move aside to make room. Choose \"Stay put\" if"
+" your theme does not cope with that."
+msgstr ""
+
+#: blocks/toc-open/index.js:34
+msgid "Move aside on wide screens"
+msgstr ""
+
+#: blocks/toc-open/index.js:35
+msgid "Stay put (panel floats over it)"
+msgstr ""
+
+#: blocks/toc-open/index.js:40 blocks/toc/index.js:27
 msgid "Show headings up to level"
 msgstr ""
 
-#: blocks/toc-open/index.js:40
+#: blocks/toc-open/index.js:44 blocks/toc/index.js:31
+msgid "H2 and H3"
+msgstr ""
+
+#: blocks/toc-open/index.js:45 blocks/toc/index.js:32
+msgid "H2 to H4"
+msgstr ""
+
+#: blocks/toc-open/index.js:50
 msgid "Hide this button when there are fewer headings than this"
 msgstr ""
 
-#: blocks/toc-open/index.js:47 blocks/toc/index.js:54
+#: blocks/toc-open/index.js:57
+msgid "Show characters, words and reading time"
+msgstr ""
+
+#: blocks/toc-open/index.js:62 blocks/toc/index.js:54
 msgid "Collapsible sub-levels per top-level heading"
 msgstr ""
 
-#: blocks/toc-open/render.php:29 blocks/toc/render.php:30
-#: blocks/toc-open/index.js:55 blocks/toc/index.js:88
+#: blocks/toc-open/render.php:30 blocks/toc/render.php:30
+#: blocks/toc-open/index.js:70 blocks/toc/index.js:88
 msgid "Contents"
 msgstr ""
 
-#: blocks/toc-open/render.php:61
+#: blocks/toc-open/render.php:65
 msgid "Close"
+msgstr ""
+
+#. %s: number of minutes
+#: blocks/toc-open/render.php:74
+msgid "%s min"
+msgstr ""
+
+#. %s: number of minutes
+#: blocks/toc-open/render.php:77
+msgid "Characters"
+msgstr ""
+
+#: blocks/toc-open/render.php:79
+msgid "Words"
+msgstr ""
+
+#: blocks/toc-open/render.php:81
+msgid "Reading time"
 msgstr ""
 
 #. Block description

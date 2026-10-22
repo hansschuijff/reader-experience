@@ -120,6 +120,22 @@
 	.rx-toc-drawer { width: min( 85vw, 24rem ); }
 }
 
+/*
+ * Page moved aside (see view.js): padding on <html> makes the theme lay itself out in the room that is
+ * left. Fixed elements do not follow, so the bar and the reading progress bar are moved by hand.
+ * The shadow goes, since the panel no longer overlaps the page.
+ */
+html.rx-toc-pushed {
+	padding-inline-start: var( --rx-toc-push-start, 0px );
+	padding-inline-end: var( --rx-toc-push-end, 0px );
+}
+html.rx-toc-pushed .rx-bar,
+html.rx-toc-pushed .rx-progress {
+	left: var( --rx-toc-push-start, 0px );
+	right: var( --rx-toc-push-end, 0px );
+}
+html.rx-toc-pushed .rx-toc-drawer { box-shadow: none; }
+
 @media print {
 	.rx-toc-drawer { display: none !important; }
 }
