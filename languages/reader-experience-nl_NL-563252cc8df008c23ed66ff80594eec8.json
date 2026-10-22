@@ -1,5 +1,5 @@
 {
-	"translation-revision-date": "2026-10-22 16:39+0000",
+	"translation-revision-date": "2026-10-22 16:58+0000",
 	"generator": "reader-experience tooling",
 	"source": "build/blocks/comments-link/index.js",
 	"domain": "messages",
@@ -10,6 +10,30 @@
 				"lang": "nl_NL",
 				"plural-forms": "nplurals=2; plural=(n != 1);"
 			},
+			"Settings": [
+				"Instellingen"
+			],
+			"Jump to": [
+				"Springt naar"
+			],
+			"Automatic (comments if there are any, otherwise the form)": [
+				"Automatisch (de reacties als die er zijn, anders het formulier)"
+			],
+			"The comments": [
+				"De reacties"
+			],
+			"The comment form": [
+				"Het reactieformulier"
+			],
+			"An anchor of my own": [
+				"Een eigen anker"
+			],
+			"Anchor (id)": [
+				"Anker (id)"
+			],
+			"The id of an element on the page, without the #. Falls back to the comments when empty.": [
+				"De id van een element op de pagina, zonder #. Valt terug op de reacties als het leeg is."
+			],
 			"14 comments": [
 				"14 reacties"
 			]

@@ -80,7 +80,7 @@ filter `reader_experience/modules`.
 | Public display | No public negative counts | Negative social proof |
 | Interaction bar | Container block with fixed allowed children; hides on scroll down on mobile, always visible on desktop; no transform while visible | A transformed ancestor becomes the containing block of fixed panels |
 | Bar panels | One panel open at a time through `blocks/shared/popover.js` and DOM events (no Interactivity API) | Pragmatic; can migrate later |
-| Comments | Existing WordPress comments; the bar shows the count and scrolls to the form | No system of our own |
+| Comments | Existing WordPress comments; the bar shows the count and jumps to the comments, the form or an own anchor (setting; automatic by default: comments when there are any, otherwise the form) | No system of our own |
 | Table of contents | Built in the browser from h2 to h4: headings get `data-dwp-rx-heading="<n>"` (index based), independent of heading ids and anchor links | Robust against text edits; works with anchor links off. Without JavaScript the block does not show |
 | Contents button | Opens the list in a side panel (`<dialog>`): non-modal and pushing the page aside from 1100px, modal overlay with a history entry on phones (back button closes it). Attributes: title, side, levels, minimum headings, collapsible sub-levels, statistics, display (beside the page or over it) | Like the editor's list view; the page stays fully visible |
 | Custom link | Bar child with a label, URL (web, mailto, tel, relative or #anchor; anything else renders nothing), one of five icons and an optional new tab. Icon only in the bar; the label is the tooltip and the screen reader text | A permanently visible way to point readers to help or contact |

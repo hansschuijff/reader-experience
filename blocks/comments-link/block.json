@@ -5,7 +5,7 @@
 	"title": "Comments (link)",
 	"category": "widgets",
 	"icon": "admin-comments",
-	"description": "Shows the number of comments and jumps to the comment form. Meant as a child of the interaction bar.",
+	"description": "Shows the number of comments and jumps to the comments, the comment form or an anchor of your choice. Meant as a child of the interaction bar.",
 	"textdomain": "reader-experience",
 	"usesContext": [
 		"postId"
@@ -16,7 +16,25 @@
 	"supports": {
 		"html": false
 	},
+	"attributes": {
+		"target": {
+			"type": "string",
+			"default": "auto",
+			"enum": [
+				"auto",
+				"comments",
+				"respond",
+				"custom"
+			]
+		},
+		"anchor": {
+			"type": "string",
+			"default": ""
+		}
+	},
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",
-	"style": ["dwp-rx-base"]
+	"style": [
+		"dwp-rx-base"
+	]
 }

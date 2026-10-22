@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 16:39+0000\n"
-"PO-Revision-Date: 2026-10-22 16:39+0000\n"
+"POT-Creation-Date: 2026-10-22 16:58+0000\n"
+"PO-Revision-Date: 2026-10-22 16:58+0000\n"
 "Last-Translator: Hans Schuijff\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -24,22 +24,61 @@ msgstr "Reacties (link)"
 #: blocks/comments-link/block.json
 msgctxt "block description"
 msgid ""
-"Shows the number of comments and jumps to the comment form. Meant as a child"
-" of the interaction bar."
+"Shows the number of comments and jumps to the comments, the comment form or "
+"an anchor of your choice. Meant as a child of the interaction bar."
 msgstr ""
-"Toont het aantal reacties en springt naar het reactieformulier. Bedoeld als "
-"kind van de interactiebalk."
+"Toont het aantal reacties en springt naar de reacties, het reactieformulier "
+"of een anker naar keuze. Bedoeld als kind van de interactiebalk."
 
-#: blocks/comments-link/index.js:11
+#: blocks/comments-link/index.js:12 blocks/custom-link/index.js:12
+#: blocks/rating/index.js:13 blocks/reading-progress/index.js:12
+#: blocks/reading-time/index.js:11 blocks/toc-open/index.js:13
+#: blocks/toc/index.js:19
+msgid "Settings"
+msgstr "Instellingen"
+
+#: blocks/comments-link/index.js:14
+msgid "Jump to"
+msgstr "Springt naar"
+
+#: blocks/comments-link/index.js:17
+msgid "Automatic (comments if there are any, otherwise the form)"
+msgstr "Automatisch (de reacties als die er zijn, anders het formulier)"
+
+#: blocks/comments-link/index.js:18
+msgid "The comments"
+msgstr "De reacties"
+
+#: blocks/comments-link/index.js:19
+msgid "The comment form"
+msgstr "Het reactieformulier"
+
+#: blocks/comments-link/index.js:20
+msgid "An anchor of my own"
+msgstr "Een eigen anker"
+
+#: blocks/comments-link/index.js:26
+msgid "Anchor (id)"
+msgstr "Anker (id)"
+
+#: blocks/comments-link/index.js:27
+msgid ""
+"The id of an element on the page, without the #. Falls back to the comments "
+"when empty."
+msgstr ""
+"De id van een element op de pagina, zonder #. Valt terug op de reacties als "
+"het leeg is."
+
+#: blocks/comments-link/index.js:36
 msgid "14 comments"
 msgstr "14 reacties"
 
-#: blocks/comments-link/render.php:33
+#: blocks/comments-link/render.php:52
 msgid "Comments"
 msgstr "Reacties"
 
 #. %d: number of comments
-#: blocks/comments-link/render.php:39
+#: blocks/comments-link/render.php:58
 msgid "%d comment"
 msgid_plural "%d comments"
 msgstr[0] "%d reactie"
@@ -60,12 +99,6 @@ msgstr ""
 msgctxt "block title"
 msgid "Custom link"
 msgstr "Aangepaste link"
-
-#: blocks/custom-link/index.js:12 blocks/rating/index.js:13
-#: blocks/reading-progress/index.js:12 blocks/reading-time/index.js:11
-#: blocks/toc-open/index.js:13 blocks/toc/index.js:19
-msgid "Settings"
-msgstr "Instellingen"
 
 #: blocks/custom-link/index.js:14
 msgid "Label"

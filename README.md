@@ -81,6 +81,12 @@ modal overlay. It closes with the close button, the Contents button, Escape, a t
 browser's back button, and on a small screen also when you choose a heading. The inline TOC block
 stays available for places such as a sidebar, widget area or navigation.
 
+## Comments link
+
+The comments button in the bar shows the number of comments. Where it jumps to is a block setting: automatic (the comments
+when there are any, otherwise the comment form), always the comments (`#comments`), always the form (`#respond`), or
+an id of your own for themes that name them differently. With comments closed the form is never the target.
+
 ## Custom link
 
 The "Custom link" block is a child of the interaction bar: an icon button with a label, an address and an

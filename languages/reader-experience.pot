@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reader Experience\n"
 "Report-Msgid-Bugs-To: https://github.com/hansschuijff/reader-experience/issues\n"
-"POT-Creation-Date: 2026-10-22 16:39+0000\n"
+"POT-Creation-Date: 2026-10-22 16:58+0000\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,20 +21,57 @@ msgstr ""
 #: blocks/comments-link/block.json
 msgctxt "block description"
 msgid ""
-"Shows the number of comments and jumps to the comment form. Meant as a child"
-" of the interaction bar."
+"Shows the number of comments and jumps to the comments, the comment form or "
+"an anchor of your choice. Meant as a child of the interaction bar."
 msgstr ""
 
-#: blocks/comments-link/index.js:11
+#: blocks/comments-link/index.js:12 blocks/custom-link/index.js:12
+#: blocks/rating/index.js:13 blocks/reading-progress/index.js:12
+#: blocks/reading-time/index.js:11 blocks/toc-open/index.js:13
+#: blocks/toc/index.js:19
+msgid "Settings"
+msgstr ""
+
+#: blocks/comments-link/index.js:14
+msgid "Jump to"
+msgstr ""
+
+#: blocks/comments-link/index.js:17
+msgid "Automatic (comments if there are any, otherwise the form)"
+msgstr ""
+
+#: blocks/comments-link/index.js:18
+msgid "The comments"
+msgstr ""
+
+#: blocks/comments-link/index.js:19
+msgid "The comment form"
+msgstr ""
+
+#: blocks/comments-link/index.js:20
+msgid "An anchor of my own"
+msgstr ""
+
+#: blocks/comments-link/index.js:26
+msgid "Anchor (id)"
+msgstr ""
+
+#: blocks/comments-link/index.js:27
+msgid ""
+"The id of an element on the page, without the #. Falls back to the comments "
+"when empty."
+msgstr ""
+
+#: blocks/comments-link/index.js:36
 msgid "14 comments"
 msgstr ""
 
-#: blocks/comments-link/render.php:33
+#: blocks/comments-link/render.php:52
 msgid "Comments"
 msgstr ""
 
 #. %d: number of comments
-#: blocks/comments-link/render.php:39
+#: blocks/comments-link/render.php:58
 msgid "%d comment"
 msgid_plural "%d comments"
 msgstr[0] ""
@@ -52,12 +89,6 @@ msgstr ""
 #: blocks/custom-link/block.json
 msgctxt "block title"
 msgid "Custom link"
-msgstr ""
-
-#: blocks/custom-link/index.js:12 blocks/rating/index.js:13
-#: blocks/reading-progress/index.js:12 blocks/reading-time/index.js:11
-#: blocks/toc-open/index.js:13 blocks/toc/index.js:19
-msgid "Settings"
 msgstr ""
 
 #: blocks/custom-link/index.js:14
