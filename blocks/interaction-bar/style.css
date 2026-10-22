@@ -76,11 +76,15 @@
 	left: auto;
 	right: auto;
 	bottom: auto;
-	/* Full width of its column, like the other blocks, so it is easy to select however many icons it holds. */
+	/*
+	 * As wide as the other blocks: the content width of the theme, centred with auto margins. It is set
+	 * here instead of left to the editor's layout rules, because the plain ".dwp-rx-bar" rule for the
+	 * front end would otherwise win from them. Full width where the theme sets no content width.
+	 */
 	width: auto;
-	max-width: none;
+	max-width: var(--wp--style--global--content-size, none);
 	transform: none;
-	margin-inline: 0;
+	margin-inline: auto;
 	border-radius: 12px;
 	border: 1px dashed var(--c-border, ButtonBorder);
 	box-shadow: none;
