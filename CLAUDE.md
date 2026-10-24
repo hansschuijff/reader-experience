@@ -6,6 +6,9 @@ during the style round. Hans: correct what is wrong; delete what you do not want
 
 Architecture, decisions and the reasons behind them: `docs/ARCHITECTURE.md`. Keep it up to date when a decision changes.
 
+Claude keeps this file and `docs/ARCHITECTURE.md` up to date with what was done or agreed, without
+asking first, and says briefly what changed. Both are mainly written for Claude.
+
 ## How we work
 
 - Think first, then build. While an idea is still being worked out, discuss direction and plan, not
