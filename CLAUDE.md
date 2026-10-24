@@ -8,7 +8,10 @@ Architecture, decisions and the reasons behind them: `docs/ARCHITECTURE.md`. Kee
 
 ## How we work
 
-- Advice first, then build. For anything that is hard to redo, ask before building.
+- Think first, then build. While an idea is still being worked out, discuss direction and plan, not
+  code: no series of patches that keeps changing while we think. Build once the plan is clear and Hans
+  has confirmed it, and then in one go. The point is to avoid wasted work, not to ask leave for every
+  step. For anything that is hard to redo, ask before building.
 - Small, separate patches: one commit per kind of change (style, feature, translation, docs).
   Mechanical renames never share a commit with behaviour changes.
 - While restyling, do not change hook names, block names, CSS classes, data attributes, REST routes
