@@ -2,7 +2,7 @@
 Contributors: hansschuijff
 Tags: table of contents, reading time, reading progress, share buttons, feedback
 Requires at least: 6.5
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.1
 Stable tag: 0.3.0
 License: GPLv2
