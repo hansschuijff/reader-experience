@@ -55,6 +55,14 @@ asking first, and says briefly what changed. Both are mainly written for Claude.
 - The bar must look the same in the editor and on the front end, in light and dark.
 - Comments in CSS and JS are still partly Dutch (to convert, low priority).
 
+## Release
+
+- `readme.txt` follows the Plugin Handbook format (for site owners); `README.md` is the developer
+  document. Keep both current when a feature changes.
+- A release bumps the version in the plugin header, the `VERSION` constant, `package.json`,
+  `package-lock.json` and the readme's `Stable tag`, and adds a changelog entry in `readme.txt`.
+  Hans then tags `vX.Y.Z` and pushes the tag; `.github/workflows/release.yml` builds the zip.
+
 ## Git
 
 - Patches are delivered with `git format-patch` and applied with `git am` (not `git apply`).
