@@ -91,6 +91,22 @@ modal overlay. It closes with the close button, the Contents button, Escape, a t
 browser's back button, and on a small screen also when you choose a heading. The inline TOC block
 stays available for places such as a sidebar, widget area or navigation.
 
+While the panel pushes the page aside, `<html>` has the class `dwp-rx-toc-pushed` and the CSS
+variable `--dwp-rx-toc-push-start` or `--dwp-rx-toc-push-end` (the panel width in px, on the side
+where it is). Padding does not move elements with `position: fixed`, such as a sticky menu or a
+cookie notice. Let them follow the panel in the theme's CSS:
+
+```css
+.dwp-rx-toc-pushed .site-header-fixed {
+	left: var(--dwp-rx-toc-push-start, 0px);
+	right: var(--dwp-rx-toc-push-end, 0px);
+}
+```
+
+The class is only there while the page is really pushed aside (panel open, at least 1100px wide,
+not "Over the page"), so no media query is needed. The interaction bar and the reading progress
+bar already follow it.
+
 ## Resume reading
 
 The "Resume reading" block remembers how far a visitor got in a long article and which heading they were at. On a
