@@ -1,6 +1,6 @@
 {
 	"name": "reader-experience",
-	"version": "0.1.0",
+	"version": "0.3.0",
 	"private": true,
 	"scripts": {
 		"build": "wp-scripts build --webpack-src-dir=blocks --output-path=build/blocks --webpack-copy-php",

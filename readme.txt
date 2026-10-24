@@ -4,7 +4,7 @@ Tags: table of contents, reading time, reading progress, share buttons, feedback
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.2.0
+Stable tag: 0.3.0
 License: GPLv2
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -72,6 +72,18 @@ Yes, with filters such as `reader_experience/share_channels`, `reader_experience
 The source strings are English; a Dutch (nl_NL) translation is included.
 
 == Changelog ==
+
+= 0.3.0 =
+* New: Resume reading block, which offers to continue where a visitor left off.
+* New: Custom link block for the interaction bar, with thirteen icons or an icon font class.
+* New: the Contents button opens the table of contents in a side panel that moves the page aside on wide screens, with heading level badges, collapsible groups and optional statistics.
+* New: the comments link can jump to the comments, the form or an anchor of your choice.
+* New: heading anchors use reserved ids (such as `h2-comments`), an id filter, and only apply to the requested post.
+* Changed: the table of contents is built in the browser and no longer depends on heading ids.
+* Changed: feedback page under Comments with bulk delete; calmer rating panel with Like/Dislike labels.
+* Changed: data, REST routes and prefixes are English and vendor-prefixed (`dwp-rx`, `dewitteprins/reader-experience/v1`). Existing tables are renamed automatically.
+* Changed: English source strings with a complete Dutch translation.
+* Fix: theme styles no longer break the table of contents lists, buttons or the bar in the editor.
 
 = 0.2.0 =
 * Filters for the heading anchors.

@@ -3,7 +3,7 @@
  * Plugin Name:       Reader Experience
  * Plugin URI:        https://github.com/hansschuijff/reader-experience
  * Description:       Reading tools and interaction for long articles: table of contents, reading time, sharing and ratings.
- * Version:           0.2.0
+ * Version:           0.3.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            Hans Schuijff
@@ -39,7 +39,7 @@ use function substr;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION     = '0.2.0';
+const VERSION     = '0.3.0';
 const PLUGIN_FILE = __FILE__;
 
 if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
